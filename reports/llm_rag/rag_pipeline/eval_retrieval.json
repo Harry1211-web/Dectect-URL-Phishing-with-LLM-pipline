@@ -1,0 +1,689 @@
+{
+  "short_queries": {
+    "n_queries": 21,
+    "top1_accuracy": 0.619,
+    "top3_accuracy": 0.8571,
+    "details": [
+      {
+        "query": "công an cảnh báo những chiêu lừa đảo phổ biến nhất trong năm nay",
+        "expected_file": "001_25_fraud_scenarios_2026.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "007_fake_ncsc_policeonline.md",
+          "001_25_fraud_scenarios_2026.md",
+          "012_fake_vietcombank_crypto_investment.md"
+        ],
+        "distances": [
+          0.4634,
+          0.5084,
+          0.527
+        ]
+      },
+      {
+        "query": "tin nhắn giả mạo ví điện tử yêu cầu nhập mã xác thực",
+        "expected_file": "002_fake_momo_zalopay_vnpay.md",
+        "top1_ok": false,
+        "top3_ok": false,
+        "returned_files": [
+          "011_fake_vneid.md",
+          "008_fake_bank_brand_agribank.md",
+          "011_fake_vneid.md"
+        ],
+        "distances": [
+          0.4417,
+          0.4698,
+          0.4771
+        ]
+      },
+      {
+        "query": "đặt phòng khách sạn online bị mất tiền cọc vì trang giả",
+        "expected_file": "003_fake_hotels_travel.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "003_fake_hotels_travel.md",
+          "003_fake_hotels_travel.md",
+          "003_fake_hotels_travel.md"
+        ],
+        "distances": [
+          0.3982,
+          0.4642,
+          0.4707
+        ]
+      },
+      {
+        "query": "phần mềm giả giọng nói khuôn mặt trong cuộc gọi video để lừa đảo",
+        "expected_file": "004_deepfake_haotian_ai.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "004_deepfake_haotian_ai.md",
+          "004_deepfake_haotian_ai.md",
+          "004_deepfake_haotian_ai.md"
+        ],
+        "distances": [
+          0.4691,
+          0.4698,
+          0.5042
+        ]
+      },
+      {
+        "query": "xem phim lậu miễn phí trên mạng có nguy cơ dính virus không",
+        "expected_file": "005_pirated_sites_malware.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "005_pirated_sites_malware.md",
+          "005_pirated_sites_malware.md",
+          "005_pirated_sites_malware.md"
+        ],
+        "distances": [
+          0.4335,
+          0.447,
+          0.4666
+        ]
+      },
+      {
+        "query": "làm sao để phân biệt một trang web có phải lừa đảo hay không",
+        "expected_file": "006_signs_of_scam_websites.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "006_signs_of_scam_websites.md",
+          "006_signs_of_scam_websites.md",
+          "006_signs_of_scam_websites.md"
+        ],
+        "distances": [
+          0.3403,
+          0.3549,
+          0.3653
+        ]
+      },
+      {
+        "query": "trang web tự nhận hỗ trợ lấy lại tiền bị lừa có đáng tin không",
+        "expected_file": "007_fake_ncsc_policeonline.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "007_fake_ncsc_policeonline.md",
+          "008_fake_bank_brand_agribank.md",
+          "021_fake_finance_company.md"
+        ],
+        "distances": [
+          0.3324,
+          0.3801,
+          0.4022
+        ]
+      },
+      {
+        "query": "tên miền gần giống ngân hàng nông nghiệp nhưng thêm chữ vào sau",
+        "expected_file": "008_fake_bank_brand_agribank.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "008_fake_bank_brand_agribank.md",
+          "008_fake_bank_brand_agribank.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.4285,
+          0.4467,
+          0.4642
+        ]
+      },
+      {
+        "query": "xu hướng lừa đảo dùng trí tuệ nhân tạo sẽ diễn biến ra sao thời gian tới",
+        "expected_file": "009_ai_fraud_2025_2026.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "001_25_fraud_scenarios_2026.md",
+          "009_ai_fraud_2025_2026.md",
+          "009_ai_fraud_2025_2026.md"
+        ],
+        "distances": [
+          0.5068,
+          0.5201,
+          0.5621
+        ]
+      },
+      {
+        "query": "sinh viên năm nhất bị lừa tiền đặt cọc phòng trọ đầu năm học",
+        "expected_file": "010_back_to_school_fraud_2026.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "010_back_to_school_fraud_2026.md",
+          "010_back_to_school_fraud_2026.md",
+          "001_25_fraud_scenarios_2026.md"
+        ],
+        "distances": [
+          0.5133,
+          0.5323,
+          0.5556
+        ]
+      },
+      {
+        "query": "người tự xưng công an gọi điện yêu cầu cài ứng dụng định danh lạ",
+        "expected_file": "011_fake_vneid.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "011_fake_vneid.md",
+          "011_fake_vneid.md",
+          "011_fake_vneid.md"
+        ],
+        "distances": [
+          0.4139,
+          0.4218,
+          0.4537
+        ]
+      },
+      {
+        "query": "quảng cáo đầu tư tiền điện tử dùng hình ảnh ngân hàng thật để tạo lòng tin",
+        "expected_file": "012_fake_vietcombank_crypto_investment.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "012_fake_vietcombank_crypto_investment.md",
+          "008_fake_bank_brand_agribank.md",
+          "012_fake_vietcombank_crypto_investment.md"
+        ],
+        "distances": [
+          0.3836,
+          0.4167,
+          0.4296
+        ]
+      },
+      {
+        "query": "nhắn tin giả sàn mua sắm online yêu cầu nhập thông tin thẻ để nhận hoàn tiền",
+        "expected_file": "013_fake_shopee_ecommerce.md",
+        "top1_ok": false,
+        "top3_ok": false,
+        "returned_files": [
+          "020_counterfeit_goods_ecommerce.md",
+          "019_fake_agency_business_sites.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.4201,
+          0.4316,
+          0.4318
+        ]
+      },
+      {
+        "query": "người gọi điện tự xưng cán bộ thuế yêu cầu gửi ảnh căn cước công dân",
+        "expected_file": "014_fake_tax_social_insurance.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "014_fake_tax_social_insurance.md",
+          "011_fake_vneid.md",
+          "011_fake_vneid.md"
+        ],
+        "distances": [
+          0.4867,
+          0.5163,
+          0.5234
+        ]
+      },
+      {
+        "query": "nhân viên tổng đài điện thoại đòi mã xác thực để gia hạn gói cước",
+        "expected_file": "015_fake_telecom_carrier.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "015_fake_telecom_carrier.md",
+          "015_fake_telecom_carrier.md",
+          "015_fake_telecom_carrier.md"
+        ],
+        "distances": [
+          0.4187,
+          0.4519,
+          0.4875
+        ]
+      },
+      {
+        "query": "trang web mạo danh tập đoàn bất động sản ô tô lớn nhất Việt Nam mời đầu tư",
+        "expected_file": "016_fake_vingroup.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "016_fake_vingroup.md",
+          "016_fake_vingroup.md",
+          "016_fake_vingroup.md"
+        ],
+        "distances": [
+          0.477,
+          0.5286,
+          0.556
+        ]
+      },
+      {
+        "query": "tuyển dụng giả danh công ty viễn thông công nghệ yêu cầu đóng tiền trước",
+        "expected_file": "017_fake_fpt.md",
+        "top1_ok": false,
+        "top3_ok": false,
+        "returned_files": [
+          "008_fake_bank_brand_agribank.md",
+          "001_25_fraud_scenarios_2026.md",
+          "021_fake_finance_company.md"
+        ],
+        "distances": [
+          0.5074,
+          0.5303,
+          0.5404
+        ]
+      },
+      {
+        "query": "website nạp thẻ game online giá rẻ bị mất tiền mà không nhận được xu",
+        "expected_file": "018_fake_vng.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "006_signs_of_scam_websites.md",
+          "018_fake_vng.md",
+          "018_fake_vng.md"
+        ],
+        "distances": [
+          0.4554,
+          0.4645,
+          0.4649
+        ]
+      },
+      {
+        "query": "trang web sao chép giao diện cổng thông tin của cơ quan nhà nước",
+        "expected_file": "019_fake_agency_business_sites.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "007_fake_ncsc_policeonline.md",
+          "019_fake_agency_business_sites.md",
+          "007_fake_ncsc_policeonline.md"
+        ],
+        "distances": [
+          0.4481,
+          0.4557,
+          0.4571
+        ]
+      },
+      {
+        "query": "mua đồ hiệu online giá rẻ bất thường nhận về sản phẩm kém chất lượng",
+        "expected_file": "020_counterfeit_goods_ecommerce.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "022_fake_orders.md",
+          "020_counterfeit_goods_ecommerce.md",
+          "022_fake_orders.md"
+        ],
+        "distances": [
+          0.4555,
+          0.4698,
+          0.4743
+        ]
+      },
+      {
+        "query": "ứng dụng cho vay tiền nhanh đòi phí giải ngân trước khi nhận khoản vay",
+        "expected_file": "021_fake_finance_company.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "021_fake_finance_company.md",
+          "008_fake_bank_brand_agribank.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.5022,
+          0.515,
+          0.5299
+        ]
+      }
+    ]
+  },
+  "long_queries": {
+    "n_queries": 21,
+    "top1_accuracy": 0.7619,
+    "top3_accuracy": 0.9048,
+    "details": [
+      {
+        "query": "Cổng thông tin an ninh mạng - Tổng hợp cảnh báo lừa đảo. Trang tổng hợp danh sách các chiêu trò lừa đảo trực tuyến đang phổ biến hiện nay, từ giả mạo cơ quan nhà nước, deepfake, dụ dỗ đầu tư đến mua bán hàng online, kèm khuyến nghị phòng tránh cho người dân.",
+        "expected_file": "001_25_fraud_scenarios_2026.md",
+        "top1_ok": false,
+        "top3_ok": false,
+        "returned_files": [
+          "007_fake_ncsc_policeonline.md",
+          "006_signs_of_scam_websites.md",
+          "009_ai_fraud_2025_2026.md"
+        ],
+        "distances": [
+          0.3441,
+          0.3447,
+          0.3779
+        ]
+      },
+      {
+        "query": "Ví điện tử của bạn có tin nhắn lạ - Kiểm tra ngay. Gần đây nhiều người dùng ví điện tử phản ánh nhận được tin nhắn/cuộc gọi tự xưng nhân viên yêu cầu cung cấp mã xác thực để xử lý sự cố tài khoản hoặc nhận thưởng.",
+        "expected_file": "002_fake_momo_zalopay_vnpay.md",
+        "top1_ok": false,
+        "top3_ok": false,
+        "returned_files": [
+          "019_fake_agency_business_sites.md",
+          "008_fake_bank_brand_agribank.md",
+          "015_fake_telecom_carrier.md"
+        ],
+        "distances": [
+          0.4016,
+          0.4363,
+          0.4367
+        ]
+      },
+      {
+        "query": "Đặt phòng nghỉ dưỡng giá rẻ mùa cao điểm. Trang quảng cáo phòng khách sạn giá ưu đãi, yêu cầu khách chuyển khoản đặt cọc trước để giữ chỗ, không qua nền tảng đặt phòng trung gian nào.",
+        "expected_file": "003_fake_hotels_travel.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "003_fake_hotels_travel.md",
+          "003_fake_hotels_travel.md",
+          "003_fake_hotels_travel.md"
+        ],
+        "distances": [
+          0.4586,
+          0.4749,
+          0.4901
+        ]
+      },
+      {
+        "query": "Cuộc gọi video từ người quen nhờ chuyển tiền gấp. Nạn nhân nhận cuộc gọi video call thấy đúng khuôn mặt và giọng nói người quen nhưng thực chất là công nghệ giả mạo hình ảnh/âm thanh thời gian thực.",
+        "expected_file": "004_deepfake_haotian_ai.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "004_deepfake_haotian_ai.md",
+          "004_deepfake_haotian_ai.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.4519,
+          0.4723,
+          0.4913
+        ]
+      },
+      {
+        "query": "Xem phim bộ mới nhất, chất lượng cao, hoàn toàn miễn phí. Trang chia sẻ phim lậu không bản quyền, yêu cầu tắt trình chặn quảng cáo và cài thêm tiện ích mở rộng để xem được video.",
+        "expected_file": "005_pirated_sites_malware.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "005_pirated_sites_malware.md",
+          "005_pirated_sites_malware.md",
+          "005_pirated_sites_malware.md"
+        ],
+        "distances": [
+          0.5095,
+          0.5113,
+          0.569
+        ]
+      },
+      {
+        "query": "Hướng dẫn an toàn khi mua sắm trực tuyến. Bài viết tổng hợp các dấu hiệu chung để nhận biết một trang web có đáng ngờ hay không trước khi nhập thông tin cá nhân/thanh toán.",
+        "expected_file": "006_signs_of_scam_websites.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "019_fake_agency_business_sites.md",
+          "020_counterfeit_goods_ecommerce.md",
+          "006_signs_of_scam_websites.md"
+        ],
+        "distances": [
+          0.3118,
+          0.3291,
+          0.3307
+        ]
+      },
+      {
+        "query": "Dịch vụ hỗ trợ lấy lại tiền đã chuyển nhầm cho lừa đảo. Trang tự giới thiệu là kênh hỗ trợ chính thức của cơ quan an ninh mạng, nhận xử lý hồ sơ lấy lại tiền bị lừa đảo qua mạng cho nạn nhân.",
+        "expected_file": "007_fake_ncsc_policeonline.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "007_fake_ncsc_policeonline.md",
+          "021_fake_finance_company.md",
+          "003_fake_hotels_travel.md"
+        ],
+        "distances": [
+          0.3661,
+          0.4259,
+          0.4267
+        ]
+      },
+      {
+        "query": "Ngân hàng Nông nghiệp - Cổng đăng nhập Internet Banking. Địa chỉ trang gần giống tên miền chính thức của ngân hàng nhưng có thêm vài ký tự lạ phía sau, yêu cầu đăng nhập lại tài khoản.",
+        "expected_file": "008_fake_bank_brand_agribank.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "008_fake_bank_brand_agribank.md",
+          "008_fake_bank_brand_agribank.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.4025,
+          0.4141,
+          0.4227
+        ]
+      },
+      {
+        "query": "Báo cáo xu hướng tội phạm mạng năm tới. Phân tích cách tội phạm mạng ứng dụng công cụ trí tuệ nhân tạo để tự động hoá và tăng quy mô các chiến dịch lừa đảo trong thời gian tới.",
+        "expected_file": "009_ai_fraud_2025_2026.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "009_ai_fraud_2025_2026.md",
+          "009_ai_fraud_2025_2026.md",
+          "009_ai_fraud_2025_2026.md"
+        ],
+        "distances": [
+          0.349,
+          0.3748,
+          0.3765
+        ]
+      },
+      {
+        "query": "Tân sinh viên tìm phòng trọ gần trường. Nhiều tân sinh viên chuyển khoản đặt cọc phòng trọ qua tin đăng trên mạng xã hội đầu năm học rồi mất liên lạc với người cho thuê.",
+        "expected_file": "010_back_to_school_fraud_2026.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "010_back_to_school_fraud_2026.md",
+          "003_fake_hotels_travel.md",
+          "010_back_to_school_fraud_2026.md"
+        ],
+        "distances": [
+          0.5153,
+          0.5422,
+          0.5812
+        ]
+      },
+      {
+        "query": "Cán bộ công an yêu cầu cập nhật ứng dụng định danh điện tử. Người gọi điện tự xưng công an, yêu cầu người dân cài đặt một ứng dụng lạ để \"đồng bộ\" dữ liệu định danh cá nhân.",
+        "expected_file": "011_fake_vneid.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "011_fake_vneid.md",
+          "011_fake_vneid.md",
+          "019_fake_agency_business_sites.md"
+        ],
+        "distances": [
+          0.3395,
+          0.3552,
+          0.4068
+        ]
+      },
+      {
+        "query": "Cơ hội đầu tư sinh lời cao được ngân hàng bảo trợ. Quảng cáo mời gọi đầu tư tài chính/tiền điện tử, sử dụng logo và hình ảnh của ngân hàng lớn để tạo lòng tin cho nhà đầu tư.",
+        "expected_file": "012_fake_vietcombank_crypto_investment.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "012_fake_vietcombank_crypto_investment.md",
+          "021_fake_finance_company.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.4421,
+          0.4801,
+          0.4851
+        ]
+      },
+      {
+        "query": "Đơn hàng của bạn đang chờ xác nhận thanh toán. Tin nhắn tự xưng từ sàn thương mại điện tử, thông báo đơn hàng gặp sự cố hoặc được hoàn tiền, kèm liên kết yêu cầu nhập thông tin thẻ ngân hàng.",
+        "expected_file": "013_fake_shopee_ecommerce.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "013_fake_shopee_ecommerce.md",
+          "022_fake_orders.md",
+          "022_fake_orders.md"
+        ],
+        "distances": [
+          0.4575,
+          0.464,
+          0.4747
+        ]
+      },
+      {
+        "query": "Thông báo từ cơ quan quản lý thuế/bảo hiểm về hồ sơ của bạn. Người gọi điện tự xưng cán bộ nhà nước, yêu cầu cung cấp thông tin cá nhân, hình ảnh giấy tờ tuỳ thân hoặc cài ứng dụng kê khai lạ.",
+        "expected_file": "014_fake_tax_social_insurance.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "014_fake_tax_social_insurance.md",
+          "014_fake_tax_social_insurance.md",
+          "021_fake_finance_company.md"
+        ],
+        "distances": [
+          0.3683,
+          0.3957,
+          0.415
+        ]
+      },
+      {
+        "query": "Thuê bao của bạn đủ điều kiện nâng cấp gói cước miễn phí. Cuộc gọi tự xưng tổng đài chăm sóc khách hàng nhà mạng, đề nghị hỗ trợ gia hạn/nâng cấp dịch vụ và yêu cầu đọc mã xác thực gửi qua tin nhắn.",
+        "expected_file": "015_fake_telecom_carrier.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "003_fake_hotels_travel.md",
+          "003_fake_hotels_travel.md",
+          "015_fake_telecom_carrier.md"
+        ],
+        "distances": [
+          0.5064,
+          0.5146,
+          0.526
+        ]
+      },
+      {
+        "query": "Tập đoàn Vingroup International - Cơ hội đầu tư cổ phần ưu đãi. Trang tự nhận là chi nhánh quốc tế của tập đoàn, mời góp vốn vào dự án bất động sản và xe điện với lợi nhuận cam kết hàng tháng.",
+        "expected_file": "016_fake_vingroup.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "016_fake_vingroup.md",
+          "016_fake_vingroup.md",
+          "016_fake_vingroup.md"
+        ],
+        "distances": [
+          0.4572,
+          0.541,
+          0.5472
+        ]
+      },
+      {
+        "query": "FPT Telecom tuyển cộng tác viên làm việc tại nhà. Email mời phỏng vấn trực tuyến, yêu cầu ứng viên cài ứng dụng riêng và nộp phí đào tạo, đồng phục trước khi nhận việc.",
+        "expected_file": "017_fake_fpt.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "017_fake_fpt.md",
+          "017_fake_fpt.md",
+          "017_fake_fpt.md"
+        ],
+        "distances": [
+          0.4329,
+          0.5011,
+          0.5196
+        ]
+      },
+      {
+        "query": "Nạp thẻ game chiết khấu cao - Zing Card. Trang nạp tiền vào game với giá rẻ hơn trang chính thức, yêu cầu đăng nhập tài khoản game và chuyển khoản trước.",
+        "expected_file": "018_fake_vng.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "002_fake_momo_zalopay_vnpay.md",
+          "018_fake_vng.md",
+          "002_fake_momo_zalopay_vnpay.md"
+        ],
+        "distances": [
+          0.5306,
+          0.5358,
+          0.5576
+        ]
+      },
+      {
+        "query": "Cổng thông tin điện tử - Tra cứu hồ sơ trực tuyến. Trang có giao diện giống hệt website chính thức của cơ quan, được gửi qua tin nhắn kèm yêu cầu khai báo thông tin cá nhân.",
+        "expected_file": "019_fake_agency_business_sites.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "019_fake_agency_business_sites.md",
+          "019_fake_agency_business_sites.md",
+          "019_fake_agency_business_sites.md"
+        ],
+        "distances": [
+          0.3756,
+          0.4454,
+          0.4474
+        ]
+      },
+      {
+        "query": "Thanh lý hàng hiệu chính hãng giảm 80%. Cửa hàng online đăng ảnh sản phẩm đẹp, nhiều đánh giá năm sao, chỉ nhận chuyển khoản trước và giục khách đặt nhanh vì sắp hết hàng.",
+        "expected_file": "020_counterfeit_goods_ecommerce.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "020_counterfeit_goods_ecommerce.md",
+          "022_fake_orders.md",
+          "020_counterfeit_goods_ecommerce.md"
+        ],
+        "distances": [
+          0.4094,
+          0.4225,
+          0.4274
+        ]
+      },
+      {
+        "query": "Vay tiêu dùng không cần thế chấp, giải ngân trong 30 phút. Ứng dụng tự nhận là công ty tài chính uy tín, yêu cầu nộp phí bảo hiểm khoản vay trước khi giải ngân.",
+        "expected_file": "021_fake_finance_company.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "021_fake_finance_company.md",
+          "021_fake_finance_company.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.4732,
+          0.5341,
+          0.5503
+        ]
+      }
+    ]
+  },
+  "note": "One paraphrased query per corpus file, N=21."
+}

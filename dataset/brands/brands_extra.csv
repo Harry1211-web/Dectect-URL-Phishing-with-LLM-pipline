@@ -1,0 +1,148 @@
+﻿category,description,identifier,name,website
+Gaming,"Nền tảng game online, không có trong Zenodo brands.csv 85 thương hiệu — phát hiện bỏ lọt qua điều tra phishing lọt Gate 1 2026-09-16 (case s4w.in/www-roblox-com-...).",roblox,Roblox,https://www.roblox.com/
+Social Media,"Nền tảng video ngắn phổ biến, không có trong Zenodo brands.csv — bổ sung theo mức độ bị nhắm phishing cao (APWG).",tiktok,TikTok,https://www.tiktok.com/
+Social Media,"Mạng xã hội (X/Twitter), không có trong Zenodo brands.csv.",twitter,Twitter,https://twitter.com/
+Social Media,"Mạng xã hội hình ảnh, không có trong Zenodo brands.csv.",snapchat,Snapchat,https://www.snapchat.com/
+Music,"Nền tảng nhạc trực tuyến, không có trong Zenodo brands.csv.",spotify,Spotify,https://www.spotify.com/
+Finance,"Sàn giao dịch tiền mã hoá lớn, không có trong Zenodo brands.csv.",binance,Binance,https://www.binance.com/
+Finance,"Ví phần cứng tiền mã hoá phổ biến, không có trong Zenodo brands.csv — bỏ lọt case feq-trezor-suite-app.typedream.app.",trezor,Trezor,https://trezor.io/
+Finance,"Sàn giao dịch tiền mã hoá, không có trong Zenodo brands.csv — bỏ lọt case biitsmertlogon.gitbook.io giả mạo BitMart.",bitmart,BitMart,https://www.bitmart.com/
+Finance,"Sàn giao dịch tiền mã hoá, không có trong Zenodo brands.csv — bỏ lọt case com---en-byybit-sso.typedream.app, nhãn 'byybit' cách 'bybit' 1 ký tự.",bybit,Bybit,https://www.bybit.com/
+Logistics,Official website of FedEx; brand frequently impersonated by phishing (added 2026-10-08),fedex,FedEx,https://www.fedex.com/
+Logistics,Official website of Ninja Van; brand frequently impersonated by phishing (added 2026-10-08),ninjavan,Ninja Van,https://www.ninjavan.co/
+Logistics,Official website of Royal Mail; brand frequently impersonated by phishing (added 2026-10-08),royalmail,Royal Mail,https://www.royalmail.com/
+Logistics,Official website of DPD; brand frequently impersonated by phishing (added 2026-10-08),dpd,DPD,https://www.dpd.com/
+Logistics,Official website of Canada Post; brand frequently impersonated by phishing (added 2026-10-08),canadapost,Canada Post,https://www.canadapost-postescanada.ca/
+Logistics,Official website of Australia Post; brand frequently impersonated by phishing (added 2026-10-08),auspost,Australia Post,https://auspost.com.au/
+Logistics,Official website of Evri; brand frequently impersonated by phishing (added 2026-10-08),evri,Evri,https://www.evri.com/
+Logistics,Official website of Correos; brand frequently impersonated by phishing (added 2026-10-08),correos,Correos,https://www.correos.es/
+Logistics,Official website of SingPost; brand frequently impersonated by phishing (added 2026-10-08),singpost,SingPost,https://www.singpost.com/
+Cloud Storage,Official website of Dropbox; brand frequently impersonated by phishing (added 2026-10-08),dropbox,Dropbox,https://www.dropbox.com/
+Retail,Official website of Walmart; brand frequently impersonated by phishing (added 2026-10-08),walmart,Walmart,https://www.walmart.com/
+Retail,Official website of Costco; brand frequently impersonated by phishing (added 2026-10-08),costco,Costco,https://www.costco.com/
+Retail,Official website of Target; brand frequently impersonated by phishing (added 2026-10-08),target,Target,https://www.target.com/
+Retail,Official website of Best Buy; brand frequently impersonated by phishing (added 2026-10-08),bestbuy,Best Buy,https://www.bestbuy.com/
+Retail,Official website of The Home Depot; brand frequently impersonated by phishing (added 2026-10-08),homedepot,The Home Depot,https://www.homedepot.com/
+Retail,Official website of Samsung; brand frequently impersonated by phishing (added 2026-10-08),samsung,Samsung,https://www.samsung.com/
+Retail,Official website of Xiaomi; brand frequently impersonated by phishing (added 2026-10-08),xiaomi,Xiaomi,https://www.mi.com/
+Retail,Official website of Huawei; brand frequently impersonated by phishing (added 2026-10-08),huawei,Huawei,https://www.huawei.com/
+Finance,Official website of American Express; brand frequently impersonated by phishing (added 2026-10-08),americanexpress,American Express,https://www.americanexpress.com/
+Finance,Official website of Mastercard; brand frequently impersonated by phishing (added 2026-10-08),mastercard,Mastercard,https://www.mastercard.com/
+Finance,Official website of Visa; brand frequently impersonated by phishing (added 2026-10-08),visa,Visa,https://www.visa.com/
+Finance,Official website of Capital One; brand frequently impersonated by phishing (added 2026-10-08),capitalone,Capital One,https://www.capitalone.com/
+Finance,Official website of PNC Bank; brand frequently impersonated by phishing (added 2026-10-08),pnc,PNC Bank,https://www.pnc.com/
+Finance,Official website of Truist; brand frequently impersonated by phishing (added 2026-10-08),truist,Truist,https://www.truist.com/
+Finance,Official website of Lloyds Bank; brand frequently impersonated by phishing (added 2026-10-08),lloydsbank,Lloyds Bank,https://www.lloydsbank.com/
+Finance,Official website of NatWest; brand frequently impersonated by phishing (added 2026-10-08),natwest,NatWest,https://www.natwest.com/
+Finance,Official website of Halifax; brand frequently impersonated by phishing (added 2026-10-08),halifax,Halifax,https://www.halifax.co.uk/
+Finance,Official website of Monzo; brand frequently impersonated by phishing (added 2026-10-08),monzo,Monzo,https://monzo.com/
+Finance,Official website of ING; brand frequently impersonated by phishing (added 2026-10-08),ing,ING,https://www.ing.com/
+Finance,Official website of Deutsche Bank; brand frequently impersonated by phishing (added 2026-10-08),deutschebank,Deutsche Bank,https://www.deutsche-bank.de/
+Finance,Official website of Commerzbank; brand frequently impersonated by phishing (added 2026-10-08),commerzbank,Commerzbank,https://www.commerzbank.de/
+Finance,Official website of BNP Paribas; brand frequently impersonated by phishing (added 2026-10-08),bnpparibas,BNP Paribas,https://group.bnpparibas/
+Finance,Official website of Société Générale; brand frequently impersonated by phishing (added 2026-10-08),societegenerale,Société Générale,https://www.societegenerale.com/
+Finance,Official website of UniCredit; brand frequently impersonated by phishing (added 2026-10-08),unicredit,UniCredit,https://www.unicredit.it/
+Finance,Official website of ABN AMRO; brand frequently impersonated by phishing (added 2026-10-08),abnamro,ABN AMRO,https://www.abnamro.nl/
+Finance,Official website of Rabobank; brand frequently impersonated by phishing (added 2026-10-08),rabobank,Rabobank,https://www.rabobank.nl/
+Finance,Official website of Nordea; brand frequently impersonated by phishing (added 2026-10-08),nordea,Nordea,https://www.nordea.com/
+Finance,Official website of Swedbank; brand frequently impersonated by phishing (added 2026-10-08),swedbank,Swedbank,https://www.swedbank.se/
+Finance,Official website of UBS; brand frequently impersonated by phishing (added 2026-10-08),ubs,UBS,https://www.ubs.com/
+Finance,Official website of PostFinance; brand frequently impersonated by phishing (added 2026-10-08),postfinance,PostFinance,https://www.postfinance.ch/
+Finance,Official website of OCBC; brand frequently impersonated by phishing (added 2026-10-08),ocbc,OCBC,https://www.ocbc.com/
+Finance,Official website of Maybank; brand frequently impersonated by phishing (added 2026-10-08),maybank,Maybank,https://www.maybank.com/
+Finance,Official website of CIMB; brand frequently impersonated by phishing (added 2026-10-08),cimb,CIMB,https://www.cimb.com/
+Finance,Official website of Kasikornbank; brand frequently impersonated by phishing (added 2026-10-08),kasikornbank,Kasikornbank,https://www.kasikornbank.com/
+Finance,Official website of Bangkok Bank; brand frequently impersonated by phishing (added 2026-10-08),bangkokbank,Bangkok Bank,https://www.bangkokbank.com/
+Finance,Official website of Bank Mandiri; brand frequently impersonated by phishing (added 2026-10-08),bankmandiri,Bank Mandiri,https://bankmandiri.co.id/
+Finance,Official website of BCA; brand frequently impersonated by phishing (added 2026-10-08),klikbca,BCA,https://www.klikbca.com/
+Finance,Official website of KakaoBank; brand frequently impersonated by phishing (added 2026-10-08),kakaobank,KakaoBank,https://www.kakaobank.com/
+Finance,Official website of ICICI Bank; brand frequently impersonated by phishing (added 2026-10-08),icici,ICICI Bank,https://www.icicibank.com/
+Finance,Official website of Axis Bank; brand frequently impersonated by phishing (added 2026-10-08),axisbank,Axis Bank,https://www.axisbank.com/
+Finance,Official website of Revolut; brand frequently impersonated by phishing (added 2026-10-08),revolut,Revolut,https://www.revolut.com/
+Finance,Official website of Wise; brand frequently impersonated by phishing (added 2026-10-08),wise,Wise,https://wise.com/
+Finance,Official website of Robinhood; brand frequently impersonated by phishing (added 2026-10-08),robinhood,Robinhood,https://robinhood.com/
+Payments,Official website of Venmo; brand frequently impersonated by phishing (added 2026-10-08),venmo,Venmo,https://venmo.com/
+Payments,Official website of Cash App; brand frequently impersonated by phishing (added 2026-10-08),cashapp,Cash App,https://cash.app/
+Payments,Official website of Zelle; brand frequently impersonated by phishing (added 2026-10-08),zelle,Zelle,https://www.zellepay.com/
+Payments,Official website of Stripe; brand frequently impersonated by phishing (added 2026-10-08),stripe,Stripe,https://stripe.com/
+Payments,Official website of Klarna; brand frequently impersonated by phishing (added 2026-10-08),klarna,Klarna,https://www.klarna.com/
+Payments,Official website of Afterpay; brand frequently impersonated by phishing (added 2026-10-08),afterpay,Afterpay,https://www.afterpay.com/
+Payments,Official website of Skrill; brand frequently impersonated by phishing (added 2026-10-08),skrill,Skrill,https://www.skrill.com/
+Payments,Official website of Payoneer; brand frequently impersonated by phishing (added 2026-10-08),payoneer,Payoneer,https://www.payoneer.com/
+Payments,Official website of Western Union; brand frequently impersonated by phishing (added 2026-10-08),westernunion,Western Union,https://www.westernunion.com/
+Payments,Official website of MoneyGram; brand frequently impersonated by phishing (added 2026-10-08),moneygram,MoneyGram,https://www.moneygram.com/
+Payments,Official website of Alipay; brand frequently impersonated by phishing (added 2026-10-08),alipay,Alipay,https://www.alipay.com/
+Payments,Official website of GCash; brand frequently impersonated by phishing (added 2026-10-08),gcash,GCash,https://www.gcash.com/
+Government,Official website of IRS; brand frequently impersonated by phishing (added 2026-10-08),irs,IRS,https://www.irs.gov/
+Government,Official website of Australian Taxation Office; brand frequently impersonated by phishing (added 2026-10-08),ato,Australian Taxation Office,https://www.ato.gov.au/
+Crypto,Official website of Kraken; brand frequently impersonated by phishing (added 2026-10-08),kraken,Kraken,https://www.kraken.com/
+Crypto,Official website of KuCoin; brand frequently impersonated by phishing (added 2026-10-08),kucoin,KuCoin,https://www.kucoin.com/
+Crypto,Official website of OKX; brand frequently impersonated by phishing (added 2026-10-08),okx,OKX,https://www.okx.com/
+Crypto,Official website of Crypto.com; brand frequently impersonated by phishing (added 2026-10-08),cryptocom,Crypto.com,https://crypto.com/
+Crypto,Official website of Bitget; brand frequently impersonated by phishing (added 2026-10-08),bitget,Bitget,https://www.bitget.com/
+Crypto,Official website of MEXC; brand frequently impersonated by phishing (added 2026-10-08),mexc,MEXC,https://www.mexc.com/
+Crypto,Official website of Gate.io; brand frequently impersonated by phishing (added 2026-10-08),gateio,Gate.io,https://www.gate.io/
+Crypto,Official website of HTX; brand frequently impersonated by phishing (added 2026-10-08),htx,HTX,https://www.htx.com/
+Crypto,Official website of BingX; brand frequently impersonated by phishing (added 2026-10-08),bingx,BingX,https://bingx.com/
+Crypto,Official website of Ledger; brand frequently impersonated by phishing (added 2026-10-08),ledger,Ledger,https://www.ledger.com/
+Crypto,Official website of Phantom; brand frequently impersonated by phishing (added 2026-10-08),phantom,Phantom,https://phantom.com/
+Crypto,Official website of Exodus; brand frequently impersonated by phishing (added 2026-10-08),exodus,Exodus,https://www.exodus.com/
+Crypto,Official website of TronLink; brand frequently impersonated by phishing (added 2026-10-08),tronlink,TronLink,https://www.tronlink.org/
+Crypto,Official website of Tonkeeper; brand frequently impersonated by phishing (added 2026-10-08),tonkeeper,Tonkeeper,https://tonkeeper.com/
+Crypto,Official website of WalletConnect; brand frequently impersonated by phishing (added 2026-10-08),walletconnect,WalletConnect,https://walletconnect.com/
+Crypto,Official website of PancakeSwap; brand frequently impersonated by phishing (added 2026-10-08),pancakeswap,PancakeSwap,https://pancakeswap.finance/
+Technology,Official website of Telegram; brand frequently impersonated by phishing (added 2026-10-08),telegram,Telegram,https://telegram.org/
+Technology,Official website of Zoom; brand frequently impersonated by phishing (added 2026-10-08),zoom,Zoom,https://zoom.us/
+Technology,Official website of Slack; brand frequently impersonated by phishing (added 2026-10-08),slack,Slack,https://slack.com/
+Technology,Official website of GitHub; brand frequently impersonated by phishing (added 2026-10-08),github,GitHub,https://github.com/
+Technology,Official website of Okta; brand frequently impersonated by phishing (added 2026-10-08),okta,Okta,https://www.okta.com/
+Technology,Official website of Salesforce; brand frequently impersonated by phishing (added 2026-10-08),salesforce,Salesforce,https://www.salesforce.com/
+Technology,Official website of Outlook; brand frequently impersonated by phishing (added 2026-10-08),outlook,Outlook,https://outlook.com/
+Technology,Official website of iCloud; brand frequently impersonated by phishing (added 2026-10-08),icloud,iCloud,https://www.icloud.com/
+Technology,Official website of Gmail; brand frequently impersonated by phishing (added 2026-10-08),gmail,Gmail,https://www.gmail.com/
+Technology,Official website of YouTube; brand frequently impersonated by phishing (added 2026-10-08),youtube,YouTube,https://www.youtube.com/
+Technology,Official website of WeChat; brand frequently impersonated by phishing (added 2026-10-08),wechat,WeChat,https://www.wechat.com/
+Technology,Official website of Viber; brand frequently impersonated by phishing (added 2026-10-08),viber,Viber,https://www.viber.com/
+Technology,Official website of Pinterest; brand frequently impersonated by phishing (added 2026-10-08),pinterest,Pinterest,https://www.pinterest.com/
+Technology,Official website of Reddit; brand frequently impersonated by phishing (added 2026-10-08),reddit,Reddit,https://www.reddit.com/
+Technology,Official website of Twitch; brand frequently impersonated by phishing (added 2026-10-08),twitch,Twitch,https://www.twitch.tv/
+Technology,Official website of Intuit; brand frequently impersonated by phishing (added 2026-10-08),intuit,Intuit,https://www.intuit.com/
+Technology,Official website of GoDaddy; brand frequently impersonated by phishing (added 2026-10-08),godaddy,GoDaddy,https://www.godaddy.com/
+Technology,Official website of Namecheap; brand frequently impersonated by phishing (added 2026-10-08),namecheap,Namecheap,https://www.namecheap.com/
+Technology,Official website of Cloudflare; brand frequently impersonated by phishing (added 2026-10-08),cloudflare,Cloudflare,https://www.cloudflare.com/
+Technology,Official website of Shopify; brand frequently impersonated by phishing (added 2026-10-08),shopify,Shopify,https://www.shopify.com/
+Technology,Official website of Naver; brand frequently impersonated by phishing (added 2026-10-08),naver,Naver,https://www.naver.com/
+Technology,Official website of Kakao; brand frequently impersonated by phishing (added 2026-10-08),kakao,Kakao,https://www.kakaocorp.com/
+Gaming,Official website of Garena; brand frequently impersonated by phishing (added 2026-10-08),garena,Garena,https://www.garena.com/
+Gaming,Official website of Epic Games; brand frequently impersonated by phishing (added 2026-10-08),epicgames,Epic Games,https://www.epicgames.com/
+Gaming,Official website of PlayStation; brand frequently impersonated by phishing (added 2026-10-08),playstation,PlayStation,https://www.playstation.com/
+Gaming,Official website of Xbox; brand frequently impersonated by phishing (added 2026-10-08),xbox,Xbox,https://www.xbox.com/
+Gaming,Official website of Blizzard; brand frequently impersonated by phishing (added 2026-10-08),blizzard,Blizzard,https://www.blizzard.com/
+Gaming,Official website of Riot Games; brand frequently impersonated by phishing (added 2026-10-08),riotgames,Riot Games,https://www.riotgames.com/
+Gaming,Official website of Nintendo; brand frequently impersonated by phishing (added 2026-10-08),nintendo,Nintendo,https://www.nintendo.com/
+Gaming,Official website of HoYoverse; brand frequently impersonated by phishing (added 2026-10-08),hoyoverse,HoYoverse,https://www.hoyoverse.com/
+Gaming,Official website of Ubisoft; brand frequently impersonated by phishing (added 2026-10-08),ubisoft,Ubisoft,https://www.ubisoft.com/
+Gaming,Official website of Electronic Arts; brand frequently impersonated by phishing (added 2026-10-08),ea,Electronic Arts,https://www.ea.com/
+Travel,Official website of Booking.com; brand frequently impersonated by phishing (added 2026-10-08),booking,Booking.com,https://www.booking.com/
+Travel,Official website of Airbnb; brand frequently impersonated by phishing (added 2026-10-08),airbnb,Airbnb,https://www.airbnb.com/
+Travel,Official website of Agoda; brand frequently impersonated by phishing (added 2026-10-08),agoda,Agoda,https://www.agoda.com/
+Travel,Official website of Traveloka; brand frequently impersonated by phishing (added 2026-10-08),traveloka,Traveloka,https://www.traveloka.com/
+Travel,Official website of Expedia; brand frequently impersonated by phishing (added 2026-10-08),expedia,Expedia,https://www.expedia.com/
+Travel,Official website of Trip.com; brand frequently impersonated by phishing (added 2026-10-08),tripcom,Trip.com,https://www.trip.com/
+E-commerce,Official website of Temu; brand frequently impersonated by phishing (added 2026-10-08),temu,Temu,https://www.temu.com/
+E-commerce,Official website of SHEIN; brand frequently impersonated by phishing (added 2026-10-08),shein,SHEIN,https://www.shein.com/
+E-commerce,Official website of AliExpress; brand frequently impersonated by phishing (added 2026-10-08),aliexpress,AliExpress,https://www.aliexpress.com/
+E-commerce,Official website of Taobao; brand frequently impersonated by phishing (added 2026-10-08),taobao,Taobao,https://www.taobao.com/
+E-commerce,Official website of Tokopedia; brand frequently impersonated by phishing (added 2026-10-08),tokopedia,Tokopedia,https://www.tokopedia.com/
+Streaming,Official website of Disney+; brand frequently impersonated by phishing (added 2026-10-08),disneyplus,Disney+,https://www.disneyplus.com/
+Streaming,Official website of HBO Max; brand frequently impersonated by phishing (added 2026-10-08),hbomax,HBO Max,https://www.max.com/
+Logistics,Official website of Japan Post; brand frequently impersonated by phishing (added 2026-10-08),japanpost,Japan Post,https://www.post.japanpost.jp/
+Logistics,Official website of La Poste; brand frequently impersonated by phishing (added 2026-10-08),laposte,La Poste,https://www.laposte.fr/
+Finance,Official website of U.S. Bank; brand frequently impersonated by phishing (added 2026-10-08),usbank,U.S. Bank,https://www.usbank.com/
+Finance,Official website of TD Bank; brand frequently impersonated by phishing (added 2026-10-08),tdbank,TD Bank,https://www.td.com/
+Finance,Official website of RBC Royal Bank; brand frequently impersonated by phishing (added 2026-10-08),rbc,RBC Royal Bank,https://www.rbcroyalbank.com/
+Finance,Official website of Scotiabank; brand frequently impersonated by phishing (added 2026-10-08),scotiabank,Scotiabank,https://www.scotiabank.com/
+Finance,Official website of BMO; brand frequently impersonated by phishing (added 2026-10-08),bmo,BMO,https://www.bmo.com/
+Finance,Official website of Barclays; brand frequently impersonated by phishing (added 2026-10-08),barclays,Barclays,https://www.barclays.co.uk/
+Finance,Official website of Danske Bank; brand frequently impersonated by phishing (added 2026-10-08),danskebank,Danske Bank,https://danskebank.com/
+Technology,Official website of Bing (Microsoft search); added so bing.* is not mistaken for a BingX typo (2026-10-08),bing,Bing,https://www.bing.com/

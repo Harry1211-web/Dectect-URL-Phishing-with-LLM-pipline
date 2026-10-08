@@ -1,0 +1,46 @@
+{
+  "built_at": "2026-10-07T16:21:15.398464+00:00",
+  "n_raw": 654310,
+  "n_final": 537613,
+  "by_label": {
+    "clean": 276747,
+    "phishing": 260866
+  },
+  "by_source": {
+    "tranco_crawl:clean": 142976,
+    "phiusiil:phishing": 73959,
+    "phishtank:phishing": 35997,
+    "phishing_database:phishing": 150643,
+    "phiusiil:clean": 133771,
+    "openphish:phishing": 267
+  },
+  "by_split": {
+    "train": {
+      "clean": 193818,
+      "phishing": 182803
+    },
+    "val": {
+      "clean": 40578,
+      "phishing": 38781
+    },
+    "test": {
+      "clean": 42351,
+      "phishing": 39282
+    }
+  },
+  "n_sites": 360962,
+  "dropped": {
+    "duplicate": 16474,
+    "unparsable_or_too_long": 104,
+    "phishing_bare_top10k_homepage": 8062,
+    "label_conflict": 70,
+    "phishing_bare_official_homepage": 24,
+    "clean_host_in_phishing_set": 406,
+    "over_site_cap": 91557
+  },
+  "params": {
+    "phishing_database_limit": 200000,
+    "max_per_site": 10,
+    "seed": 42
+  }
+}

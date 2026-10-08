@@ -1,0 +1,22 @@
+{
+  "updated_at": "2026-10-07T12:56:12.275022+00:00",
+  "sources": {
+    "openphish": {
+      "count": 291,
+      "fetched_at": "2026-10-07T12:54:56.177144+00:00",
+      "last_status": "ok"
+    },
+    "phishtank": {
+      "count": 67846,
+      "fetched_at": "2026-10-07T15:14:34.962583+00:00",
+      "last_status": "ok"
+    },
+    "phishing_database": {
+      "count": 770814,
+      "fetched_at": "2026-10-07T12:56:05.342465+00:00",
+      "last_status": "ok"
+    }
+  },
+  "blockable_hosts": 279803,
+  "abused_platforms": 839
+}

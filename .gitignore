@@ -1,0 +1,28 @@
+# Secrets — API keys must never be committed
+.env
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Local caches and state (rebuilt automatically)
+data/host_cache.sqlite*
+data/llm_spend.json
+data/llm_spend.tmp
+
+# Large downloads that the scripts re-download (blocklist updater, data_collection/sources.py)
+data/tranco_top1m.csv
+data/blocklist/*.gz
+dataset/urls/raw/*
+# ...except the clean-URL crawl, which cannot be reproduced exactly
+!dataset/urls/raw/crawled_clean.csv
+
+# Experiment / red-team scratch outputs
+models/url_classifier/cnn_b_experiment.pt
+reports/llm_rag/redteam_injection/_rag_poison_test_chroma/
+reports/**/_checkpoint_*
+
+# Editor tooling
+.markdown-collab/

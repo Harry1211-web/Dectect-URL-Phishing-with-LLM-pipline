@@ -1,0 +1,40 @@
+# Python 3.12 — versions below are the ones the code was tested with
+
+# --- Core ML ---
+numpy==1.26.4
+pandas==3.0.1
+scikit-learn==1.8.0
+scipy==1.17.1
+matplotlib==3.9.2
+joblib==1.4.2
+
+# --- Notebook ---
+jupyter==1.1.1
+notebook==7.2.2
+ipykernel==6.29.5
+
+# --- Layer C: CNN/BiLSTM feature extractor + XGBoost ---
+# CUDA build used for training: pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+torch==2.6.0
+xgboost==3.4.1
+
+# --- Layer B: string distance + URL parsing ---
+rapidfuzz==3.14.6           # Damerau-Levenshtein and Jaro-Winkler
+tldextract==5.1.2           # registrable domain (public suffix list)
+
+# --- Networking / API ---
+requests==2.32.5
+fastapi==0.115.2
+uvicorn[standard]==0.31.1
+pydantic==2.9.2
+httpx==0.27.2
+
+# --- Layer D: RAG + LLM ---
+chromadb==1.5.9             # vector store for RAG tier 2
+PyYAML==6.0.3               # front matter of the RAG corpus documents
+beautifulsoup4==4.14.3      # HTML sanitizing against prompt injection
+openai==2.33.0              # LLM and embedding API
+python-dotenv==1.2.2        # reads .env
+
+# --- Tests ---
+pytest==8.3.3

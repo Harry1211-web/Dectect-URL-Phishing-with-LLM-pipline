@@ -1,0 +1,1640 @@
+{
+  "dl_jw": {
+    "clean_tranco_top100k": {
+      "n": 100000,
+      "flagged": 115,
+      "flag_rate": 0.00115,
+      "by_kind": {
+        "typosquat": 98,
+        "embedded": 10,
+        "exact_label": 7
+      },
+      "latency_ms_p50": 0.414,
+      "latency_ms_p95": 0.751,
+      "examples": [
+        {
+          "url": "https://hicloud.com/",
+          "brand": "icloud",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://tbank.ru/",
+          "brand": "mtbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://manulife-sinochem.com/",
+          "brand": "manulife",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://googll.store/",
+          "brand": "google",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://telegra.ph/",
+          "brand": "telegram",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://strip2.co/",
+          "brand": "stripe",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://shb-sync.com/",
+          "brand": "shb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://correios.com.br/",
+          "brand": "correos",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://ussp.io/",
+          "brand": "usps",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://telegraf.rs/",
+          "brand": "telegram",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://twister.porn/",
+          "brand": "twitter",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://my-imcloud.com/",
+          "brand": "icloud",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://oneidrive.org/",
+          "brand": "onedrive",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://googl.com/",
+          "brand": "google",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://xiaoyi.com/",
+          "brand": "xiaomi",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://vietel.com.vn/",
+          "brand": "viettel",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://napps-2.com/",
+          "brand": "napas",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://tokopediax.com/",
+          "brand": "tokopedia",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://stripes.com/",
+          "brand": "stripe",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://strip2.in/",
+          "brand": "stripe",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://napps-1.com/",
+          "brand": "napas",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://klarnaservices.com/",
+          "brand": "klarna",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://tbank-online.com/",
+          "brand": "tpbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://telkom.co.za/",
+          "brand": "telekom",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://mtsbank.ru/",
+          "brand": "mtbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://servicewechat.com/",
+          "brand": "wechat",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://gtbank.com/",
+          "brand": "gpbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://zello.com/",
+          "brand": "zelle",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://mbank.pl/",
+          "brand": "mtbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://grena.ge/",
+          "brand": "garena",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://deutschebahn.com/",
+          "brand": "deutschebank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://paypay.ne.jp/",
+          "brand": "paypal",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://c6bank.app/",
+          "brand": "cbbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://aia.org/",
+          "brand": "aia",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://lbank.com/",
+          "brand": "lpbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://klara.com/",
+          "brand": "klarna",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://tawitter.com/",
+          "brand": "twitter",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://red-dot.org/",
+          "brand": "reddit",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://gbooking.ru/",
+          "brand": "booking",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://cebbank.com/",
+          "brand": "cbbank",
+          "kind": "typosquat"
+        }
+      ]
+    },
+    "clean_crawled_test": {
+      "n": 22270,
+      "flagged": 90,
+      "flag_rate": 0.00404,
+      "by_kind": {
+        "typosquat": 16,
+        "exact_label": 13,
+        "path_fake_domain": 6,
+        "embedded": 42,
+        "subdomain": 3,
+        "path_brand_lure": 10
+      },
+      "latency_ms_p50": 1.947,
+      "latency_ms_p95": 3.165,
+      "examples": [
+        {
+          "url": "http://outloo.com/",
+          "brand": "outlook",
+          "kind": "typosquat"
+        },
+        {
+          "url": "http://outloo.com/.IGV0hOcNusVJOgqoD1HuWTk0PssdueKB",
+          "brand": "outlook",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://acb.com/es/liga",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos/casademont-zaragoza-16",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos/ilerna-lleida-658?editionId=91",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos/leyma-coruna-657?editionId=91",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/jugadores/dominik-mavra-20212431?editionId=91",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/noticias",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://archive.ph/*.microsoft.com",
+          "brand": "microsoft",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/2014.06.26/https://www.google.com/maps/@-12.1858563,96.8293918,366m/data=!3m1!1e3",
+          "brand": "google",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/http://twitter.com/burg*",
+          "brand": "twitter",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/http://twitter.com/burgerking",
+          "brand": "twitter",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/microsoft.com",
+          "brand": "microsoft",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://bookingcare.vn/dich-vu-y-te/kham-chuyen-khoa/bsckii-le-hong-anh-i1128",
+          "brand": "booking",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bookingcare.vn/dich-vu-y-te/kham-chuyen-khoa/than-kinh-s18",
+          "brand": "booking",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bookingcare.vn/dich-vu-y-te/kham-chuyen-khoa/y-hoc-co-truyen-s39",
+          "brand": "booking",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bookings.maldronhotels.com/login",
+          "brand": "booking",
+          "kind": "subdomain"
+        },
+        {
+          "url": "https://bookings.maldronhotels.com/retrieve",
+          "brand": "booking",
+          "kind": "subdomain"
+        },
+        {
+          "url": "https://dailyshopee.vn/",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/blog",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/contact",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/faq",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/merchant",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/news",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/policy/privacy",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://eclecticlight.co/2026/10/06/apple-has-just-released-an-update-to-xprotect-for-all-macos-22/",
+          "brand": "apple",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "https://fpt-is.com/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/chinh-phu-so/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/ims-2/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/ket-noi-kinh-doanh/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/khach-hang/fpt-dong-hanh-bo-tu-phap-hien-dai-hoa-co-so-du-lieu-quoc-gia-ve-phap-luat/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/khach-hang/fpt-is-dong-hanh-cung-rang-dong-khai-mo-banh-da-tang-truong-nho-chuyen-doi-so/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/khach-hang/nang-cao-trai-nghiem-khach-hang-tai-mot-ngan-hang-tmcp-viet-nam/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://homax.pl/",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/?mod=page&sid=6",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=faq&id=13",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=faq&id=2",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=page&sid=25",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=page&sid=4",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        }
+      ]
+    },
+    "phishing_test": {
+      "n": 39282,
+      "flagged": 2712,
+      "flag_rate": 0.06904,
+      "by_kind": {
+        "path_brand_lure": 432,
+        "typosquat": 236,
+        "path_fake_domain": 174,
+        "subdomain": 1652,
+        "embedded": 213,
+        "exact_label": 1,
+        "homoglyph": 4
+      },
+      "latency_ms_p50": 1.272,
+      "latency_ms_p95": 3.442,
+      "examples": [
+        {
+          "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
+          "brand": "amazon",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://0ed8a96.wcomhost.com/banking-postbank/login/privatkunden/de/154f34368cb11189ddd6",
+          "brand": "postbank",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://0ffice-365.co.uk/en/forgotten/?tracker=rdk3e4tlaszj5t8apoj1zhl0jwhvzdgi38cj",
+          "brand": "office365",
+          "kind": "typosquat"
+        },
+        {
+          "url": "http://1000000000000000000000009639639636.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000000000000000655235653201.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000000000000000566484713.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000000000000006396320632063203.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000000000000006396320632063208.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000000005656656319.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000007349476828349853.ml/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000056484541658746543-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000087146589746541344-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000985416511041547631-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000098765461565478765-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000005774689963254624.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://200000000005447896532998627.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://3000000000874525668982142743.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://40000000058234698857569827.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://44sek.de/chase/chase/home/auth/?343473656b2e6465",
+          "brand": "chase",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://60000000005582447569326553.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://60d8w.ch-leica.com/mb/pg_www.wellsfargo.com",
+          "brand": "wellsfargo",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "http://6663425485231.ml/mobile-facebook-verification_files/css/paymennt.php",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://7000000068543122498785431.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://910216.com/mb/pg_www.wellsfargo.com/index.html",
+          "brand": "wellsfargo",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "http://923.alanwills.hunjanhospital.com/?qui=ywxhbndpbgxzqhdlaxnzlwlucy5jb20=?jiy=www.google.com",
+          "brand": "google",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "http://abnamro.credit360.com/csr/site/login.acds?page=/csr/site/portal/home.acds",
+          "brand": "abnamro",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://access.tdbank.online.netspar.net/step1.html",
+          "brand": "tdbank",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://account.safety.spotifly.case02669.themeadd.com/spotify/aronxvictims/spotify-656-byxaron-tn",
+          "brand": "spotify",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://account.safety.spotifly.case02669.themeadd.com/spotify/aronxvictims/spotify-656-byxaron-tn/spotxify/signin/?country.x=us&locale.x=en_us",
+          "brand": "spotify",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://accountauth.yahoo.reupdatehub.com/main.html?accesstofile=accessing&fileaccess=15408&encryptedcookie=9cce15fb5baab3b00ab111267171d25e&u=7a37660cda61987c897f74fe8c28f91f&connecting=4f19e4c05a86e172124a02af532b950a&phaseaccess=05c27d67eaffbf6749076d3936bb83eb&p=12c6f68c50299eafada22641b3b212d6",
+          "brand": "yahoo",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://acdecon.be/nf/nf/tw/netflix/login",
+          "brand": "netflix",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://aggiorn6amento-aruba.it-webm6ail.mustachecreatives.com/",
+          "brand": "aruba",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://akshat2jain.github.io/facebook_login_clone",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://alrbnb-pre-approved8957462-d73452e3727.jalope.cfd/676f/entire-apartment-with-all-bills-included-in-the-heart-of-melbourne-cbd-australia/fa017e/",
+          "brand": "airbnb",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://amaz0n.yuntutp42.top/?login",
+          "brand": "amazon",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://amazon.amazonruvip.com/",
+          "brand": "amazon",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://amazon.com.lineauthco.buzz/pages/amazon",
+          "brand": "amazon",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://americanexpress.kuronekayamato.ai.in/ja-jp/navlogo",
+          "brand": "americanexpress",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://angloasiahelston.co.uk/jimkim7689jimkim7689/wellsfargo-update/a866b418a2036eb6e6d2a746ba65bf66",
+          "brand": "wellsfargo",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://anmeldenamazon-gesperrteskontoentsperren.aba.vg/amazonde/7ce59755f7f0894892500ea2525966c1/billing.html?id=update_rlod?'.fb6c270c0ef78befd8f668bef9664f67.d8b1432e296872fa30cf3ecc869c696f3121b614.'",
+          "brand": "amazon",
+          "kind": "subdomain"
+        }
+      ]
+    },
+    "vn_brand_scenarios": {
+      "n": 37,
+      "flagged": 31,
+      "flag_rate": 0.83784,
+      "by_kind": {
+        "typosquat": 1,
+        "embedded": 30
+      },
+      "latency_ms_p50": 2.441,
+      "latency_ms_p95": 3.161,
+      "examples": [
+        {
+          "url": "https://vietcornbank-xacthuc.com/login",
+          "brand": "vietcombank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://momo-nhanthuong.info/claim",
+          "brand": "momo",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://zalopay-hoantien.net/verify",
+          "brand": "zalopay",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://acb-baomat.online/secure",
+          "brand": "acb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://techcombank-canhbao.com/verify",
+          "brand": "techcombank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vnpt-uudai.info/upgrade",
+          "brand": "vnpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dichvucong-phatnguoi.net/notice",
+          "brand": "dichvucong",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://shopee-expressvn.com/fee",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://sacombank-khoathe.online/unlock",
+          "brand": "sacombank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vpbank-sinhtracho.com/kyc",
+          "brand": "vpbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://viettelmoney-tannien.net/gift",
+          "brand": "viettelmoney",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-cuocnet.info/payment",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://lazada-hoantien.info/refund",
+          "brand": "lazada",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://tiki-donhangloi.net/verify",
+          "brand": "tiki",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://mobifone-uudai.info/promo",
+          "brand": "mobifone",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bidv-canhbao.online/secure",
+          "brand": "bidv",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://msb-khoathe.net/unlock",
+          "brand": "msb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://tpbank-sinhtracho.online/kyc",
+          "brand": "tpbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vietinbank-giaodich.com/confirm",
+          "brand": "vietinbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://jtexpress-phivn.info/fee",
+          "brand": "jtexpress",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vneid-dinhdanh.net/verify",
+          "brand": "vneid",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vietnamairlines-hoanve.info/claim",
+          "brand": "vietnamairlines",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://grab-rewards-vn.site/claim",
+          "brand": "grab",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://baoviet-claim-online.net/login",
+          "brand": "baoviet",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://agribank-ebanking-portal.cc/ibk",
+          "brand": "agribank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://hdbank-vaytien-online.top/apply",
+          "brand": "hdbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://shb-mo-the-online.xyz/register",
+          "brand": "shb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vinaphone-chuanhoathongtin.biz/verify",
+          "brand": "vinaphone",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vnpay-qr-rewards.club/spin",
+          "brand": "vnpay",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://seabank-security-check.site/auth",
+          "brand": "seabank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-software-recruitment.online/apply",
+          "brand": "fpt",
+          "kind": "embedded"
+        }
+      ]
+    }
+  },
+  "dl_only": {
+    "clean_tranco_top100k": {
+      "n": 100000,
+      "flagged": 307,
+      "flag_rate": 0.00307,
+      "by_kind": {
+        "typosquat": 290,
+        "embedded": 10,
+        "exact_label": 7
+      },
+      "latency_ms_p50": 0.393,
+      "latency_ms_p95": 0.742,
+      "examples": [
+        {
+          "url": "https://hicloud.com/",
+          "brand": "icloud",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://tbank.ru/",
+          "brand": "mtbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://xing.com/",
+          "brand": "bing",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://manulife-sinochem.com/",
+          "brand": "manulife",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://wisc.edu/",
+          "brand": "wise",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://googll.store/",
+          "brand": "google",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://qcloud.com/",
+          "brand": "icloud",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://usgs.gov/",
+          "brand": "usps",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://telegra.ph/",
+          "brand": "telegram",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://tamu.edu/",
+          "brand": "temu",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://ncsu.edu/",
+          "brand": "ncsc",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://loom.com/",
+          "brand": "zoom",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://ning.com/",
+          "brand": "bing",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://pcloud.com/",
+          "brand": "icloud",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://ansa.it/",
+          "brand": "absa",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://cisa.gov/",
+          "brand": "visa",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://ucloud.cn/",
+          "brand": "icloud",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://strip2.co/",
+          "brand": "stripe",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://joom.com/",
+          "brand": "zoom",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://mooo.com/",
+          "brand": "momo",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://shb-sync.com/",
+          "brand": "shb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://ucsc.edu/",
+          "brand": "ncsc",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://correios.com.br/",
+          "brand": "correos",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://moma.org/",
+          "brand": "momo",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://oclc.org/",
+          "brand": "ocbc",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://ussp.io/",
+          "brand": "usps",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://visx.net/",
+          "brand": "visa",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://avid.com/",
+          "brand": "auid",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://l-tike.com/",
+          "brand": "tiki",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://esri.com/",
+          "brand": "evri",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://bbox.fr/",
+          "brand": "xbox",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://icbc.com.cn/",
+          "brand": "ocbc",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://telegraf.rs/",
+          "brand": "telegram",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://misa.vn/",
+          "brand": "visa",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://bidgx.com/",
+          "brand": "bingx",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://psbank.ru/",
+          "brand": "usbank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://umbc.edu/",
+          "brand": "smbc",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://twister.porn/",
+          "brand": "twitter",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://avple.tv/",
+          "brand": "apple",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://viki.com/",
+          "brand": "tiki",
+          "kind": "typosquat"
+        }
+      ]
+    },
+    "clean_crawled_test": {
+      "n": 22270,
+      "flagged": 123,
+      "flag_rate": 0.00552,
+      "by_kind": {
+        "typosquat": 50,
+        "exact_label": 13,
+        "path_fake_domain": 6,
+        "embedded": 42,
+        "subdomain": 3,
+        "path_brand_lure": 9
+      },
+      "latency_ms_p50": 1.861,
+      "latency_ms_p95": 3.164,
+      "examples": [
+        {
+          "url": "http://outloo.com/",
+          "brand": "outlook",
+          "kind": "typosquat"
+        },
+        {
+          "url": "http://outloo.com/.IGV0hOcNusVJOgqoD1HuWTk0PssdueKB",
+          "brand": "outlook",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://acb.com/es/liga",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos/casademont-zaragoza-16",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos/ilerna-lleida-658?editionId=91",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/equipos/leyma-coruna-657?editionId=91",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/jugadores/dominik-mavra-20212431?editionId=91",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://acb.com/es/liga/noticias",
+          "brand": "acb",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://archive.ph/*.microsoft.com",
+          "brand": "microsoft",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/2014.06.26/https://www.google.com/maps/@-12.1858563,96.8293918,366m/data=!3m1!1e3",
+          "brand": "google",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/http://twitter.com/burg*",
+          "brand": "twitter",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/http://twitter.com/burgerking",
+          "brand": "twitter",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://archive.ph/microsoft.com",
+          "brand": "microsoft",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "https://bookingcare.vn/dich-vu-y-te/kham-chuyen-khoa/bsckii-le-hong-anh-i1128",
+          "brand": "booking",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bookingcare.vn/dich-vu-y-te/kham-chuyen-khoa/than-kinh-s18",
+          "brand": "booking",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bookingcare.vn/dich-vu-y-te/kham-chuyen-khoa/y-hoc-co-truyen-s39",
+          "brand": "booking",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bookings.maldronhotels.com/login",
+          "brand": "booking",
+          "kind": "subdomain"
+        },
+        {
+          "url": "https://bookings.maldronhotels.com/retrieve",
+          "brand": "booking",
+          "kind": "subdomain"
+        },
+        {
+          "url": "https://dailyshopee.vn/",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/blog",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/contact",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/faq",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/merchant",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/news",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dailyshopee.vn/policy/privacy",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://eclecticlight.co/2026/10/06/apple-has-just-released-an-update-to-xprotect-for-all-macos-22/",
+          "brand": "apple",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "https://fpt-is.com/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/chinh-phu-so/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/ims-2/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/ket-noi-kinh-doanh/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/khach-hang/fpt-dong-hanh-bo-tu-phap-hien-dai-hoa-co-so-du-lieu-quoc-gia-ve-phap-luat/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/khach-hang/fpt-is-dong-hanh-cung-rang-dong-khai-mo-banh-da-tang-truong-nho-chuyen-doi-so/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-is.com/khach-hang/nang-cao-trai-nghiem-khach-hang-tai-mot-ngan-hang-tmcp-viet-nam/",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://homax.pl/",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/?mod=page&sid=6",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=faq&id=13",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=faq&id=2",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=page&sid=25",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://homax.pl/index.php?mod=page&sid=4",
+          "brand": "hbomax",
+          "kind": "typosquat"
+        }
+      ]
+    },
+    "phishing_test": {
+      "n": 39282,
+      "flagged": 2778,
+      "flag_rate": 0.07072,
+      "by_kind": {
+        "path_brand_lure": 432,
+        "typosquat": 280,
+        "path_fake_domain": 174,
+        "subdomain": 1675,
+        "embedded": 212,
+        "exact_label": 1,
+        "homoglyph": 4
+      },
+      "latency_ms_p50": 1.332,
+      "latency_ms_p95": 3.532,
+      "examples": [
+        {
+          "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
+          "brand": "amazon",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://0ed8a96.wcomhost.com/banking-postbank/login/privatkunden/de/154f34368cb11189ddd6",
+          "brand": "postbank",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://0ffice-365.co.uk/en/forgotten/?tracker=rdk3e4tlaszj5t8apoj1zhl0jwhvzdgi38cj",
+          "brand": "office365",
+          "kind": "typosquat"
+        },
+        {
+          "url": "http://1000000000000000000000009639639636.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000000000000000655235653201.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000000000000000566484713.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000000000000006396320632063203.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000000000000006396320632063208.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000000005656656319.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000007349476828349853.ml/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000056484541658746543-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000087146589746541344-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000000985416511041547631-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://100000000098765461565478765-gq.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://1000000005774689963254624.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://200000000005447896532998627.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://3000000000874525668982142743.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://40000000058234698857569827.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://44sek.de/chase/chase/home/auth/?343473656b2e6465",
+          "brand": "chase",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://60000000005582447569326553.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://60d8w.ch-leica.com/mb/pg_www.wellsfargo.com",
+          "brand": "wellsfargo",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "http://6663425485231.ml/mobile-facebook-verification_files/css/paymennt.php",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://7000000068543122498785431.tk/login_to_facebook.html",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://910216.com/mb/pg_www.wellsfargo.com/index.html",
+          "brand": "wellsfargo",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "http://923.alanwills.hunjanhospital.com/?qui=ywxhbndpbgxzqhdlaxnzlwlucy5jb20=?jiy=www.google.com",
+          "brand": "google",
+          "kind": "path_fake_domain"
+        },
+        {
+          "url": "http://abnamro.credit360.com/csr/site/login.acds?page=/csr/site/portal/home.acds",
+          "brand": "abnamro",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://access.tdbank.online.netspar.net/step1.html",
+          "brand": "tdbank",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://account.safety.spotifly.case02669.themeadd.com/spotify/aronxvictims/spotify-656-byxaron-tn",
+          "brand": "spotify",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://account.safety.spotifly.case02669.themeadd.com/spotify/aronxvictims/spotify-656-byxaron-tn/spotxify/signin/?country.x=us&locale.x=en_us",
+          "brand": "spotify",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://accountauth.yahoo.reupdatehub.com/main.html?accesstofile=accessing&fileaccess=15408&encryptedcookie=9cce15fb5baab3b00ab111267171d25e&u=7a37660cda61987c897f74fe8c28f91f&connecting=4f19e4c05a86e172124a02af532b950a&phaseaccess=05c27d67eaffbf6749076d3936bb83eb&p=12c6f68c50299eafada22641b3b212d6",
+          "brand": "yahoo",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://acdecon.be/nf/nf/tw/netflix/login",
+          "brand": "netflix",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://aggiorn6amento-aruba.it-webm6ail.mustachecreatives.com/",
+          "brand": "aruba",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://akshat2jain.github.io/facebook_login_clone",
+          "brand": "facebook",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://alrbnb-pre-approved8957462-d73452e3727.jalope.cfd/676f/entire-apartment-with-all-bills-included-in-the-heart-of-melbourne-cbd-australia/fa017e/",
+          "brand": "airbnb",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://amaz0n.yuntutp42.top/?login",
+          "brand": "amazon",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://amazon.amazonruvip.com/",
+          "brand": "amazon",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://amazon.com.lineauthco.buzz/pages/amazon",
+          "brand": "amazon",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://americanexpress.kuronekayamato.ai.in/ja-jp/navlogo",
+          "brand": "americanexpress",
+          "kind": "subdomain"
+        },
+        {
+          "url": "http://angloasiahelston.co.uk/jimkim7689jimkim7689/wellsfargo-update/a866b418a2036eb6e6d2a746ba65bf66",
+          "brand": "wellsfargo",
+          "kind": "path_brand_lure"
+        },
+        {
+          "url": "http://anmeldenamazon-gesperrteskontoentsperren.aba.vg/amazonde/7ce59755f7f0894892500ea2525966c1/billing.html?id=update_rlod?'.fb6c270c0ef78befd8f668bef9664f67.d8b1432e296872fa30cf3ecc869c696f3121b614.'",
+          "brand": "amazon",
+          "kind": "subdomain"
+        }
+      ]
+    },
+    "vn_brand_scenarios": {
+      "n": 37,
+      "flagged": 31,
+      "flag_rate": 0.83784,
+      "by_kind": {
+        "typosquat": 1,
+        "embedded": 30
+      },
+      "latency_ms_p50": 1.411,
+      "latency_ms_p95": 2.251,
+      "examples": [
+        {
+          "url": "https://vietcornbank-xacthuc.com/login",
+          "brand": "vietcombank",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://momo-nhanthuong.info/claim",
+          "brand": "momo",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://zalopay-hoantien.net/verify",
+          "brand": "zalopay",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://acb-baomat.online/secure",
+          "brand": "acb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://techcombank-canhbao.com/verify",
+          "brand": "techcombank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vnpt-uudai.info/upgrade",
+          "brand": "vnpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://dichvucong-phatnguoi.net/notice",
+          "brand": "dichvucong",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://shopee-expressvn.com/fee",
+          "brand": "shopee",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://sacombank-khoathe.online/unlock",
+          "brand": "sacombank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vpbank-sinhtracho.com/kyc",
+          "brand": "vpbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://viettelmoney-tannien.net/gift",
+          "brand": "viettelmoney",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-cuocnet.info/payment",
+          "brand": "fpt",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://lazada-hoantien.info/refund",
+          "brand": "lazada",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://tiki-donhangloi.net/verify",
+          "brand": "tiki",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://mobifone-uudai.info/promo",
+          "brand": "mobifone",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://bidv-canhbao.online/secure",
+          "brand": "bidv",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://msb-khoathe.net/unlock",
+          "brand": "msb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://tpbank-sinhtracho.online/kyc",
+          "brand": "tpbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vietinbank-giaodich.com/confirm",
+          "brand": "vietinbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://jtexpress-phivn.info/fee",
+          "brand": "jtexpress",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vneid-dinhdanh.net/verify",
+          "brand": "vneid",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vietnamairlines-hoanve.info/claim",
+          "brand": "vietnamairlines",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://grab-rewards-vn.site/claim",
+          "brand": "grab",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://baoviet-claim-online.net/login",
+          "brand": "baoviet",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://agribank-ebanking-portal.cc/ibk",
+          "brand": "agribank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://hdbank-vaytien-online.top/apply",
+          "brand": "hdbank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://shb-mo-the-online.xyz/register",
+          "brand": "shb",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vinaphone-chuanhoathongtin.biz/verify",
+          "brand": "vinaphone",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://vnpay-qr-rewards.club/spin",
+          "brand": "vnpay",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://seabank-security-check.site/auth",
+          "brand": "seabank",
+          "kind": "embedded"
+        },
+        {
+          "url": "https://fpt-software-recruitment.online/apply",
+          "brand": "fpt",
+          "kind": "embedded"
+        }
+      ]
+    }
+  }
+}

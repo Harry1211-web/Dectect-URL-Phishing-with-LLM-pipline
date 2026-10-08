@@ -1,0 +1,406 @@
+{
+  "vietnamese": {
+    "n_related": 42,
+    "n_unrelated": 15,
+    "related_distance": {
+      "min": 0.3118,
+      "max": 0.5306
+    },
+    "unrelated_distance": {
+      "min": 0.5696,
+      "max": 0.7317
+    },
+    "youden_threshold": {
+      "threshold": 0.5501,
+      "sensitivity": 1.0,
+      "specificity": 1.0,
+      "youden_j": 1.0
+    }
+  },
+  "english": {
+    "n_related": 15,
+    "n_unrelated": 15,
+    "related_distance": {
+      "min": 0.4789,
+      "max": 0.77
+    },
+    "unrelated_distance": {
+      "min": 0.7153,
+      "max": 0.8991
+    },
+    "youden_threshold": {
+      "threshold": 0.7082,
+      "sensitivity": 0.8667,
+      "specificity": 1.0,
+      "youden_j": 0.8667
+    }
+  },
+  "combined": {
+    "youden_threshold": {
+      "threshold": 0.6414,
+      "sensitivity": 0.8947,
+      "specificity": 0.9,
+      "youden_j": 0.7947
+    },
+    "note": "One global threshold for both languages."
+  },
+  "note": "Small N, starting thresholds only. If each language separates well but the combined threshold is clearly worse, a language-conditional threshold is needed.",
+  "details": {
+    "vn_related": [
+      {
+        "query": "công an cảnh báo những chiêu lừa đảo phổ biến nhất trong năm nay",
+        "distance": 0.4634
+      },
+      {
+        "query": "tin nhắn giả mạo ví điện tử yêu cầu nhập mã xác thực",
+        "distance": 0.4417
+      },
+      {
+        "query": "đặt phòng khách sạn online bị mất tiền cọc vì trang giả",
+        "distance": 0.3982
+      },
+      {
+        "query": "phần mềm giả giọng nói khuôn mặt trong cuộc gọi video để lừa đảo",
+        "distance": 0.4692
+      },
+      {
+        "query": "xem phim lậu miễn phí trên mạng có nguy cơ dính virus không",
+        "distance": 0.4335
+      },
+      {
+        "query": "làm sao để phân biệt một trang web có phải lừa đảo hay không",
+        "distance": 0.3403
+      },
+      {
+        "query": "trang web tự nhận hỗ trợ lấy lại tiền bị lừa có đáng tin không",
+        "distance": 0.3324
+      },
+      {
+        "query": "tên miền gần giống ngân hàng nông nghiệp nhưng thêm chữ vào sau",
+        "distance": 0.4285
+      },
+      {
+        "query": "xu hướng lừa đảo dùng trí tuệ nhân tạo sẽ diễn biến ra sao thời gian tới",
+        "distance": 0.5067
+      },
+      {
+        "query": "sinh viên năm nhất bị lừa tiền đặt cọc phòng trọ đầu năm học",
+        "distance": 0.5133
+      },
+      {
+        "query": "người tự xưng công an gọi điện yêu cầu cài ứng dụng định danh lạ",
+        "distance": 0.414
+      },
+      {
+        "query": "quảng cáo đầu tư tiền điện tử dùng hình ảnh ngân hàng thật để tạo lòng tin",
+        "distance": 0.3836
+      },
+      {
+        "query": "nhắn tin giả sàn mua sắm online yêu cầu nhập thông tin thẻ để nhận hoàn tiền",
+        "distance": 0.4201
+      },
+      {
+        "query": "người gọi điện tự xưng cán bộ thuế yêu cầu gửi ảnh căn cước công dân",
+        "distance": 0.4866
+      },
+      {
+        "query": "nhân viên tổng đài điện thoại đòi mã xác thực để gia hạn gói cước",
+        "distance": 0.4187
+      },
+      {
+        "query": "trang web mạo danh tập đoàn bất động sản ô tô lớn nhất Việt Nam mời đầu tư",
+        "distance": 0.477
+      },
+      {
+        "query": "tuyển dụng giả danh công ty viễn thông công nghệ yêu cầu đóng tiền trước",
+        "distance": 0.5074
+      },
+      {
+        "query": "website nạp thẻ game online giá rẻ bị mất tiền mà không nhận được xu",
+        "distance": 0.4554
+      },
+      {
+        "query": "trang web sao chép giao diện cổng thông tin của cơ quan nhà nước",
+        "distance": 0.4481
+      },
+      {
+        "query": "mua đồ hiệu online giá rẻ bất thường nhận về sản phẩm kém chất lượng",
+        "distance": 0.4554
+      },
+      {
+        "query": "ứng dụng cho vay tiền nhanh đòi phí giải ngân trước khi nhận khoản vay",
+        "distance": 0.5022
+      },
+      {
+        "query": "Cổng thông tin an ninh mạng - Tổng hợp cảnh báo lừa đảo. Trang tổng hợp danh sách các chiêu trò lừa đảo trực tuyến đang phổ biến hiện nay, từ giả mạo cơ quan nhà nước, deepfake, dụ dỗ đầu tư đến mua bán hàng online, kèm khuyến nghị phòng tránh cho người dân.",
+        "distance": 0.3441
+      },
+      {
+        "query": "Ví điện tử của bạn có tin nhắn lạ - Kiểm tra ngay. Gần đây nhiều người dùng ví điện tử phản ánh nhận được tin nhắn/cuộc gọi tự xưng nhân viên yêu cầu cung cấp mã xác thực để xử lý sự cố tài khoản hoặc nhận thưởng.",
+        "distance": 0.4016
+      },
+      {
+        "query": "Đặt phòng nghỉ dưỡng giá rẻ mùa cao điểm. Trang quảng cáo phòng khách sạn giá ưu đãi, yêu cầu khách chuyển khoản đặt cọc trước để giữ chỗ, không qua nền tảng đặt phòng trung gian nào.",
+        "distance": 0.4586
+      },
+      {
+        "query": "Cuộc gọi video từ người quen nhờ chuyển tiền gấp. Nạn nhân nhận cuộc gọi video call thấy đúng khuôn mặt và giọng nói người quen nhưng thực chất là công nghệ giả mạo hình ảnh/âm thanh thời gian thực.",
+        "distance": 0.4519
+      },
+      {
+        "query": "Xem phim bộ mới nhất, chất lượng cao, hoàn toàn miễn phí. Trang chia sẻ phim lậu không bản quyền, yêu cầu tắt trình chặn quảng cáo và cài thêm tiện ích mở rộng để xem được video.",
+        "distance": 0.5095
+      },
+      {
+        "query": "Hướng dẫn an toàn khi mua sắm trực tuyến. Bài viết tổng hợp các dấu hiệu chung để nhận biết một trang web có đáng ngờ hay không trước khi nhập thông tin cá nhân/thanh toán.",
+        "distance": 0.3118
+      },
+      {
+        "query": "Dịch vụ hỗ trợ lấy lại tiền đã chuyển nhầm cho lừa đảo. Trang tự giới thiệu là kênh hỗ trợ chính thức của cơ quan an ninh mạng, nhận xử lý hồ sơ lấy lại tiền bị lừa đảo qua mạng cho nạn nhân.",
+        "distance": 0.3661
+      },
+      {
+        "query": "Ngân hàng Nông nghiệp - Cổng đăng nhập Internet Banking. Địa chỉ trang gần giống tên miền chính thức của ngân hàng nhưng có thêm vài ký tự lạ phía sau, yêu cầu đăng nhập lại tài khoản.",
+        "distance": 0.4025
+      },
+      {
+        "query": "Báo cáo xu hướng tội phạm mạng năm tới. Phân tích cách tội phạm mạng ứng dụng công cụ trí tuệ nhân tạo để tự động hoá và tăng quy mô các chiến dịch lừa đảo trong thời gian tới.",
+        "distance": 0.349
+      },
+      {
+        "query": "Tân sinh viên tìm phòng trọ gần trường. Nhiều tân sinh viên chuyển khoản đặt cọc phòng trọ qua tin đăng trên mạng xã hội đầu năm học rồi mất liên lạc với người cho thuê.",
+        "distance": 0.5153
+      },
+      {
+        "query": "Cán bộ công an yêu cầu cập nhật ứng dụng định danh điện tử. Người gọi điện tự xưng công an, yêu cầu người dân cài đặt một ứng dụng lạ để \"đồng bộ\" dữ liệu định danh cá nhân.",
+        "distance": 0.3395
+      },
+      {
+        "query": "Cơ hội đầu tư sinh lời cao được ngân hàng bảo trợ. Quảng cáo mời gọi đầu tư tài chính/tiền điện tử, sử dụng logo và hình ảnh của ngân hàng lớn để tạo lòng tin cho nhà đầu tư.",
+        "distance": 0.4421
+      },
+      {
+        "query": "Đơn hàng của bạn đang chờ xác nhận thanh toán. Tin nhắn tự xưng từ sàn thương mại điện tử, thông báo đơn hàng gặp sự cố hoặc được hoàn tiền, kèm liên kết yêu cầu nhập thông tin thẻ ngân hàng.",
+        "distance": 0.4574
+      },
+      {
+        "query": "Thông báo từ cơ quan quản lý thuế/bảo hiểm về hồ sơ của bạn. Người gọi điện tự xưng cán bộ nhà nước, yêu cầu cung cấp thông tin cá nhân, hình ảnh giấy tờ tuỳ thân hoặc cài ứng dụng kê khai lạ.",
+        "distance": 0.3683
+      },
+      {
+        "query": "Thuê bao của bạn đủ điều kiện nâng cấp gói cước miễn phí. Cuộc gọi tự xưng tổng đài chăm sóc khách hàng nhà mạng, đề nghị hỗ trợ gia hạn/nâng cấp dịch vụ và yêu cầu đọc mã xác thực gửi qua tin nhắn.",
+        "distance": 0.5064
+      },
+      {
+        "query": "Tập đoàn Vingroup International - Cơ hội đầu tư cổ phần ưu đãi. Trang tự nhận là chi nhánh quốc tế của tập đoàn, mời góp vốn vào dự án bất động sản và xe điện với lợi nhuận cam kết hàng tháng.",
+        "distance": 0.4572
+      },
+      {
+        "query": "FPT Telecom tuyển cộng tác viên làm việc tại nhà. Email mời phỏng vấn trực tuyến, yêu cầu ứng viên cài ứng dụng riêng và nộp phí đào tạo, đồng phục trước khi nhận việc.",
+        "distance": 0.4325
+      },
+      {
+        "query": "Nạp thẻ game chiết khấu cao - Zing Card. Trang nạp tiền vào game với giá rẻ hơn trang chính thức, yêu cầu đăng nhập tài khoản game và chuyển khoản trước.",
+        "distance": 0.5306
+      },
+      {
+        "query": "Cổng thông tin điện tử - Tra cứu hồ sơ trực tuyến. Trang có giao diện giống hệt website chính thức của cơ quan, được gửi qua tin nhắn kèm yêu cầu khai báo thông tin cá nhân.",
+        "distance": 0.3756
+      },
+      {
+        "query": "Thanh lý hàng hiệu chính hãng giảm 80%. Cửa hàng online đăng ảnh sản phẩm đẹp, nhiều đánh giá năm sao, chỉ nhận chuyển khoản trước và giục khách đặt nhanh vì sắp hết hàng.",
+        "distance": 0.4094
+      },
+      {
+        "query": "Vay tiêu dùng không cần thế chấp, giải ngân trong 30 phút. Ứng dụng tự nhận là công ty tài chính uy tín, yêu cầu nộp phí bảo hiểm khoản vay trước khi giải ngân.",
+        "distance": 0.4732
+      }
+    ],
+    "vn_unrelated": [
+      {
+        "query": "công thức nấu phở bò truyền thống miền Bắc",
+        "distance": 0.7031
+      },
+      {
+        "query": "kết quả bóng đá vòng loại world cup tối qua",
+        "distance": 0.7253
+      },
+      {
+        "query": "hướng dẫn cài đặt python trên windows 11",
+        "distance": 0.6903
+      },
+      {
+        "query": "dự báo thời tiết Hà Nội tuần tới có mưa không",
+        "distance": 0.6745
+      },
+      {
+        "query": "cách chăm sóc cây cảnh trong nhà mùa đông",
+        "distance": 0.6168
+      },
+      {
+        "query": "review điện thoại mới ra mắt tháng này",
+        "distance": 0.5802
+      },
+      {
+        "query": "lịch chiếu phim rạp CGV cuối tuần",
+        "distance": 0.648
+      },
+      {
+        "query": "bài tập yoga giảm đau lưng tại nhà",
+        "distance": 0.6976
+      },
+      {
+        "query": "top 10 địa điểm du lịch Đà Lạt đẹp nhất",
+        "distance": 0.6763
+      },
+      {
+        "query": "cách luộc gà cúng đúng chuẩn ngày tết",
+        "distance": 0.652
+      },
+      {
+        "query": "hướng dẫn trồng rau sạch trên sân thượng",
+        "distance": 0.6687
+      },
+      {
+        "query": "lịch thi đấu giải bóng rổ nhà nghề tuần này",
+        "distance": 0.714
+      },
+      {
+        "query": "cách chọn mua laptop cho sinh viên mới nhập học",
+        "distance": 0.5696
+      },
+      {
+        "query": "địa chỉ quán cà phê view đẹp ở quận 1",
+        "distance": 0.7306
+      },
+      {
+        "query": "hướng dẫn tập gym tăng cơ cho người mới bắt đầu",
+        "distance": 0.7317
+      }
+    ],
+    "en_related": [
+      {
+        "query": "Police cyber security warning about the most common online scam tricks this year",
+        "distance": 0.5994
+      },
+      {
+        "query": "Your e-wallet account has a security alert, verify your OTP code now to avoid suspension",
+        "distance": 0.5911
+      },
+      {
+        "query": "Book your hotel room now, pay a deposit to secure your reservation for this trip",
+        "distance": 0.7011
+      },
+      {
+        "query": "Video call from a familiar face asking to transfer money urgently, real-time deepfake scam",
+        "distance": 0.5994
+      },
+      {
+        "query": "Watch the latest movies online for free, disable your ad blocker to continue streaming",
+        "distance": 0.7228
+      },
+      {
+        "query": "How to tell if a website is fake or fraudulent before entering personal information",
+        "distance": 0.5166
+      },
+      {
+        "query": "Official recovery service claims it can help get your scammed money back, is this trustworthy",
+        "distance": 0.62
+      },
+      {
+        "query": "Bank login page domain looks almost identical to the real one but with extra letters added",
+        "distance": 0.4789
+      },
+      {
+        "query": "How AI powered scams and chatbot fraud are expected to evolve in the near future",
+        "distance": 0.4826
+      },
+      {
+        "query": "New student loses deposit money for a rental room found through a social media listing",
+        "distance": 0.6639
+      },
+      {
+        "query": "Someone claiming to be a government official asks you to install an unknown identity app",
+        "distance": 0.5739
+      },
+      {
+        "query": "High return crypto investment opportunity endorsed by a major bank logo to build trust",
+        "distance": 0.6931
+      },
+      {
+        "query": "Your order is pending payment confirmation, enter your card details to receive a refund",
+        "distance": 0.77
+      },
+      {
+        "query": "Caller claims to be a tax or social insurance officer asking for your ID card photo",
+        "distance": 0.6518
+      },
+      {
+        "query": "Telecom customer service call asks you to read out the verification code to extend your plan",
+        "distance": 0.6347
+      }
+    ],
+    "en_unrelated": [
+      {
+        "query": "traditional northern-style beef pho recipe",
+        "distance": 0.7866
+      },
+      {
+        "query": "last night's world cup qualifier football results",
+        "distance": 0.8838
+      },
+      {
+        "query": "how to install python on windows 11",
+        "distance": 0.8219
+      },
+      {
+        "query": "will it rain in Hanoi next week, weather forecast",
+        "distance": 0.7403
+      },
+      {
+        "query": "how to take care of indoor plants in winter",
+        "distance": 0.8956
+      },
+      {
+        "query": "review of the newest smartphone released this month",
+        "distance": 0.7722
+      },
+      {
+        "query": "CGV cinema showtimes this weekend",
+        "distance": 0.8225
+      },
+      {
+        "query": "yoga exercises for lower back pain at home",
+        "distance": 0.8991
+      },
+      {
+        "query": "top 10 most beautiful travel spots in Da Lat",
+        "distance": 0.7153
+      },
+      {
+        "query": "how to properly boil chicken for Lunar New Year offerings",
+        "distance": 0.7899
+      },
+      {
+        "query": "how to grow vegetables on your rooftop",
+        "distance": 0.8952
+      },
+      {
+        "query": "this week's professional basketball league schedule",
+        "distance": 0.8565
+      },
+      {
+        "query": "how to choose a laptop for new university students",
+        "distance": 0.8029
+      },
+      {
+        "query": "coffee shops with a nice view in district 1",
+        "distance": 0.7546
+      },
+      {
+        "query": "gym workout guide to build muscle for beginners",
+        "distance": 0.8822
+      }
+    ]
+  }
+}

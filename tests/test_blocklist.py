@@ -1,0 +1,41 @@
+import gzip
+
+import pytest
+
+from blocklist import lookup
+from blocklist.updater import BLOCKLIST_DIR
+
+pytestmark = pytest.mark.skipif(not (BLOCKLIST_DIR / "openphish.txt.gz").exists(),
+                                reason="blocklist not built (run src/blocklist/updater.py)")
+
+
+def _first_listed() -> str:
+    with gzip.open(BLOCKLIST_DIR / "openphish.txt.gz", "rt", encoding="utf-8") as f:
+        return f.readline().strip()
+
+
+def test_exact_and_prefix_match():
+    u = _first_listed()
+    assert lookup.check_blocklist("https://" + u)["flag"] is True
+    assert lookup.check_blocklist("http://www." + u + "/deeper/page.php")["flag"] is True
+
+
+def test_popular_and_shared_hosts_are_not_blocked_whole():
+    for u in ("https://www.google.com/", "https://vercel.app/", "https://github.io/"):
+        assert lookup.check_blocklist(u)["flag"] is False
+
+
+def test_redirect_to_listed_url_is_blocked():
+    u = _first_listed()
+    assert lookup.check_blocklist("https://www.google.com/url?q=https://" + u)["flag"] is True
+
+
+def test_campaign_domain_blocks_new_subdomains():
+    with gzip.open(BLOCKLIST_DIR / lookup.HOSTS_FILE, "rt", encoding="utf-8") as f:
+        dom = next(ln.strip()[2:] for ln in f if ln.startswith("*."))
+    assert lookup.check_blocklist(f"https://never-seen-before-123.{dom}/x")["flag"] is True
+
+
+def test_lookup_is_fast():
+    lookup.check_blocklist("https://example.org/")
+    assert lookup.check_blocklist("https://example.org/a")["latency_ms"] < 5
