@@ -9,8 +9,8 @@
         "embedded": 10,
         "exact_label": 7
       },
-      "latency_ms_p50": 0.414,
-      "latency_ms_p95": 0.751,
+      "latency_ms_p50": 0.278,
+      "latency_ms_p95": 0.45,
       "examples": [
         {
           "url": "https://hicloud.com/",
@@ -226,8 +226,8 @@
         "subdomain": 3,
         "path_brand_lure": 10
       },
-      "latency_ms_p50": 1.947,
-      "latency_ms_p95": 3.165,
+      "latency_ms_p50": 1.216,
+      "latency_ms_p95": 1.997,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -432,9 +432,9 @@
       ]
     },
     "phishing_test": {
-      "n": 39282,
+      "n": 39266,
       "flagged": 2712,
-      "flag_rate": 0.06904,
+      "flag_rate": 0.06907,
       "by_kind": {
         "path_brand_lure": 432,
         "typosquat": 236,
@@ -444,8 +444,8 @@
         "exact_label": 1,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.272,
-      "latency_ms_p95": 3.442,
+      "latency_ms_p50": 1.101,
+      "latency_ms_p95": 2.335,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -657,8 +657,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 2.441,
-      "latency_ms_p95": 3.161,
+      "latency_ms_p50": 1.228,
+      "latency_ms_p95": 2.246,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -828,8 +828,8 @@
         "embedded": 10,
         "exact_label": 7
       },
-      "latency_ms_p50": 0.393,
-      "latency_ms_p95": 0.742,
+      "latency_ms_p50": 0.278,
+      "latency_ms_p95": 0.454,
       "examples": [
         {
           "url": "https://hicloud.com/",
@@ -1045,8 +1045,8 @@
         "subdomain": 3,
         "path_brand_lure": 9
       },
-      "latency_ms_p50": 1.861,
-      "latency_ms_p95": 3.164,
+      "latency_ms_p50": 1.21,
+      "latency_ms_p95": 2.027,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -1251,9 +1251,9 @@
       ]
     },
     "phishing_test": {
-      "n": 39282,
+      "n": 39266,
       "flagged": 2778,
-      "flag_rate": 0.07072,
+      "flag_rate": 0.07075,
       "by_kind": {
         "path_brand_lure": 432,
         "typosquat": 280,
@@ -1263,8 +1263,8 @@
         "exact_label": 1,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.332,
-      "latency_ms_p95": 3.532,
+      "latency_ms_p50": 1.101,
+      "latency_ms_p95": 2.313,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -1476,8 +1476,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 1.411,
-      "latency_ms_p95": 2.251,
+      "latency_ms_p50": 1.216,
+      "latency_ms_p95": 2.201,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",

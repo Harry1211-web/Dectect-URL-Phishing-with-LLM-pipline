@@ -30,7 +30,7 @@
 │   │   ├── model.py               Char CNN + BiLSTM feature extractor
 │   │   ├── clean_labels.py        Out-of-fold detection of mislabelled training rows
 │   │   ├── collect_host_features.py  Looks up host features for the dataset (into the cache)
-│   │   ├── train.py               Trains CNN/BiLSTM + XGBoost lexical & host branches, thresholds
+│   │   ├── train.py               Stacking: 2 cross-fitted CNN/BiLSTM + XGBoost lexical/host branches, segment thresholds
 │   │   └── predict.py             Inference used by the pipeline (host branch / lexical fallback)
 │   │
 │   ├── llm_rag/                   Layer D — LLM + 2-tier RAG for suspicious URLs
@@ -75,6 +75,6 @@
 │   ├── allbrands.txt              Brand name list (not used by the code)
 │   └── agency_domains.json        Authority -> domain map (not used by the code)
 │
-├── models/url_classifier/         Trained Layer C: cnn.pt, xgb_lexical.json, xgb_host.json, config.json
+├── models/url_classifier/         Trained Layer C: cnn.pt + cnn_b.pt (cross-fitted CNNs), xgb_lexical.json, xgb_host.json, config.json
 └── reports/                       Evaluation outputs (JSON) of every layer
 ```

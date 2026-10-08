@@ -49,3 +49,15 @@ def test_host_feature_vector_handles_missing_data():
     assert len(v) == len(HOST_FEATURE_NAMES) and math.isnan(v[2])
     v = host_feature_vector("https://abc.vercel.app/", {"dns": {"resolves": 1}, "tls": {}, "rdap": {}})
     assert math.isnan(v[0])  # a tenant of a shared platform does not inherit its Tranco rank
+
+
+@needs_model
+def test_failed_host_lookup_fails_closed(monkeypatch):
+    """A resolver timeout (attacker-provokable) must never turn into a 'clean' verdict."""
+    from url_classifier import host_features
+    monkeypatch.setattr(host_features, "lookup_host_live", lambda host, budget_s=2.5: None)
+    r = predict.classify_url("https://example-unknown-site.com/login")
+    assert r["label"] == "suspicious" and r["branch"] == "lookup_failed"
+    from pipeline import analyze_url
+    out = analyze_url("https://example-unknown-site.com/login", use_llm=False)
+    assert out["verdict"] in ("suspicious", "phishing")

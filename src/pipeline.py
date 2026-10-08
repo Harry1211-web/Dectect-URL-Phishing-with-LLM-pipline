@@ -73,9 +73,12 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                 "(chọn xem giải thích chi tiết nếu cần)."))
 
     # Fallback: no usable LLM verdict
-    score = c["score"] if c else 0.0
+    score = (c or {}).get("score")
     if b["flag"] is True:
         return done("phishing", "fallback_B", b["reason"])
+    if score is None:  # classifier unavailable or host lookup failed: fail closed, never "clean"
+        return done("suspicious", "fallback_lookup_failed",
+                    "Không kiểm tra được tên miền và chưa phân tích được nội dung trang — hãy cẩn trọng.")
     if score >= FALLBACK_PHISHING_SCORE:
         return done("phishing", "fallback_C",
                     f"Mô hình URL đánh giá rủi ro rất cao (điểm {score:.3f}).")

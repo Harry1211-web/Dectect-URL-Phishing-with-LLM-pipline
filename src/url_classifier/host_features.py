@@ -228,14 +228,22 @@ def lookup_host(host: str, offline: bool = False) -> dict | None:
     d = _cached("dns", host, _dns, offline=offline)
     if d is None:
         return None
-    t = (_cached("tls", host, _tls, offline=offline) or {}) if d.get("resolves") else {}
-    rdap = (_cached("rdap", registrable_domain(host), _rdap, ttl_days=30, offline=offline) or {}
-            if d.get("resolves") else {})
-    return {"dns": d, "tls": t, "rdap": rdap}
+    if not d.get("resolves"):
+        return {"dns": d, "tls": {}, "rdap": {}, "complete": True}
+    t = _cached("tls", host, _tls, offline=offline)
+    rdap = _cached("rdap", registrable_domain(host), _rdap, ttl_days=30, offline=offline)
+    # complete = every lookup was attempted (an empty result is a real "no certificate" answer;
+    # a missing cache entry only means the collector has not reached this host yet)
+    return {"dns": d, "tls": t or {}, "rdap": rdap or {},
+            "complete": t is not None and rdap is not None}
 
 
 def is_live(raw: dict | None) -> bool:
     return bool(raw and raw["dns"].get("resolves"))
+
+
+def is_complete(raw: dict | None) -> bool:
+    return bool(raw and raw.get("complete", True))
 
 
 def host_feature_vector(url: str, raw: dict) -> list[float]:
