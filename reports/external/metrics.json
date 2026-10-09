@@ -8,7 +8,7 @@
   },
   "host_lookup_failed": {
     "clean": 3,
-    "phishing": 27
+    "phishing": 24
   },
   "all": {
     "n_phishing": 10000,

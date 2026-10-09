@@ -9,8 +9,8 @@
         "typosquat": 98,
         "embedded": 11
       },
-      "latency_ms_p50": 0.456,
-      "latency_ms_p95": 0.957,
+      "latency_ms_p50": 0.469,
+      "latency_ms_p95": 0.955,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -226,8 +226,8 @@
         "subdomain": 3,
         "path_brand_lure": 10
       },
-      "latency_ms_p50": 2.14,
-      "latency_ms_p95": 3.678,
+      "latency_ms_p50": 2.197,
+      "latency_ms_p95": 4.199,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -444,8 +444,8 @@
         "embedded": 213,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.478,
-      "latency_ms_p95": 4.234,
+      "latency_ms_p50": 1.477,
+      "latency_ms_p95": 4.209,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -657,8 +657,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 2.476,
-      "latency_ms_p95": 2.89,
+      "latency_ms_p50": 2.376,
+      "latency_ms_p95": 2.934,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -828,8 +828,8 @@
         "typosquat": 290,
         "embedded": 11
       },
-      "latency_ms_p50": 0.467,
-      "latency_ms_p95": 0.938,
+      "latency_ms_p50": 0.463,
+      "latency_ms_p95": 0.907,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -1045,8 +1045,8 @@
         "subdomain": 3,
         "path_brand_lure": 9
       },
-      "latency_ms_p50": 2.163,
-      "latency_ms_p95": 4.257,
+      "latency_ms_p50": 2.156,
+      "latency_ms_p95": 3.913,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -1263,8 +1263,8 @@
         "embedded": 212,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.476,
-      "latency_ms_p95": 4.34,
+      "latency_ms_p50": 1.321,
+      "latency_ms_p95": 3.764,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -1476,8 +1476,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 1.547,
-      "latency_ms_p95": 2.663,
+      "latency_ms_p50": 2.33,
+      "latency_ms_p95": 2.929,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",

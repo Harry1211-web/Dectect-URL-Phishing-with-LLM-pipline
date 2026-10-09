@@ -154,6 +154,9 @@ VERIFIED_MISS_WEIGHT = 3.0  # a missed human-verified phishing costs 3, any othe
 # Missing phishing matters more than LLM load: segment thresholds minimise the weighted miss cost
 # on val as long as at least this share of ALL clean val URLs is still recognised as clean
 MIN_CLEAN_RECOGNIZED = 0.50
+# No segment may be fail-open: a segment with no validation phishing would otherwise get a
+# "never flag" threshold (1.01); a score this high always means suspicious
+MAX_SEGMENT_THRESHOLD = 0.5
 
 
 def segment_thresholds(seg: np.ndarray, score: np.ndarray, y: np.ndarray, verified: np.ndarray,
@@ -185,7 +188,7 @@ def segment_thresholds(seg: np.ndarray, score: np.ndarray, y: np.ndarray, verifi
         mid = (lo + hi) / 2
         lo, hi = (mid, hi) if pick(mid)[2] >= min_clean * n_clean else (lo, mid)
     thr, cost, _ = pick(lo)
-    return thr, cost
+    return {s: min(t, MAX_SEGMENT_THRESHOLD) for s, t in thr.items()}, cost
 
 
 def flagged_by_layer_b(urls: list[str]) -> np.ndarray:

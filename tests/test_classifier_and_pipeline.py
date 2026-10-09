@@ -72,3 +72,13 @@ def test_failed_host_lookup_fails_closed(monkeypatch):
     from pipeline import analyze_url
     out = analyze_url("https://example-unknown-site.com/login", use_llm=False)
     assert out["verdict"] in ("suspicious", "phishing")
+
+
+def test_segment_thresholds_are_never_fail_open():
+    import numpy as np
+    from url_classifier.train import MAX_SEGMENT_THRESHOLD, segment_thresholds
+    seg = np.array(["a"] * 4 + ["b"] * 4)
+    score = np.array([0.1, 0.2, 0.3, 0.4, 0.1, 0.9, 0.2, 0.95])
+    y = np.array([0, 0, 0, 0, 0, 1, 0, 1])  # segment "a" has no phishing at all
+    thr, _ = segment_thresholds(seg, score, y, np.ones(8, bool), n_clean=6, min_clean=0.5)
+    assert all(t <= MAX_SEGMENT_THRESHOLD for t in thr.values())

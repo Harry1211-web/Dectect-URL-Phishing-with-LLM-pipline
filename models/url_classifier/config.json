@@ -32,9 +32,9 @@
     "host_ranked_bare": 0.0021212799474596977,
     "host_ranked_path": 0.0034106061793863773,
     "host_ranked_sub_bare": 0.006129856687039137,
-    "host_top100k_bare": 1.01,
+    "host_top100k_bare": 0.5,
     "host_top100k_path": 0.0004443830985110253,
-    "host_top10k_bare": 1.01,
+    "host_top10k_bare": 0.5,
     "host_top10k_path": 0.0031041749753057957,
     "lexical_bare": 0.008726583793759346,
     "lexical_path": 0.0
