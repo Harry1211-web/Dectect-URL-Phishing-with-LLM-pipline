@@ -51,6 +51,17 @@ def test_host_feature_vector_handles_missing_data():
     assert math.isnan(v[0])  # a tenant of a shared platform does not inherit its Tranco rank
 
 
+def test_bare_subdomain_of_ranked_domain_has_own_segment():
+    from url_classifier.host_features import host_feature_vector, segment_of
+    raw = {"dns": {"resolves": 1}, "tls": {}, "rdap": {}}
+    if host_feature_vector("https://wikipedia.org/", raw)[0] != host_feature_vector("https://wikipedia.org/", raw)[0]:
+        pytest.skip("Tranco list not available")
+    assert segment_of("https://www.wikipedia.org/", raw, True) == "host_top10k_bare"
+    # x.tilda.ws-like tenants must not get the "never flag" threshold of the brand's homepage
+    assert segment_of("https://wallet-x.wikipedia.org/", raw, True) == "host_ranked_sub_bare"
+    assert segment_of("https://en.wikipedia.org/wiki/Phishing", raw, True) == "host_top10k_path"
+
+
 @needs_model
 def test_failed_host_lookup_fails_closed(monkeypatch):
     """A resolver timeout (attacker-provokable) must never turn into a 'clean' verdict."""

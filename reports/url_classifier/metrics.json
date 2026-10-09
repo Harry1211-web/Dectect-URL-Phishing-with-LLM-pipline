@@ -25,20 +25,21 @@
     }
   },
   "segment_thresholds": {
-    "host_old_unranked_bare": 0.005522103514522314,
+    "host_old_unranked_bare": 0.003637158079072833,
     "host_old_unranked_path": 0.01177029125392437,
     "host_other_bare": 0.0071047586388885975,
     "host_other_path": 0.05438924953341484,
     "host_ranked_bare": 0.0021212799474596977,
     "host_ranked_path": 0.0034106061793863773,
-    "host_top100k_bare": 0.006129856687039137,
+    "host_ranked_sub_bare": 0.006129856687039137,
+    "host_top100k_bare": 1.01,
     "host_top100k_path": 0.0004443830985110253,
     "host_top10k_bare": 1.01,
     "host_top10k_path": 0.0031041749753057957,
     "lexical_bare": 0.008726583793759346,
     "lexical_path": 0.0
   },
-  "segment_miss_cost_val": 10.0,
+  "segment_miss_cost_val": 9.0,
   "data": {
     "train": 375179,
     "val": 79359,
@@ -959,22 +960,22 @@
     "segment_thresholds": {
       "all": {
         "n": 81633,
-        "phishing_missed": 12,
-        "recall": 0.99969,
-        "clean_recognized": 0.51514
+        "phishing_missed": 13,
+        "recall": 0.99967,
+        "clean_recognized": 0.50941
       },
       "verified": {
         "n": 47916,
         "phishing_missed": 3,
         "recall": 0.99946,
-        "clean_recognized": 0.51514
+        "clean_recognized": 0.50941
       },
       "by_segment": {
         "host_old_unranked_bare": {
           "n": 10177,
           "phishing_missed": 1,
           "recall": 0.99922,
-          "clean_recognized": 0.06952
+          "clean_recognized": 0.03555
         },
         "host_old_unranked_path": {
           "n": 2868,
@@ -995,10 +996,10 @@
           "clean_recognized": 0.36713
         },
         "host_ranked_bare": {
-          "n": 7090,
+          "n": 6946,
           "phishing_missed": 0,
           "recall": 1.0,
-          "clean_recognized": 0.53564
+          "clean_recognized": 0.53833
         },
         "host_ranked_path": {
           "n": 14138,
@@ -1006,20 +1007,26 @@
           "recall": 0.97925,
           "clean_recognized": 0.89264
         },
+        "host_ranked_sub_bare": {
+          "n": 506,
+          "phishing_missed": 1,
+          "recall": 0.99153,
+          "clean_recognized": 0.70103
+        },
         "host_top100k_bare": {
-          "n": 2003,
+          "n": 1835,
           "phishing_missed": 0,
-          "recall": 1.0,
-          "clean_recognized": 0.93414
+          "recall": 0.0,
+          "clean_recognized": 1.0
         },
         "host_top100k_path": {
           "n": 3680,
           "phishing_missed": 0,
           "recall": 1.0,
-          "clean_recognized": 0.37912
+          "clean_recognized": 0.3794
         },
         "host_top10k_bare": {
-          "n": 504,
+          "n": 310,
           "phishing_missed": 0,
           "recall": 0.0,
           "clean_recognized": 1.0
@@ -1105,6 +1112,12 @@
       "source": "phiusiil",
       "segment": "host_old_unranked_bare",
       "score": 0.003396370215341449
+    },
+    {
+      "url": "http://www.atlantia.sca.org",
+      "source": "phiusiil",
+      "segment": "host_ranked_sub_bare",
+      "score": 0.003446762217208743
     },
     {
       "url": "https://modspoti.com/spotifys-game-changing-feature-exclude-from-your-taste-profile",

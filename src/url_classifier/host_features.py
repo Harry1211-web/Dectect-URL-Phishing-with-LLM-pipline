@@ -277,14 +277,21 @@ def host_feature_vector(url: str, raw: dict) -> list[float]:
 def segment_of(url: str, raw: dict | None, host_branch: bool) -> str:
     """Threshold segment: branch x popularity/age bucket x (bare domain | URL with path).
     Phishing is far rarer on Tranco-ranked domains than on young unranked ones, so each segment
-    gets its own threshold (chosen on validation data by train.py)."""
+    gets its own threshold (chosen on validation data by train.py). A bare subdomain of a ranked
+    domain (x.tilda.ws) may be a tenant of a platform not yet listed: it gets its own
+    'ranked_sub' bucket instead of the rank bucket, whose bare threshold can be "never flag"
+    because the domain's own homepage is never phishing."""
     rest = url.split("://", 1)[-1].rstrip("/")
     shape = "path" if "/" in rest or "?" in rest else "bare"
     if not host_branch:
         return f"lexical_{shape}"
     v = host_feature_vector(url, raw or {})
     rank, age = v[0], v[15]
-    if rank == rank:  # not NaN
+    host = host_of(url)
+    rd = registrable_domain(host)
+    if rank == rank and shape == "bare" and host not in (rd, "www." + rd):
+        bucket = "ranked_sub"
+    elif rank == rank:  # not NaN
         bucket = "top10k" if rank <= 4 else "top100k" if rank <= 5 else "ranked"
     else:
         bucket = "old_unranked" if age == age and age > 3 * 365 else "other"
