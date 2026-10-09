@@ -13,6 +13,7 @@
 │   ├── pipeline.py                Full A -> B -> C -> D pipeline for one URL (CLI)
 │   ├── evaluate_pipeline.py       A+B+C evaluation on the test split (miss rate, LLM load, latency;
 │   │                              also on trusted labels, without doubtful phishing labels)
+│   ├── evaluate_external.py       Layers A, B, C alone and A+B+C on the external PhreshPhish set
 │   │
 │   ├── blocklist/                 Layer A — instant block from public phishing feeds
 │   │   ├── updater.py             Monthly refresh of OpenPhish / PhishTank / Phishing.Database + Tranco
@@ -61,6 +62,8 @@
 ├── dataset/
 │   ├── brands/                    Brand catalogue: VN brands, international brands, secondary domains
 │   ├── rag_corpus/tier2_warnings/ Verified scam-warning articles for RAG tier 2 (+ manifest.csv)
+│   ├── external/
+│   │   └── phreshphish_urls.csv   External test set (PhreshPhish 2025, never used in training)
 │   └── urls/
 │       ├── raw/                   Cached downloads + crawled_clean.csv
 │       ├── urls_labeled.csv       Final dataset (url, label, source, group, split)
