@@ -16,6 +16,8 @@ from typosquatting.typosquatting import check_typosquatting, suspected_brand
     ("http://abc.vercel.app/paypal/login", "paypal", "path_brand_lure"),
     ("https://paypal-login.s3.amazonaws.com/index.html", "paypal", "subdomain"),
     ("https://momo.online/claim", "momo", "exact_label"),
+    ("https://www.binance.info/en/", "binance", "exact_label"),           # intl brand, other gTLD
+    ("https://kaspersyk.com/", "kaspersky", "typosquat"),
 ])
 def test_detects_impersonation(url, brand, kind):
     r = check_typosquatting(url)
@@ -29,6 +31,7 @@ def test_detects_impersonation(url, brand, kind):
     "https://stream.cz/",                         # common word close to 'steam'
     "https://orangepage.net/",                    # intl brand compound without lure
     "https://shopee.com.mx/",                     # brand's own regional site
+    "https://google.de/",                         # intl brand's own country site
     "https://otpbank.hu/",                        # foreign bank close to 'tpbank'
     "https://dantri.com.vn/",
     "http://192.168.1.10/login",

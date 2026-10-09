@@ -9,11 +9,15 @@ ALL train rows instead of the 30 % part the CNN did not see:
                    only on live hosts whose lookups are complete (dead phishing domains would be a
                    fake shortcut); used at inference when the host resolves.
 Rows flagged by clean_labels.py are dropped from train. Thresholds: recall on human-verified
-validation phishing (PhishTank/OpenPhish), then per-segment thresholds within a reduced miss
-budget. The test split is used for the final metrics only.
+validation phishing (PhishTank/OpenPhish), then per-segment thresholds that miss the fewest
+validation phishing while still recognising MIN_CLEAN_RECOGNIZED of the clean URLs. URLs that
+Layer B flags go to Layer D anyway, so they are left out of that choice.
+The test split is used for the final metrics only.
 Host features must be collected first (collect_host_features.py); they are read from the cache.
 
 Run:    python src/url_classifier/train.py [--reuse-cnn]
+        python src/url_classifier/train.py --thresholds-only   (refit the segment thresholds of
+                                                                 the saved models, no training)
 Output: models/url_classifier/{cnn.pt, cnn_b.pt, xgb_lexical.json, xgb_host.json, config.json},
         reports/url_classifier/metrics.json
 """
@@ -37,6 +41,7 @@ from sklearn.metrics import average_precision_score, roc_auc_score
 from torch import nn
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import host_features as hf  # noqa: E402
 from url_classifier.features import FEATURE_NAMES, feature_matrix  # noqa: E402
 from url_classifier.model import CharCnnLstm, encode_urls  # noqa: E402
@@ -146,16 +151,17 @@ def evaluate(name: str, y_va, p_va, y_te, p_te, ver_va, ver_te) -> dict:
 
 
 VERIFIED_MISS_WEIGHT = 3.0  # a missed human-verified phishing costs 3, any other phishing 1
-# Per-segment thresholds may spend only this fraction of the single-threshold miss cost on val:
-# at 0.5 they recognise ~8 pt more clean URLs AND miss ~30 % fewer phishing on the test split
-SEGMENT_BUDGET_FRACTION = 0.5
+# Missing phishing matters more than LLM load: segment thresholds minimise the weighted miss cost
+# on val as long as at least this share of ALL clean val URLs is still recognised as clean
+MIN_CLEAN_RECOGNIZED = 0.50
 
 
 def segment_thresholds(seg: np.ndarray, score: np.ndarray, y: np.ndarray, verified: np.ndarray,
-                       budget: float) -> tuple[dict, float]:
-    """Per-segment thresholds maximising clean URLs recognised (score < t) on validation data,
-    subject to a weighted phishing-miss budget. Lagrangian: each segment maximises
-    clean_below(t) - lam * miss_cost_below(t); lam is binary-searched to meet the budget."""
+                       n_clean: int, min_clean: float = MIN_CLEAN_RECOGNIZED) -> tuple[dict, float]:
+    """Per-segment thresholds with the lowest weighted phishing-miss cost on validation data
+    such that >= min_clean * n_clean clean URLs are recognised (score < t). Lagrangian: each
+    segment maximises clean_below(t) - lam * miss_cost_below(t); lam is binary-searched to the
+    largest value that still meets the clean floor. Returns (thresholds, miss cost)."""
     w = np.where(verified, VERIFIED_MISS_WEIGHT, 1.0) * (y == 1)
     curves = {}
     for s in np.unique(seg):
@@ -167,18 +173,90 @@ def segment_thresholds(seg: np.ndarray, score: np.ndarray, y: np.ndarray, verifi
         cost = np.concatenate([[0.0], np.cumsum(ww[o])])
         curves[s] = (t, np.searchsorted(clean, t, "left"), cost[np.searchsorted(sc[o], t, "left")])
 
-    def pick(lam: float) -> tuple[dict, float]:
-        thr, total = {}, 0.0
+    def pick(lam: float) -> tuple[dict, float, int]:
+        thr, total, clean = {}, 0.0, 0
         for s, (t, c, cost) in curves.items():
             k = int(np.argmax(c - lam * cost))
-            thr[s], total = float(t[k]), total + float(cost[k])
-        return thr, total
+            thr[s], total, clean = float(t[k]), total + float(cost[k]), clean + int(c[k])
+        return thr, total, clean
 
     lo, hi = 0.0, 1e6
     for _ in range(60):
         mid = (lo + hi) / 2
-        lo, hi = (lo, mid) if pick(mid)[1] <= budget else (mid, hi)
-    return pick(hi)
+        lo, hi = (mid, hi) if pick(mid)[2] >= min_clean * n_clean else (lo, mid)
+    thr, cost, _ = pick(lo)
+    return thr, cost
+
+
+def flagged_by_layer_b(urls: list[str]) -> np.ndarray:
+    """URLs Layer B flags: they go to Layer D whatever Layer C says."""
+    return np.array([check_typosquatting_deep(u)["flag"] is True for u in urls])
+
+
+def fit_segment_thresholds(urls: list[str], seg: np.ndarray, score: np.ndarray, y: np.ndarray,
+                           verified: np.ndarray) -> tuple[dict, float]:
+    """Segment thresholds on the validation URLs that only Layer C decides (not flagged by B)."""
+    m = ~flagged_by_layer_b(urls)
+    return segment_thresholds(seg[m], score[m], y[m], verified[m], int((y == 0).sum()))
+
+
+def routed_counts(y: np.ndarray, flag: np.ndarray, mask: np.ndarray) -> dict:
+    """Layer C alone on the rows in `mask`: flag = suspicious."""
+    ph, cl = (y == 1) & mask, (y == 0) & mask
+    return {"n": int(mask.sum()), "phishing_missed": int((ph & ~flag).sum()),
+            "recall": round(float((ph & flag).sum() / max(1, ph.sum())), 5),
+            "clean_recognized": round(float((cl & ~flag).sum() / max(1, cl.sum())), 5)}
+
+
+def _score_split(d: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
+    """(score, segment) of every URL with the saved models and cached host data."""
+    from url_classifier import predict
+    urls = d.url.tolist()
+    score, seg = [], []
+    for i in range(0, len(urls), 4096):
+        part = urls[i:i + 4096]
+        s, _, used = predict.score_urls(part, host_mode="cache")
+        raw = hf.raw_lookups(part, offline=True)
+        score.append(s)
+        seg += [hf.segment_of(u, raw[host_of(u)], bool(h)) for u, h in zip(part, used)]
+    return np.concatenate(score), np.array(seg)
+
+
+def thresholds_only() -> int:
+    """Refit the segment thresholds of the saved models on validation data (no training) and
+    update config.json plus the segment-threshold parts of the report."""
+    df = pd.read_csv(DATA_PATH)
+    va = df[df.split == "val"].reset_index(drop=True)
+    te = df[df.split == "test"].reset_index(drop=True)
+    y = {k: (d.label == "phishing").to_numpy().astype(np.int64) for k, d in (("val", va), ("test", te))}
+    ver = {k: (y[k] == 0) | d.source.isin(VERIFIED_SOURCES).to_numpy()
+           for k, d in (("val", va), ("test", te))}
+    score_v, seg_v = _score_split(va)
+    seg_thr, seg_cost = fit_segment_thresholds(va.url.tolist(), seg_v, score_v, y["val"], ver["val"])
+    cfg = json.loads((MODEL_DIR / "config.json").read_text(encoding="utf-8"))
+    cfg.update({"segment_thresholds": seg_thr, "segment_miss_cost_val": seg_cost,
+                "segment_min_clean_recognized_val": MIN_CLEAN_RECOGNIZED})
+    (MODEL_DIR / "config.json").write_text(json.dumps(cfg, indent=2), encoding="utf-8")
+    print("segment thresholds:", json.dumps(seg_thr), "| val miss cost:", seg_cost, flush=True)
+
+    report_path = REPORT_DIR / "metrics.json"
+    if report_path.exists():
+        score_t, seg_t = _score_split(te)
+        flag = score_t >= np.array([seg_thr.get(s, 0.0) for s in seg_t])
+        every = np.ones(len(te), bool)
+        report = json.loads(report_path.read_text(encoding="utf-8"))
+        report.update({k: cfg[k] for k in ("segment_thresholds", "segment_miss_cost_val",
+                                            "segment_min_clean_recognized_val")})
+        report["routed_system_test"]["segment_thresholds"] = {
+            "all": routed_counts(y["test"], flag, every),
+            "verified": routed_counts(y["test"], flag, ver["test"]),
+            "by_segment": {s: routed_counts(y["test"], flag, seg_t == s) for s in sorted(set(seg_t))}}
+        missed = te.assign(score=score_t, segment=seg_t)[(y["test"] == 1) & ~flag]
+        report["test_missed_phishing_examples"] = missed.sort_values("score").head(30)[
+            ["url", "source", "segment", "score"]].to_dict("records")
+        report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+        print("test (Layer C alone):", json.dumps(report["routed_system_test"]["segment_thresholds"]["all"]))
+    return 0
 
 
 def fit_xgb(xtr, ytr, xva, yva, seed: int) -> xgb.XGBClassifier:
@@ -231,7 +309,11 @@ def main() -> int:
                     help="load models/url_classifier/cnn.pt and cnn_b.pt instead of training them")
     ap.add_argument("--target-recall", type=float, default=0.998,
                     help="recall on verified validation phishing used to pick the thresholds")
+    ap.add_argument("--thresholds-only", action="store_true",
+                    help="only refit the segment thresholds of the saved models")
     args = ap.parse_args()
+    if args.thresholds_only:
+        return thresholds_only()
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     df = pd.read_csv(DATA_PATH)
@@ -336,17 +418,12 @@ def main() -> int:
             live = M[k]["live"][i:i + 20_000]
             segs += [hf.segment_of(u, raw[host_of(u)], bool(h)) for u, h in zip(part.url, live)]
         raw_seg[k] = np.array(segs)
-    single_v = np.where(Lv, p_host["val"] >= thr_host, p_lex["val"] >= thr_lex)
-    wv = np.where(ver["val"], VERIFIED_MISS_WEIGHT, 1.0) * (y["val"] == 1)
-    seg_thr, seg_cost = segment_thresholds(raw_seg["val"], score["val"], y["val"], ver["val"],
-                                           SEGMENT_BUDGET_FRACTION * float(wv[~single_v].sum()))
+    seg_thr, seg_cost = fit_segment_thresholds(va.url.tolist(), raw_seg["val"], score["val"],
+                                               y["val"], ver["val"])
     yt = y["test"]
 
     def routed(flag: np.ndarray, mask: np.ndarray) -> dict:
-        ph, cl = (yt == 1) & mask, (yt == 0) & mask
-        return {"n": int(mask.sum()), "phishing_missed": int((ph & ~flag).sum()),
-                "recall": round(float((ph & flag).sum() / max(1, ph.sum())), 5),
-                "clean_recognized": round(float((cl & ~flag).sum() / max(1, cl.sum())), 5)}
+        return routed_counts(yt, flag, mask)
 
     single_t = np.where(Lt, p_host["test"] >= thr_host, p_lex["test"] >= thr_lex)
     seg_t = score["test"] >= np.array([seg_thr.get(s, 0.0) for s in raw_seg["test"]])
@@ -376,6 +453,7 @@ def main() -> int:
             "host": {str(t): threshold_for_recall(y["val"][Lv][ver["val"][Lv]],
                                                   pv_host[ver["val"][Lv]], t) for t in RECALL_TARGETS}},
         "segment_thresholds": seg_thr, "segment_miss_cost_val": seg_cost,
+        "segment_min_clean_recognized_val": MIN_CLEAN_RECOGNIZED,
         "lexical_feature_names": lex_names, "host_feature_names": host_names,
     }
     (MODEL_DIR / "config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")

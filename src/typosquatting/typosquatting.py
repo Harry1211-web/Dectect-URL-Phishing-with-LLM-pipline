@@ -264,10 +264,9 @@ def check_typosquatting(url: str) -> RuleResult:
                 candidates.append(("homoglyph", 0, skeleton, skeleton))
             candidates += [("homoglyph", d, b, skeleton) for b, d, _ in _fuzzy_hits(skeleton)]
 
-        # Exact VN brand label on a foreign domain. Excluded: international brands and foreign
-        # country TLDs (shopee.com.mx, seabank.ph are the brands' own regional sites)
-        if (cand_is_brand and labels[cand]["category"] != INTL_CATEGORY
-                and not _is_foreign_cctld(suf)):
+        # Exact brand label on a non-official domain (binance.info, vietcombank.xyz). Excluded:
+        # foreign country TLDs (shopee.com.mx, google.de are the brands' own regional sites)
+        if cand_is_brand and not _is_foreign_cctld(suf):
             candidates.append(("exact_label", 0, cand, cand))
 
         # Fuzzy match on the main label and on each hyphen part ("vietcombamk-online")

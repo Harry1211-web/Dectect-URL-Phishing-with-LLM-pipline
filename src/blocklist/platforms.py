@@ -23,6 +23,17 @@ from url_utils import registrable_domain  # noqa: E402
 
 PLATFORMS_PATH = BLOCKLIST_DIR / "abused_platforms.txt"
 MIN_TENANTS = 5
+# A first path segment this short is a container, not a tenant: flowcode.com/p/<user>,
+# shoutout.wix.com/so/<id>, linktr.ee/u/<user> -> the tenant is the second segment
+MAX_CONTAINER_LEN = 4
+
+
+def _path_tenant(url: str) -> str:
+    """Tenant key of a URL on the platform's own host: '/user' or '/p/user'."""
+    segs = [s for s in url.split("?", 1)[0].split("#", 1)[0].split("/")[1:] if s]
+    if len(segs) >= 2 and len(segs[0]) <= MAX_CONTAINER_LEN:
+        return f"/{segs[0]}/{segs[1]}"
+    return "/" + (segs[0] if segs else "")
 
 
 def build_abused_platforms(exclude_urls: set[str] | None = None,
@@ -51,8 +62,7 @@ def build_abused_platforms(exclude_urls: set[str] | None = None,
                 if host not in (rd, "www." + rd):
                     tenants[rd].add(host)                   # subdomain tenant
                 else:
-                    segs = u.split("?", 1)[0].split("/")
-                    tenants[rd].add("/" + (segs[1] if len(segs) > 1 else ""))  # path tenant
+                    tenants[rd].add(_path_tenant(u))
     platforms = sorted(d for d, t in tenants.items() if len(t) >= min_tenants)
     PLATFORMS_PATH.write_text("\n".join(platforms), encoding="utf-8")
     return len(platforms)

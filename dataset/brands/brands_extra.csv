@@ -146,3 +146,8 @@ Finance,Official website of BMO; brand frequently impersonated by phishing (adde
 Finance,Official website of Barclays; brand frequently impersonated by phishing (added 2026-10-08),barclays,Barclays,https://www.barclays.co.uk/
 Finance,Official website of Danske Bank; brand frequently impersonated by phishing (added 2026-10-08),danskebank,Danske Bank,https://danskebank.com/
 Technology,Official website of Bing (Microsoft search); added so bing.* is not mistaken for a BingX typo (2026-10-08),bing,Bing,https://www.bing.com/
+Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",trendmicro,Trend Micro,https://www.trendmicro.com/
+Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",mcafee,McAfee,https://www.mcafee.com/
+Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",kaspersky,Kaspersky,https://www.kaspersky.com/
+Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",bitdefender,Bitdefender,https://www.bitdefender.com/
+Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",malwarebytes,Malwarebytes,https://www.malwarebytes.com/

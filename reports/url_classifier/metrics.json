@@ -1,9 +1,9 @@
 {
-  "trained_at": "2026-10-08T15:56:04.995460+00:00",
+  "trained_at": "2026-10-08T19:37:29.634218+00:00",
   "architecture": "stacking: 2 cross-fitted CNN/BiLSTM (cnn.pt, cnn_b.pt) -> cnn_score feature of the XGBoost lexical and host branches",
   "target_recall_on_verified_val": 0.998,
   "threshold_lexical": 0.036249756813049316,
-  "threshold_host": 0.0029527603182941675,
+  "threshold_host": 0.004070736933499575,
   "thresholds_by_val_recall": {
     "lexical": {
       "0.99": 0.09908614307641983,
@@ -15,40 +15,40 @@
       "1.0": 0.0020898617804050446
     },
     "host": {
-      "0.99": 0.04211984574794769,
-      "0.995": 0.013260710053145885,
-      "0.996": 0.0088263638317585,
-      "0.997": 0.004496460780501366,
-      "0.998": 0.0029527603182941675,
-      "0.999": 0.0013094416353851557,
-      "1.0": 0.0001915317407110706
+      "0.99": 0.06486733257770538,
+      "0.995": 0.015857456251978874,
+      "0.996": 0.010740192607045174,
+      "0.997": 0.006129856687039137,
+      "0.998": 0.004070736933499575,
+      "0.999": 0.00135037861764431,
+      "1.0": 0.00021256363834254444
     }
   },
   "segment_thresholds": {
-    "host_old_unranked_bare": 0.011085727252066135,
-    "host_old_unranked_path": 0.006046931724995375,
-    "host_other_bare": 0.008258539251983166,
-    "host_other_path": 0.009639359079301357,
-    "host_ranked_bare": 0.0034767300821840763,
-    "host_ranked_path": 0.002054504118859768,
-    "host_top100k_bare": 0.012770652770996094,
-    "host_top100k_path": 0.0023081901017576456,
+    "host_old_unranked_bare": 0.005522103514522314,
+    "host_old_unranked_path": 0.01177029125392437,
+    "host_other_bare": 0.0071047586388885975,
+    "host_other_path": 0.05438924953341484,
+    "host_ranked_bare": 0.0021212799474596977,
+    "host_ranked_path": 0.0034106061793863773,
+    "host_top100k_bare": 0.006129856687039137,
+    "host_top100k_path": 0.0004443830985110253,
     "host_top10k_bare": 1.01,
-    "host_top10k_path": 0.0088263638317585,
+    "host_top10k_path": 0.0031041749753057957,
     "lexical_bare": 0.008726583793759346,
     "lexical_path": 0.0
   },
-  "segment_miss_cost_val": 30.0,
+  "segment_miss_cost_val": 10.0,
   "data": {
     "train": 375179,
     "val": 79359,
     "test": 81633,
     "dropped_noisy": 1442,
-    "host_branch_train_rows": 173143,
+    "host_branch_train_rows": 280008,
     "host_data": {
       "train": {
         "live": 280010,
-        "live_and_complete": 173143
+        "live_and_complete": 280008
       },
       "val": {
         "live": 59413,
@@ -61,8 +61,8 @@
     }
   },
   "train_seconds": {
-    "cnn": 250,
-    "xgb_lexical": 20
+    "cnn": 0,
+    "xgb_lexical": 16
   },
   "results": {
     "cnn_bilstm_only": {
@@ -417,350 +417,350 @@
     },
     "host_branch_live": {
       "n_test": 61340,
-      "test_roc_auc": 0.99377,
-      "test_pr_auc": 0.99005,
+      "test_roc_auc": 0.99415,
+      "test_pr_auc": 0.99056,
       "operating_points": {
         "val_recall_0.99": {
           "test_verified": {
-            "threshold": 0.04212,
-            "recall": 0.98931,
-            "fpr_clean_sent_to_llm": 0.14805,
-            "clean_recognized": 0.85195,
-            "precision": 0.39172,
-            "TP": 3981,
-            "FN": 43,
-            "FP": 6182,
-            "TN": 35573
+            "threshold": 0.064867,
+            "recall": 0.98807,
+            "fpr_clean_sent_to_llm": 0.10528,
+            "clean_recognized": 0.89472,
+            "precision": 0.47492,
+            "TP": 3976,
+            "FN": 48,
+            "FP": 4396,
+            "TN": 37359
           },
           "test": {
-            "threshold": 0.04212,
-            "recall": 0.9878,
-            "fpr_clean_sent_to_llm": 0.14805,
-            "clean_recognized": 0.85195,
-            "precision": 0.75783,
-            "TP": 19346,
-            "FN": 239,
-            "FP": 6182,
-            "TN": 35573
+            "threshold": 0.064867,
+            "recall": 0.98346,
+            "fpr_clean_sent_to_llm": 0.10528,
+            "clean_recognized": 0.89472,
+            "precision": 0.81418,
+            "TP": 19261,
+            "FN": 324,
+            "FP": 4396,
+            "TN": 37359
           }
         },
         "val_recall_0.995": {
           "test_verified": {
-            "threshold": 0.013261,
-            "recall": 0.99379,
-            "fpr_clean_sent_to_llm": 0.29448,
-            "clean_recognized": 0.70552,
-            "precision": 0.24541,
-            "TP": 3999,
-            "FN": 25,
-            "FP": 12296,
-            "TN": 29459
+            "threshold": 0.015857,
+            "recall": 0.99404,
+            "fpr_clean_sent_to_llm": 0.26969,
+            "clean_recognized": 0.73031,
+            "precision": 0.26211,
+            "TP": 4000,
+            "FN": 24,
+            "FP": 11261,
+            "TN": 30494
           },
           "test": {
-            "threshold": 0.013261,
-            "recall": 0.99581,
-            "fpr_clean_sent_to_llm": 0.29448,
-            "clean_recognized": 0.70552,
-            "precision": 0.61332,
-            "TP": 19503,
-            "FN": 82,
-            "FP": 12296,
-            "TN": 29459
+            "threshold": 0.015857,
+            "recall": 0.99525,
+            "fpr_clean_sent_to_llm": 0.26969,
+            "clean_recognized": 0.73031,
+            "precision": 0.63382,
+            "TP": 19492,
+            "FN": 93,
+            "FP": 11261,
+            "TN": 30494
           }
         },
         "val_recall_0.996": {
           "test_verified": {
-            "threshold": 0.008826,
-            "recall": 0.99528,
-            "fpr_clean_sent_to_llm": 0.33663,
-            "clean_recognized": 0.66337,
-            "precision": 0.22175,
-            "TP": 4005,
-            "FN": 19,
-            "FP": 14056,
-            "TN": 27699
+            "threshold": 0.01074,
+            "recall": 0.99602,
+            "fpr_clean_sent_to_llm": 0.31675,
+            "clean_recognized": 0.68325,
+            "precision": 0.23256,
+            "TP": 4008,
+            "FN": 16,
+            "FP": 13226,
+            "TN": 28529
           },
           "test": {
-            "threshold": 0.008826,
-            "recall": 0.99724,
-            "fpr_clean_sent_to_llm": 0.33663,
-            "clean_recognized": 0.66337,
-            "precision": 0.5815,
-            "TP": 19531,
-            "FN": 54,
-            "FP": 14056,
-            "TN": 27699
+            "threshold": 0.01074,
+            "recall": 0.99729,
+            "fpr_clean_sent_to_llm": 0.31675,
+            "clean_recognized": 0.68325,
+            "precision": 0.59625,
+            "TP": 19532,
+            "FN": 53,
+            "FP": 13226,
+            "TN": 28529
           }
         },
         "val_recall_0.997": {
           "test_verified": {
-            "threshold": 0.004496,
+            "threshold": 0.00613,
             "recall": 0.99652,
-            "fpr_clean_sent_to_llm": 0.39217,
-            "clean_recognized": 0.60783,
-            "precision": 0.19671,
+            "fpr_clean_sent_to_llm": 0.37593,
+            "clean_recognized": 0.62407,
+            "precision": 0.20348,
             "TP": 4010,
             "FN": 14,
-            "FP": 16375,
-            "TN": 25380
+            "FP": 15697,
+            "TN": 26058
           },
           "test": {
-            "threshold": 0.004496,
-            "recall": 0.99811,
-            "fpr_clean_sent_to_llm": 0.39217,
-            "clean_recognized": 0.60783,
-            "precision": 0.54416,
-            "TP": 19548,
-            "FN": 37,
-            "FP": 16375,
-            "TN": 25380
+            "threshold": 0.00613,
+            "recall": 0.99821,
+            "fpr_clean_sent_to_llm": 0.37593,
+            "clean_recognized": 0.62407,
+            "precision": 0.55466,
+            "TP": 19550,
+            "FN": 35,
+            "FP": 15697,
+            "TN": 26058
           }
         },
         "val_recall_0.998": {
           "test_verified": {
-            "threshold": 0.002953,
-            "recall": 0.99702,
-            "fpr_clean_sent_to_llm": 0.4284,
-            "clean_recognized": 0.5716,
-            "precision": 0.1832,
-            "TP": 4012,
-            "FN": 12,
-            "FP": 17888,
-            "TN": 23867
+            "threshold": 0.004071,
+            "recall": 0.99727,
+            "fpr_clean_sent_to_llm": 0.41686,
+            "clean_recognized": 0.58314,
+            "precision": 0.18736,
+            "TP": 4013,
+            "FN": 11,
+            "FP": 17406,
+            "TN": 24349
           },
           "test": {
-            "threshold": 0.002953,
+            "threshold": 0.004071,
             "recall": 0.99857,
-            "fpr_clean_sent_to_llm": 0.4284,
-            "clean_recognized": 0.5716,
-            "precision": 0.52229,
+            "fpr_clean_sent_to_llm": 0.41686,
+            "clean_recognized": 0.58314,
+            "precision": 0.5291,
             "TP": 19557,
             "FN": 28,
-            "FP": 17888,
-            "TN": 23867
+            "FP": 17406,
+            "TN": 24349
           }
         },
         "val_recall_0.999": {
           "test_verified": {
-            "threshold": 0.001309,
-            "recall": 0.99851,
-            "fpr_clean_sent_to_llm": 0.51594,
-            "clean_recognized": 0.48406,
-            "precision": 0.15719,
-            "TP": 4018,
-            "FN": 6,
-            "FP": 21543,
-            "TN": 20212
+            "threshold": 0.00135,
+            "recall": 0.99901,
+            "fpr_clean_sent_to_llm": 0.55452,
+            "clean_recognized": 0.44548,
+            "precision": 0.14794,
+            "TP": 4020,
+            "FN": 4,
+            "FP": 23154,
+            "TN": 18601
           },
           "test": {
-            "threshold": 0.001309,
-            "recall": 0.99944,
-            "fpr_clean_sent_to_llm": 0.51594,
-            "clean_recognized": 0.48406,
-            "precision": 0.47606,
-            "TP": 19574,
-            "FN": 11,
-            "FP": 21543,
-            "TN": 20212
+            "threshold": 0.00135,
+            "recall": 0.9998,
+            "fpr_clean_sent_to_llm": 0.55452,
+            "clean_recognized": 0.44548,
+            "precision": 0.4582,
+            "TP": 19581,
+            "FN": 4,
+            "FP": 23154,
+            "TN": 18601
           }
         },
         "val_recall_1.0": {
           "test_verified": {
-            "threshold": 0.000192,
-            "recall": 0.99975,
-            "fpr_clean_sent_to_llm": 0.78987,
-            "clean_recognized": 0.21013,
-            "precision": 0.10872,
-            "TP": 4023,
-            "FN": 1,
-            "FP": 32981,
-            "TN": 8774
+            "threshold": 0.000213,
+            "recall": 1.0,
+            "fpr_clean_sent_to_llm": 0.83858,
+            "clean_recognized": 0.16142,
+            "precision": 0.10308,
+            "TP": 4024,
+            "FN": 0,
+            "FP": 35015,
+            "TN": 6740
           },
           "test": {
-            "threshold": 0.000192,
-            "recall": 0.99995,
-            "fpr_clean_sent_to_llm": 0.78987,
-            "clean_recognized": 0.21013,
-            "precision": 0.37257,
-            "TP": 19584,
-            "FN": 1,
-            "FP": 32981,
-            "TN": 8774
+            "threshold": 0.000213,
+            "recall": 1.0,
+            "fpr_clean_sent_to_llm": 0.83858,
+            "clean_recognized": 0.16142,
+            "precision": 0.3587,
+            "TP": 19585,
+            "FN": 0,
+            "FP": 35015,
+            "TN": 6740
           }
         }
       }
     },
     "host_branch_live_without_tranco": {
       "n_test": 61340,
-      "test_roc_auc": 0.98826,
-      "test_pr_auc": 0.98208,
+      "test_roc_auc": 0.98914,
+      "test_pr_auc": 0.98342,
       "operating_points": {
         "val_recall_0.99": {
           "test_verified": {
-            "threshold": 0.041118,
+            "threshold": 0.053779,
             "recall": 0.98534,
-            "fpr_clean_sent_to_llm": 0.2103,
-            "clean_recognized": 0.7897,
-            "precision": 0.31108,
+            "fpr_clean_sent_to_llm": 0.18405,
+            "clean_recognized": 0.81595,
+            "precision": 0.34034,
             "TP": 3965,
             "FN": 59,
-            "FP": 8781,
-            "TN": 32974
+            "FP": 7685,
+            "TN": 34070
           },
           "test": {
-            "threshold": 0.041118,
-            "recall": 0.98397,
-            "fpr_clean_sent_to_llm": 0.2103,
-            "clean_recognized": 0.7897,
-            "precision": 0.68697,
-            "TP": 19271,
-            "FN": 314,
-            "FP": 8781,
-            "TN": 32974
+            "threshold": 0.053779,
+            "recall": 0.98279,
+            "fpr_clean_sent_to_llm": 0.18405,
+            "clean_recognized": 0.81595,
+            "precision": 0.71466,
+            "TP": 19248,
+            "FN": 337,
+            "FP": 7685,
+            "TN": 34070
           }
         },
         "val_recall_0.995": {
           "test_verified": {
-            "threshold": 0.020034,
-            "recall": 0.99155,
-            "fpr_clean_sent_to_llm": 0.34358,
-            "clean_recognized": 0.65642,
-            "precision": 0.2176,
-            "TP": 3990,
-            "FN": 34,
-            "FP": 14346,
-            "TN": 27409
+            "threshold": 0.030028,
+            "recall": 0.9918,
+            "fpr_clean_sent_to_llm": 0.27609,
+            "clean_recognized": 0.72391,
+            "precision": 0.25717,
+            "TP": 3991,
+            "FN": 33,
+            "FP": 11528,
+            "TN": 30227
           },
           "test": {
-            "threshold": 0.020034,
-            "recall": 0.9928,
-            "fpr_clean_sent_to_llm": 0.34358,
-            "clean_recognized": 0.65642,
-            "precision": 0.57544,
-            "TP": 19444,
-            "FN": 141,
-            "FP": 14346,
-            "TN": 27409
+            "threshold": 0.030028,
+            "recall": 0.99071,
+            "fpr_clean_sent_to_llm": 0.27609,
+            "clean_recognized": 0.72391,
+            "precision": 0.6273,
+            "TP": 19403,
+            "FN": 182,
+            "FP": 11528,
+            "TN": 30227
           }
         },
         "val_recall_0.996": {
           "test_verified": {
-            "threshold": 0.017307,
-            "recall": 0.99205,
-            "fpr_clean_sent_to_llm": 0.3739,
-            "clean_recognized": 0.6261,
-            "precision": 0.20363,
-            "TP": 3992,
-            "FN": 32,
-            "FP": 15612,
-            "TN": 26143
+            "threshold": 0.024769,
+            "recall": 0.99304,
+            "fpr_clean_sent_to_llm": 0.31294,
+            "clean_recognized": 0.68706,
+            "precision": 0.23419,
+            "TP": 3996,
+            "FN": 28,
+            "FP": 13067,
+            "TN": 28688
           },
           "test": {
-            "threshold": 0.017307,
-            "recall": 0.99382,
-            "fpr_clean_sent_to_llm": 0.3739,
-            "clean_recognized": 0.6261,
-            "precision": 0.55491,
-            "TP": 19464,
-            "FN": 121,
-            "FP": 15612,
-            "TN": 26143
+            "threshold": 0.024769,
+            "recall": 0.99219,
+            "fpr_clean_sent_to_llm": 0.31294,
+            "clean_recognized": 0.68706,
+            "precision": 0.59793,
+            "TP": 19432,
+            "FN": 153,
+            "FP": 13067,
+            "TN": 28688
           }
         },
         "val_recall_0.997": {
           "test_verified": {
-            "threshold": 0.013893,
-            "recall": 0.99304,
-            "fpr_clean_sent_to_llm": 0.41954,
-            "clean_recognized": 0.58046,
-            "precision": 0.18574,
-            "TP": 3996,
-            "FN": 28,
-            "FP": 17518,
-            "TN": 24237
+            "threshold": 0.017584,
+            "recall": 0.99404,
+            "fpr_clean_sent_to_llm": 0.37938,
+            "clean_recognized": 0.62062,
+            "precision": 0.2016,
+            "TP": 4000,
+            "FN": 24,
+            "FP": 15841,
+            "TN": 25914
           },
           "test": {
-            "threshold": 0.013893,
-            "recall": 0.9952,
-            "fpr_clean_sent_to_llm": 0.41954,
-            "clean_recognized": 0.58046,
-            "precision": 0.52666,
-            "TP": 19491,
-            "FN": 94,
-            "FP": 17518,
-            "TN": 24237
+            "threshold": 0.017584,
+            "recall": 0.99454,
+            "fpr_clean_sent_to_llm": 0.37938,
+            "clean_recognized": 0.62062,
+            "precision": 0.55149,
+            "TP": 19478,
+            "FN": 107,
+            "FP": 15841,
+            "TN": 25914
           }
         },
         "val_recall_0.998": {
           "test_verified": {
-            "threshold": 0.007831,
-            "recall": 0.99578,
-            "fpr_clean_sent_to_llm": 0.52947,
-            "clean_recognized": 0.47053,
-            "precision": 0.15344,
-            "TP": 4007,
-            "FN": 17,
-            "FP": 22108,
-            "TN": 19647
+            "threshold": 0.013885,
+            "recall": 0.99503,
+            "fpr_clean_sent_to_llm": 0.42706,
+            "clean_recognized": 0.57294,
+            "precision": 0.18337,
+            "TP": 4004,
+            "FN": 20,
+            "FP": 17832,
+            "TN": 23923
           },
           "test": {
-            "threshold": 0.007831,
-            "recall": 0.9977,
-            "fpr_clean_sent_to_llm": 0.52947,
-            "clean_recognized": 0.47053,
-            "precision": 0.46917,
-            "TP": 19540,
-            "FN": 45,
-            "FP": 22108,
-            "TN": 19647
+            "threshold": 0.013885,
+            "recall": 0.99571,
+            "fpr_clean_sent_to_llm": 0.42706,
+            "clean_recognized": 0.57294,
+            "precision": 0.52235,
+            "TP": 19501,
+            "FN": 84,
+            "FP": 17832,
+            "TN": 23923
           }
         },
         "val_recall_0.999": {
           "test_verified": {
-            "threshold": 0.00486,
-            "recall": 0.99677,
-            "fpr_clean_sent_to_llm": 0.60613,
-            "clean_recognized": 0.39387,
-            "precision": 0.1368,
-            "TP": 4011,
-            "FN": 13,
-            "FP": 25309,
-            "TN": 16446
+            "threshold": 0.005982,
+            "recall": 0.99751,
+            "fpr_clean_sent_to_llm": 0.58424,
+            "clean_recognized": 0.41576,
+            "precision": 0.14129,
+            "TP": 4014,
+            "FN": 10,
+            "FP": 24395,
+            "TN": 17360
           },
           "test": {
-            "threshold": 0.00486,
-            "recall": 0.99847,
-            "fpr_clean_sent_to_llm": 0.60613,
-            "clean_recognized": 0.39387,
-            "precision": 0.43587,
-            "TP": 19555,
-            "FN": 30,
-            "FP": 25309,
-            "TN": 16446
+            "threshold": 0.005982,
+            "recall": 0.99852,
+            "fpr_clean_sent_to_llm": 0.58424,
+            "clean_recognized": 0.41576,
+            "precision": 0.44495,
+            "TP": 19556,
+            "FN": 29,
+            "FP": 24395,
+            "TN": 17360
           }
         },
         "val_recall_1.0": {
           "test_verified": {
-            "threshold": 0.001288,
-            "recall": 0.99851,
-            "fpr_clean_sent_to_llm": 0.76719,
-            "clean_recognized": 0.23281,
-            "precision": 0.11145,
-            "TP": 4018,
-            "FN": 6,
-            "FP": 32034,
-            "TN": 9721
+            "threshold": 0.000866,
+            "recall": 0.99925,
+            "fpr_clean_sent_to_llm": 0.81722,
+            "clean_recognized": 0.18278,
+            "precision": 0.10542,
+            "TP": 4021,
+            "FN": 3,
+            "FP": 34123,
+            "TN": 7632
           },
           "test": {
-            "threshold": 0.001288,
-            "recall": 0.99954,
-            "fpr_clean_sent_to_llm": 0.76719,
-            "clean_recognized": 0.23281,
-            "precision": 0.37931,
-            "TP": 19576,
-            "FN": 9,
-            "FP": 32034,
-            "TN": 9721
+            "threshold": 0.000866,
+            "recall": 0.99969,
+            "fpr_clean_sent_to_llm": 0.81722,
+            "clean_recognized": 0.18278,
+            "precision": 0.36459,
+            "TP": 19579,
+            "FN": 6,
+            "FP": 34123,
+            "TN": 7632
           }
         }
       }
@@ -947,76 +947,76 @@
         "n": 81633,
         "phishing_missed": 72,
         "recall": 0.99817,
-        "clean_recognized": 0.56421
-      },
-      "verified": {
-        "n": 47916,
-        "phishing_missed": 13,
-        "recall": 0.99766,
-        "clean_recognized": 0.56421
-      }
-    },
-    "segment_thresholds": {
-      "all": {
-        "n": 81633,
-        "phishing_missed": 38,
-        "recall": 0.99903,
-        "clean_recognized": 0.60351
+        "clean_recognized": 0.57559
       },
       "verified": {
         "n": 47916,
         "phishing_missed": 12,
         "recall": 0.99784,
-        "clean_recognized": 0.60351
+        "clean_recognized": 0.57559
+      }
+    },
+    "segment_thresholds": {
+      "all": {
+        "n": 81633,
+        "phishing_missed": 12,
+        "recall": 0.99969,
+        "clean_recognized": 0.51514
+      },
+      "verified": {
+        "n": 47916,
+        "phishing_missed": 3,
+        "recall": 0.99946,
+        "clean_recognized": 0.51514
       },
       "by_segment": {
         "host_old_unranked_bare": {
           "n": 10177,
-          "phishing_missed": 6,
-          "recall": 0.99534,
-          "clean_recognized": 0.17233
+          "phishing_missed": 1,
+          "recall": 0.99922,
+          "clean_recognized": 0.06952
         },
         "host_old_unranked_path": {
           "n": 2868,
-          "phishing_missed": 1,
-          "recall": 0.99962,
-          "clean_recognized": 0.17094
-        },
-        "host_other_bare": {
-          "n": 12329,
-          "phishing_missed": 1,
-          "recall": 0.99987,
-          "clean_recognized": 0.05544
-        },
-        "host_other_path": {
-          "n": 7183,
-          "phishing_missed": 1,
-          "recall": 0.99986,
-          "clean_recognized": 0.19643
-        },
-        "host_ranked_bare": {
-          "n": 7108,
-          "phishing_missed": 8,
-          "recall": 0.95812,
-          "clean_recognized": 0.7178
-        },
-        "host_ranked_path": {
-          "n": 14179,
-          "phishing_missed": 4,
-          "recall": 0.98582,
-          "clean_recognized": 0.88206
-        },
-        "host_top100k_bare": {
-          "n": 2011,
           "phishing_missed": 0,
           "recall": 1.0,
-          "clean_recognized": 0.96758
+          "clean_recognized": 0.18376
+        },
+        "host_other_bare": {
+          "n": 12355,
+          "phishing_missed": 1,
+          "recall": 0.99988,
+          "clean_recognized": 0.07131
+        },
+        "host_other_path": {
+          "n": 7303,
+          "phishing_missed": 2,
+          "recall": 0.99971,
+          "clean_recognized": 0.36713
+        },
+        "host_ranked_bare": {
+          "n": 7090,
+          "phishing_missed": 0,
+          "recall": 1.0,
+          "clean_recognized": 0.53564
+        },
+        "host_ranked_path": {
+          "n": 14138,
+          "phishing_missed": 5,
+          "recall": 0.97925,
+          "clean_recognized": 0.89264
+        },
+        "host_top100k_bare": {
+          "n": 2003,
+          "phishing_missed": 0,
+          "recall": 1.0,
+          "clean_recognized": 0.93414
         },
         "host_top100k_path": {
-          "n": 3727,
-          "phishing_missed": 8,
-          "recall": 0.95402,
-          "clean_recognized": 0.83901
+          "n": 3680,
+          "phishing_missed": 0,
+          "recall": 1.0,
+          "clean_recognized": 0.37912
         },
         "host_top10k_bare": {
           "n": 504,
@@ -1025,10 +1025,10 @@
           "clean_recognized": 1.0
         },
         "host_top10k_path": {
-          "n": 1254,
-          "phishing_missed": 8,
-          "recall": 0.91579,
-          "clean_recognized": 0.92235
+          "n": 1222,
+          "phishing_missed": 2,
+          "recall": 0.97101,
+          "clean_recognized": 0.80659
         },
         "lexical_bare": {
           "n": 8558,
@@ -1047,306 +1047,199 @@
   },
   "test_missed_phishing_examples": [
     {
-      "url": "https://eco.sapo.pt/2025/11/17/hoje-nas-noticias-novobanco-vistos-gold-e-outsourcing/",
-      "source": "phishtank",
-      "segment": "host_top10k_path",
-      "score": 0.0001879136689240113
-    },
-    {
-      "url": "https://www.itau.com.py/Paginas/tusobjetivos_futuro",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.00020725610374938697
-    },
-    {
-      "url": "http://www.litespeedtech.com/products/litespeed-web-server",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.0003617603797465563
-    },
-    {
-      "url": "https://www.flowcode.com/page/barrysmith",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.0003741879772860557
-    },
-    {
       "url": "http://www.med.siam.edu",
       "source": "phiusiil",
       "segment": "lexical_bare",
       "score": 0.0005944303702563047
     },
     {
-      "url": "https://charity.gofundme.com/o/en/campaign/help-clifton-cyclone-bloods",
-      "source": "phishing_database",
+      "url": "https://eco.sapo.pt/2025/11/17/hoje-nas-noticias-novobanco-vistos-gold-e-outsourcing/",
+      "source": "phishtank",
       "segment": "host_top10k_path",
-      "score": 0.0007116083288565278
+      "score": 0.0010234207147732377
     },
     {
-      "url": "http://alturl.com/vciar",
+      "url": "http://www.stmarouns.nsw.edu.au",
       "source": "phiusiil",
-      "segment": "host_top100k_path",
-      "score": 0.0007149039302021265
-    },
-    {
-      "url": "https://biolinky.co/infosever/",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.0007951239822432399
-    },
-    {
-      "url": "https://linkpop.com/consullimasilvas",
-      "source": "phiusiil",
-      "segment": "host_ranked_path",
-      "score": 0.0008920799009501934
-    },
-    {
-      "url": "https://htbilisim.com/boss",
-      "source": "phishing_database",
-      "segment": "host_ranked_path",
-      "score": 0.0008953767828643322
-    },
-    {
-      "url": "https://www.flowcode.com/page/margidn",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.0010723420418798923
-    },
-    {
-      "url": "http://www.modcombo.com/spotify-premium.html",
-      "source": "phiusiil",
-      "segment": "host_ranked_path",
-      "score": 0.0012406896566972136
-    },
-    {
-      "url": "https://charity.gofundme.com/o/en/campaign/help-build-a-better-life-corp",
-      "source": "phishing_database",
-      "segment": "host_top10k_path",
-      "score": 0.0014711035182699561
-    },
-    {
-      "url": "https://www.flowcode.com/page/sharon99",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.001520001096650958
+      "segment": "host_other_bare",
+      "score": 0.0014015656197443604
     },
     {
       "url": "https://robinhood.com/account/crypto?applink=crypto_transfer%3Faction%3Denroll",
       "source": "phishtank",
       "segment": "host_top10k_path",
-      "score": 0.0017186799086630344
+      "score": 0.0017920911777764559
     },
     {
-      "url": "http://www.adcash.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.001836290000937879
-    },
-    {
-      "url": "https://biolinky.co/homebtee",
-      "source": "phishtank",
-      "segment": "host_top100k_path",
-      "score": 0.001842079684138298
-    },
-    {
-      "url": "http://www.litecoin.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.0019281362183392048
-    },
-    {
-      "url": "https://linkpop.com/https-currently-att-yahoo-co",
-      "source": "phishtank",
-      "segment": "host_ranked_path",
-      "score": 0.001983318943530321
-    },
-    {
-      "url": "https://rpp.pe/noticias/prestamos",
-      "source": "phishtank",
-      "segment": "host_top10k_path",
-      "score": 0.0020890464074909687
-    },
-    {
-      "url": "http://www.laotiantimes.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.002179764909669757
-    },
-    {
-      "url": "http://www.pakjapannews.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.0021903025917708874
-    },
-    {
-      "url": "http://www.newtrendmicro.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.0026892307214438915
-    },
-    {
-      "url": "http://www.freewebtools.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.0028442388866096735
-    },
-    {
-      "url": "http://www.webspawner.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.003147567855194211
-    },
-    {
-      "url": "http://www.fromthetrenchesworldreport.com",
-      "source": "phiusiil",
-      "segment": "host_ranked_bare",
-      "score": 0.0031558298505842686
-    },
-    {
-      "url": "https://makecustomgifts.com/collections/photo-pajamas",
+      "url": "https://htbilisim.com/boss",
       "source": "phishing_database",
-      "segment": "host_old_unranked_path",
-      "score": 0.0037743498105555773
+      "segment": "host_ranked_path",
+      "score": 0.0019212744664400816
     },
     {
-      "url": "http://www.partners.com",
+      "url": "http://www.modcombo.com/spotify-premium.html",
+      "source": "phiusiil",
+      "segment": "host_ranked_path",
+      "score": 0.002102386439219117
+    },
+    {
+      "url": "https://www.netigate.se/ra/s.aspx?s=1256811x472378965x77084",
+      "source": "phishing_database",
+      "segment": "host_ranked_path",
+      "score": 0.002230025129392743
+    },
+    {
+      "url": "https://www.livralivro.com.br/livro/curso-pratico-de-matematica/743119.html",
+      "source": "phishing_database",
+      "segment": "host_ranked_path",
+      "score": 0.003048291429877281
+    },
+    {
+      "url": "https://www.hospitalrecruiting.com/wle/login",
+      "source": "phishing_database",
+      "segment": "host_ranked_path",
+      "score": 0.003309165360406041
+    },
+    {
+      "url": "http://www.marketingstrategiesinc.com",
       "source": "phiusiil",
       "segment": "host_old_unranked_bare",
-      "score": 0.004469580482691526
+      "score": 0.003396370215341449
     },
     {
-      "url": "http://www.charliecaper.com",
-      "source": "phiusiil",
-      "segment": "host_old_unranked_bare",
-      "score": 0.004658387508243322
+      "url": "https://modspoti.com/spotifys-game-changing-feature-exclude-from-your-taste-profile",
+      "source": "phishing_database",
+      "segment": "host_other_path",
+      "score": 0.02120230905711651
     },
     {
-      "url": "https://www.binance.info/en/?bfp",
-      "source": "phiusiil",
-      "segment": "host_top10k_path",
-      "score": 0.0050236876122653484
+      "url": "https://keensalmon.org/en-ca/legal",
+      "source": "phishtank",
+      "segment": "host_other_path",
+      "score": 0.024665364995598793
     }
   ],
   "top_features_host_branch": [
     [
       "in_tranco",
-      0.38403451442718506
+      0.27819401025772095
     ],
     [
       "cnn_score",
-      0.2166132628917694
-    ],
-    [
-      "tranco_log_rank",
-      0.06317020952701569
+      0.20623965561389923
     ],
     [
       "n_subdomain_labels",
-      0.04768572375178337
+      0.1461360603570938
+    ],
+    [
+      "tranco_log_rank",
+      0.04628521576523781
     ],
     [
       "is_free_hosting",
-      0.043584201484918594
+      0.04231852665543556
     ],
     [
       "path_len",
-      0.022520357742905617
-    ],
-    [
-      "tls_ok",
-      0.015578562393784523
+      0.03019776940345764
     ],
     [
       "tls_cn_matches",
-      0.0126029746606946
+      0.029513010755181313
+    ],
+    [
+      "tls_ok",
+      0.016881709918379784
     ],
     [
       "n_path_segments",
-      0.011644936166703701
-    ],
-    [
-      "n_host_dots",
-      0.008212578482925892
+      0.011930902488529682
     ],
     [
       "domain_age_days",
-      0.00708602461963892
+      0.009466858580708504
     ],
     [
-      "tld_org",
-      0.006935773883014917
+      "n_host_dots",
+      0.009003924205899239
     ],
     [
-      "embedded_on_untrusted_host",
-      0.006687387824058533
+      "url_len",
+      0.007584665436297655
     ],
     [
       "dns_has_mx",
-      0.005256169475615025
+      0.0071665821596980095
     ],
     [
-      "tls_free_ca",
-      0.005123492330312729
+      "tld_org",
+      0.006805345416069031
     ],
     [
-      "has_hex_string",
-      0.005118647590279579
-    ],
-    [
-      "tld_de",
-      0.0048399739898741245
-    ],
-    [
-      "n_embedded_urls",
-      0.0048248120583593845
-    ],
-    [
-      "url_entropy",
-      0.004395794123411179
-    ],
-    [
-      "digit_ratio",
-      0.004269185476005077
+      "embedded_on_untrusted_host",
+      0.005727935582399368
     ],
     [
       "tld_len",
-      0.004224610980600119
+      0.005443328060209751
+    ],
+    [
+      "tls_free_ca",
+      0.00521604111418128
+    ],
+    [
+      "has_hex_string",
+      0.004953199997544289
+    ],
+    [
+      "tld_dev",
+      0.004884519148617983
+    ],
+    [
+      "n_embedded_urls",
+      0.004496758803725243
     ],
     [
       "tls_validity_days",
-      0.003969107288867235
+      0.004423336125910282
     ],
     [
       "dns_n_a",
-      0.0039168354123830795
+      0.0041241091676056385
     ],
     [
-      "has_file_ext",
-      0.0038772409316152334
+      "digit_ratio",
+      0.004119507968425751
+    ],
+    [
+      "tld_de",
+      0.0040066298097372055
     ],
     [
       "tls_wildcard",
-      0.003165058558806777
-    ],
-    [
-      "tld_us",
-      0.0030882067512720823
+      0.0038085030391812325
     ],
     [
       "tls_n_san",
-      0.0029824660159647465
-    ],
-    [
-      "upper_ratio",
-      0.002977622440084815
-    ],
-    [
-      "longest_token_len",
-      0.002853146055713296
+      0.0036496715620160103
     ],
     [
       "domain_label_len",
-      0.0028289444744586945
+      0.003364080097526312
+    ],
+    [
+      "tld_io",
+      0.0032086968421936035
+    ],
+    [
+      "dns_min_ttl",
+      0.0029454566538333893
+    ],
+    [
+      "n_host_digits",
+      0.002765115350484848
     ]
-  ]
+  ],
+  "segment_min_clean_recognized_val": 0.5
 }

@@ -2,25 +2,120 @@
   "dl_jw": {
     "clean_tranco_top100k": {
       "n": 100000,
-      "flagged": 115,
-      "flag_rate": 0.00115,
+      "flagged": 225,
+      "flag_rate": 0.00225,
       "by_kind": {
+        "exact_label": 116,
         "typosquat": 98,
-        "embedded": 10,
-        "exact_label": 7
+        "embedded": 11
       },
-      "latency_ms_p50": 0.278,
-      "latency_ms_p95": 0.45,
+      "latency_ms_p50": 0.302,
+      "latency_ms_p95": 0.474,
       "examples": [
+        {
+          "url": "https://whatsapp.net/",
+          "brand": "whatsapp",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://cloudflare.net/",
+          "brand": "cloudflare",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://office365.com/",
+          "brand": "office365",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://amazon.dev/",
+          "brand": "amazon",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://xiaomi.com/",
+          "brand": "xiaomi",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://telekom.net/",
+          "brand": "telekom",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://playstation.net/",
+          "brand": "playstation",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://facebook.net/",
+          "brand": "facebook",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://netflix.net/",
+          "brand": "netflix",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://adobe.net/",
+          "brand": "adobe",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://bitdefender.net/",
+          "brand": "bitdefender",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://discord.media/",
+          "brand": "discord",
+          "kind": "exact_label"
+        },
         {
           "url": "https://hicloud.com/",
           "brand": "icloud",
           "kind": "typosquat"
         },
         {
+          "url": "https://xiaomi.net/",
+          "brand": "xiaomi",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://nintendo.net/",
+          "brand": "nintendo",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://rakuten.com/",
+          "brand": "rakuten",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://zoom.com/",
+          "brand": "zoom",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://tbank.ru/",
           "brand": "mtbank",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://att.net/",
+          "brand": "att",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://epicgames.dev/",
+          "brand": "epicgames",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://kakao.com/",
+          "brand": "kakao",
+          "kind": "exact_label"
         },
         {
           "url": "https://manulife-sinochem.com/",
@@ -33,9 +128,64 @@
           "kind": "typosquat"
         },
         {
+          "url": "https://bing.net/",
+          "brand": "bing",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://stripe.network/",
+          "brand": "stripe",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://apple.news/",
+          "brand": "apple",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://telegra.ph/",
           "brand": "telegram",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://onedrive.com/",
+          "brand": "onedrive",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://hbomax.com/",
+          "brand": "hbomax",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://klarna.net/",
+          "brand": "klarna",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://phantom.app/",
+          "brand": "phantom",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://yahoo.cloud/",
+          "brand": "yahoo",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://square.site/",
+          "brand": "square",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://yahoo.net/",
+          "brand": "yahoo",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://google.com.vn/",
+          "brand": "google",
+          "kind": "exact_label"
         },
         {
           "url": "https://strip2.co/",
@@ -48,186 +198,36 @@
           "kind": "embedded"
         },
         {
-          "url": "https://correios.com.br/",
-          "brand": "correos",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://ussp.io/",
-          "brand": "usps",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://telegraf.rs/",
-          "brand": "telegram",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://twister.porn/",
-          "brand": "twitter",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://my-imcloud.com/",
-          "brand": "icloud",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://oneidrive.org/",
-          "brand": "onedrive",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://googl.com/",
-          "brand": "google",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://xiaoyi.com/",
-          "brand": "xiaomi",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://vietel.com.vn/",
-          "brand": "viettel",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://napps-2.com/",
-          "brand": "napas",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://tokopediax.com/",
-          "brand": "tokopedia",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://stripes.com/",
-          "brand": "stripe",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://strip2.in/",
-          "brand": "stripe",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://napps-1.com/",
-          "brand": "napas",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://klarnaservices.com/",
-          "brand": "klarna",
-          "kind": "embedded"
-        },
-        {
-          "url": "https://tbank-online.com/",
-          "brand": "tpbank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://telkom.co.za/",
-          "brand": "telekom",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://mtsbank.ru/",
-          "brand": "mtbank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://servicewechat.com/",
-          "brand": "wechat",
-          "kind": "embedded"
-        },
-        {
-          "url": "https://gtbank.com/",
-          "brand": "gpbank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://zello.com/",
-          "brand": "zelle",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://mbank.pl/",
-          "brand": "mtbank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://grena.ge/",
-          "brand": "garena",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://deutschebahn.com/",
-          "brand": "deutschebank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://paypay.ne.jp/",
-          "brand": "paypal",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://c6bank.app/",
-          "brand": "cbbank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://aia.org/",
-          "brand": "aia",
+          "url": "https://pinterest.net/",
+          "brand": "pinterest",
           "kind": "exact_label"
         },
         {
-          "url": "https://lbank.com/",
-          "brand": "lpbank",
-          "kind": "typosquat"
+          "url": "https://wal-mart.com/",
+          "brand": "walmart",
+          "kind": "exact_label"
         },
         {
-          "url": "https://klara.com/",
-          "brand": "klarna",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://tawitter.com/",
-          "brand": "twitter",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://red-dot.org/",
-          "brand": "reddit",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://gbooking.ru/",
-          "brand": "booking",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://cebbank.com/",
-          "brand": "cbbank",
-          "kind": "typosquat"
+          "url": "https://docusign.net/",
+          "brand": "docusign",
+          "kind": "exact_label"
         }
       ]
     },
     "clean_crawled_test": {
       "n": 22270,
-      "flagged": 90,
-      "flag_rate": 0.00404,
+      "flagged": 102,
+      "flag_rate": 0.00458,
       "by_kind": {
         "typosquat": 16,
-        "exact_label": 13,
+        "exact_label": 25,
         "path_fake_domain": 6,
         "embedded": 42,
         "subdomain": 3,
         "path_brand_lure": 10
       },
-      "latency_ms_p50": 1.216,
-      "latency_ms_p95": 1.997,
+      "latency_ms_p50": 1.294,
+      "latency_ms_p95": 2.226,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -433,19 +433,19 @@
     },
     "phishing_test": {
       "n": 39266,
-      "flagged": 2712,
-      "flag_rate": 0.06907,
+      "flagged": 2941,
+      "flag_rate": 0.0749,
       "by_kind": {
         "path_brand_lure": 432,
-        "typosquat": 236,
+        "typosquat": 239,
         "path_fake_domain": 174,
-        "subdomain": 1652,
+        "exact_label": 233,
+        "subdomain": 1646,
         "embedded": 213,
-        "exact_label": 1,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.101,
-      "latency_ms_p95": 2.335,
+      "latency_ms_p50": 1.123,
+      "latency_ms_p95": 2.43,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -573,6 +573,11 @@
           "kind": "path_fake_domain"
         },
         {
+          "url": "http://abagag52627.square.site/",
+          "brand": "square",
+          "kind": "exact_label"
+        },
+        {
           "url": "http://abnamro.credit360.com/csr/site/login.acds?page=/csr/site/portal/home.acds",
           "brand": "abnamro",
           "kind": "subdomain"
@@ -641,11 +646,6 @@
           "url": "http://angloasiahelston.co.uk/jimkim7689jimkim7689/wellsfargo-update/a866b418a2036eb6e6d2a746ba65bf66",
           "brand": "wellsfargo",
           "kind": "path_brand_lure"
-        },
-        {
-          "url": "http://anmeldenamazon-gesperrteskontoentsperren.aba.vg/amazonde/7ce59755f7f0894892500ea2525966c1/billing.html?id=update_rlod?'.fb6c270c0ef78befd8f668bef9664f67.d8b1432e296872fa30cf3ecc869c696f3121b614.'",
-          "brand": "amazon",
-          "kind": "subdomain"
         }
       ]
     },
@@ -657,8 +657,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 1.228,
-      "latency_ms_p95": 2.246,
+      "latency_ms_p50": 1.203,
+      "latency_ms_p95": 2.067,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -821,20 +821,100 @@
   "dl_only": {
     "clean_tranco_top100k": {
       "n": 100000,
-      "flagged": 307,
-      "flag_rate": 0.00307,
+      "flagged": 417,
+      "flag_rate": 0.00417,
       "by_kind": {
+        "exact_label": 116,
         "typosquat": 290,
-        "embedded": 10,
-        "exact_label": 7
+        "embedded": 11
       },
-      "latency_ms_p50": 0.278,
-      "latency_ms_p95": 0.454,
+      "latency_ms_p50": 0.309,
+      "latency_ms_p95": 0.518,
       "examples": [
+        {
+          "url": "https://whatsapp.net/",
+          "brand": "whatsapp",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://cloudflare.net/",
+          "brand": "cloudflare",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://office365.com/",
+          "brand": "office365",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://amazon.dev/",
+          "brand": "amazon",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://xiaomi.com/",
+          "brand": "xiaomi",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://telekom.net/",
+          "brand": "telekom",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://playstation.net/",
+          "brand": "playstation",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://facebook.net/",
+          "brand": "facebook",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://netflix.net/",
+          "brand": "netflix",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://adobe.net/",
+          "brand": "adobe",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://bitdefender.net/",
+          "brand": "bitdefender",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://discord.media/",
+          "brand": "discord",
+          "kind": "exact_label"
+        },
         {
           "url": "https://hicloud.com/",
           "brand": "icloud",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://xiaomi.net/",
+          "brand": "xiaomi",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://nintendo.net/",
+          "brand": "nintendo",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://rakuten.com/",
+          "brand": "rakuten",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://zoom.com/",
+          "brand": "zoom",
+          "kind": "exact_label"
         },
         {
           "url": "https://tbank.ru/",
@@ -842,9 +922,24 @@
           "kind": "typosquat"
         },
         {
+          "url": "https://att.net/",
+          "brand": "att",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://xing.com/",
           "brand": "bing",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://epicgames.dev/",
+          "brand": "epicgames",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://kakao.com/",
+          "brand": "kakao",
+          "kind": "exact_label"
         },
         {
           "url": "https://manulife-sinochem.com/",
@@ -867,9 +962,24 @@
           "kind": "typosquat"
         },
         {
+          "url": "https://bing.net/",
+          "brand": "bing",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://usgs.gov/",
           "brand": "usps",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://stripe.network/",
+          "brand": "stripe",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://apple.news/",
+          "brand": "apple",
+          "kind": "exact_label"
         },
         {
           "url": "https://telegra.ph/",
@@ -877,9 +987,39 @@
           "kind": "typosquat"
         },
         {
+          "url": "https://onedrive.com/",
+          "brand": "onedrive",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://hbomax.com/",
+          "brand": "hbomax",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://klarna.net/",
+          "brand": "klarna",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://phantom.app/",
+          "brand": "phantom",
+          "kind": "exact_label"
+        },
+        {
+          "url": "https://yahoo.cloud/",
+          "brand": "yahoo",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://tamu.edu/",
           "brand": "temu",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://square.site/",
+          "brand": "square",
+          "kind": "exact_label"
         },
         {
           "url": "https://ncsu.edu/",
@@ -887,166 +1027,26 @@
           "kind": "typosquat"
         },
         {
-          "url": "https://loom.com/",
-          "brand": "zoom",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://ning.com/",
-          "brand": "bing",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://pcloud.com/",
-          "brand": "icloud",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://ansa.it/",
-          "brand": "absa",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://cisa.gov/",
-          "brand": "visa",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://ucloud.cn/",
-          "brand": "icloud",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://strip2.co/",
-          "brand": "stripe",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://joom.com/",
-          "brand": "zoom",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://mooo.com/",
-          "brand": "momo",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://shb-sync.com/",
-          "brand": "shb",
-          "kind": "embedded"
-        },
-        {
-          "url": "https://ucsc.edu/",
-          "brand": "ncsc",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://correios.com.br/",
-          "brand": "correos",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://moma.org/",
-          "brand": "momo",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://oclc.org/",
-          "brand": "ocbc",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://ussp.io/",
-          "brand": "usps",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://visx.net/",
-          "brand": "visa",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://avid.com/",
-          "brand": "auid",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://l-tike.com/",
-          "brand": "tiki",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://esri.com/",
-          "brand": "evri",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://bbox.fr/",
-          "brand": "xbox",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://icbc.com.cn/",
-          "brand": "ocbc",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://telegraf.rs/",
-          "brand": "telegram",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://misa.vn/",
-          "brand": "visa",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://bidgx.com/",
-          "brand": "bingx",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://psbank.ru/",
-          "brand": "usbank",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://umbc.edu/",
-          "brand": "smbc",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://twister.porn/",
-          "brand": "twitter",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://avple.tv/",
-          "brand": "apple",
-          "kind": "typosquat"
-        },
-        {
-          "url": "https://viki.com/",
-          "brand": "tiki",
-          "kind": "typosquat"
+          "url": "https://yahoo.net/",
+          "brand": "yahoo",
+          "kind": "exact_label"
         }
       ]
     },
     "clean_crawled_test": {
       "n": 22270,
-      "flagged": 123,
-      "flag_rate": 0.00552,
+      "flagged": 135,
+      "flag_rate": 0.00606,
       "by_kind": {
         "typosquat": 50,
-        "exact_label": 13,
+        "exact_label": 25,
         "path_fake_domain": 6,
         "embedded": 42,
         "subdomain": 3,
         "path_brand_lure": 9
       },
-      "latency_ms_p50": 1.21,
-      "latency_ms_p95": 2.027,
+      "latency_ms_p50": 1.288,
+      "latency_ms_p95": 2.226,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -1252,19 +1252,19 @@
     },
     "phishing_test": {
       "n": 39266,
-      "flagged": 2778,
-      "flag_rate": 0.07075,
+      "flagged": 3007,
+      "flag_rate": 0.07658,
       "by_kind": {
         "path_brand_lure": 432,
-        "typosquat": 280,
+        "typosquat": 283,
         "path_fake_domain": 174,
-        "subdomain": 1675,
+        "exact_label": 233,
+        "subdomain": 1669,
         "embedded": 212,
-        "exact_label": 1,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.101,
-      "latency_ms_p95": 2.313,
+      "latency_ms_p50": 1.118,
+      "latency_ms_p95": 2.499,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -1392,6 +1392,11 @@
           "kind": "path_fake_domain"
         },
         {
+          "url": "http://abagag52627.square.site/",
+          "brand": "square",
+          "kind": "exact_label"
+        },
+        {
           "url": "http://abnamro.credit360.com/csr/site/login.acds?page=/csr/site/portal/home.acds",
           "brand": "abnamro",
           "kind": "subdomain"
@@ -1460,11 +1465,6 @@
           "url": "http://angloasiahelston.co.uk/jimkim7689jimkim7689/wellsfargo-update/a866b418a2036eb6e6d2a746ba65bf66",
           "brand": "wellsfargo",
           "kind": "path_brand_lure"
-        },
-        {
-          "url": "http://anmeldenamazon-gesperrteskontoentsperren.aba.vg/amazonde/7ce59755f7f0894892500ea2525966c1/billing.html?id=update_rlod?'.fb6c270c0ef78befd8f668bef9664f67.d8b1432e296872fa30cf3ecc869c696f3121b614.'",
-          "brand": "amazon",
-          "kind": "subdomain"
         }
       ]
     },
@@ -1476,8 +1476,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 1.216,
-      "latency_ms_p95": 2.201,
+      "latency_ms_p50": 1.697,
+      "latency_ms_p95": 2.064,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",

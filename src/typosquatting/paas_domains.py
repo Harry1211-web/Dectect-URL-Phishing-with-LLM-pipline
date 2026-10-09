@@ -40,7 +40,7 @@ SHORTENERS: frozenset[str] = frozenset({
     "goo.gl", "buff.ly", "cutt.ly", "rebrand.ly", "shorturl.at", "rb.gy",
     "tiny.cc", "s.id", "adf.ly", "lnkd.in", "qr.ae", "tr.im", "u.to",
     "j.mp", "po.st", "bc.vc", "x.co", "shorten.tv", "lnk.ink", "ig.do",
-    "1url.at",
+    "1url.at", "alturl.com",
 })
 
 
@@ -54,6 +54,8 @@ USER_CONTENT_HOSTS: frozenset[str] = frozenset({
     "1drv.ms", "sharepoint.com", "express.adobe.com", "new.express.adobe.com",
     "spark.adobe.com", "indd.adobe.com", "acrobat.adobe.com", "postoffice.adobe.com",
     "dropbox.com", "dl.dropboxusercontent.com", "notion.site", "webflow.io", "linktr.ee",
+    # Link-in-bio / QR pages and fundraising campaigns published by anyone
+    "biolinky.co", "linkpop.com", "flowcode.com", "gofundme.com", "charity.gofundme.com",
 })
 # Registrable domains whose every subdomain is a tenant bucket (e.g. bucket.s3.amazonaws.com)
 USER_CONTENT_SUFFIXES: tuple[str, ...] = (

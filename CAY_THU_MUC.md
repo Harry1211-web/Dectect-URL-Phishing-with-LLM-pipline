@@ -11,7 +11,8 @@
 │   ├── contracts.py               Shared result types (RuleResult, Verdict)
 │   ├── url_utils.py               URL helpers: host, registrable domain, normalization
 │   ├── pipeline.py                Full A -> B -> C -> D pipeline for one URL (CLI)
-│   ├── evaluate_pipeline.py       A+B+C evaluation on the test split (miss rate, LLM load, latency)
+│   ├── evaluate_pipeline.py       A+B+C evaluation on the test split (miss rate, LLM load, latency;
+│   │                              also on trusted labels, without doubtful phishing labels)
 │   │
 │   ├── blocklist/                 Layer A — instant block from public phishing feeds
 │   │   ├── updater.py             Monthly refresh of OpenPhish / PhishTank / Phishing.Database + Tranco
@@ -31,6 +32,7 @@
 │   │   ├── clean_labels.py        Out-of-fold detection of mislabelled training rows
 │   │   ├── collect_host_features.py  Looks up host features for the dataset (into the cache)
 │   │   ├── train.py               Stacking: 2 cross-fitted CNN/BiLSTM + XGBoost lexical/host branches, segment thresholds
+│   │   │                          (fewest val misses with >= 50 % clean recognised; --thresholds-only refits them)
 │   │   └── predict.py             Inference used by the pipeline (host branch / lexical fallback)
 │   │
 │   ├── llm_rag/                   Layer D — LLM + 2-tier RAG for suspicious URLs

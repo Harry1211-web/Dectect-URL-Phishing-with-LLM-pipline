@@ -3,6 +3,7 @@ import gzip
 import pytest
 
 from blocklist import lookup
+from blocklist.platforms import _path_tenant
 from blocklist.updater import BLOCKLIST_DIR
 
 pytestmark = pytest.mark.skipif(not (BLOCKLIST_DIR / "openphish.txt.gz").exists(),
@@ -39,3 +40,9 @@ def test_campaign_domain_blocks_new_subdomains():
 def test_lookup_is_fast():
     lookup.check_blocklist("https://example.org/")
     assert lookup.check_blocklist("https://example.org/a")["latency_ms"] < 5
+
+
+def test_path_tenant_skips_short_container_segment():
+    assert _path_tenant("flowcode.com/p/abc?x=1") == "/p/abc"
+    assert _path_tenant("linkpop.com/maily") == "/maily"
+    assert _path_tenant("example.com/") == "/"
