@@ -35,7 +35,7 @@ from typosquatting.paas_domains import is_user_content_host  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
 from url_utils import (  # noqa: E402
-    embedded_urls, ensure_scheme, host_of, registrable_domain, split_host,
+    embedded_urls, ensure_scheme, host_of, is_ip_host, registrable_domain, split_host,
 )
 
 # Classifier score above which the fallback labels a URL "phishing" without the LLM
@@ -51,12 +51,12 @@ LLM_SAFE_OVERRIDE_SCORE = 0.99
 TRUST_EXCLUDED_CATEGORIES = frozenset({"ecommerce"})
 TRUST_EXCLUDED_DOMAINS = frozenset({"zalo.me"})
 
-# Allowlist, not a blocklist of redirect forms: the shortcut skips every check, so any part of the
-# path / query / fragment that could name another place (a host, '//', a scheme, a backslash) sends
-# the URL through B/C/D instead. Separators are read broadly ('&', ';', '=', ',', spaces) and the
-# text is decoded until stable, because servers and scripts differ in how they split and decode.
-_RE_UNSAFE_CHARS = re.compile(r"//|\\|[a-z][a-z0-9+.-]*:", re.I)
-_RE_TOKEN_SPLIT = re.compile(r"[/&;=,?#\s]+")
+# Allowlist, not a blocklist of redirect forms: the shortcut skips every check, so the decoded
+# path / query / fragment may only hold letters, digits and plain separators, with no '//' and no
+# token that is a host or an IP. Anything else (scheme ':', '\', '@', ';', tab, NUL, brackets...)
+# sends the URL through B/C/D instead: servers and browsers differ in how they split, decode, trim.
+_RE_ALLOWED = re.compile(r"[\w\-.~/?#&=,+ ]*")
+_RE_TOKEN_SPLIT = re.compile(r"[/&=,?#+ ]+")
 _DOTS = str.maketrans({"。": ".", "．": ".", "｡": "."})
 
 
@@ -70,8 +70,9 @@ def _decode(text: str, rounds: int = 3) -> str:
 
 
 def _names_a_host(token: str) -> bool:
-    _, dom, suf = split_host(token.strip(".").lower())
-    return bool(dom and suf)
+    token = token.strip(".").lower()
+    _, dom, suf = split_host(token)
+    return bool(dom and suf) or is_ip_host(token)
 
 
 def may_redirect(url: str) -> bool:
@@ -82,7 +83,7 @@ def may_redirect(url: str) -> bool:
     except ValueError:
         return True
     rest = _decode(f"{parts.path}?{parts.query}#{parts.fragment}")
-    if _RE_UNSAFE_CHARS.search(rest):
+    if not _RE_ALLOWED.fullmatch(rest) or "//" in rest:
         return True
     return any(_names_a_host(t) for t in _RE_TOKEN_SPLIT.split(rest) if "." in t)
 
