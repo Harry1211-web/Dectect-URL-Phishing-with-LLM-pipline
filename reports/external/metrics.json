@@ -7,49 +7,49 @@
     "phishing": 6338
   },
   "host_lookup_failed": {
-    "clean": 3,
-    "phishing": 24
+    "clean": 2,
+    "phishing": 13
   },
   "all": {
     "n_phishing": 10000,
     "n_clean": 10000,
     "layers_alone": {
       "A": {
-        "phishing_flagged": 40,
-        "phishing_flag_rate": 0.004,
+        "phishing_flagged": 34,
+        "phishing_flag_rate": 0.0034,
         "clean_flagged": 6,
         "clean_flag_rate": 0.0006
       },
       "B": {
-        "phishing_flagged": 1152,
-        "phishing_flag_rate": 0.1152,
+        "phishing_flagged": 1434,
+        "phishing_flag_rate": 0.1434,
         "clean_flagged": 56,
         "clean_flag_rate": 0.0056
       },
       "C": {
         "phishing_flagged": 9943,
         "phishing_flag_rate": 0.9943,
-        "clean_flagged": 5720,
-        "clean_flag_rate": 0.572
+        "clean_flagged": 5722,
+        "clean_flag_rate": 0.5722
       }
     },
     "A+B+C": {
-      "phishing_blocked_by_A": 40,
-      "phishing_sent_to_llm": 9909,
-      "phishing_labelled_clean": 51,
-      "phishing_miss_rate": 0.0051,
+      "phishing_blocked_by_A": 34,
+      "phishing_sent_to_llm": 9917,
+      "phishing_labelled_clean": 49,
+      "phishing_miss_rate": 0.0049,
       "clean_blocked_by_A": 6,
-      "clean_recognized_rate": 0.4254,
-      "clean_sent_to_llm_rate": 0.574
+      "clean_recognized_rate": 0.4252,
+      "clean_sent_to_llm_rate": 0.5742
     },
     "B+C (without A)": {
       "phishing_blocked_by_A": 0,
-      "phishing_sent_to_llm": 9949,
-      "phishing_labelled_clean": 51,
-      "phishing_miss_rate": 0.0051,
+      "phishing_sent_to_llm": 9951,
+      "phishing_labelled_clean": 49,
+      "phishing_miss_rate": 0.0049,
       "clean_blocked_by_A": 0,
-      "clean_recognized_rate": 0.4257,
-      "clean_sent_to_llm_rate": 0.5743
+      "clean_recognized_rate": 0.4255,
+      "clean_sent_to_llm_rate": 0.5745
     }
   },
   "unseen_domains": {
@@ -63,35 +63,35 @@
         "clean_flag_rate": 0.0003
       },
       "B": {
-        "phishing_flagged": 130,
-        "phishing_flag_rate": 0.0242,
+        "phishing_flagged": 303,
+        "phishing_flag_rate": 0.0565,
         "clean_flagged": 38,
         "clean_flag_rate": 0.0052
       },
       "C": {
         "phishing_flagged": 5319,
         "phishing_flag_rate": 0.9911,
-        "clean_flagged": 4477,
-        "clean_flag_rate": 0.612
+        "clean_flagged": 4482,
+        "clean_flag_rate": 0.6127
       }
     },
     "A+B+C": {
       "phishing_blocked_by_A": 2,
-      "phishing_sent_to_llm": 5321,
-      "phishing_labelled_clean": 44,
-      "phishing_miss_rate": 0.0082,
+      "phishing_sent_to_llm": 5323,
+      "phishing_labelled_clean": 42,
+      "phishing_miss_rate": 0.00783,
       "clean_blocked_by_A": 2,
-      "clean_recognized_rate": 0.3859,
-      "clean_sent_to_llm_rate": 0.6138
+      "clean_recognized_rate": 0.3852,
+      "clean_sent_to_llm_rate": 0.6145
     },
     "B+C (without A)": {
       "phishing_blocked_by_A": 0,
-      "phishing_sent_to_llm": 5323,
-      "phishing_labelled_clean": 44,
-      "phishing_miss_rate": 0.0082,
+      "phishing_sent_to_llm": 5325,
+      "phishing_labelled_clean": 42,
+      "phishing_miss_rate": 0.00783,
       "clean_blocked_by_A": 0,
-      "clean_recognized_rate": 0.3861,
-      "clean_sent_to_llm_rate": 0.6139
+      "clean_recognized_rate": 0.3854,
+      "clean_sent_to_llm_rate": 0.6146
     }
   },
   "missed_phishing": [
@@ -132,7 +132,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0003544473147485405,
+      "score": 0.00033940112916752696,
       "thr": 0.0034106061793863773
     },
     {
@@ -142,7 +142,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0003987927921116352,
+      "score": 0.00040717291994951665,
       "thr": 0.0034106061793863773
     },
     {
@@ -162,7 +162,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0004430450208019465,
+      "score": 0.0004549622826743871,
       "thr": 0.0034106061793863773
     },
     {
@@ -192,7 +192,7 @@
       "A": false,
       "unseen_domain": false,
       "segment": "host_top10k_path",
-      "score": 0.0005526124150492251,
+      "score": 0.0005493215867318213,
       "thr": 0.0031041749753057957
     },
     {
@@ -202,7 +202,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0007023741491138935,
+      "score": 0.0006471369997598231,
       "thr": 0.0034106061793863773
     },
     {
@@ -222,7 +222,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0008085599984042346,
+      "score": 0.0008120767888613045,
       "thr": 0.0034106061793863773
     },
     {
@@ -266,6 +266,16 @@
       "thr": 0.0034106061793863773
     },
     {
+      "url": "https://www.buzzfeed.com/robinhoodlive",
+      "target": "robinhood",
+      "date": "2025-09-17",
+      "A": false,
+      "unseen_domain": false,
+      "segment": "host_top10k_path",
+      "score": 0.0012064719339832664,
+      "thr": 0.0031041749753057957
+    },
+    {
       "url": "https://community.admitone.com/agent-help-2025-why-is-robinhood-not-letting-me-wi-2025-09-05/B6NGAV",
       "target": "robinhood",
       "date": "2025-09-09",
@@ -276,23 +286,13 @@
       "thr": 0.0034106061793863773
     },
     {
-      "url": "https://www.buzzfeed.com/robinhoodlive",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_top10k_path",
-      "score": 0.0013250394258648157,
-      "thr": 0.0031041749753057957
-    },
-    {
       "url": "https://cert.konfhub.com/What-is-the-fastest-way-to-transfer-money-to-Robinhood",
       "target": "robinhood",
       "date": "2025-09-17",
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0014272592961788177,
+      "score": 0.0013839915627613664,
       "thr": 0.0034106061793863773
     },
     {
@@ -312,7 +312,7 @@
       "A": false,
       "unseen_domain": false,
       "segment": "host_top10k_path",
-      "score": 0.0014896946959197521,
+      "score": 0.0014756113523617387,
       "thr": 0.0031041749753057957
     },
     {
@@ -342,7 +342,7 @@
       "A": false,
       "unseen_domain": false,
       "segment": "host_top10k_path",
-      "score": 0.001673443941399455,
+      "score": 0.0016576263587921858,
       "thr": 0.0031041749753057957
     },
     {
@@ -386,23 +386,23 @@
       "thr": 0.0034106061793863773
     },
     {
-      "url": "https://afribary.com/works/brain-controlled-home-automation/save",
-      "target": "google",
-      "date": "2025-10-21",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0019127849955111742,
-      "thr": 0.0034106061793863773
-    },
-    {
       "url": "https://www.martview-forum.com/dev/index.php?threads/43392/",
       "target": "robinhood",
       "date": "2025-09-24",
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0019467599922791123,
+      "score": 0.0018714205361902714,
+      "thr": 0.0034106061793863773
+    },
+    {
+      "url": "https://afribary.com/works/brain-controlled-home-automation/save",
+      "target": "google",
+      "date": "2025-10-21",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0018971835961565375,
       "thr": 0.0034106061793863773
     },
     {
@@ -426,23 +426,13 @@
       "thr": 0.0031041749753057957
     },
     {
-      "url": "https://www.pelotonia.org/profile/HR1082607",
-      "target": "robinhood",
-      "date": "2025-11-05",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.002150086686015129,
-      "thr": 0.0034106061793863773
-    },
-    {
       "url": "https://bestread.net/product/beauty-through-science/",
       "target": "qmp",
       "date": "2025-09-16",
       "A": false,
       "unseen_domain": true,
       "segment": "host_other_path",
-      "score": 0.0021784149575978518,
+      "score": 0.0021146778017282486,
       "thr": 0.05438924953341484
     },
     {
@@ -452,7 +442,27 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0022391106467694044,
+      "score": 0.002219543792307377,
+      "thr": 0.0034106061793863773
+    },
+    {
+      "url": "https://www.pelotonia.org/profile/HR1082607",
+      "target": "robinhood",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0022402689792215824,
+      "thr": 0.0034106061793863773
+    },
+    {
+      "url": "https://www.etradeasia.com/buy-lead-detail-1045747/screws.html",
+      "target": "etrade",
+      "date": "2025-10-22",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0023788728285580873,
       "thr": 0.0034106061793863773
     },
     {
@@ -462,18 +472,8 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_top10k_path",
-      "score": 0.002482816344127059,
+      "score": 0.0024582527112215757,
       "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://www.etradeasia.com/buy-lead-detail-1045747/screws.html",
-      "target": "etrade",
-      "date": "2025-10-22",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0024841073900461197,
-      "thr": 0.0034106061793863773
     },
     {
       "url": "https://waze.uservoice.com/forums/59223-waze-suggestion-box/suggestions/50378826-how-to-reach-robinhood-helpline-24-7-emergency-a",
@@ -502,7 +502,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_other_path",
-      "score": 0.0033799775410443544,
+      "score": 0.003281200071796775,
       "thr": 0.05438924953341484
     },
     {
@@ -512,7 +512,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_other_path",
-      "score": 0.003901505144312978,
+      "score": 0.003787544323131442,
       "thr": 0.05438924953341484
     },
     {
@@ -522,18 +522,8 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_old_unranked_path",
-      "score": 0.005160472821444273,
+      "score": 0.005820928141474724,
       "thr": 0.01177029125392437
-    },
-    {
-      "url": "https://skillupdigital.co.in/boost-your-skill-with-canva-pro-account/",
-      "target": "canva",
-      "date": "2025-10-08",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.013736175373196602,
-      "thr": 0.05438924953341484
     },
     {
       "url": "https://38bitstarz.com/a/promotions",
@@ -593,16 +583,6 @@
       "unseen_domain": true,
       "segment": "host_other_path",
       "score": 0.04275650531053543,
-      "thr": 0.05438924953341484
-    },
-    {
-      "url": "https://chummadeals.com/boost-your-skill-with-canva-pro-account/",
-      "target": "canva",
-      "date": "2025-10-08",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.045939795672893524,
       "thr": 0.05438924953341484
     }
   ]

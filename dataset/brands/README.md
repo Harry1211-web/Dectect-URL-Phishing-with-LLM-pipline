@@ -1,7 +1,7 @@
 # Brand catalogue — `dataset/brands/`
 
 Source of truth for the typosquatting layer (`src/typosquatting/`, Damerau-Levenshtein +
-Jaro-Winkler) and for RAG tier 1 (`src/llm_rag/rag/tier1.py`).
+Jaro-Winkler) and for the verified-official-domain shortcut of the pipeline (`src/pipeline.py`).
 
 | File | Content |
 |---|---|
@@ -23,7 +23,8 @@ Jaro-Winkler) and for RAG tier 1 (`src/llm_rag/rag/tier1.py`).
 | `note` | Rename / domain change / warnings (free text, EnglishT). |
 
 A brand is `verified` only when every one of its domains is verified; only verified domains are
-used by RAG tier 1 (`verified_official_domains()`).
+trusted by the pipeline shortcut (`verified_official_domains()`: such a page is labelled clean
+without further checks, except marketplaces, user content and URLs that could redirect).
 
 ### Verification procedure
 1. **Primary source = the State Bank of Vietnam (SBV)**, the licensing authority (not a third party
@@ -81,6 +82,7 @@ Legitimate domains owned by a brand already listed (e.g. `googleapis.com`, `shop
 
 - Columns: `brand` (must match an existing label), `domain`, `verified` (`verified` \|
   `unverified`), `note`.
-- Used only as an **exemption list** for the typosquatting rule — not used by RAG tier 1.
+- Used only as an **exemption list** (typosquatting rule, LLM override) — never by the trusted-domain
+  shortcut, which only takes verified Vietnamese domains.
 - A wrong domain here makes the rule miss exactly that domain, so every `unverified` row should be
   checked (WHOIS / the brand's own site) before it becomes `verified`.

@@ -22,17 +22,19 @@ xgboost==3.4.1
 rapidfuzz==3.14.6           # Damerau-Levenshtein and Jaro-Winkler
 tldextract==5.1.2           # registrable domain (public suffix list)
 
-# --- Networking / API ---
+# --- Networking: page fetch, feeds, host features (Layer C) ---
 requests==2.32.5
-fastapi==0.115.2
-uvicorn[standard]==0.31.1
-pydantic==2.9.2
-httpx==0.27.2
+dnspython==2.8.0            # DNS records of the host
+cryptography==48.0.0        # TLS certificate fields of the host
+
+# --- External test set (PhreshPhish) ---
+huggingface_hub==1.8.0      # dataset download
+pyarrow==23.0.1             # parquet (stored HTML pages)
 
 # --- Layer D: LLM ---
 beautifulsoup4==4.14.3      # HTML sanitizing against prompt injection
-openai==2.33.0              # LLM API (embeddings only for the few-shot experiment)
-playwright==1.63.0          # headless Chromium for Layer D (then: python -m playwright install chromium)
+openai==2.33.0              # LLM API (Layer D)
+playwright==1.63.0          # optional headless render, off by default (then: python -m playwright install chromium)
 python-dotenv==1.2.2        # reads .env
 
 # --- Tests ---

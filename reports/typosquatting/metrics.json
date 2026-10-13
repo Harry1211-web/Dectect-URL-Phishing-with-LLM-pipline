@@ -2,15 +2,15 @@
   "dl_jw": {
     "clean_tranco_top100k": {
       "n": 100000,
-      "flagged": 225,
-      "flag_rate": 0.00225,
+      "flagged": 232,
+      "flag_rate": 0.00232,
       "by_kind": {
-        "exact_label": 116,
-        "typosquat": 98,
+        "exact_label": 120,
+        "typosquat": 101,
         "embedded": 11
       },
-      "latency_ms_p50": 0.469,
-      "latency_ms_p95": 0.955,
+      "latency_ms_p50": 0.204,
+      "latency_ms_p95": 0.285,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -178,19 +178,29 @@
           "kind": "exact_label"
         },
         {
+          "url": "https://telstra.com/",
+          "brand": "telstra",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://yahoo.net/",
           "brand": "yahoo",
           "kind": "exact_label"
         },
         {
-          "url": "https://google.com.vn/",
-          "brand": "google",
+          "url": "https://canva.site/",
+          "brand": "canva",
           "kind": "exact_label"
         },
         {
           "url": "https://strip2.co/",
           "brand": "stripe",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://telstra.net/",
+          "brand": "telstra",
+          "kind": "exact_label"
         },
         {
           "url": "https://shb-sync.com/",
@@ -200,16 +210,6 @@
         {
           "url": "https://pinterest.net/",
           "brand": "pinterest",
-          "kind": "exact_label"
-        },
-        {
-          "url": "https://wal-mart.com/",
-          "brand": "walmart",
-          "kind": "exact_label"
-        },
-        {
-          "url": "https://docusign.net/",
-          "brand": "docusign",
           "kind": "exact_label"
         }
       ]
@@ -226,8 +226,8 @@
         "subdomain": 3,
         "path_brand_lure": 10
       },
-      "latency_ms_p50": 2.197,
-      "latency_ms_p95": 4.199,
+      "latency_ms_p50": 0.899,
+      "latency_ms_p95": 1.325,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -433,19 +433,19 @@
     },
     "phishing_test": {
       "n": 39266,
-      "flagged": 2941,
-      "flag_rate": 0.0749,
+      "flagged": 3050,
+      "flag_rate": 0.07768,
       "by_kind": {
         "path_brand_lure": 432,
-        "typosquat": 239,
-        "path_fake_domain": 174,
-        "exact_label": 233,
-        "subdomain": 1646,
+        "typosquat": 248,
+        "path_fake_domain": 175,
+        "exact_label": 235,
+        "subdomain": 1743,
         "embedded": 213,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.477,
-      "latency_ms_p95": 4.209,
+      "latency_ms_p50": 0.815,
+      "latency_ms_p95": 1.532,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -657,8 +657,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 2.376,
-      "latency_ms_p95": 2.934,
+      "latency_ms_p50": 0.889,
+      "latency_ms_p95": 0.993,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -821,15 +821,15 @@
   "dl_only": {
     "clean_tranco_top100k": {
       "n": 100000,
-      "flagged": 417,
-      "flag_rate": 0.00417,
+      "flagged": 425,
+      "flag_rate": 0.00425,
       "by_kind": {
-        "exact_label": 116,
-        "typosquat": 290,
+        "exact_label": 120,
+        "typosquat": 294,
         "embedded": 11
       },
-      "latency_ms_p50": 0.463,
-      "latency_ms_p95": 0.907,
+      "latency_ms_p50": 0.205,
+      "latency_ms_p95": 0.281,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -1022,14 +1022,14 @@
           "kind": "exact_label"
         },
         {
+          "url": "https://telstra.com/",
+          "brand": "telstra",
+          "kind": "exact_label"
+        },
+        {
           "url": "https://ncsu.edu/",
           "brand": "ncsc",
           "kind": "typosquat"
-        },
-        {
-          "url": "https://yahoo.net/",
-          "brand": "yahoo",
-          "kind": "exact_label"
         }
       ]
     },
@@ -1045,8 +1045,8 @@
         "subdomain": 3,
         "path_brand_lure": 9
       },
-      "latency_ms_p50": 2.156,
-      "latency_ms_p95": 3.913,
+      "latency_ms_p50": 0.895,
+      "latency_ms_p95": 1.322,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -1252,19 +1252,19 @@
     },
     "phishing_test": {
       "n": 39266,
-      "flagged": 3007,
-      "flag_rate": 0.07658,
+      "flagged": 3118,
+      "flag_rate": 0.07941,
       "by_kind": {
         "path_brand_lure": 432,
-        "typosquat": 283,
-        "path_fake_domain": 174,
-        "exact_label": 233,
-        "subdomain": 1669,
+        "typosquat": 292,
+        "path_fake_domain": 175,
+        "exact_label": 235,
+        "subdomain": 1768,
         "embedded": 212,
         "homoglyph": 4
       },
-      "latency_ms_p50": 1.321,
-      "latency_ms_p95": 3.764,
+      "latency_ms_p50": 0.815,
+      "latency_ms_p95": 1.53,
       "examples": [
         {
           "url": "http://0ckvh7ixp4.xyz/ap/signin?key=a@b.c&openid.assoc_handle=jpflex&openid.claimed_id=http://specs.openid.net/auth/2.0/identifier_select&openid.identity=http://specs.openid.net/auth/2.0/identifier_select&openid.mode=checkid_setup&openid.ns=http://specs.openid.net/auth/2.0&openid.pape.max_auth_age=0&openid.return_to=https://www.amazon.co.jp/?ref_%3dnav_em_hd_re_signin&ref_=nav_em_hd_clc_signin",
@@ -1476,8 +1476,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 2.33,
-      "latency_ms_p95": 2.929,
+      "latency_ms_p50": 0.882,
+      "latency_ms_p95": 1.031,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
