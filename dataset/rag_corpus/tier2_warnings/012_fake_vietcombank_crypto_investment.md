@@ -1,11 +1,11 @@
 ---
 id: 012_fake_vietcombank_crypto_investment
 title: Vietcombank cảnh báo thủ đoạn giả mạo ngân hàng dụ đầu tư tiền ảo trái phép
-publisher: Vietcombank (thông báo chính thức, qua báo chí trích dẫn)
+publisher: Vietcombank (official notice, quoted by the press)
 source_url: https://mediaonlinevn.com/2026/08/26/ngan-hang-vietcombank-canh-bao-thu-doan-gia-mao-ngan-hang-du-dau-tu-tien-ao-trai-phep/
 published_date: 2026-08-26
 verified_date: 2026-09-17
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [brand_impersonation, bank, crypto_investment, ai_generated_fake_content]
 related_vn_brands: [vietcombank]
 ---

@@ -1,11 +1,11 @@
 ---
 id: 013_fake_shopee_ecommerce
 title: Cảnh báo lừa đảo giả mạo Shopee trên sàn thương mại điện tử
-publisher: Công an tỉnh Lai Châu
+publisher: Lai Chau Provincial Police
 source_url: https://congan.laichau.gov.vn/thu-doan-pham-toi/canh-bao-lua-dao-tren-shopee-592.html
 published_date: 2023-01-13
 verified_date: 2026-09-21
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [brand_impersonation, ecommerce, phishing_link, bank_account]
 related_vn_brands: [shopee]
 ---

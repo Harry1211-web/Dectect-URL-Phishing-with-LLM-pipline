@@ -1,11 +1,11 @@
 ---
 id: 003_fake_hotels_travel
 title: Giả mạo khách sạn, công ty du lịch chiếm đoạt tiền cọc
-publisher: Chongluadao.vn (Dự án Chống Lừa Đảo)
+publisher: Chongluadao.vn (Chong Lua Dao anti-scam project)
 source_url: https://chongluadao.vn/blog/2026/08/gia-mao-khach-san-cong-ty-du-lich-chiem-doat-tien-coc/
 published_date: 2026-08-26
 verified_date: 2026-09-15
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [fake_website, fake_fanpage, deposit, travel]
 related_vn_brands: []
 ---

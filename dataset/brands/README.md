@@ -20,7 +20,7 @@ Jaro-Winkler) and for RAG tier 1 (`src/llm_rag/rag/tier1.py`).
 | `domain` | One official domain. A brand may have several rows (e.g. `viettel.vn` + `viettel.com.vn`). |
 | `category` | `bank` \| `e_wallet` \| `ecommerce` \| `telecom` \| `airline` \| `public_service` \| `logistics` \| `insurance` \| `securities` \| `consumer_finance` \| `transport` \| `conglomerate` |
 | `verified` | `verified` = name **and** domain checked against an official source · `unverified` = not yet |
-| `note` | Rename / domain change / warnings (free text, Vietnamese). |
+| `note` | Rename / domain change / warnings (free text, EnglishT). |
 
 A brand is `verified` only when every one of its domains is verified; only verified domains are
 used by RAG tier 1 (`verified_official_domains()`).

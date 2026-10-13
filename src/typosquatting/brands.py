@@ -1,6 +1,6 @@
 """Load the brand catalogue from ``dataset/brands/``.
 
-- Used by the typosquatting layer (B) and by RAG tier 1 (structured lookup).
+- Used by the typosquatting layer (B), the LLM prompt notes (D) and the trusted-domain shortcut.
 - Vietnamese brands: `vn_brand_domains.csv` (cross-checked against official sources).
 - International brands: `brands.csv` + `brands_extra.csv`.
 - Secondary legitimate domains (CDN, infrastructure, regional sites): `secondary_official_domains.csv`.

@@ -92,6 +92,23 @@ def collect_hosts(hosts: list[str], workers: int = 16) -> set[str]:
     return set(todo)
 
 
+def score_abc(d: pd.DataFrame) -> pd.DataFrame:
+    """Copy of `d` with the decisions of Layers A, B and C for every URL (+ C's score / threshold).
+    Hosts are looked up live once, then C reads the host cache."""
+    d = d.copy()
+    urls = d.url.tolist()
+    d["A"] = [check_blocklist(u)["flag"] is True for u in urls]
+    d["B"] = [check_typosquatting_deep(u)["flag"] is True for u in urls]
+    failed = collect_hosts(list(dict.fromkeys(map(host_of, urls))))
+    score, thr, used = zip(*[predict.score_urls(urls[i:i + 4096], host_mode="cache")
+                             for i in range(0, len(urls), 4096)])
+    d["score"], d["thr"], d["host_branch"] = np.concatenate(score), np.concatenate(thr), np.concatenate(used)
+    # As in production (classify_url): a host that cannot be looked up is suspicious, never clean
+    d["lookup_failed"] = d.url.map(host_of).isin(failed)
+    d["C"] = (d.score >= d.thr) | d.lookup_failed
+    return d
+
+
 def layer_rates(flag: np.ndarray, ph: np.ndarray) -> dict:
     """One layer alone: share of phishing it flags and share of clean URLs it flags wrongly."""
     return {"phishing_flagged": int((flag & ph).sum()),
@@ -129,17 +146,8 @@ def main(argv: list[str] | None = None) -> int:
         return build()
 
     d = pd.read_csv(DATA)
-    urls = d.url.tolist()
     print(f"external URLs: {len(d)}", d.label.value_counts().to_dict(), flush=True)
-    d["A"] = [check_blocklist(u)["flag"] is True for u in urls]
-    d["B"] = [check_typosquatting_deep(u)["flag"] is True for u in urls]
-    failed = collect_hosts(list(dict.fromkeys(map(host_of, urls))))
-    score, thr, used = zip(*[predict.score_urls(urls[i:i + 4096], host_mode="cache")
-                             for i in range(0, len(urls), 4096)])
-    d["score"], d["thr"], d["host_branch"] = np.concatenate(score), np.concatenate(thr), np.concatenate(used)
-    # As in production (classify_url): a host that cannot be looked up is suspicious, never clean
-    d["lookup_failed"] = d.url.map(host_of).isin(failed)
-    d["C"] = (d.score >= d.thr) | d.lookup_failed
+    d = score_abc(d)
 
     ours = set(pd.read_csv(OUR_DATASET, usecols=["url"]).url.map(registrable_domain))
     d["unseen_domain"] = ~d.url.map(registrable_domain).isin(ours)

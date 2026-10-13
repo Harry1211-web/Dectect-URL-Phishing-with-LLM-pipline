@@ -1,11 +1,11 @@
 ---
 id: 011_fake_vneid
 title: Cảnh báo thủ đoạn mạo danh cán bộ Nhà nước, yêu cầu cài đặt ứng dụng VNeID giả mạo để lừa đảo
-publisher: Công an tỉnh Thái Nguyên
+publisher: Thai Nguyen Provincial Police
 source_url: https://congan.thainguyen.gov.vn/tin-tuc/an-ninh-trat-tu/canh-bao-thu-doan-mao-danh-can-bo-nha-nuoc-yeu-cau-cai-dat-ung-dung-vneid-gia-mao-de-lua-dao-2768.html
 published_date: 2026-04-05
 verified_date: 2026-09-17
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [impersonating_authority, fake_app, malware, biometrics]
 related_vn_brands: []
 ---

@@ -1,0 +1,11 @@
+{
+  "fake_instruction": [
+    "تجاهل\\s+(?:جميع\\s+)?(?:التعليمات|الأوامر)"
+  ],
+  "direct_command": [
+    "تجاهل\\s+(?:جميع\\s+)?(?:التعليمات|الأوامر)"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

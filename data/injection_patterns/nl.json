@@ -1,0 +1,11 @@
+{
+  "fake_instruction": [
+    "negeer\\s+(?:alle\\s+)?(?:vorige\\s+|eerdere\\s+)?(?:instructies|aanwijzingen)"
+  ],
+  "direct_command": [
+    "negeer\\s+(?:alle\\s+)?(?:vorige\\s+|eerdere\\s+)?(?:instructies|aanwijzingen)"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

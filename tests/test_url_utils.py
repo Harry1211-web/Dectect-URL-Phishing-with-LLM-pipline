@@ -29,3 +29,12 @@ def test_embedded_urls():
 
 def test_ip_host():
     assert is_ip_host("192.168.1.1") and is_ip_host("[::1]") and not is_ip_host("a.com")
+
+
+def test_decode_html_handles_missing_and_broken_charsets():
+    from url_utils import decode_html
+    vi = "<title>Đồng hồ chính hãng</title>".encode("utf-8")
+    assert decode_html(vi, "text/html") == "<title>Đồng hồ chính hãng</title>"  # no charset
+    assert decode_html(vi, "text/html; charset=utf-8, text/html") .startswith("<title>Đồng")
+    latin = '<meta charset="windows-1252"><p>café</p>'.encode("cp1252")
+    assert "café" in decode_html(latin, "text/html")

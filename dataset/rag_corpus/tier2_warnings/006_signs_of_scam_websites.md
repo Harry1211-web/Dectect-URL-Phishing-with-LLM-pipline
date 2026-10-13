@@ -1,11 +1,11 @@
 ---
 id: 006_signs_of_scam_websites
 title: Cách nhận biết website lừa đảo
-publisher: Chongluadao.vn (Dự án Chống Lừa Đảo)
+publisher: Chongluadao.vn (Chong Lua Dao anti-scam project)
 source_url: https://chongluadao.vn/blog/en/2023/10/cach-nhan-biet-trang-web-lua-dao/
 published_date: 2023-10-01
 verified_date: 2026-09-16
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [overview, url_signs, content_signs, brand_impersonation]
 related_vn_brands: []
 ---

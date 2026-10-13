@@ -25,7 +25,7 @@ import urllib3
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from data_collection.sources import RAW_DIR, UA, tranco_domains  # noqa: E402
-from url_utils import registrable_domain  # noqa: E402
+from url_utils import decode_html, registrable_domain  # noqa: E402
 
 OUT_PATH = RAW_DIR / "crawled_clean.csv"
 MAX_BYTES = 1_500_000
@@ -52,8 +52,8 @@ def harvest(site: str, per_site: int, rng: random.Random) -> list[str]:
                               headers={"User-Agent": UA, "Accept-Language": "en,vi;q=0.8"}) as r:
                 if r.status_code != 200 or "html" not in r.headers.get("content-type", ""):
                     continue
-                body = r.raw.read(MAX_BYTES, decode_content=True).decode(r.encoding or "utf-8",
-                                                                          errors="ignore")
+                body = decode_html(r.raw.read(MAX_BYTES, decode_content=True),
+                                   r.headers.get("content-type", ""))
                 base = r.url
             break
         except (requests.RequestException, urllib3.exceptions.HTTPError, ValueError):

@@ -1,0 +1,1554 @@
+{
+ "vn": [
+  {
+   "label": "vietcombank",
+   "cat": "bank",
+   "llm": "vietcombank.com.vn",
+   "table": [
+    "vietcombank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vietinbank",
+   "cat": "bank",
+   "llm": "vietinbank.vn",
+   "table": [
+    "vietinbank.vn",
+    "vietinbankamc.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bidv",
+   "cat": "bank",
+   "llm": "bidv.com.vn",
+   "table": [
+    "bidv.com.vn",
+    "bidv.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "agribank",
+   "cat": "bank",
+   "llm": "agribank.com.vn",
+   "table": [
+    "agribank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "techcombank",
+   "cat": "bank",
+   "llm": "techcombank.com.vn",
+   "table": [
+    "techcombank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "mbbank",
+   "cat": "bank",
+   "llm": "mbbank.com.vn",
+   "table": [
+    "mbbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vpbank",
+   "cat": "bank",
+   "llm": "vpbank.com.vn",
+   "table": [
+    "vpbank.com.vn",
+    "vpbanks.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "acb",
+   "cat": "bank",
+   "llm": "acb.com.vn",
+   "table": [
+    "acb.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "sacombank",
+   "cat": "bank",
+   "llm": "sacombank.com.vn",
+   "table": [
+    "sacombank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "tpbank",
+   "cat": "bank",
+   "llm": "tpbank.com.vn",
+   "table": [
+    "tpb.vn",
+    "tpbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "hdbank",
+   "cat": "bank",
+   "llm": "hdbank.com.vn",
+   "table": [
+    "hdbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vib",
+   "cat": "bank",
+   "llm": "vib.com.vn",
+   "table": [
+    "vib.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "shb",
+   "cat": "bank",
+   "llm": "shb.com.vn",
+   "table": [
+    "shb.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "eximbank",
+   "cat": "bank",
+   "llm": "eximbank.com.vn",
+   "table": [
+    "eximbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "msb",
+   "cat": "bank",
+   "llm": "msb.com.vn",
+   "table": [
+    "msb.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ocb",
+   "cat": "bank",
+   "llm": "ocb.com.vn",
+   "table": [
+    "ocb.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "seabank",
+   "cat": "bank",
+   "llm": "seabank.com.vn",
+   "table": [
+    "seabank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "lpbank",
+   "cat": "bank",
+   "llm": "lpbank.com.vn",
+   "table": [
+    "lpbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "namabank",
+   "cat": "bank",
+   "llm": "namabank.com.vn",
+   "table": [
+    "namabank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "abbank",
+   "cat": "bank",
+   "llm": "abbank.vn",
+   "table": [
+    "abbank.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "pvcombank",
+   "cat": "bank",
+   "llm": "pvcombank.com.vn",
+   "table": [
+    "pvcombank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "scb",
+   "cat": "bank",
+   "llm": "scb.com.vn",
+   "table": [
+    "scb.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bacabank",
+   "cat": "bank",
+   "llm": "baca-bank.vn",
+   "table": [
+    "baca-bank.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vietbank",
+   "cat": "bank",
+   "llm": "vietbank.com.vn",
+   "table": [
+    "vietbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vietabank",
+   "cat": "bank",
+   "llm": "vietabank.com.vn",
+   "table": [
+    "vietabank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "saigonbank",
+   "cat": "bank",
+   "llm": "saigonbank.com.vn",
+   "table": [
+    "saigonbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "baovietbank",
+   "cat": "bank",
+   "llm": "baovietbank.vn",
+   "table": [
+    "baovietbank.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ncb",
+   "cat": "bank",
+   "llm": "ncb-bank.vn",
+   "table": [
+    "ncb-bank.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bvbank",
+   "cat": "bank",
+   "llm": "bvbank.com.vn",
+   "table": [
+    "bvbank.net.vn"
+   ],
+   "ok": false
+  },
+  {
+   "label": "vikkibank",
+   "cat": "bank",
+   "llm": "vikkibank.vn",
+   "table": [
+    "vikkibank.vn",
+    "vikkibanks.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "kienlongbank",
+   "cat": "bank",
+   "llm": "kienlongbank.com",
+   "table": [
+    "kienlongbank.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "pgbank",
+   "cat": "bank",
+   "llm": "pgbank.com.vn",
+   "table": [
+    "pgbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "cake",
+   "cat": "bank",
+   "llm": "cake.vn",
+   "table": [
+    "cake.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "timo",
+   "cat": "bank",
+   "llm": "timo.vn",
+   "table": [
+    "timo.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "momo",
+   "cat": "e_wallet",
+   "llm": "momo.vn",
+   "table": [
+    "momo.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "zalopay",
+   "cat": "e_wallet",
+   "llm": "zalopay.vn",
+   "table": [
+    "zalopay.com.vn",
+    "zalopay.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vnpay",
+   "cat": "e_wallet",
+   "llm": "vnpay.vn",
+   "table": [
+    "vnpay.vn",
+    "vnpayqr.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "viettelmoney",
+   "cat": "e_wallet",
+   "llm": "viettelmoney.vn",
+   "table": [
+    "viettelmoney.vn",
+    "viettelpay.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "shopeepay",
+   "cat": "e_wallet",
+   "llm": "shopeepay.vn",
+   "table": [
+    "shopeepay.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "payoo",
+   "cat": "e_wallet",
+   "llm": "payoo.vn",
+   "table": [
+    "payoo.com.vn",
+    "payoo.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vnptmoney",
+   "cat": "e_wallet",
+   "llm": "vnptmoney.vn",
+   "table": [
+    "vnptmoney.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "moca",
+   "cat": "e_wallet",
+   "llm": "moca.vn",
+   "table": [
+    "moca.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "napas",
+   "cat": "e_wallet",
+   "llm": "napas.com.vn",
+   "table": [
+    "napas.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "shopee",
+   "cat": "ecommerce",
+   "llm": "shopee.vn",
+   "table": [
+    "shopee.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "lazada",
+   "cat": "ecommerce",
+   "llm": "lazada.vn",
+   "table": [
+    "lazada.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "tiki",
+   "cat": "ecommerce",
+   "llm": "tiki.vn",
+   "table": [
+    "tiki.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "sendo",
+   "cat": "ecommerce",
+   "llm": "sendo.vn",
+   "table": [
+    "sendo.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "thegioididong",
+   "cat": "ecommerce",
+   "llm": "thegioididong.com",
+   "table": [
+    "thegioididong.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "dienmayxanh",
+   "cat": "ecommerce",
+   "llm": "dienmayxanh.com",
+   "table": [
+    "dienmayxanh.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bachhoaxanh",
+   "cat": "ecommerce",
+   "llm": "bachhoaxanh.com",
+   "table": [
+    "bachhoaxanh.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "fptshop",
+   "cat": "ecommerce",
+   "llm": "fptshop.com.vn",
+   "table": [
+    "fptshop.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "cellphones",
+   "cat": "ecommerce",
+   "llm": "cellphones.com.vn",
+   "table": [
+    "cellphones.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "chotot",
+   "cat": "ecommerce",
+   "llm": "chotot.com",
+   "table": [
+    "chotot.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "viettel",
+   "cat": "telecom",
+   "llm": "viettel.com.vn",
+   "table": [
+    "viettel.com.vn",
+    "viettel.vn",
+    "viettelcloud.vn",
+    "vietteltelecom.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vnpt",
+   "cat": "telecom",
+   "llm": "vnpt.com.vn",
+   "table": [
+    "vnpt-bhxh.vn",
+    "vnpt-ca.vn",
+    "vnpt.com.vn",
+    "vnpt.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "mobifone",
+   "cat": "telecom",
+   "llm": "mobifone.vn",
+   "table": [
+    "mobifone.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vinaphone",
+   "cat": "telecom",
+   "llm": "vinaphone.com.vn",
+   "table": [
+    "vinaphone.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "fpt",
+   "cat": "telecom",
+   "llm": "fpt.com",
+   "table": [
+    "fpt.com.vn",
+    "fpt.vn"
+   ],
+   "ok": false
+  },
+  {
+   "label": "vng",
+   "cat": "telecom",
+   "llm": "vng.com.vn",
+   "table": [
+    "vng.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "zalo",
+   "cat": "telecom",
+   "llm": "zalo.me",
+   "table": [
+    "zalo.me"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vietnamairlines",
+   "cat": "airline",
+   "llm": "vietnamairlines.com",
+   "table": [
+    "vietnamairlines.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vietjetair",
+   "cat": "airline",
+   "llm": "vietjetair.com",
+   "table": [
+    "vietjetair.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bambooairways",
+   "cat": "airline",
+   "llm": "bambooairways.com",
+   "table": [
+    "bambooairways.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "dichvucong",
+   "cat": "public_service",
+   "llm": "dichvucong.gov.vn",
+   "table": [
+    "dichvucong.gov.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vneid",
+   "cat": "public_service",
+   "llm": "vneid.gov.vn",
+   "table": [
+    "vneid.gov.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "gdt",
+   "cat": "public_service",
+   "llm": "gdt.gov.vn",
+   "table": [
+    "gdt.gov.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "baohiemxahoi",
+   "cat": "public_service",
+   "llm": "baohiemxahoi.gov.vn",
+   "table": [
+    "baohiemxahoi.gov.vn",
+    "baohiemxahoidientu.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "evn",
+   "cat": "public_service",
+   "llm": "evn.com.vn",
+   "table": [
+    "evn.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vnpost",
+   "cat": "logistics",
+   "llm": "vnpost.vn",
+   "table": [
+    "vnpost.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ghn",
+   "cat": "logistics",
+   "llm": "ghn.vn",
+   "table": [
+    "ghn.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ghtk",
+   "cat": "logistics",
+   "llm": "ghtk.vn",
+   "table": [
+    "ghtk.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "jtexpress",
+   "cat": "logistics",
+   "llm": "jtexpress.vn",
+   "table": [
+    "jtexpress.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ahamove",
+   "cat": "logistics",
+   "llm": "ahamove.com",
+   "table": [
+    "ahamove.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "grab",
+   "cat": "transport",
+   "llm": "grab.com",
+   "table": [
+    "grab.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "xanhsm",
+   "cat": "transport",
+   "llm": "xanhsm.com",
+   "table": [
+    "xanhsm.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "greensm",
+   "cat": "transport",
+   "llm": "greensm.com",
+   "table": [
+    "greensm.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "baoviet",
+   "cat": "insurance",
+   "llm": "baoviet.com.vn",
+   "table": [
+    "baoviet.com.vn",
+    "baovietnhantho.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "prudential",
+   "cat": "insurance",
+   "llm": "prudential.com.vn",
+   "table": [
+    "prudential.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "aia",
+   "cat": "insurance",
+   "llm": "aia.com.vn",
+   "table": [
+    "aia.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "daiichilife",
+   "cat": "insurance",
+   "llm": "dai-ichi-life.com.vn",
+   "table": [
+    "dai-ichi-life.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bidvmetlife",
+   "cat": "insurance",
+   "llm": "bidvmetlife.com.vn",
+   "table": [
+    "bidvmetlife.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ssi",
+   "cat": "securities",
+   "llm": "ssi.com.vn",
+   "table": [
+    "ssi.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vps",
+   "cat": "securities",
+   "llm": "vps.com.vn",
+   "table": [
+    "vps.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "shinhan",
+   "cat": "bank",
+   "llm": "shinhan.com.vn",
+   "table": [
+    "shinhan.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "uob",
+   "cat": "bank",
+   "llm": "uob.com.vn",
+   "table": [
+    "uob.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "woori",
+   "cat": "bank",
+   "llm": "woori.com.vn",
+   "table": [
+    "woori.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "hsbc",
+   "cat": "bank",
+   "llm": "hsbc.com.vn",
+   "table": [
+    "hsbc.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "standardchartered",
+   "cat": "bank",
+   "llm": "sc.com",
+   "table": [
+    "sc.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "cbbank",
+   "cat": "bank",
+   "llm": "cbbank.vn",
+   "table": [
+    "cbbank.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "gpbank",
+   "cat": "bank",
+   "llm": "gpbank.com.vn",
+   "table": [
+    "gpbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "mbv",
+   "cat": "bank",
+   "llm": "mercedes-benz.com.vn",
+   "table": [
+    "mbv.com.vn"
+   ],
+   "ok": false
+  },
+  {
+   "label": "publicbank",
+   "cat": "bank",
+   "llm": "publicbank.com.vn",
+   "table": [
+    "publicbank.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "fecredit",
+   "cat": "consumer_finance",
+   "llm": "fecredit.com.vn",
+   "table": [
+    "fecredit.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "homecredit",
+   "cat": "consumer_finance",
+   "llm": "homecredit.vn",
+   "table": [
+    "homecredit.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "mcredit",
+   "cat": "consumer_finance",
+   "llm": "mcredit.com.vn",
+   "table": [
+    "mcredit.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "chinhphu",
+   "cat": "public_service",
+   "llm": "chinhphu.vn",
+   "table": [
+    "chinhphu.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bocongan",
+   "cat": "public_service",
+   "llm": "bocongan.gov.vn",
+   "table": [
+    "bocongan.gov.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "csgt",
+   "cat": "public_service",
+   "llm": "csgt.vn",
+   "table": [
+    "csgt.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "evnhcmc",
+   "cat": "public_service",
+   "llm": "evnhcmc.vn",
+   "table": [
+    "evnhcmc.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "evnhanoi",
+   "cat": "public_service",
+   "llm": "evnhanoi.vn",
+   "table": [
+    "evnhanoi.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "vietravelairlines",
+   "cat": "airline",
+   "llm": "vietravelairlines.vn",
+   "table": [
+    "vietravelairlines.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "pacificairlines",
+   "cat": "airline",
+   "llm": "pacificairlines.com.vn",
+   "table": [
+    "pacificairlines.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "vietnamobile",
+   "cat": "telecom",
+   "llm": "vietnamobile.com.vn",
+   "table": [
+    "vietnamobile.com.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "itel",
+   "cat": "telecom",
+   "llm": "itel.vn",
+   "table": [
+    "itel.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "onepay",
+   "cat": "e_wallet",
+   "llm": "onepay.vn",
+   "table": [
+    "onepay.vn"
+   ],
+   "ok": true
+  },
+  {
+   "label": "appotapay",
+   "cat": "e_wallet",
+   "llm": "appotapay.com",
+   "table": [
+    "appotapay.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "nguyenkim",
+   "cat": "ecommerce",
+   "llm": "nguyenkim.com",
+   "table": [
+    "nguyenkim.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "hasaki",
+   "cat": "ecommerce",
+   "llm": "hasaki.vn",
+   "table": [
+    "hasaki.vn"
+   ],
+   "ok": true
+  }
+ ],
+ "intl": [
+  {
+   "label": "1and1ionos",
+   "cat": "international",
+   "llm": "ionos.com",
+   "table": [
+    "ionos.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "absa",
+   "cat": "international",
+   "llm": "absa.co.za",
+   "table": [
+    "absa.co.za"
+   ],
+   "ok": true
+  },
+  {
+   "label": "adobe",
+   "cat": "international",
+   "llm": "adobe.com",
+   "table": [
+    "adobe.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "alibaba",
+   "cat": "international",
+   "llm": "alibaba.com",
+   "table": [
+    "alibaba.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "amazon",
+   "cat": "international",
+   "llm": "amazon.com",
+   "table": [
+    "amazon.com",
+    "amazon.vn",
+    "amazonaws.com",
+    "amazontrust.com",
+    "payments-amazon.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "anzbank",
+   "cat": "international",
+   "llm": "anz.com",
+   "table": [
+    "anz.com.au"
+   ],
+   "ok": false
+  },
+  {
+   "label": "aol",
+   "cat": "international",
+   "llm": "aol.com",
+   "table": [
+    "aol.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "apple",
+   "cat": "international",
+   "llm": "apple.com",
+   "table": [
+    "apple.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "aruba",
+   "cat": "international",
+   "llm": "aruba.com",
+   "table": [
+    "arubacloud.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "att",
+   "cat": "international",
+   "llm": "att.com",
+   "table": [
+    "att.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "auid",
+   "cat": "international",
+   "llm": "auid.com",
+   "table": [
+    "auone.jp"
+   ],
+   "ok": false
+  },
+  {
+   "label": "bancaintesasanpaolo",
+   "cat": "international",
+   "llm": "intesasanpaolo.com",
+   "table": [
+    "intesasanpaolo.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bancoindustrial",
+   "cat": "international",
+   "llm": "bi.com.gt",
+   "table": [
+    "corporacionbi.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "bancoitau",
+   "cat": "international",
+   "llm": "itau.com.br",
+   "table": [
+    "itau.com.br"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bancolombia",
+   "cat": "international",
+   "llm": "bancolombia.com",
+   "table": [
+    "bancolombia.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bankofamerica",
+   "cat": "international",
+   "llm": "bankofamerica.com",
+   "table": [
+    "bankofamerica.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "banquepostale",
+   "cat": "international",
+   "llm": "labanquepostale.fr",
+   "table": [
+    "labanquepostale.fr"
+   ],
+   "ok": true
+  },
+  {
+   "label": "banreservas",
+   "cat": "international",
+   "llm": "banreservas.com.do",
+   "table": [
+    "banreservas.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "bantrab",
+   "cat": "international",
+   "llm": "bantrab.com.gt",
+   "table": [
+    "bantrab.com.gt"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bdobank",
+   "cat": "international",
+   "llm": "bdo.com.ph",
+   "table": [
+    "bdo.com.ph"
+   ],
+   "ok": true
+  },
+  {
+   "label": "biglobe",
+   "cat": "international",
+   "llm": "biglobe.ne.jp",
+   "table": [
+    "biglobe.ne.jp"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bimcell",
+   "cat": "international",
+   "llm": "bimcell.com.tr",
+   "table": [
+    "bimcell.com.tr"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bperbanca",
+   "cat": "international",
+   "llm": "bper.it",
+   "table": [
+    "bper.it"
+   ],
+   "ok": true
+  },
+  {
+   "label": "bt",
+   "cat": "international",
+   "llm": "bt.com",
+   "table": [
+    "bt.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "chainlink",
+   "cat": "international",
+   "llm": "chain.link",
+   "table": [
+    "chain.link"
+   ],
+   "ok": true
+  },
+  {
+   "label": "chase",
+   "cat": "international",
+   "llm": "chase.com",
+   "table": [
+    "chase.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "citibank",
+   "cat": "international",
+   "llm": "citibank.com",
+   "table": [
+    "citi.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "citizensbank",
+   "cat": "international",
+   "llm": "citizensbank.com",
+   "table": [
+    "citizensbank.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "coinbase",
+   "cat": "international",
+   "llm": "coinbase.com",
+   "table": [
+    "coinbase.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "commonwealthbank",
+   "cat": "international",
+   "llm": "commbank.com.au",
+   "table": [
+    "commbank.com.au"
+   ],
+   "ok": true
+  },
+  {
+   "label": "creditagricole",
+   "cat": "international",
+   "llm": "credit-agricole.com",
+   "table": [
+    "credit-agricole.fr"
+   ],
+   "ok": false
+  },
+  {
+   "label": "dbsbank",
+   "cat": "international",
+   "llm": "dbs.com",
+   "table": [
+    "dbs.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "denizbank",
+   "cat": "international",
+   "llm": "denizbank.com",
+   "table": [
+    "denizbank.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "dhl",
+   "cat": "international",
+   "llm": "dhl.com",
+   "table": [
+    "dhl.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "discord",
+   "cat": "international",
+   "llm": "discord.com",
+   "table": [
+    "discord.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "dkb",
+   "cat": "international",
+   "llm": "dkb.de",
+   "table": [
+    "dkb.de"
+   ],
+   "ok": true
+  },
+  {
+   "label": "docusign",
+   "cat": "international",
+   "llm": "docusign.com",
+   "table": [
+    "docusign.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "ebay",
+   "cat": "international",
+   "llm": "ebay.com",
+   "table": [
+    "ebay.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "facebook",
+   "cat": "international",
+   "llm": "facebook.com",
+   "table": [
+    "facebook.com",
+    "facebookmail.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "garanti",
+   "cat": "international",
+   "llm": "garantibbva.com.tr",
+   "table": [
+    "garantibbva.com.tr"
+   ],
+   "ok": true
+  },
+  {
+   "label": "google",
+   "cat": "international",
+   "llm": "google.com",
+   "table": [
+    "google.com",
+    "google.com.vn",
+    "googleadservices.com",
+    "googleapis.com",
+    "googlesyndication.com",
+    "googletagmanager.com",
+    "googletagservices.com",
+    "googleusercontent.com",
+    "googlevideo.com",
+    "gstatic.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "govau",
+   "cat": "international",
+   "llm": "gov.au",
+   "table": [
+    "my.gov.au"
+   ],
+   "ok": false
+  },
+  {
+   "label": "hdfcbank",
+   "cat": "international",
+   "llm": "hdfcbank.com",
+   "table": [
+    "hdfcbank.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "hipercard",
+   "cat": "international",
+   "llm": "hipercard.com.br",
+   "table": [
+    "hipercard.com.br"
+   ],
+   "ok": true
+  },
+  {
+   "label": "impotsgouv",
+   "cat": "international",
+   "llm": "impots.gouv.fr",
+   "table": [
+    "impots.gouv.fr"
+   ],
+   "ok": true
+  },
+  {
+   "label": "instagram",
+   "cat": "international",
+   "llm": "instagram.com",
+   "table": [
+    "instagram.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "leboncoin",
+   "cat": "international",
+   "llm": "leboncoin.fr",
+   "table": [
+    "leboncoin.fr"
+   ],
+   "ok": true
+  },
+  {
+   "label": "linkedin",
+   "cat": "international",
+   "llm": "linkedin.com",
+   "table": [
+    "linkedin.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "madeinchina",
+   "cat": "international",
+   "llm": "made-in-china.com",
+   "table": [
+    "made-in-china.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "metamask",
+   "cat": "international",
+   "llm": "metamask.io",
+   "table": [
+    "metamask.io"
+   ],
+   "ok": true
+  },
+  {
+   "label": "microsoft",
+   "cat": "international",
+   "llm": "microsoft.com",
+   "table": [
+    "microsoft.com",
+    "microsoft365.com",
+    "microsoftonline.com",
+    "s-microsoft.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "mtbank",
+   "cat": "international",
+   "llm": "mtb.com",
+   "table": [
+    "mtb.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "netflix",
+   "cat": "international",
+   "llm": "netflix.com",
+   "table": [
+    "netflix.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "nfcu",
+   "cat": "international",
+   "llm": "navyfederal.org",
+   "table": [
+    "navyfederal.org"
+   ],
+   "ok": true
+  },
+  {
+   "label": "office365",
+   "cat": "international",
+   "llm": "office.com",
+   "table": [
+    "office.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "onedrive",
+   "cat": "international",
+   "llm": "onedrive.com",
+   "table": [
+    "live.com"
+   ],
+   "ok": false
+  },
+  {
+   "label": "opensea",
+   "cat": "international",
+   "llm": "opensea.io",
+   "table": [
+    "opensea.io"
+   ],
+   "ok": true
+  },
+  {
+   "label": "orange",
+   "cat": "international",
+   "llm": "orange.com",
+   "table": [
+    "orange.fr"
+   ],
+   "ok": false
+  },
+  {
+   "label": "paypal",
+   "cat": "international",
+   "llm": "paypal.com",
+   "table": [
+    "paypal.com",
+    "paypalobjects.com"
+   ],
+   "ok": true
+  },
+  {
+   "label": "postbank",
+   "cat": "international",
+   "llm": "postbank.de",
+   "table": [
+    "postbank.de"
+   ],
+   "ok": true
+  }
+ ]
+}

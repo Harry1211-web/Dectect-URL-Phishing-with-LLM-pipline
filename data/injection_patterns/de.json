@@ -1,0 +1,14 @@
+{
+  "fake_instruction": [
+    "(?:ignorier|vergiss|vergessen)\\w*\\s+(?:sie\\s+)?(?:alle\\s+)?(?:vorherigen\\s+|bisherigen\\s+|obigen\\s+)?(?:anweisungen|instruktionen|regeln)",
+    "(?:seite|website)\\s+(?:\\w+\\s+){0,3}(?:verifiziert|geprüft)\\s+(?:\\w+\\s+){0,2}sicher",
+    "(?:sie\\s+müssen|du\\s+musst)\\s+(?:antworten|bestätigen)"
+  ],
+  "direct_command": [
+    "(?:ignorier|vergiss|vergessen)\\w*\\s+(?:sie\\s+)?(?:alle\\s+)?(?:vorherigen\\s+|bisherigen\\s+|obigen\\s+)?(?:anweisungen|instruktionen|regeln)",
+    "(?:sie\\s+müssen|du\\s+musst)\\s+(?:antworten|bestätigen)"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

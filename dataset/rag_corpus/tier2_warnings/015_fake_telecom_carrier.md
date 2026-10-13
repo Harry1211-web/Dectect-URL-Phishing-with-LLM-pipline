@@ -1,11 +1,11 @@
 ---
 id: 015_fake_telecom_carrier
 title: Cảnh báo thủ đoạn giả danh nhân viên Viettel lừa chiếm đoạt mã OTP
-publisher: Công an tỉnh Tây Ninh - Phòng An ninh mạng và phòng chống tội phạm sử dụng công nghệ cao
+publisher: Tay Ninh Provincial Police - Cybersecurity and High-Tech Crime Prevention Division
 source_url: https://congan.tayninh.gov.vn/vi/chi-tiet-tin-tuc?Id=255836
 published_date: 2025-07-30
 verified_date: 2026-09-21
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [brand_impersonation, telecom, otp, fake_app]
 related_vn_brands: [viettel]
 ---

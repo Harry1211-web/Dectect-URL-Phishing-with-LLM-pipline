@@ -1,11 +1,11 @@
 ---
 id: 007_fake_ncsc_policeonline
 title: Cảnh báo website giả mạo Trung tâm Giám sát an toàn không gian mạng quốc gia (NCSC)
-publisher: Cổng thông tin chống tin giả quốc gia (tingia.gov.vn)
+publisher: National Anti-Fake-News Portal (tingia.gov.vn)
 source_url: https://tingia.gov.vn/gia-mao-website-trung-tam-giam-sat-an-toan-khong-gian-mang-quoc-gia-de-lua-dao.html
 published_date: 2026-04-11
 verified_date: 2026-09-16
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [impersonating_authority, fake_fund_recovery]
 related_vn_brands: []
 ---

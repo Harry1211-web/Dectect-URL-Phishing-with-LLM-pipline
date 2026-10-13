@@ -108,14 +108,14 @@ def check_blocklist(url: str) -> RuleResult:
                           latency_ms=round((time.perf_counter() - t0) * 1000, 3))
 
     if not urls:
-        return result("unknown", "Chưa có dữ liệu blocklist (chạy src/blocklist/updater.py).")
+        return result("unknown", "No blocklist data yet (run src/blocklist/updater.py).")
     # The URL itself, then any destination hidden in it (open redirect / click tracker)
     for i, u in enumerate([url, *embedded_urls(url)[:3]]):
         why = _match(u, urls, hosts)
         if why:
-            prefix = f"URL chuyển hướng tới {u[:80]} — " if i else ""
+            prefix = f"URL redirects to {u[:80]} — " if i else ""
             return result(True, prefix + why)
-    return result(False, "Không có trong blocklist.")
+    return result(False, "Not in the blocklist.")
 
 
 def _match(url: str, urls: frozenset[str], hosts: frozenset[str]) -> str | None:
@@ -126,12 +126,12 @@ def _match(url: str, urls: frozenset[str], hosts: frozenset[str]) -> str | None:
         path = path.rsplit("/", 1)[0]
         candidates.add(path)
     if candidates & urls:
-        return ("URL nằm trong danh sách phishing công khai đã biết "
+        return ("URL is in a known public phishing list "
                 "(OpenPhish/PhishTank/Phishing.Database).")
     host = host_of(url)
     if host in hosts:
-        return f"Tên miền {host} nằm trong danh sách phishing đã biết."
+        return f"Domain {host} is in a known phishing list."
     if f"*.{registrable_domain(host)}" in hosts:
-        return (f"Tên miền {registrable_domain(host)} thuộc chiến dịch phishing đã biết "
-                "(nhiều subdomain bị liệt kê).")
+        return (f"Domain {registrable_domain(host)} belongs to a known phishing campaign "
+                "(many of its subdomains are listed).")
     return None

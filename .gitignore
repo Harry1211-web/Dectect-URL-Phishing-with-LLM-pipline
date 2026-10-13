@@ -11,9 +11,11 @@ __pycache__/
 data/host_cache.sqlite*
 data/llm_spend.json
 data/llm_spend.tmp
+data/llm_spend.lock
 
 # Large downloads that the scripts re-download (blocklist updater, data_collection/sources.py)
 data/tranco_top1m.csv
+data/phreshphish_html.parquet
 data/blocklist/*.gz
 dataset/urls/raw/*
 # ...except the clean-URL crawl, which cannot be reproduced exactly
@@ -21,7 +23,6 @@ dataset/urls/raw/*
 
 # Experiment / red-team scratch outputs
 models/url_classifier/cnn_b_experiment.pt
-reports/llm_rag/redteam_injection/_rag_poison_test_chroma/
 reports/**/_checkpoint_*
 
 # Editor tooling

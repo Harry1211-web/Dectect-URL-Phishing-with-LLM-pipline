@@ -1,0 +1,11 @@
+{
+  "fake_instruction": [
+    "(?:önceki\\s+)?talimatları\\s+(?:yok\\s+say|görmezden\\s+gel)"
+  ],
+  "direct_command": [
+    "(?:önceki\\s+)?talimatları\\s+(?:yok\\s+say|görmezden\\s+gel)"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

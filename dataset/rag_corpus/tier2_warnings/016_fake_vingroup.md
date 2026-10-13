@@ -5,7 +5,7 @@ publisher: Chongluadao.vn
 source_url: https://chongluadao.vn/blog/en/2023/09/canh-bao-lua-dao-gia-mao-trang-web-vingroup/
 published_date: 2023-09-11
 verified_date: 2026-09-23
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [brand_impersonation, crypto_investment, fake_staff, fake_website]
 related_vn_brands: [vingroup, vincom, vinpearl, vinfast]
 ---

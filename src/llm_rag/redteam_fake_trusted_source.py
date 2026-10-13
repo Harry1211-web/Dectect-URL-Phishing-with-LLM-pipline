@@ -20,10 +20,8 @@ for _p in (str(_HERE), str(_HERE.parent)):
         sys.path.insert(0, _p)
 
 from html_sanitize import sanitize_html  # noqa: E402
-from llm_client import (  # noqa: E402
-    DEFAULT_MODEL, VALID_VERDICTS, VERDICT_SAFE, WARNING_INJECTION_DETECTED, call_openai,
-)
-from redteam_prompt_injection import BASE_SCENARIOS, PROMPT_TEMPLATE_HARDENED_V2  # noqa: E402
+from llm_client import DEFAULT_MODEL, VALID_VERDICTS, VERDICT_SAFE, call_openai  # noqa: E402
+from redteam_prompt_injection import BASE_SCENARIOS, _prompt  # noqa: E402
 
 ROOT = _HERE.parents[1]
 OUT_PATH = ROOT / "reports" / "llm_rag" / "redteam_injection" / "fake_trusted_source_summary.json"
@@ -59,11 +57,10 @@ def main() -> int:
 
     rows = []
     for sc in BASE_SCENARIOS:
-        clean = sanitize_html(inject_fake_source(sc["content"]), url=sc["url"])
-        warning = WARNING_INJECTION_DETECTED if clean["prompt_injection_suspected"] else ""
-        res = call_openai(PROMPT_TEMPLATE_HARDENED_V2.format(
-            url=sc["url"], title=sc["title"], content=clean["text"], injection_warning=warning),
-            model=args.model)
+        raw = inject_fake_source(sc["content"])
+        clean = sanitize_html(raw, url=sc["url"])
+        # Production Layer D path: sanitizer + llm_client.build_prompt
+        res = call_openai(_prompt(sc, raw, production=True), model=args.model)
         leaked = "Chống Lừa Đảo" in clean["text"]
         rows.append({"id": sc["id"], "verdict": res.get("verdict"), "error": res.get("error"),
                      "prompt_injection_suspected": clean["prompt_injection_suspected"],

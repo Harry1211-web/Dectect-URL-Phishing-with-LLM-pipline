@@ -1,11 +1,11 @@
 ---
 id: 008_fake_bank_brand_agribank
 title: Cảnh giác trước các hình thức lừa đảo giả mạo thương hiệu ngân hàng (Agribank)
-publisher: Agribank (thông báo chính thức)
+publisher: Agribank (official notice)
 source_url: https://www.agribank.com.vn/vn/ve-agribank/tin-tuc-su-kien/tin-ve-agribank/agribank-thong-bao/canh-giac-dinh-bay-cac-hinh-thuc-mao-danh-ngan-hang
 published_date: 2026-09-01
 verified_date: 2026-09-16
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [brand_impersonation, bank, phishing_link, otp, fake_sms]
 related_vn_brands: [agribank]
 ---

@@ -7,13 +7,16 @@ Four defence layers:
   3. Drop text whose colour equals its background colour.
   4. Strip zero-width / invisible characters.
 
-All text (visible and removed) is also scanned for fake instructions; when found, the sentences
-are removed and a flag is raised so the prompt can warn the model.
+All text (visible and removed) is also scanned for fake instructions (multilingual patterns loaded
+from data/injection_patterns/); when found, the sentences are removed and a flag is raised so the
+prompt can warn the model.
 """
 
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
 from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup, Comment
@@ -33,48 +36,49 @@ _RE_HIDDEN_STYLE = re.compile(
 _RE_COLOR = re.compile(r"(?<![-\w])color\s*:\s*([^;]+)", re.I)
 _RE_BG = re.compile(r"background(?:-color)?\s*:\s*([^;]+)", re.I)
 
-# Sentences that try to instruct the analysing model (Vietnamese + English)
-_RE_FAKE_INSTRUCTION = re.compile(
-    r"bỏ qua (?:mọi|các|hết)?\s*(?:hướng dẫn|chỉ thị)|"
-    r"system\s*override|ignore\s*(?:all|previous|the\s*above)\s*instructions?|"
-    r"đã được xác minh an toàn|verified.{0,20}safe|"
-    r"(?:bạn phải|hãy)\s*(?:trả lời|xác nhận|kết luận).{0,30}(?:an toàn|safe)|"
-    r"you must (?:respond|answer|reply|confirm|conclude).{0,40}"
-    r"(?:safe|verified|legitimate|no (?:danger|risk|threat)|not (?:a )?(?:threat|risk))",
-    re.I,
-)
+# Injection patterns are data, one file per language (data/injection_patterns/<lang>.json, keys
+# below); all files are merged so every page is checked against every language
+PATTERNS_DIR = Path(__file__).resolve().parents[2] / "data" / "injection_patterns"
+_PATTERN_KEYS = ("fake_instruction", "direct_command", "narrative", "trusted_source",
+                 "gov_source_keywords")
 
+
+def _load_patterns(directory: Path = PATTERNS_DIR) -> dict[str, list[str]]:
+    merged: dict[str, list[str]] = {k: [] for k in _PATTERN_KEYS}
+    for f in sorted(directory.glob("*.json")):
+        data = json.loads(f.read_text(encoding="utf-8"))
+        for k in _PATTERN_KEYS:
+            merged[k].extend(x for x in data.get(k, []) if x not in merged[k])
+    if not merged["fake_instruction"]:
+        raise RuntimeError(f"no injection patterns found in {directory}")
+    return merged
+
+
+def _compile(patterns: list[str]) -> re.Pattern:
+    # An empty group must match nothing (an empty alternation would match everything)
+    return re.compile("|".join(f"(?:{p})" for p in patterns) or r"(?!x)x", re.I)
+
+
+_PATTERNS = _load_patterns()
+# Sentences that try to instruct the analysing model
+_RE_FAKE_INSTRUCTION = _compile(_PATTERNS["fake_instruction"])
 # Narrative/quoting phrases of legitimate warning articles (exempt unless a direct command)
-_RE_NARRATIVE = re.compile(
-    r"kẻ (?:gian|lừa đảo|xấu)|đối tượng lừa đảo|hacker|tin tặc|"
-    r"chiêu trò|thủ đoạn|dấu hiệu (?:lừa đảo|nhận biết|đáng ngờ)|"
-    r"cách nhận (?:biết|diện)|nếu (?:thấy|nhận được|gặp|bạn nhận được)|"
-    r"thường (?:yêu cầu|giả mạo|dùng|dụ dỗ)|cảnh giác|lưu ý\s*:?|"
-    r"giải thích cách|hướng dẫn nhận diện",
-    re.I,
-)
+_RE_NARRATIVE = _compile(_PATTERNS["narrative"])
 # Direct commands aimed at the model — never exempt, even inside narrative text
-# (blocks bypasses such as "Lưu ý: ... bỏ qua mọi hướng dẫn")
-_RE_DIRECT_COMMAND = re.compile(
-    r"verdict\s*[:=]|system\s*override|"
-    r"bỏ qua (?:mọi|các|hết)?\s*(?:hướng dẫn|chỉ thị)|"
-    r"ignore\s*(?:all|previous|the\s*above)\s*instructions?|"
-    r"(?:bạn phải|hãy)\s*(?:trả lời|xác nhận|kết luận)|"
-    r"you must (?:respond|answer|reply|confirm|conclude)",
-    re.I,
-)
-_RE_TRUSTED_SOURCE = re.compile(
-    r"bởi\s+(?:chống lừa đảo|ncsc|cục an toàn thông tin|bộ công an|công an|"
-    r"ngân hàng nhà nước|sbv|bộ thông tin)",
-    re.I,
-)
+# (blocks bypasses such as "Note: ... ignore all instructions")
+_RE_DIRECT_COMMAND = _compile(_PATTERNS["direct_command"])
+# "... by <authority>" phrases that quote an anti-scam authority
+_RE_TRUSTED_SOURCE = _compile(_PATTERNS["trusted_source"])
+_GOV_SOURCE_KEYWORDS = tuple(k.lower() for k in _PATTERNS["gov_source_keywords"])
 
-# A quoted authority is trusted only when the page really is on that authority's domain
-_GOV_VN_SUFFIX = ".gov.vn"
-_CHONGLUADAO_DOMAIN = "chongluadao.vn"
-_GOV_SOURCE_KEYWORDS = (
-    "ncsc", "cục an toàn thông tin", "bộ công an", "công an",
-    "ngân hàng nhà nước", "sbv", "bộ thông tin",
+# A quoted authority is trusted only when the page really is on an authority's domain. Explicit
+# list of suffixes reserved for governments: a generic "gov.<cc>" rule would trust gov.<cc>
+# zones that anyone can register under some ccTLDs
+_AUTHORITY_SUFFIXES = (
+    "gov.vn", "chongluadao.vn",
+    "gov", "gov.uk", "gouv.fr", "gob.es", "gov.br", "gov.it", "bund.de", "overheid.nl",
+    "gov.ru", "go.id", "gov.tr", "gov.cn", "go.jp", "go.kr", "go.th", "gov.sg", "gov.au",
+    "gc.ca", "europa.eu", "europol.europa.eu", "interpol.int",
 )
 
 
@@ -91,15 +95,29 @@ def _quoted_source_matches_domain(sentence: str, host: str) -> bool:
     """True when the authority quoted in the sentence owns the page's domain."""
     if not host:
         return False
+    host = host.rstrip(".").lower()
+    authority_host = any(host == d or host.endswith("." + d) for d in _AUTHORITY_SUFFIXES)
     s = sentence.lower()
-    if "chống lừa đảo" in s and (host == _CHONGLUADAO_DOMAIN
-                                 or host.endswith("." + _CHONGLUADAO_DOMAIN)):
-        return True
-    return any(k in s for k in _GOV_SOURCE_KEYWORDS) and host.endswith(_GOV_VN_SUFFIX)
+    return authority_host and any(k in s for k in _GOV_SOURCE_KEYWORDS)
+
+
+# Cyrillic / Greek letters that look Latin ("ignоre" with a Cyrillic о). Only these: folding
+# "đ" or Cyrillic words would break the Vietnamese and Russian patterns, so the original sentence
+# is checked as well
+_LOOKALIKES = str.maketrans({
+    "а": "a", "е": "e", "о": "o", "р": "p", "с": "c", "у": "y", "х": "x", "і": "i", "ј": "j",
+    "ѕ": "s", "ԁ": "d", "һ": "h", "ӏ": "l", "ԝ": "w", "ν": "v", "ο": "o", "α": "a", "ε": "e",
+    "ι": "i", "κ": "k", "τ": "t",
+})
 
 
 def is_fake_instruction(sentence: str, host: str = "") -> bool:
     """Decide whether a sentence is an injected instruction that must be removed."""
+    folded = sentence.translate(_LOOKALIKES)
+    return _is_fake(sentence, host) or (folded != sentence and _is_fake(folded, host))
+
+
+def _is_fake(sentence: str, host: str) -> bool:
     if not _RE_FAKE_INSTRUCTION.search(sentence):
         return False
     if _RE_DIRECT_COMMAND.search(sentence):

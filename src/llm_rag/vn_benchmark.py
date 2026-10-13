@@ -3,7 +3,7 @@
 - Legit set: live `.vn` domains from Tranco.
 - Phishing set: simulated attacks on popular Vietnamese brands/services (not fetchable, so the
   prompt is built from the scenario text through the same path as production).
-Run: python src/llm_rag/vn_benchmark.py [--rag]   (calls the OpenAI API)
+Run: python src/llm_rag/vn_benchmark.py   (calls the OpenAI API)
 """
 
 from __future__ import annotations
@@ -22,8 +22,7 @@ for _p in (str(_HERE), str(_HERE.parent)):
 from live_traffic_sources import fetch_tranco_domains  # noqa: E402
 from llm_benchmark import compute_metrics, prepare_sample  # noqa: E402
 from llm_client import (  # noqa: E402
-    DEFAULT_MODEL, PROMPT_TEMPLATE_BALANCED, PROMPT_TEMPLATE_RAG, build_prompt, call_openai,
-    check_typosquatting_with_redirect,
+    DEFAULT_MODEL, build_prompt, call_openai, check_typosquatting_with_redirect,
 )
 from redteam_prompt_injection import BASE_SCENARIOS  # noqa: E402
 
@@ -85,28 +84,17 @@ EXTRA_SCENARIOS: list[dict] = [
 ]
 
 
-def phishing_sample(sc: dict, use_rag: bool) -> dict:
+def phishing_sample(sc: dict) -> dict:
     """Build the prompt for a simulated (unfetchable) phishing page like `prepare_sample` does."""
     url, title, content = sc["url"], sc["title"], sc["content"]
     typo_flag = check_typosquatting_with_redirect(url)["flag"]
-    rag_context = ""
-    if use_rag:
-        from rag.pipeline import get_rag_context
-        try:
-            rag_context = get_rag_context(url, title, content)
-        except Exception as e:
-            rag_context = f"[RAG lỗi, bỏ qua: {type(e).__name__}]"
-    prompt = build_prompt(url, title, content, injection_suspected=False, typosquatting=typo_flag,
-                          template=PROMPT_TEMPLATE_RAG if use_rag else PROMPT_TEMPLATE_BALANCED,
-                          rag_context=rag_context)
+    prompt = build_prompt(url, title, content, injection_suspected=False, typosquatting=typo_flag)
     return {"url": url, "label": "phishing", "prompt": prompt, "typosquatting": typo_flag,
             "origin": "vn_scenario"}
 
 
-def legit_sample(domain: str, use_rag: bool) -> dict | None:
-    s = prepare_sample(f"https://{domain}", "legit",
-                       template=PROMPT_TEMPLATE_RAG if use_rag else PROMPT_TEMPLATE_BALANCED,
-                       use_rag=use_rag)
+def legit_sample(domain: str) -> dict | None:
+    s = prepare_sample(f"https://{domain}", "legit")
     if s is not None:
         s["origin"] = "tranco_vn"
     return s
@@ -117,21 +105,20 @@ def main() -> int:
         sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--rag", action="store_true")
     ap.add_argument("--seed", type=int, default=55)
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--temperature", type=float, default=None)
     args = ap.parse_args()
 
     scenarios = list(BASE_SCENARIOS) + EXTRA_SCENARIOS
-    phishing = [phishing_sample(sc, args.rag) for sc in scenarios]
+    phishing = [phishing_sample(sc) for sc in scenarios]
     vn_domains = [d for d in fetch_tranco_domains(1_000_000, pool=1_000_000, seed=args.seed)
                   if d.endswith(".vn")]
     legit = []
     for d in vn_domains:
         if len(legit) >= len(scenarios):
             break
-        s = legit_sample(d, args.rag)
+        s = legit_sample(d)
         if s is not None:
             legit.append(s)
             print(f"  legit: {d}", flush=True)
@@ -147,12 +134,12 @@ def main() -> int:
 
     summary = {
         "time": datetime.now(timezone.utc).isoformat(), "model": args.model,
-        "temperature": args.temperature, "rag": args.rag,
+        "temperature": args.temperature,
         "n_phishing_vn": len(phishing), "n_legit_vn": len(legit),
         "metrics": compute_metrics(rows),
     }
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = OUT_DIR / f"vn_benchmark_summary{'_rag' if args.rag else ''}.json"
+    out = OUT_DIR / "vn_benchmark_summary.json"
     out.write_text(json.dumps({**summary, "details": rows}, ensure_ascii=False, indent=2),
                    encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))

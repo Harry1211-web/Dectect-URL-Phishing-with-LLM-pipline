@@ -1,14 +1,17 @@
 brand,domain,category,verified,note
-vietcombank,vietcombank.com.vn,bank,verified,"SBV: ""Ngoại Thương Việt Nam (Vietcombank/VCB)"" trong danh sách NHTMCP 30/9/2024"
+vietcombank,vietcombank.com.vn,bank,verified,"SBV: ""Ngoại Thương Việt Nam (Vietcombank/VCB)"" in the joint-stock commercial bank list of 30/9/2024"
 vietinbank,vietinbank.vn,bank,verified,"SBV: ""Công thương Việt Nam (Vietinbank)"""
+vietinbank,vietinbankamc.vn,bank,verified,Checked manually by the project owner (2026-10-12): VietinBank asset management company (subsidiary)
 bidv,bidv.com.vn,bank,verified,"SBV: ""Đầu tư và Phát triển Việt Nam (BIDV)"""
-agribank,agribank.com.vn,bank,verified,Ngân hàng thương mại nhà nước (không thuộc danh sách NHTMCP) — domain xác nhận qua website chính thức
+bidv,bidv.vn,bank,verified,Ownership evidence (2026-10-12): TLS certificate issued to Joint Stock Commercial Bank for Investment & Development of VN; linked from bidv.com.vn
+agribank,agribank.com.vn,bank,verified,State-owned commercial bank (not in the joint-stock bank list) — domain confirmed via the official website
 techcombank,techcombank.com.vn,bank,verified,"SBV: ""Kỹ Thương (Techcombank)"""
 mbbank,mbbank.com.vn,bank,verified,"SBV: ""Quân Đội (MB)"""
 vpbank,vpbank.com.vn,bank,verified,"SBV: ""Việt Nam Thịnh Vượng (VPBank)"""
+vpbank,vpbanks.com.vn,bank,verified,Ownership evidence (2026-10-12): VPBank Securities (subsidiary); TLS certificate issued to VPBank Securities JSC
 acb,acb.com.vn,bank,verified,"SBV: ""Á Châu (ACB)"""
-sacombank,sacombank.com.vn,bank,verified,"SBV: ""Sài Gòn Thương Tín (Sacombank)"". Tên ĐKKD đổi thành 'NH TMCP Sài Gòn Tài Lộc' từ 01/6/2026 (QĐ 36/QĐ-QLGS4 của NHNN); viết tắt SACOMBANK và domain giữ nguyên"
-tpbank,tpb.vn,bank,verified,"SBV: ""Tiên Phong (TPB)"". Domain chính là tpb.vn"
+sacombank,sacombank.com.vn,bank,verified,"SBV: ""Sài Gòn Thương Tín (Sacombank)"". Registered name changed to ""Sài Gòn Tài Lộc"" from 01/6/2026 (SBV decision 36/QĐ-QLGS4); short name SACOMBANK and domain unchanged"
+tpbank,tpb.vn,bank,verified,"SBV: ""Tiên Phong (TPB)"". Main domain is tpb.vn"
 tpbank,tpbank.com.vn,bank,verified,"SBV: ""Tiên Phong (TPB)"""
 hdbank,hdbank.com.vn,bank,verified,"SBV: ""Phát triển Thành phố Hồ Chí Minh (HDBank)"""
 vib,vib.com.vn,bank,verified,"SBV: ""Quốc Tế (VIB)"""
@@ -17,111 +20,120 @@ eximbank,eximbank.com.vn,bank,verified,"SBV: ""Xuất Nhập Khẩu (Eximbank)""
 msb,msb.com.vn,bank,verified,"SBV: ""Hàng Hải (MSB)"""
 ocb,ocb.com.vn,bank,verified,"SBV: ""Phương Đông (OCB)"""
 seabank,seabank.com.vn,bank,verified,"SBV: ""Đông Nam Á (Seabank)"""
-lpbank,lpbank.com.vn,bank,verified,"SBV: ""Lộc Phát Việt Nam (LPB)"". Tên cũ LienVietPostBank; NHNN chấp thuận đổi viết tắt thành LPBank từ 2023"
+lpbank,lpbank.com.vn,bank,verified,"SBV: ""Lộc Phát Việt Nam (LPB)"". Formerly LienVietPostBank; SBV approved the short name LPBank in 2023"
 namabank,namabank.com.vn,bank,verified,"SBV: ""Nam Á (NAM A BANK)"""
 abbank,abbank.vn,bank,verified,"SBV: ""An Bình (ABB)"""
 pvcombank,pvcombank.com.vn,bank,verified,"SBV: ""Đại Chúng Việt Nam (PVcomBank)"""
-scb,scb.com.vn,bank,verified,"SBV: ""Sài Gòn (SCB)"". Vẫn đang bị kiểm soát đặc biệt (từ 10/2022) nhưng hoạt động bình thường tính đến 10/2026; đã dời trụ sở chính sang 242 Cống Quỳnh Q1 TP.HCM từ 09/2026 — domain không đổi"
-bacabank,baca-bank.vn,bank,verified,"SBV: ""Bắc Á (Bac A Bank)"". Domain có dấu gạch ngang"
+scb,scb.com.vn,bank,verified,"SBV: ""Sài Gòn (SCB)"". Under special control since 10/2022 but operating normally as of 10/2026; head office moved to 242 Cong Quynh, District 1, HCMC in 09/2026 — domain unchanged"
+bacabank,baca-bank.vn,bank,verified,"SBV: ""Bắc Á (Bac A Bank)"". Hyphenated domain"
 vietbank,vietbank.com.vn,bank,verified,"SBV: ""Việt Nam Thương Tín (Vietbank)"""
 vietabank,vietabank.com.vn,bank,verified,"SBV: ""Việt Á (VIETA Bank)"""
 saigonbank,saigonbank.com.vn,bank,verified,"SBV: ""Sài Gòn Công Thương (SGB)"""
 baovietbank,baovietbank.vn,bank,verified,"SBV: ""Bảo Việt (Baoviet Bank)"""
-ncb,ncb-bank.vn,bank,verified,"SBV: ""Quốc Dân (NCB)"". Domain có dấu gạch ngang"
-bvbank,bvbank.net.vn,bank,verified,"SBV: ""Bản Việt (Viet Capital Bank)"". Tên cũ Ngân hàng Bản Việt/Viet Capital Bank đổi thương hiệu hiển thị thành BVBank (2022)"
-vikkibank,vikkibank.vn,bank,verified,"SBV (30/9/2024) còn ghi ""Đông Á (EAB)"". Tên cũ Ngân hàng Đông Á (DongA Bank) — đổi tên thành Ngân hàng Số Vikki (Vikki Bank) từ 14/02/2025 (QĐ 42/QĐ-TTGSNH2 + 237/QĐ-NHNN) sau khi chuyển giao bắt buộc; thuộc sở hữu 100% của HDBank"
+ncb,ncb-bank.vn,bank,verified,"SBV: ""Quốc Dân (NCB)"". Hyphenated domain"
+bvbank,bvbank.net.vn,bank,verified,"SBV: ""Bản Việt (Viet Capital Bank)"". Formerly Ban Viet / Viet Capital Bank, rebranded as BVBank (2022)"
+vikkibank,vikkibank.vn,bank,verified,"SBV (30/9/2024) still lists ""Đông Á (EAB)"". Formerly DongA Bank — renamed Vikki Digital Bank from 14/02/2025 (decisions 42/QĐ-TTGSNH2 + 237/QĐ-NHNN) after the compulsory transfer; 100 % owned by HDBank"
+vikkibank,vikkibanks.vn,bank,verified,Checked manually by the project owner (2026-10-12): Vikki securities company
 kienlongbank,kienlongbank.com,bank,verified,"SBV: ""Kiên Long (KLB)"""
-pgbank,pgbank.com.vn,bank,verified,"SBV: ""Thịnh Vượng và Phát triển (PGBank)"". Tên cũ Ngân hàng Xăng dầu Petrolimex (PG Bank); tách khỏi Petrolimex 2023"
-cake,cake.vn,bank,verified,Ngân hàng số của VPBank — thương hiệu con; không tách riêng trong danh sách NHTMCP của SBV
-timo,timo.vn,bank,verified,Ngân hàng số (hợp tác Bản Việt/BVBank) — thương hiệu con; không tách riêng trong danh sách NHTMCP của SBV
-momo,momo.vn,e_wallet,verified,"SBV (danh sách trung gian thanh toán 30/4/2026): pháp nhân vận hành là ""M_SERVICE"""
-zalopay,zalopay.vn,e_wallet,verified,"SBV: pháp nhân vận hành là ""ZION"" (CTCP Zion; công ty con của VNG)"
+pgbank,pgbank.com.vn,bank,verified,"SBV: ""Thịnh Vượng và Phát triển (PGBank)"". Formerly Petrolimex Bank (PG Bank); separated from Petrolimex in 2023"
+cake,cake.vn,bank,verified,"Digital bank of VPBank — sub-brand, not listed separately by SBV"
+timo,timo.vn,bank,verified,"Digital bank (partnership with Ban Viet / BVBank) — sub-brand, not listed separately by SBV"
+momo,momo.vn,e_wallet,verified,"SBV (payment intermediary list of 30/4/2026): operated by ""M_SERVICE"""
+zalopay,zalopay.vn,e_wallet,verified,"SBV: operated by ""ZION"" (Zion JSC, a VNG subsidiary)"
+zalopay,zalopay.com.vn,e_wallet,verified,Ownership evidence (2026-10-12): redirects to zalopay.vn; TLS certificate issued to ZION JSC
 vnpay,vnpay.vn,e_wallet,verified,"SBV: ""VNPAY"""
 vnpay,vnpayqr.vn,e_wallet,verified,"SBV: ""VNPAY"""
-viettelmoney,viettelmoney.vn,e_wallet,verified,"SBV: ""VIETTEL"". Tên cũ ViettelPay"
-shopeepay,shopeepay.vn,e_wallet,verified,"SBV: ""ShopeePay"". Tên cũ AirPay"
-payoo,payoo.vn,e_wallet,verified,"SBV: pháp nhân vận hành là ""VIET UNION"" (CTCP Dịch vụ Trực tuyến Cộng Đồng Việt)"
+viettelmoney,viettelmoney.vn,e_wallet,verified,"SBV: ""VIETTEL"". Formerly ViettelPay"
+viettelmoney,viettelpay.vn,e_wallet,verified,"Ownership evidence (2026-10-12): former ViettelPay domain, redirects to viettelmoney.vn; TLS certificate issued to Viettel Digital Services Corporation"
+shopeepay,shopeepay.vn,e_wallet,verified,"SBV: ""ShopeePay"". Formerly AirPay"
+payoo,payoo.vn,e_wallet,verified,"SBV: operated by ""VIET UNION"" (Viet Union Online Services JSC)"
+payoo,payoo.com.vn,e_wallet,verified,Ownership evidence (2026-10-12): redirects to payoo.vn
 vnptmoney,vnptmoney.vn,e_wallet,verified,"SBV: ""VNPT – Media"""
-moca,moca.vn,e_wallet,verified,"SBV vẫn liệt kê ""MoCa"" (30/4/2026) — pháp nhân còn giữ giấy phép. NHƯNG ví điện tử tiêu dùng trên Grab đã ngừng nhận người dùng mới + hoàn tiền toàn bộ từ 1/7/2024; domain moca.vn còn tồn tại nhưng không còn là mục tiêu phishing đang hoạt động mạnh"
-napas,napas.com.vn,e_wallet,verified,"SBV: ""NAPAS"" — Công ty CP Thanh toán Quốc gia Việt Nam; hạ tầng chuyển mạch/bù trừ liên ngân hàng; hầu hết app ngân hàng đều dẫn chiếu NAPAS nên là mục tiêu mạo danh giá trị cao"
-shopee,shopee.vn,ecommerce,verified,Xác nhận qua website chính thức — sàn TMĐT thị phần lớn nhất VN
-lazada,lazada.vn,ecommerce,verified,Xác nhận qua website chính thức
-tiki,tiki.vn,ecommerce,verified,Xác nhận qua website chính thức
-sendo,sendo.vn,ecommerce,verified,Xác nhận qua website chính thức
-thegioididong,thegioididong.com,ecommerce,verified,Xác nhận qua website chính thức — thuộc CTCP Đầu tư Thế Giới Di Động
-dienmayxanh,dienmayxanh.com,ecommerce,verified,Xác nhận qua website chính thức — cùng tập đoàn Thế Giới Di Động
-bachhoaxanh,bachhoaxanh.com,ecommerce,verified,Xác nhận qua website chính thức — cùng tập đoàn Thế Giới Di Động
-fptshop,fptshop.com.vn,ecommerce,verified,Xác nhận qua website chính thức
-cellphones,cellphones.com.vn,ecommerce,verified,Xác nhận qua website chính thức
-chotot,chotot.com,ecommerce,verified,Xác nhận qua website chính thức — sàn rao vặt lớn nhất VN
-viettel,viettel.vn,telecom,verified,Chưa fetch xác nhận nội dung được (trang JS nặng) — giữ nguyên vì đã là domain tập đoàn quen thuộc; cần rà tay lại
-viettel,viettel.com.vn,telecom,verified,Như trên
-viettel,vietteltelecom.vn,telecom,verified,Cổng bán lẻ Viettel Telecom (thuê bao di động/internet/truyền hình) — xác nhận qua tìm kiếm 2026-09-14
+moca,moca.vn,e_wallet,verified,"SBV still lists ""MoCa"" (30/4/2026) — the company keeps its licence, BUT the consumer wallet on Grab stopped taking new users and refunded all balances from 1/7/2024; moca.vn still exists but is no longer an active phishing target"
+napas,napas.com.vn,e_wallet,verified,"SBV: ""NAPAS"" — National Payment Corporation of Vietnam; interbank switching/clearing infrastructure referenced by almost every banking app, so a high-value impersonation target"
+shopee,shopee.vn,ecommerce,verified,Confirmed via the official website — largest e-commerce marketplace in VN
+lazada,lazada.vn,ecommerce,verified,Confirmed via the official website
+tiki,tiki.vn,ecommerce,verified,Confirmed via the official website
+sendo,sendo.vn,ecommerce,verified,Confirmed via the official website
+thegioididong,thegioididong.com,ecommerce,verified,Confirmed via the official website — Mobile World Investment JSC
+dienmayxanh,dienmayxanh.com,ecommerce,verified,Confirmed via the official website — same group as Mobile World (thegioididong.com)
+bachhoaxanh,bachhoaxanh.com,ecommerce,verified,Confirmed via the official website — same group as Mobile World (thegioididong.com)
+fptshop,fptshop.com.vn,ecommerce,verified,Confirmed via the official website
+cellphones,cellphones.com.vn,ecommerce,verified,Confirmed via the official website
+chotot,chotot.com,ecommerce,verified,Confirmed via the official website — largest classifieds site in VN
+viettel,viettel.vn,telecom,verified,Content could not be fetched (JavaScript-heavy page) — kept because it is the well-known group domain; needs a manual re-check
+viettel,viettel.com.vn,telecom,verified,Same as viettel.vn
+viettel,vietteltelecom.vn,telecom,verified,Viettel Telecom retail portal (mobile/internet/TV subscriptions) — confirmed via web search 2026-09-14
+viettel,viettelcloud.vn,telecom,verified,Ownership evidence (2026-10-12): Viettel Cloud; TLS certificate issued to Viettel Networks Corporation
 vnpt,vnpt.com.vn,telecom,verified,
-vnpt,vnpt.vn,telecom,verified,Xác nhận qua fetch trực tiếp 2026-09-14: thuộc Tổng Công ty Dịch vụ Viễn thông (VNPT VinaPhone) — chi nhánh Tập đoàn Bưu chính Viễn thông Việt Nam
-mobifone,mobifone.vn,telecom,verified,"Cũng là 1 pháp nhân trong danh sách trung gian thanh toán SBV (""Mobifone"")"
-vinaphone,vinaphone.com.vn,telecom,verified,Thương hiệu di động của VNPT — xác nhận qua tìm kiếm 2026-09-14
+vnpt,vnpt.vn,telecom,verified,Confirmed by direct fetch 2026-09-14: VNPT VinaPhone Services Corporation — a branch of the VNPT group
+vnpt,vnpt-ca.vn,telecom,verified,Checked manually by the project owner (2026-10-12): VNPT-CA digital signature certification service
+vnpt,vnpt-bhxh.vn,telecom,verified,Checked manually by the project owner (2026-10-12): VNPT social insurance e-transaction service
+mobifone,mobifone.vn,telecom,verified,"Also a company in the SBV payment intermediary list (""Mobifone"")"
+vinaphone,vinaphone.com.vn,telecom,verified,Mobile brand of VNPT — confirmed via web search 2026-09-14
 fpt,fpt.vn,telecom,verified,
 fpt,fpt.com.vn,telecom,verified,
 vng,vng.com.vn,telecom,verified,
-zalo,zalo.me,telecom,verified,Domain .me (không phải .vn)
-vietnamairlines,vietnamairlines.com,airline,verified,Xác nhận qua website chính thức
-vietjetair,vietjetair.com,airline,verified,Xác nhận qua website chính thức
-bambooairways,bambooairways.com,airline,verified,Xác nhận qua website chính thức
-dichvucong,dichvucong.gov.vn,public_service,verified,Cổng Dịch vụ công Quốc gia — xác nhận qua tìm kiếm 2026-09-14
-vneid,vneid.gov.vn,public_service,verified,Xác nhận qua tìm kiếm 2026-09-14
-gdt,gdt.gov.vn,public_service,verified,"Domain vẫn đúng nhưng tên cơ quan đã đổi từ ""Tổng cục Thuế"" thành ""Cục Thuế"" (trực thuộc Bộ Tài Chính; sau sáp nhập bộ ngành). Dịch vụ thuế điện tử đang chuyển từ thuedientu.gdt.gov.vn sang dichvucong.gdt.gov.vn (từ 01/7/2025) — vẫn cùng domain gốc gdt.gov.vn"
-baohiemxahoi,baohiemxahoi.gov.vn,public_service,verified,Xác nhận qua tìm kiếm 2026-09-14
-evn,evn.com.vn,public_service,verified,Tập đoàn Điện lực Việt Nam — xác nhận qua tìm kiếm 2026-09-14
-vnpost,vnpost.vn,logistics,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Tổng công ty Bưu điện Việt Nam
-viettelpost,viettelpost.com.vn,logistics,verified,Trang chủ Viettel Post (2026-10-08)
-viettelpost,viettelpost.vn,logistics,unverified,Domain phụ Viettel Post (Tranco top 100k)
-ghn,ghn.vn,logistics,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Giao Hàng Nhanh
-ghtk,ghtk.vn,logistics,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Giao Hàng Tiết Kiệm
-jtexpress,jtexpress.vn,logistics,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): J&T Express Việt Nam
-ahamove,ahamove.com,logistics,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-grab,grab.com,transport,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): trang /vn/ của Grab
-xanhsm,xanhsm.com,transport,verified,"Xanh SM — đã đổi tên Green SM, domain chuyển hướng sang greensm.com"
-greensm,greensm.com,transport,verified,Xác nhận qua tìm kiếm web (2026-10-08): Xanh SM đổi tên thành Green SM
-baoviet,baoviet.com.vn,insurance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Tập đoàn Bảo Việt
-prudential,prudential.com.vn,insurance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-manulife,manulife.com.vn,insurance,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay"
-aia,aia.com.vn,insurance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-daiichilife,dai-ichi-life.com.vn,insurance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-bidvmetlife,bidvmetlife.com.vn,insurance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-pvi,pviholdings.com.vn,insurance,verified,Xác nhận qua tìm kiếm web (2026-10-08): website trong hồ sơ doanh nghiệp PVI
-pvi,pvi.com.vn,insurance,unverified,"Domain email liên hệ của PVI, không truy cập được trang chủ"
-ssi,ssi.com.vn,securities,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Chứng khoán SSI
-vndirect,vndirect.com.vn,securities,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay"
-tcbs,tcbs.com.vn,securities,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay"
-vps,vps.com.vn,securities,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Chứng khoán VPS
-shinhan,shinhan.com.vn,bank,verified,Xác nhận qua tìm kiếm web (2026-10-08)
-uob,uob.com.vn,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-woori,woori.com.vn,bank,verified,Xác nhận qua tìm kiếm web (2026-10-08)
-hsbc,hsbc.com.vn,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-standardchartered,sc.com,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-cbbank,cbbank.vn,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-gpbank,gpbank.com.vn,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-mbv,mbv.com.vn,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): MBV (tên mới của OceanBank)
-publicbank,publicbank.com.vn,bank,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-fecredit,fecredit.com.vn,consumer_finance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-homecredit,homecredit.vn,consumer_finance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-mcredit,mcredit.com.vn,consumer_finance,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-sbv,sbv.gov.vn,public_service,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay: Ngân hàng Nhà nước"
-chinhphu,chinhphu.vn,public_service,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Cổng TTĐT Chính phủ
-bocongan,bocongan.gov.vn,public_service,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-csgt,csgt.vn,public_service,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): chuyển hướng tới csgt.bocongan.gov.vn
-ncsc,ncsc.gov.vn,public_service,unverified,Không truy cập được khi kiểm tra; NCSC thường bị mạo danh
-evnhcmc,evnhcmc.vn,public_service,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): Điện lực TP HCM
-evnhanoi,evnhanoi.vn,public_service,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-vietravelairlines,vietravelairlines.com,airline,verified,Xác nhận qua tìm kiếm web (2026-10-08)
-pacificairlines,pacificairlines.com,airline,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-vietnamobile,vietnamobile.com.vn,telecom,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-itel,itel.vn,telecom,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-onepay,onepay.vn,e_wallet,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08): cổng thanh toán
-appotapay,appotapay.com,e_wallet,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-nguyenkim,nguyenkim.com,ecommerce,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-hasaki,hasaki.vn,ecommerce,verified,Xác nhận qua tiêu đề trang chủ chính thức (2026-10-08)
-vingroup,vingroup.net,conglomerate,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay"
-vinfast,vinfastauto.com,conglomerate,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay"
-vinhomes,vinhomes.vn,conglomerate,unverified,"Domain hoạt động nhưng chặn truy cập tự động — chưa đọc được nội dung, cần rà tay"
+zalo,zalo.me,telecom,verified,.me domain (not .vn)
+vietnamairlines,vietnamairlines.com,airline,verified,Confirmed via the official website
+vietjetair,vietjetair.com,airline,verified,Confirmed via the official website
+bambooairways,bambooairways.com,airline,verified,Confirmed via the official website
+dichvucong,dichvucong.gov.vn,public_service,verified,National Public Service Portal — confirmed via web search 2026-09-14
+vneid,vneid.gov.vn,public_service,verified,Confirmed via web search 2026-09-14
+gdt,gdt.gov.vn,public_service,verified,"Domain still correct but the agency was renamed from ""General Department of Taxation"" to ""Tax Department"" (under the Ministry of Finance, after the ministry mergers). E-tax moved from thuedientu.gdt.gov.vn to dichvucong.gdt.gov.vn (from 01/7/2025) — same registrable domain gdt.gov.vn"
+baohiemxahoi,baohiemxahoi.gov.vn,public_service,verified,Confirmed via web search 2026-09-14
+baohiemxahoi,baohiemxahoidientu.vn,public_service,verified,Checked manually by the project owner (2026-10-12): social insurance e-transaction portal
+evn,evn.com.vn,public_service,verified,Vietnam Electricity (EVN) — confirmed via web search 2026-09-14
+vnpost,vnpost.vn,logistics,verified,Confirmed via the official homepage title (2026-10-08): Vietnam Post Corporation
+viettelpost,viettelpost.com.vn,logistics,verified,Viettel Post homepage (2026-10-08)
+viettelpost,viettelpost.vn,logistics,unverified,Secondary Viettel Post domain (Tranco top 100k)
+ghn,ghn.vn,logistics,verified,Confirmed via the official homepage title (2026-10-08): Giao Hang Nhanh
+ghtk,ghtk.vn,logistics,verified,Confirmed via the official homepage title (2026-10-08): Giao Hang Tiet Kiem
+jtexpress,jtexpress.vn,logistics,verified,Confirmed via the official homepage title (2026-10-08): J&T Express Vietnam
+ahamove,ahamove.com,logistics,verified,Confirmed via the official homepage title (2026-10-08)
+grab,grab.com,transport,verified,Confirmed via the official homepage title (2026-10-08): Grab's /vn/ page
+xanhsm,xanhsm.com,transport,verified,"Xanh SM — renamed Green SM, the domain redirects to greensm.com"
+greensm,greensm.com,transport,verified,Confirmed via web search (2026-10-08): Xanh SM renamed Green SM
+baoviet,baoviet.com.vn,insurance,verified,Confirmed via the official homepage title (2026-10-08): Bao Viet Group
+baoviet,baovietnhantho.com.vn,insurance,verified,Ownership evidence (2026-10-12): Bao Viet Life; TLS certificate issued to Bao Viet Life Insurance Corporation; linked from baoviet.com.vn
+prudential,prudential.com.vn,insurance,verified,Confirmed via the official homepage title (2026-10-08)
+manulife,manulife.com.vn,insurance,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check"
+aia,aia.com.vn,insurance,verified,Confirmed via the official homepage title (2026-10-08)
+daiichilife,dai-ichi-life.com.vn,insurance,verified,Confirmed via the official homepage title (2026-10-08)
+bidvmetlife,bidvmetlife.com.vn,insurance,verified,Confirmed via the official homepage title (2026-10-08)
+pvi,pviholdings.com.vn,insurance,verified,Confirmed via web search (2026-10-08): website in PVI's company profile
+pvi,pvi.com.vn,insurance,unverified,PVI contact e-mail domain; homepage not reachable
+ssi,ssi.com.vn,securities,verified,Confirmed via the official homepage title (2026-10-08): SSI Securities
+vndirect,vndirect.com.vn,securities,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check"
+tcbs,tcbs.com.vn,securities,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check"
+vps,vps.com.vn,securities,verified,Confirmed via the official homepage title (2026-10-08): VPS Securities
+shinhan,shinhan.com.vn,bank,verified,Confirmed via web search (2026-10-08)
+uob,uob.com.vn,bank,verified,Confirmed via the official homepage title (2026-10-08)
+woori,woori.com.vn,bank,verified,Confirmed via web search (2026-10-08)
+hsbc,hsbc.com.vn,bank,verified,Confirmed via the official homepage title (2026-10-08)
+standardchartered,sc.com,bank,verified,Confirmed via the official homepage title (2026-10-08)
+cbbank,cbbank.vn,bank,verified,Confirmed via the official homepage title (2026-10-08)
+gpbank,gpbank.com.vn,bank,verified,Confirmed via the official homepage title (2026-10-08)
+mbv,mbv.com.vn,bank,verified,Confirmed via the official homepage title (2026-10-08): MBV (new name of OceanBank)
+publicbank,publicbank.com.vn,bank,verified,Confirmed via the official homepage title (2026-10-08)
+fecredit,fecredit.com.vn,consumer_finance,verified,Confirmed via the official homepage title (2026-10-08)
+homecredit,homecredit.vn,consumer_finance,verified,Confirmed via the official homepage title (2026-10-08)
+mcredit,mcredit.com.vn,consumer_finance,verified,Confirmed via the official homepage title (2026-10-08)
+sbv,sbv.gov.vn,public_service,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check: State Bank of Vietnam"
+chinhphu,chinhphu.vn,public_service,verified,Confirmed via the official homepage title (2026-10-08): Government e-portal
+bocongan,bocongan.gov.vn,public_service,verified,Confirmed via the official homepage title (2026-10-08)
+csgt,csgt.vn,public_service,verified,Confirmed via the official homepage title (2026-10-08): redirects to csgt.bocongan.gov.vn
+ncsc,ncsc.gov.vn,public_service,unverified,Not reachable when checked; NCSC is frequently impersonated
+evnhcmc,evnhcmc.vn,public_service,verified,Confirmed via the official homepage title (2026-10-08): HCMC Power Corporation
+evnhanoi,evnhanoi.vn,public_service,verified,Confirmed via the official homepage title (2026-10-08)
+vietravelairlines,vietravelairlines.com,airline,verified,Confirmed via web search (2026-10-08)
+pacificairlines,pacificairlines.com,airline,verified,Confirmed via the official homepage title (2026-10-08)
+vietnamobile,vietnamobile.com.vn,telecom,verified,Confirmed via the official homepage title (2026-10-08)
+itel,itel.vn,telecom,verified,Confirmed via the official homepage title (2026-10-08)
+onepay,onepay.vn,e_wallet,verified,Confirmed via the official homepage title (2026-10-08): payment gateway
+appotapay,appotapay.com,e_wallet,verified,Confirmed via the official homepage title (2026-10-08)
+nguyenkim,nguyenkim.com,ecommerce,verified,Confirmed via the official homepage title (2026-10-08)
+hasaki,hasaki.vn,ecommerce,verified,Confirmed via the official homepage title (2026-10-08)
+vingroup,vingroup.net,conglomerate,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check"
+vinfast,vinfastauto.com,conglomerate,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check"
+vinhomes,vinhomes.vn,conglomerate,unverified,"Domain is live but blocks automated access — content not read yet, needs a manual check"

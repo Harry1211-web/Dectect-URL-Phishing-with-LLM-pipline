@@ -1,47 +1,57 @@
 brand,domain,verified,note
-google,googleapis.com,unverified,Hạ tầng API của Google
-google,googleusercontent.com,unverified,Nội dung người dùng/CDN của Google
-google,gstatic.com,unverified,CDN tĩnh của Google
-google,googlevideo.com,unverified,CDN video YouTube/Google
+google,googleapis.com,unverified,Google API infrastructure
+google,googleusercontent.com,unverified,Google user content / CDN
+google,gstatic.com,unverified,Google static CDN
+google,googlevideo.com,unverified,YouTube / Google video CDN
 google,googletagmanager.com,unverified,Google Tag Manager
-google,googlesyndication.com,unverified,Mạng quảng cáo Google
-google,googleadservices.com,unverified,Mạng quảng cáo Google
-amazon,amazonaws.com,unverified,Hạ tầng AWS
-amazon,amazontrust.com,unverified,Hạ tầng chứng chỉ Amazon Trust Services
-microsoft,microsoftonline.com,unverified,Cổng đăng nhập Microsoft Entra ID / Microsoft 365
-microsoft,microsoft365.com,unverified,Cổng Microsoft 365
-paypal,paypalobjects.com,unverified,CDN tĩnh của PayPal
-facebook,facebookmail.com,unverified,Domain gửi email của Facebook
-shopee,shopee.com,unverified,Trang Shopee toàn cầu
+google,googlesyndication.com,unverified,Google ad network
+google,googleadservices.com,unverified,Google ad network
+amazon,amazonaws.com,unverified,AWS infrastructure
+amazon,amazontrust.com,unverified,Amazon Trust Services certificate infrastructure
+microsoft,microsoftonline.com,unverified,Microsoft Entra ID / Microsoft 365 sign-in portal
+microsoft,microsoft365.com,unverified,Microsoft 365 portal
+paypal,paypalobjects.com,unverified,PayPal static CDN
+facebook,facebookmail.com,unverified,Facebook e-mail sending domain
+shopee,shopee.com,unverified,Global Shopee site
 shopee,shopee.sg,unverified,Shopee Singapore
-shopee,shopee.co.th,unverified,Shopee Thái Lan
+shopee,shopee.co.th,unverified,Shopee Thailand
 shopee,shopee.com.my,unverified,Shopee Malaysia
 shopee,shopee.ph,unverified,Shopee Philippines
 shopee,shopee.co.id,unverified,Shopee Indonesia
-shopee,shopee.tw,unverified,Shopee Đài Loan
+shopee,shopee.tw,unverified,Shopee Taiwan
 shopee,shopee.com.br,unverified,Shopee Brazil
-viettel,viettelstore.vn,unverified,"Viettel Store (Tranco top 100k; thuộc tập đoàn Viettel, chưa đối chiếu nguồn chính thức)"
-viettel,viettelidc.com.vn,unverified,"Viettel IDC (Tranco top 100k; thuộc tập đoàn Viettel, chưa đối chiếu nguồn chính thức)"
-shopee,shopeefood.vn,unverified,"ShopeeFood Việt Nam (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-shopee,shopeemobile.com,unverified,"Hạ tầng ứng dụng Shopee (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-fpt,fpt.edu.vn,unverified,"Trường Đại học FPT (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-lazada,lazada.com,unverified,"Trang tập đoàn Lazada (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-tiktok,tiktokv.com,unverified,"Hạ tầng TikTok (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-tiktok,tiktokv.us,unverified,"Hạ tầng TikTok (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-tiktok,tiktokv.eu,unverified,"Hạ tầng TikTok (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-tiktok,tiktokw.us,unverified,"Hạ tầng TikTok (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-tiktok,tiktokw.eu,unverified,"Hạ tầng TikTok (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-google,googletagservices.com,unverified,"Hạ tầng quảng cáo Google (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-microsoft,s-microsoft.com,unverified,"CDN Microsoft (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-amazon,payments-amazon.com,unverified,"Amazon Pay (Tranco top 100k, chưa đối chiếu nguồn chính thức)"
-hsbc,hsbc.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-hsbc,hsbc.net,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-manulife,manulife.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-shinhan,shinhan.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-shinhan,shinhancard.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-standardchartered,standardchartered.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-aia,aia.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-uob,uob.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-uob,uobgroup.com,unverified,Domain toàn cầu của tập đoàn mẹ (Tranco top 100k)
-chinhphu,baochinhphu.vn,unverified,Báo điện tử Chính phủ
-prudential,prudential.com,unverified,"Prudential Financial (Mỹ) — công ty khác tên, hợp pháp, không phải mạo danh"
+viettel,viettelstore.vn,unverified,"Viettel Store (Tranco top 100k, not yet checked against an official source; part of the Viettel group)"
+viettel,viettelidc.com.vn,unverified,"Viettel IDC (Tranco top 100k, not yet checked against an official source; part of the Viettel group)"
+shopee,shopeefood.vn,unverified,"ShopeeFood Vietnam (Tranco top 100k, not yet checked against an official source)"
+shopee,shopeemobile.com,unverified,"Shopee app infrastructure (Tranco top 100k, not yet checked against an official source)"
+fpt,fpt.edu.vn,unverified,"FPT University (Tranco top 100k, not yet checked against an official source)"
+lazada,lazada.com,unverified,"Lazada group site (Tranco top 100k, not yet checked against an official source)"
+tiktok,tiktokv.com,unverified,"TikTok infrastructure (Tranco top 100k, not yet checked against an official source)"
+tiktok,tiktokv.us,unverified,"TikTok infrastructure (Tranco top 100k, not yet checked against an official source)"
+tiktok,tiktokv.eu,unverified,"TikTok infrastructure (Tranco top 100k, not yet checked against an official source)"
+tiktok,tiktokw.us,unverified,"TikTok infrastructure (Tranco top 100k, not yet checked against an official source)"
+tiktok,tiktokw.eu,unverified,"TikTok infrastructure (Tranco top 100k, not yet checked against an official source)"
+google,googletagservices.com,unverified,"Google ad infrastructure (Tranco top 100k, not yet checked against an official source)"
+google,google.com.vn,verified,"Ownership evidence (2026-10-12): Google Vietnam, redirects to google.com"
+microsoft,s-microsoft.com,unverified,"Microsoft CDN (Tranco top 100k, not yet checked against an official source)"
+amazon,payments-amazon.com,unverified,"Amazon Pay (Tranco top 100k, not yet checked against an official source)"
+amazon,amazon.vn,verified,Ownership evidence (2026-10-12): redirects to amazon.com
+hsbc,hsbc.com,unverified,Global domain of the parent group (Tranco top 100k)
+hsbc,hsbc.net,unverified,Global domain of the parent group (Tranco top 100k)
+manulife,manulife.com,unverified,Global domain of the parent group (Tranco top 100k)
+shinhan,shinhan.com,unverified,Global domain of the parent group (Tranco top 100k)
+shinhan,shinhancard.com,unverified,Global domain of the parent group (Tranco top 100k)
+standardchartered,standardchartered.com,unverified,Global domain of the parent group (Tranco top 100k)
+aia,aia.com,unverified,Global domain of the parent group (Tranco top 100k)
+uob,uob.com,unverified,Global domain of the parent group (Tranco top 100k)
+uob,uobgroup.com,unverified,Global domain of the parent group (Tranco top 100k)
+chinhphu,baochinhphu.vn,unverified,Government online newspaper
+prudential,prudential.com,unverified,"Prudential Financial (US) — a different, legitimate company with the same name, not impersonation"
+youtube,youtube.vn,verified,Ownership evidence (2026-10-12): redirects to youtube.com
+visa,visa.com.vn,verified,"Ownership evidence (2026-10-12): Visa Vietnam, linked from the visa.com country selector"
+expedia,expedia.com.vn,verified,Checked manually by the project owner (2026-10-12): Expedia Vietnam
+santander,santanderbank.com,verified,Ownership evidence (2026-10-13): TLS certificate issued to Santander Bank National Association
+santander,santander.pt,verified,"Ownership evidence (2026-10-13): TLS certificate issued to Banco Santander Totta, S.A."
+ebay,ebay.co.uk,verified,"Ownership evidence (2026-10-13): TLS certificate issued to eBay, Inc."
+hostinger,hostinger.vn,unverified,Hostinger Vietnam site (Vietnamese Hostinger homepage; domain-validated certificate only)
+google,google.dev,verified,"Ownership evidence (2026-10-13): served by developers.google.com, redirects there"

@@ -25,11 +25,10 @@ Pipeline khi người dùng click 1 URL:
 - Đầu tiên đi qua CNN/LSTM Feature Extractor
 - Sau đó đi XGBoost Classifier
 - Output: Clean/suspicious
-4. **Lớp D — LLM + RAG**: 
-- LLM sử dụng gpt 6 luna
-- RAG 2 tầng hỗ trợ ra quyết định:
-  - Tầng 1: tra bảng domain thương hiệu VN chính thức (structured lookup)
-  - Tầng 2: semantic search trên kho văn bản
+4. **Lớp D — LLM (gpt-6-luna)**: đọc nội dung trang đã lọc prompt injection → phishing / suspicious / safe
+- Prompt gọn: luật quyết định (lấy thông tin, mạo danh, scam; thiếu bằng chứng → suspicious), nội dung trang đóng khung là DATA
+- Kết hợp các lớp: cờ B và cảnh báo kỹ thuật đưa vào prompt; D nói safe nhưng điểm C ≥ 0.99 → suspicious
+- Không dùng RAG: đã đo, không cải thiện kết luận (reports/llm_rag/rag_pipeline/)
 
 **Timeout & fallback**: đo timeout thực tế trên máy chạy model
 

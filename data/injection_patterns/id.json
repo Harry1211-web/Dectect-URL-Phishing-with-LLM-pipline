@@ -1,0 +1,11 @@
+{
+  "fake_instruction": [
+    "abaikan\\s+(?:semua\\s+)?(?:instruksi|perintah|arahan)"
+  ],
+  "direct_command": [
+    "abaikan\\s+(?:semua\\s+)?(?:instruksi|perintah|arahan)"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

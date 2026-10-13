@@ -1,0 +1,11 @@
+{
+  "fake_instruction": [
+    "(?:เพิกเฉย|ละเว้น|ไม่ต้องสนใจ)\\s*(?:ต่อ)?คำสั่ง"
+  ],
+  "direct_command": [
+    "(?:เพิกเฉย|ละเว้น|ไม่ต้องสนใจ)\\s*(?:ต่อ)?คำสั่ง"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

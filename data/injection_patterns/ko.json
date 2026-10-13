@@ -1,0 +1,12 @@
+{
+  "fake_instruction": [
+    "(?:이전|위의|모든)\\s*(?:지시|지침|명령)\\w*\\s*무시",
+    "안전(?:한 것으로)?\\s*확인"
+  ],
+  "direct_command": [
+    "(?:이전|위의|모든)\\s*(?:지시|지침|명령)\\w*\\s*무시"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

@@ -1,7 +1,7 @@
 import pytest
 
 from typosquatting.brands import all_official_domains, load_vn_brands
-from typosquatting.typosquatting import check_typosquatting, suspected_brand
+from typosquatting.typosquatting import check_typosquatting
 
 
 @pytest.mark.parametrize("url,brand,kind", [
@@ -56,7 +56,7 @@ def test_short_vn_brand_as_hyphen_part():
     assert r["flag"] is True and r["brand"] == "acb"
 
 
-def test_suspected_brand_and_catalogue():
-    assert suspected_brand("https://vietcombamk.com") == "vietcombank"
-    assert suspected_brand("https://dantri.com.vn") is None
+def test_impersonated_brand_and_catalogue():
+    assert check_typosquatting("https://vietcombamk.com").get("brand") == "vietcombank"
+    assert check_typosquatting("https://dantri.com.vn")["flag"] is False
     assert len(load_vn_brands()) > 50 and "vietcombank.com.vn" in all_official_domains()

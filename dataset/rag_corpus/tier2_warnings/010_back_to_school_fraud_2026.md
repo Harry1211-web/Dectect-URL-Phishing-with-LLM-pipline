@@ -5,7 +5,7 @@ publisher: Chongluadao.vn
 source_url: https://chongluadao.vn/blog/en/2026/08/cam-nang-phong-tranh-lua-dao-mua-tuu-truong-2026/
 published_date: 2026-08-18
 verified_date: 2026-09-17
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [fake_website, impersonating_organisation, deposit, education]
 related_vn_brands: []
 ---

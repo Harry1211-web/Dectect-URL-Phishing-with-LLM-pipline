@@ -48,7 +48,7 @@ def _llm_verdict(url: str) -> tuple[str, str]:
     page = fetch(url)
     if not page[0] and not page[1]:
         return "", "page not fetchable"
-    r = analyze_suspicious(url, page=page, use_rag=True)
+    r = analyze_suspicious(url, page=page)
     return (r["verdict"] or ""), ("llm " + (r["verdict"] or r["explanation"]))
 
 

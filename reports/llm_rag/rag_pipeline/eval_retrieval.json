@@ -1,8 +1,8 @@
 {
   "short_queries": {
-    "n_queries": 21,
-    "top1_accuracy": 0.619,
-    "top3_accuracy": 0.8571,
+    "n_queries": 32,
+    "top1_accuracy": 0.75,
+    "top3_accuracy": 0.9062,
     "details": [
       {
         "query": "công an cảnh báo những chiêu lừa đảo phổ biến nhất trong năm nay",
@@ -11,13 +11,13 @@
         "top3_ok": true,
         "returned_files": [
           "007_fake_ncsc_policeonline.md",
-          "001_25_fraud_scenarios_2026.md",
-          "012_fake_vietcombank_crypto_investment.md"
+          "031_fake_forex_platforms_hanoi_police.md",
+          "001_25_fraud_scenarios_2026.md"
         ],
         "distances": [
           0.4634,
-          0.5084,
-          0.527
+          0.5015,
+          0.5084
         ]
       },
       {
@@ -47,7 +47,7 @@
           "003_fake_hotels_travel.md"
         ],
         "distances": [
-          0.3982,
+          0.3981,
           0.4642,
           0.4707
         ]
@@ -63,9 +63,9 @@
           "004_deepfake_haotian_ai.md"
         ],
         "distances": [
-          0.4691,
+          0.4692,
           0.4698,
-          0.5042
+          0.5041
         ]
       },
       {
@@ -108,12 +108,12 @@
         "returned_files": [
           "007_fake_ncsc_policeonline.md",
           "008_fake_bank_brand_agribank.md",
-          "021_fake_finance_company.md"
+          "031_fake_forex_platforms_hanoi_police.md"
         ],
         "distances": [
           0.3324,
           0.3801,
-          0.4022
+          0.3979
         ]
       },
       {
@@ -143,7 +143,7 @@
           "009_ai_fraud_2025_2026.md"
         ],
         "distances": [
-          0.5068,
+          0.5067,
           0.5201,
           0.5621
         ]
@@ -156,12 +156,12 @@
         "returned_files": [
           "010_back_to_school_fraud_2026.md",
           "010_back_to_school_fraud_2026.md",
-          "001_25_fraud_scenarios_2026.md"
+          "031_fake_forex_platforms_hanoi_police.md"
         ],
         "distances": [
           0.5133,
-          0.5323,
-          0.5556
+          0.5324,
+          0.5415
         ]
       },
       {
@@ -175,9 +175,9 @@
           "011_fake_vneid.md"
         ],
         "distances": [
-          0.4139,
+          0.414,
           0.4218,
-          0.4537
+          0.4538
         ]
       },
       {
@@ -223,8 +223,8 @@
           "011_fake_vneid.md"
         ],
         "distances": [
-          0.4867,
-          0.5163,
+          0.4866,
+          0.5162,
           0.5234
         ]
       },
@@ -252,12 +252,12 @@
         "returned_files": [
           "016_fake_vingroup.md",
           "016_fake_vingroup.md",
-          "016_fake_vingroup.md"
+          "031_fake_forex_platforms_hanoi_police.md"
         ],
         "distances": [
           0.477,
           0.5286,
-          0.556
+          0.5435
         ]
       },
       {
@@ -272,7 +272,7 @@
         ],
         "distances": [
           0.5074,
-          0.5303,
+          0.5304,
           0.5404
         ]
       },
@@ -282,14 +282,14 @@
         "top1_ok": false,
         "top3_ok": true,
         "returned_files": [
+          "031_fake_forex_platforms_hanoi_police.md",
           "006_signs_of_scam_websites.md",
-          "018_fake_vng.md",
           "018_fake_vng.md"
         ],
         "distances": [
+          0.4525,
           0.4554,
-          0.4645,
-          0.4649
+          0.4645
         ]
       },
       {
@@ -339,13 +339,189 @@
           0.515,
           0.5299
         ]
+      },
+      {
+        "query": "someone on the phone wants to connect to my laptop to remove a virus for a fee",
+        "expected_file": "023_tech_support_scams_ftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "023_tech_support_scams_ftc.md",
+          "024_tech_support_scams_microsoft.md",
+          "024_tech_support_scams_microsoft.md"
+        ],
+        "distances": [
+          0.4382,
+          0.4955,
+          0.533
+        ]
+      },
+      {
+        "query": "browser stuck in full screen saying Windows is blocked, call this number",
+        "expected_file": "024_tech_support_scams_microsoft.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "024_tech_support_scams_microsoft.md",
+          "024_tech_support_scams_microsoft.md",
+          "024_tech_support_scams_microsoft.md"
+        ],
+        "distances": [
+          0.4384,
+          0.4442,
+          0.4971
+        ]
+      },
+      {
+        "query": "email says my streaming subscription is on hold and I must update billing",
+        "expected_file": "025_phishing_signs_ftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "025_phishing_signs_ftc.md",
+          "023_tech_support_scams_ftc.md",
+          "024_tech_support_scams_microsoft.md"
+        ],
+        "distances": [
+          0.5374,
+          0.5827,
+          0.6668
+        ]
+      },
+      {
+        "query": "message pressures me with a deadline and claims to be from a government office",
+        "expected_file": "026_scam_signs_ncsc_uk.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "026_scam_signs_ncsc_uk.md",
+          "023_tech_support_scams_ftc.md",
+          "025_phishing_signs_ftc.md"
+        ],
+        "distances": [
+          0.4777,
+          0.5884,
+          0.6077
+        ]
+      },
+      {
+        "query": "online contact promises to double the bitcoin I send to their wallet",
+        "expected_file": "027_crypto_scams_ftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "027_crypto_scams_ftc.md",
+          "027_crypto_scams_ftc.md",
+          "027_crypto_scams_ftc.md"
+        ],
+        "distances": [
+          0.5594,
+          0.5881,
+          0.6043
+        ]
+      },
+      {
+        "query": "currency trading broker found on social media will not let me withdraw my profits",
+        "expected_file": "028_forex_fraud_cftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "028_forex_fraud_cftc.md",
+          "028_forex_fraud_cftc.md",
+          "028_forex_fraud_cftc.md"
+        ],
+        "distances": [
+          0.4761,
+          0.5327,
+          0.5586
+        ]
+      },
+      {
+        "query": "hardware wallet app shows an error and asks me to type my 24 words",
+        "expected_file": "029_crypto_wallet_phishing_ledger.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "029_crypto_wallet_phishing_ledger.md",
+          "029_crypto_wallet_phishing_ledger.md",
+          "029_crypto_wallet_phishing_ledger.md"
+        ],
+        "distances": [
+          0.437,
+          0.4856,
+          0.5564
+        ]
+      },
+      {
+        "query": "link in an email opens a page asking for my Gmail password",
+        "expected_file": "030_google_account_phishing.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "030_google_account_phishing.md",
+          "030_google_account_phishing.md",
+          "030_google_account_phishing.md"
+        ],
+        "distances": [
+          0.3805,
+          0.4361,
+          0.5359
+        ]
+      },
+      {
+        "query": "sàn ngoại hối đòi đóng phí chống rửa tiền mới cho rút lãi",
+        "expected_file": "031_fake_forex_platforms_hanoi_police.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "031_fake_forex_platforms_hanoi_police.md",
+          "031_fake_forex_platforms_hanoi_police.md",
+          "031_fake_forex_platforms_hanoi_police.md"
+        ],
+        "distances": [
+          0.4348,
+          0.4394,
+          0.4894
+        ]
+      },
+      {
+        "query": "công ty tự xưng môi giới chứng khoán quốc tế chưa được cấp phép ở Việt Nam",
+        "expected_file": "032_unlicensed_trading_platforms_ssc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "032_unlicensed_trading_platforms_ssc.md",
+          "032_unlicensed_trading_platforms_ssc.md",
+          "032_unlicensed_trading_platforms_ssc.md"
+        ],
+        "distances": [
+          0.4194,
+          0.4613,
+          0.4615
+        ]
+      },
+      {
+        "query": "gọi số tổng đài ngân hàng tìm trên mạng thì bị hỏi mã OTP",
+        "expected_file": "033_fake_bank_hotline_search_ads.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "033_fake_bank_hotline_search_ads.md",
+          "033_fake_bank_hotline_search_ads.md",
+          "008_fake_bank_brand_agribank.md"
+        ],
+        "distances": [
+          0.3122,
+          0.3481,
+          0.3653
+        ]
       }
     ]
   },
   "long_queries": {
-    "n_queries": 21,
-    "top1_accuracy": 0.7619,
-    "top3_accuracy": 0.9048,
+    "n_queries": 32,
+    "top1_accuracy": 0.8125,
+    "top3_accuracy": 0.9062,
     "details": [
       {
         "query": "Cổng thông tin an ninh mạng - Tổng hợp cảnh báo lừa đảo. Trang tổng hợp danh sách các chiêu trò lừa đảo trực tuyến đang phổ biến hiện nay, từ giả mạo cơ quan nhà nước, deepfake, dụ dỗ đầu tư đến mua bán hàng online, kèm khuyến nghị phòng tránh cho người dân.",
@@ -369,14 +545,14 @@
         "top1_ok": false,
         "top3_ok": false,
         "returned_files": [
+          "033_fake_bank_hotline_search_ads.md",
           "019_fake_agency_business_sites.md",
-          "008_fake_bank_brand_agribank.md",
-          "015_fake_telecom_carrier.md"
+          "008_fake_bank_brand_agribank.md"
         ],
         "distances": [
+          0.394,
           0.4016,
-          0.4363,
-          0.4367
+          0.4363
         ]
       },
       {
@@ -391,7 +567,7 @@
         ],
         "distances": [
           0.4586,
-          0.4749,
+          0.4748,
           0.4901
         ]
       },
@@ -403,12 +579,12 @@
         "returned_files": [
           "004_deepfake_haotian_ai.md",
           "004_deepfake_haotian_ai.md",
-          "008_fake_bank_brand_agribank.md"
+          "033_fake_bank_hotline_search_ads.md"
         ],
         "distances": [
           0.4519,
           0.4723,
-          0.4913
+          0.4792
         ]
       },
       {
@@ -499,12 +675,12 @@
         "returned_files": [
           "010_back_to_school_fraud_2026.md",
           "003_fake_hotels_travel.md",
-          "010_back_to_school_fraud_2026.md"
+          "033_fake_bank_hotline_search_ads.md"
         ],
         "distances": [
-          0.5153,
+          0.5155,
           0.5422,
-          0.5812
+          0.5791
         ]
       },
       {
@@ -519,7 +695,7 @@
         ],
         "distances": [
           0.3395,
-          0.3552,
+          0.3555,
           0.4068
         ]
       },
@@ -547,12 +723,12 @@
         "returned_files": [
           "013_fake_shopee_ecommerce.md",
           "022_fake_orders.md",
-          "022_fake_orders.md"
+          "033_fake_bank_hotline_search_ads.md"
         ],
         "distances": [
-          0.4575,
+          0.4573,
           0.464,
-          0.4747
+          0.4711
         ]
       },
       {
@@ -575,16 +751,16 @@
         "query": "Thuê bao của bạn đủ điều kiện nâng cấp gói cước miễn phí. Cuộc gọi tự xưng tổng đài chăm sóc khách hàng nhà mạng, đề nghị hỗ trợ gia hạn/nâng cấp dịch vụ và yêu cầu đọc mã xác thực gửi qua tin nhắn.",
         "expected_file": "015_fake_telecom_carrier.md",
         "top1_ok": false,
-        "top3_ok": true,
+        "top3_ok": false,
         "returned_files": [
           "003_fake_hotels_travel.md",
           "003_fake_hotels_travel.md",
-          "015_fake_telecom_carrier.md"
+          "033_fake_bank_hotline_search_ads.md"
         ],
         "distances": [
           0.5064,
           0.5146,
-          0.526
+          0.5218
         ]
       },
       {
@@ -614,9 +790,9 @@
           "017_fake_fpt.md"
         ],
         "distances": [
-          0.4329,
+          0.433,
           0.5011,
-          0.5196
+          0.5197
         ]
       },
       {
@@ -627,12 +803,12 @@
         "returned_files": [
           "002_fake_momo_zalopay_vnpay.md",
           "018_fake_vng.md",
-          "002_fake_momo_zalopay_vnpay.md"
+          "031_fake_forex_platforms_hanoi_police.md"
         ],
         "distances": [
           0.5306,
           0.5358,
-          0.5576
+          0.5575
         ]
       },
       {
@@ -664,7 +840,7 @@
         "distances": [
           0.4094,
           0.4225,
-          0.4274
+          0.4266
         ]
       },
       {
@@ -682,8 +858,184 @@
           0.5341,
           0.5503
         ]
+      },
+      {
+        "query": "Geek Squad Renewal Invoice. Your annual protection plan was renewed for $399.99. If you did not authorize this charge, call our billing department within 24 hours to cancel and receive a refund.",
+        "expected_file": "023_tech_support_scams_ftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "023_tech_support_scams_ftc.md",
+          "024_tech_support_scams_microsoft.md",
+          "024_tech_support_scams_microsoft.md"
+        ],
+        "distances": [
+          0.4569,
+          0.6412,
+          0.6522
+        ]
+      },
+      {
+        "query": "Windows Defender Security Warning - Your computer has been locked. Access to this PC is blocked for security reasons. Do not close this window. Contact Microsoft Support immediately: +1-888-000-0000 (toll free).",
+        "expected_file": "024_tech_support_scams_microsoft.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "024_tech_support_scams_microsoft.md",
+          "024_tech_support_scams_microsoft.md",
+          "024_tech_support_scams_microsoft.md"
+        ],
+        "distances": [
+          0.4285,
+          0.446,
+          0.4695
+        ]
+      },
+      {
+        "query": "Account on hold - Update your payment details. We were unable to process your last payment. Please confirm your billing information within 48 hours to avoid suspension of your membership.",
+        "expected_file": "025_phishing_signs_ftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "025_phishing_signs_ftc.md",
+          "023_tech_support_scams_ftc.md",
+          "025_phishing_signs_ftc.md"
+        ],
+        "distances": [
+          0.5432,
+          0.6435,
+          0.6563
+        ]
+      },
+      {
+        "query": "HMRC tax refund notification. You are eligible to receive a tax refund. Submit your bank details today before the offer expires or the refund will be cancelled.",
+        "expected_file": "026_scam_signs_ncsc_uk.md",
+        "top1_ok": false,
+        "top3_ok": true,
+        "returned_files": [
+          "025_phishing_signs_ftc.md",
+          "026_scam_signs_ncsc_uk.md",
+          "026_scam_signs_ncsc_uk.md"
+        ],
+        "distances": [
+          0.6554,
+          0.6971,
+          0.7088
+        ]
+      },
+      {
+        "query": "Official BTC Giveaway Event. Send any amount between 0.1 and 20 BTC to the address below and receive double back instantly. Limited time, only 1000 participants.",
+        "expected_file": "027_crypto_scams_ftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "027_crypto_scams_ftc.md",
+          "029_crypto_wallet_phishing_ledger.md",
+          "027_crypto_scams_ftc.md"
+        ],
+        "distances": [
+          0.6517,
+          0.706,
+          0.7411
+        ]
+      },
+      {
+        "query": "Premium FX trading platform - Withdrawal pending. Your profit of $12,480 is ready. To release the funds, please pay the 15% clearance tax in USDT to your account manager.",
+        "expected_file": "028_forex_fraud_cftc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "028_forex_fraud_cftc.md",
+          "028_forex_fraud_cftc.md",
+          "027_crypto_scams_ftc.md"
+        ],
+        "distances": [
+          0.5636,
+          0.5909,
+          0.6394
+        ]
+      },
+      {
+        "query": "Wallet Suite - Synchronization error detected. To restore access to your assets, verify your wallet by entering your 24-word recovery phrase below. Verify Now.",
+        "expected_file": "029_crypto_wallet_phishing_ledger.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "029_crypto_wallet_phishing_ledger.md",
+          "029_crypto_wallet_phishing_ledger.md",
+          "029_crypto_wallet_phishing_ledger.md"
+        ],
+        "distances": [
+          0.4599,
+          0.4797,
+          0.5705
+        ]
+      },
+      {
+        "query": "Google - Sign in to continue to Drive. A shared document requires you to confirm your identity. Enter your email and password to view the file.",
+        "expected_file": "030_google_account_phishing.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "030_google_account_phishing.md",
+          "030_google_account_phishing.md",
+          "030_google_account_phishing.md"
+        ],
+        "distances": [
+          0.566,
+          0.583,
+          0.6043
+        ]
+      },
+      {
+        "query": "Sàn giao dịch ngoại hối quốc tế - lợi nhuận 30%/tháng. Tham gia nhóm kín cùng chuyên gia, nạp tối thiểu 5 triệu, rút tiền cần thanh toán phí xác minh tài khoản.",
+        "expected_file": "031_fake_forex_platforms_hanoi_police.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "031_fake_forex_platforms_hanoi_police.md",
+          "031_fake_forex_platforms_hanoi_police.md",
+          "021_fake_finance_company.md"
+        ],
+        "distances": [
+          0.4675,
+          0.4832,
+          0.5065
+        ]
+      },
+      {
+        "query": "Mở tài khoản chứng khoán phái sinh quốc tế ngay hôm nay. Công ty trung gian kết nối sàn nước ngoài, giao dịch 24/7, đòn bẩy cao, không cần qua công ty chứng khoán trong nước.",
+        "expected_file": "032_unlicensed_trading_platforms_ssc.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "032_unlicensed_trading_platforms_ssc.md",
+          "032_unlicensed_trading_platforms_ssc.md",
+          "032_unlicensed_trading_platforms_ssc.md"
+        ],
+        "distances": [
+          0.4943,
+          0.5053,
+          0.5213
+        ]
+      },
+      {
+        "query": "Tổng đài hỗ trợ khách hàng ngân hàng 24/7 - Gọi ngay. Hỗ trợ khóa thẻ, lấy lại mật khẩu ngân hàng điện tử, xác thực giao dịch qua mã OTP cho khách hàng.",
+        "expected_file": "033_fake_bank_hotline_search_ads.md",
+        "top1_ok": true,
+        "top3_ok": true,
+        "returned_files": [
+          "033_fake_bank_hotline_search_ads.md",
+          "008_fake_bank_brand_agribank.md",
+          "033_fake_bank_hotline_search_ads.md"
+        ],
+        "distances": [
+          0.3999,
+          0.4061,
+          0.4371
+        ]
       }
     ]
   },
-  "note": "One paraphrased query per corpus file, N=21."
+  "note": "One paraphrased query per corpus file, N=32."
 }

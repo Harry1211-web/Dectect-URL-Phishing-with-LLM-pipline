@@ -1,13 +1,13 @@
 ﻿category,description,identifier,name,website
-Gaming,"Nền tảng game online, không có trong Zenodo brands.csv 85 thương hiệu — phát hiện bỏ lọt qua điều tra phishing lọt Gate 1 2026-09-16 (case s4w.in/www-roblox-com-...).",roblox,Roblox,https://www.roblox.com/
-Social Media,"Nền tảng video ngắn phổ biến, không có trong Zenodo brands.csv — bổ sung theo mức độ bị nhắm phishing cao (APWG).",tiktok,TikTok,https://www.tiktok.com/
-Social Media,"Mạng xã hội (X/Twitter), không có trong Zenodo brands.csv.",twitter,Twitter,https://twitter.com/
-Social Media,"Mạng xã hội hình ảnh, không có trong Zenodo brands.csv.",snapchat,Snapchat,https://www.snapchat.com/
-Music,"Nền tảng nhạc trực tuyến, không có trong Zenodo brands.csv.",spotify,Spotify,https://www.spotify.com/
-Finance,"Sàn giao dịch tiền mã hoá lớn, không có trong Zenodo brands.csv.",binance,Binance,https://www.binance.com/
-Finance,"Ví phần cứng tiền mã hoá phổ biến, không có trong Zenodo brands.csv — bỏ lọt case feq-trezor-suite-app.typedream.app.",trezor,Trezor,https://trezor.io/
-Finance,"Sàn giao dịch tiền mã hoá, không có trong Zenodo brands.csv — bỏ lọt case biitsmertlogon.gitbook.io giả mạo BitMart.",bitmart,BitMart,https://www.bitmart.com/
-Finance,"Sàn giao dịch tiền mã hoá, không có trong Zenodo brands.csv — bỏ lọt case com---en-byybit-sso.typedream.app, nhãn 'byybit' cách 'bybit' 1 ký tự.",bybit,Bybit,https://www.bybit.com/
+Gaming,"Online gaming platform, not in the 85-brand Zenodo brands.csv — found through a phishing miss at Gate 1 on 2026-09-16 (case s4w.in/www-roblox-com-...).",roblox,Roblox,https://www.roblox.com/
+Social Media,"Popular short-video platform, not in the 85-brand Zenodo brands.csv — added because it is heavily targeted by phishing (APWG).",tiktok,TikTok,https://www.tiktok.com/
+Social Media,"Social network (X/Twitter), not in the 85-brand Zenodo brands.csv.",twitter,Twitter,https://twitter.com/
+Social Media,"Photo-sharing social network, not in the 85-brand Zenodo brands.csv.",snapchat,Snapchat,https://www.snapchat.com/
+Music,"Music streaming platform, not in the 85-brand Zenodo brands.csv.",spotify,Spotify,https://www.spotify.com/
+Finance,"Large cryptocurrency exchange, not in the 85-brand Zenodo brands.csv.",binance,Binance,https://www.binance.com/
+Finance,"Popular cryptocurrency hardware wallet, not in the 85-brand Zenodo brands.csv — missed case feq-trezor-suite-app.typedream.app.",trezor,Trezor,https://trezor.io/
+Finance,"Cryptocurrency exchange, not in the 85-brand Zenodo brands.csv — missed case biitsmertlogon.gitbook.io impersonating BitMart.",bitmart,BitMart,https://www.bitmart.com/
+Finance,"Cryptocurrency exchange, not in the 85-brand Zenodo brands.csv — missed case com---en-byybit-sso.typedream.app, label 'byybit' is 1 character away from 'bybit'.",bybit,Bybit,https://www.bybit.com/
 Logistics,Official website of FedEx; brand frequently impersonated by phishing (added 2026-10-08),fedex,FedEx,https://www.fedex.com/
 Logistics,Official website of Ninja Van; brand frequently impersonated by phishing (added 2026-10-08),ninjavan,Ninja Van,https://www.ninjavan.co/
 Logistics,Official website of Royal Mail; brand frequently impersonated by phishing (added 2026-10-08),royalmail,Royal Mail,https://www.royalmail.com/
@@ -151,3 +151,12 @@ Computers Electronics and Technology,"Security software brand, often impersonate
 Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",kaspersky,Kaspersky,https://www.kaspersky.com/
 Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",bitdefender,Bitdefender,https://www.bitdefender.com/
 Computers Electronics and Technology,"Security software brand, often impersonated in fake tech-support and renewal scams.",malwarebytes,Malwarebytes,https://www.malwarebytes.com/
+eCommerce and Shopping,"German classifieds marketplace (formerly eBay Kleinanzeigen, Adevinta), a frequent target in PhreshPhish.",kleinanzeigen,Kleinanzeigen,https://www.kleinanzeigen.de/
+Finance,"Crypto and multi-asset trading platform, a frequent target in PhreshPhish.",uphold,Uphold,https://uphold.com/
+Finance,"Crypto exchange, a frequent target in PhreshPhish.",gemini,Gemini,https://www.gemini.com/
+Computers Electronics and Technology,"Online design platform, impersonated to steal account logins (PhreshPhish).",canva,Canva,https://www.canva.com/
+Logistics,"French parcel delivery network, impersonated in fake delivery-fee scams (PhreshPhish).",mondialrelay,Mondial Relay,https://www.mondialrelay.fr/
+Telecom,"Australian telecom carrier, impersonated in account and billing scams (PhreshPhish).",telstra,Telstra,https://www.telstra.com.au/
+Finance,"Japanese online brokerage (SBI Securities), impersonated in login phishing (PhreshPhish).",sbisec,SBI Securities,https://www.sbisec.co.jp/
+Computers Electronics and Technology,"Web hosting provider, impersonated in fake renewal and account notices.",hostinger,Hostinger,https://www.hostinger.com/
+Finance,"Crypto wallet, impersonated in fake wallet download and seed-phrase scams.",imtoken,imToken,https://token.im/

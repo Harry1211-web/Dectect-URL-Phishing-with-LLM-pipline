@@ -1,11 +1,11 @@
 ---
 id: 002_fake_momo_zalopay_vnpay
 title: Công an Hà Nội cảnh báo giả mạo MoMo, ZaloPay, VNPAY
-publisher: Phòng An ninh mạng và phòng chống tội phạm sử dụng công nghệ cao - Công an TP Hà Nội
+publisher: Cybersecurity and High-Tech Crime Prevention Division - Hanoi City Police
 source_url: https://cafef.vn/cong-an-ha-noi-canh-bao-quan-trong-nguoi-dung-momo-va-vi-dien-tu-dac-biet-chu-y-188250822222332677.chn
 published_date: 2025-08-22
 verified_date: 2026-09-15
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [brand_impersonation, e_wallet, phishing_link, otp]
 related_vn_brands: [momo, zalopay, vnpay]
 ---

@@ -1,0 +1,4027 @@
+{
+  "time": "2026-10-12T17:56:45.378942+00:00",
+  "mode": "top_sites",
+  "n_per_label": 400,
+  "seed": 7,
+  "llm_spend_usd": 0.0486,
+  "clean": {
+    "n": 400,
+    "verdict_clean": 379,
+    "verdict_suspicious": 18,
+    "verdict_phishing": 3,
+    "rate_clean": 0.9475,
+    "rate_suspicious": 0.045,
+    "rate_phishing": 0.0075,
+    "decided_by": {
+      "C_classifier": 281,
+      "D_llm": 104,
+      "D_llm+C_override": 4,
+      "fallback_C": 11
+    },
+    "llm_called": 119,
+    "latency_p50_s": 0.8,
+    "latency_p95_s": 6.44
+  },
+  "details": [
+    {
+      "url": "https://www.ubisoft.com/en-sg",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000702,
+      "latency_s": 15.11
+    },
+    {
+      "url": "https://healthy.kaiserpermanente.org/front-door",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.011947,
+      "latency_s": 18.27
+    },
+    {
+      "url": "https://vigo.tech/privacy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002739,
+      "latency_s": 14.87
+    },
+    {
+      "url": "https://www.autodesk.com/campaigns/fusion-360/multi-seat-offer",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 4.1e-05,
+      "latency_s": 14.89
+    },
+    {
+      "url": "https://richaudience.com/en/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00083,
+      "latency_s": 13.59
+    },
+    {
+      "url": "https://ok.ru/ok?st._aid=FatFooter_officialGroup",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001477,
+      "latency_s": 13.33
+    },
+    {
+      "url": "https://loteriasdominicanas.com/la-primera/quiniela-noche/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000621,
+      "latency_s": 14.96
+    },
+    {
+      "url": "https://login.cpi.ad.jp/login.php",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.234492,
+      "latency_s": 20.28
+    },
+    {
+      "url": "https://cloudinary.com/guides/web-performance/web-performance-what-is-it-trends-and-insights-for-2024",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000514,
+      "latency_s": 0.26
+    },
+    {
+      "url": "https://weathernews.jp/onebox/tenki/spot/stadium/06/2938618/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005846,
+      "latency_s": 4.81
+    },
+    {
+      "url": "https://www.pornocarioca.com/videos/transexual/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000131,
+      "latency_s": 0.29
+    },
+    {
+      "url": "https://www.google.com/intl/en/about.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.335212,
+      "latency_s": 5.02
+    },
+    {
+      "url": "https://sexmupxinh.net/page/8/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000378,
+      "latency_s": 0.15
+    },
+    {
+      "url": "https://www.moloco.com/moloco-next",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001309,
+      "latency_s": 0.12
+    },
+    {
+      "url": "https://uwaterloo.ca/news/three-paths-one-launchpad-waterloo-co-op-canadas-space",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 9.8e-05,
+      "latency_s": 0.14
+    },
+    {
+      "url": "https://nypost.com/2026/10/12/us-news/sean-diddy-comb-rushed-from-new-jersey-prison-to-hospital-due-to-head-injury-report/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 8.8e-05,
+      "latency_s": 0.13
+    },
+    {
+      "url": "https://www.telefonica.de/news/corporate/2026/09/mehr-datenvolumen-integrierte-sicherheit-und-internationale-services-telefonica-deutschland-stellt-mobilfunktarife-fuer-unternehmen-neu-auf.html?cat=startseite",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000866,
+      "latency_s": 0.16
+    },
+    {
+      "url": "https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=GAZAmgQ",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm+C_override",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.999895,
+      "latency_s": 5.02
+    },
+    {
+      "url": "https://ir.netease.com/zh-hans/company-overview/management-team",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000496,
+      "latency_s": 1.62
+    },
+    {
+      "url": "https://www.termsfeed.com/blog/sample-return-policy-ecommerce-stores/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000345,
+      "latency_s": 0.95
+    },
+    {
+      "url": "https://alexismania.com/stores/bipoc-artists",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.005699,
+      "latency_s": 1.04
+    },
+    {
+      "url": "https://www.grandviewresearch.com/industry/consumer-f-and-b",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.004358,
+      "latency_s": 3.62
+    },
+    {
+      "url": "https://www.awin.com/news-and-events",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000145,
+      "latency_s": 1.04
+    },
+    {
+      "url": "https://www.20minutos.es/estaticos/pasatiempos.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.008474,
+      "latency_s": 3.85
+    },
+    {
+      "url": "https://www.thetimes.com/podcasts",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001112,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.nbcuniversal.com/search",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.000894,
+      "latency_s": 2.39
+    },
+    {
+      "url": "https://issuu.com/legal/terms",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000817,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.mail.com/cloud/synchronization",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001388,
+      "latency_s": 1.11
+    },
+    {
+      "url": "https://shahvani.com/webworkers",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000268,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://davincicommerce.ai/agentic-discoverability-engine/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005262,
+      "latency_s": 3.65
+    },
+    {
+      "url": "https://heylink.me/marketplace",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.028571,
+      "latency_s": 4.13
+    },
+    {
+      "url": "https://www.dhl.com/vn-vi/home.html?locale=true",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001178,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.lenovo.com/us/en/legal/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 6.6e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://help.disneyplus.com/article/disneyplus-introduction?utm_source=disneyplus&utm_medium=web&utm_campaign=unauthorized-site-footer&utm_content=introduction",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000745,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.intercom.com/early-stage",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000126,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.pavietnam.vn/vn/email-server/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000289,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://yandex.ru/showcaptcha?cc=1&form-fb-hint=2.74&mt=C3702C9B4D09E255C802E586A8F923F45700B00CBC21FEA30066447C3359E61B90AAA836FDB16E7F7109FCF53EB8D1E87717964271E02C7CE5B650C44C01E4EC3013861557AC66BA7EEAF10772AEA23D166F3E4498B8F9EF32162631EEAB419A58BB64076EB69C56CE0897D6B4EC7C63F65D23D9A21A698F9D93BDF5FCEE6346A79420A612F201EE04&retpath=aHR0cHM6Ly95YW5kZXgucnUvZGV2L2pzbGlicw%2C%2C_7bef96c652e0dd5b43be139915e59128&t=2%252F1791827062%252F575cee462f63649785768389bd823a4d&u=9567014232948671949&s=696c434aa2546dda0e62f52d4b780e0b",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.054684,
+      "latency_s": 2.98
+    },
+    {
+      "url": "https://www.okta.com/oktane/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000836,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.5movierulz.academy/genre/animation",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm",
+      "llm_verdict": "suspicious",
+      "llm_unusable": false,
+      "c_score": 0.070033,
+      "latency_s": 5.31
+    },
+    {
+      "url": "https://www.brown.edu/news/2026-10-05/aidan-choi",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000723,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.hubspot.com/hubspot-user-groups",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000297,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://community.myfitnesspal.com/en/categories",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005818,
+      "latency_s": 4.26
+    },
+    {
+      "url": "https://www.websupport.sk/webstranka-sablony/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002106,
+      "latency_s": 0.11
+    },
+    {
+      "url": "https://substack.com/@theconsciouslee/note/c-358758800",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.024158,
+      "latency_s": 2.56
+    },
+    {
+      "url": "https://www.umass.edu/gateway/why-umass/discover-ideas",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000335,
+      "latency_s": 0.07
+    },
+    {
+      "url": "https://www.govinfo.gov/app/browse/author",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003627,
+      "latency_s": 4.31
+    },
+    {
+      "url": "https://www.microsoft.com/trademarks",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000354,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.dashlane.com/business-password-manager",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00164,
+      "latency_s": 1.25
+    },
+    {
+      "url": "https://kingbokep.tv/view/kak-hijabers-mika-bluewieruka-colmek/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 7.2e-05,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://dpbossss.com/jodi-chart-record/bombay-rajshree-day.php",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000317,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.itau.com.br/social-link/gemini",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00046,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.epsilon.com/us/industries/cpg",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.001388,
+      "latency_s": 2.72
+    },
+    {
+      "url": "https://rg.ru/2026/10/12/reg-cfo/piatero-prigovoreny-k-srokam-do-17-let-za-hishchenie-deneg-u-voennyh-v-sheremetevo.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000746,
+      "latency_s": 1.1
+    },
+    {
+      "url": "https://www.braze.com/company/contact",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000108,
+      "latency_s": 0.12
+    },
+    {
+      "url": "https://alphonso.tv/annual-return-for-fy-2018-19/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 9e-05,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.enable-javascript.com/sk/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000613,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://about.proquest.com/LATAM-ES",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.016821,
+      "latency_s": 5.36
+    },
+    {
+      "url": "https://www.vox.com/the-highlight/504071/medical-billing-womens-health-outcomes",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001041,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.dji.com/global",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005649,
+      "latency_s": 2.21
+    },
+    {
+      "url": "http://_wildcard_.ph/.IGV0hOcNusVJOgqoD1HuWTk0PssdueKB",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm",
+      "llm_verdict": "suspicious",
+      "llm_unusable": false,
+      "c_score": 0.028523,
+      "latency_s": 2.72
+    },
+    {
+      "url": "https://www.google.com/intl/en/ads/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.653781,
+      "latency_s": 3.59
+    },
+    {
+      "url": "https://deadline.com/2026/10/diddy-jail-contraband-punishment-1237143829/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001164,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://manage.banahosting.com/cart.php?a=add&pid=116&billingcycle=monthly",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.008367,
+      "latency_s": 11.34
+    },
+    {
+      "url": "https://www.uefa.com/uefachampionsleague/news/02a9-218a9ecd5f83-091799d07d42-1000--different-roads-same-dream-how-sabah-and-coach-dambrauska/",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.003425,
+      "latency_s": 6.47
+    },
+    {
+      "url": "https://slate.com/advice/2026/10/sex-advice-husband-oral-confidence.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001629,
+      "latency_s": 0.51
+    },
+    {
+      "url": "https://www.cosmopolitan.com/relationships/a73994298/are-you-dating-a-loser/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001475,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.thepoizon.ru/category/apparel-dresses",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 8e-05,
+      "latency_s": 0.52
+    },
+    {
+      "url": "https://www.aol.com/articles/12-trips-easier-cheaper-once-143400000.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 8.7e-05,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.lecturas.com/actualidad/casemiro-mi-primer-capricho-primer-gran-sueldo-fue-comprarle-casa-a-mi-madre-siempre-fue-su-sueno-y-se-consiguio-gracias-a-oportunidad-que-me-ofrecio-sao-paulo_199452",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000195,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://nextdns.io/privacy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003552,
+      "latency_s": 3.37
+    },
+    {
+      "url": "https://www.skyscanner.com.vn/?previousCultureSource=GEO_LOCATION&redirectedFrom=www.skyscanner.net&userSessionDataId=6cee785a-8a87-4068-a0b4-ba1d8ccfd738&session_handoff=eyJhbGciOiJFUzI1NiIsImtpZCI6InNlc3Npb24tc2VydmljZS1oYW5kb2ZmLWtleS0yMDI2LTA1IiwidHlwIjoiSldUIn0.eyJodHRwczovL3NreXNjYW5uZXIubmV0L3Nlc3Npb25faWQiOiIwMWExMzEzNy00MWQyLTgwMDMtOTI5OC1lMTcxODZiMTc2ODIiLCJleHAiOjE3OTE4MjcwNzd9.vQztMp82k18XseWa5OfIERXg4bRI441WfBN8cypIm0yh1ZjmcHXGiKrbIUquVudFN22c6xhgbeZL9Y8PxPaBTw",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.147759,
+      "latency_s": 3.35
+    },
+    {
+      "url": "https://xn--90ab2c.xn--p1ai/personal/karty/kreditnye/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": null,
+      "latency_s": 8.28
+    },
+    {
+      "url": "https://plausible.io/migrate-from-google-analytics",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.0015,
+      "latency_s": 0.32
+    },
+    {
+      "url": "https://tunein.com/podcasts/Science-Podcasts/Hidden-Brain-p787503/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000484,
+      "latency_s": 1.13
+    },
+    {
+      "url": "https://www.livescore.cz/standings/nJqEpFyH/lIqDUTz3/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.052691,
+      "latency_s": 3.53
+    },
+    {
+      "url": "https://www.bigolive.tv/lawenforcementportal",
+      "label": "clean",
+      "verdict": "phishing",
+      "decided_by": "D_llm",
+      "llm_verdict": "phishing",
+      "llm_unusable": false,
+      "c_score": 0.00464,
+      "latency_s": 13.87
+    },
+    {
+      "url": "https://www.zebra.com/ap/en.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002629,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.pa.gov/services",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002109,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.filmyzilla74.com/category/250/New-bollywood-movies-2022/default/1.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.003153,
+      "latency_s": 1.04
+    },
+    {
+      "url": "https://www.businessinsider.com/watch",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.00816,
+      "latency_s": 2.62
+    },
+    {
+      "url": "https://www.telefonica.com/es/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000853,
+      "latency_s": 2.07
+    },
+    {
+      "url": "https://www.zillow.com/san-antonio-tx/rent-houses/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 2.5e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.axis.com/support/phone",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00121,
+      "latency_s": 1.13
+    },
+    {
+      "url": "https://chatgpt.com/use-cases/fitness-wellness-and-health/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 6.6e-05,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.pushwoosh.com/products/marketing-segmentation/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000255,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.xpaja.net/category/ebony",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00022,
+      "latency_s": 1.03
+    },
+    {
+      "url": "https://agile-files.gboxlab.com/GBox-1.8.4.02-1080402-7899902-website.apk",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.978944,
+      "latency_s": 9.32
+    },
+    {
+      "url": "https://news.stanford.edu/stories/2026/10/gut-microbiome-human-migration",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000756,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.libreoffice.org/privacy-policy/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001356,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://yuga.com/about",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000334,
+      "latency_s": 1.37
+    },
+    {
+      "url": "https://www.gog.com/en/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000164,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.mdr.de/sport/sport-im-mdr/sportkolumne-heimvorteil-sachsen-anhalt,heimvorteil-die-sportkolumne-von-mdr-sachsen-anhalt-100.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000234,
+      "latency_s": 1.28
+    },
+    {
+      "url": "https://www.minhngoc.net.vn/kqxs/mien-bac/11-10-2026.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000732,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.iastate.edu/pre-law-preparation",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000566,
+      "latency_s": 0.15
+    },
+    {
+      "url": "https://www.goodreads.com/book/show/215153740-all-the-colors-of-the-dark",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000936,
+      "latency_s": 0.08
+    },
+    {
+      "url": "https://www.theverge.com/transportation/1002173/bmws-revamped-i3-boasts-up-to-468-miles-of-range",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002401,
+      "latency_s": 0.07
+    },
+    {
+      "url": "https://preferences.adweek.com/newsletter-signup/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001639,
+      "latency_s": 0.59
+    },
+    {
+      "url": "https://accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/&ec=GAZAmgQ",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm+C_override",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.999895,
+      "latency_s": 4.32
+    },
+    {
+      "url": "https://unity.com/developer-tools",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000198,
+      "latency_s": 0.07
+    },
+    {
+      "url": "https://www.verkada.com/webinars/the-next-era-of-physical-ai-new-physical-security-products-ai-features-and-platform-innovations-from-verkada/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000183,
+      "latency_s": 1.15
+    },
+    {
+      "url": "https://www.xbox.com/Shell/ChangeLocale",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001023,
+      "latency_s": 0.22
+    },
+    {
+      "url": "https://www.goodreturns.in/corrections-policy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000261,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.bostonglobe.com/games/?p1=BGMenu_Sections",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000628,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://store.google.com/regionpicker?hl=en-US&utm_source=fitbit_redirect&utm_medium=google_ooo&utm_campaign=category",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.646401,
+      "latency_s": 5.25
+    },
+    {
+      "url": "https://www.marksandspencer.com/l/kids/girls/swimwear",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000541,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.cricbuzz.com/info/terms",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 9.6e-05,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://deepseek.com/news/r1-0528/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000179,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.nokia.com/bell-labs/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 6.7e-05,
+      "latency_s": 0.17
+    },
+    {
+      "url": "https://replit.com/pro-agreement",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005436,
+      "latency_s": 4.85
+    },
+    {
+      "url": "https://account.mail.ru/login?autologin_exp=v22&autologin_project=home&errorCode=11300&errorText=invalid+user&page=https%3A%2F%2Fmail.ru%2F%3Fautologin%3D1791827073&state=cbda2bdc63ad4a2bae8a61f3106e8b26",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.728642,
+      "latency_s": 4.58
+    },
+    {
+      "url": "https://www.bootstrapcdn.com/bootswatch/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002522,
+      "latency_s": 1.36
+    },
+    {
+      "url": "https://www.android.com/intl/vi_vn/ai/gemini/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000371,
+      "latency_s": 0.03
+    },
+    {
+      "url": "http://www.huya.com/video/u/1354740567",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.007468,
+      "latency_s": 4.97
+    },
+    {
+      "url": "https://www.vodafone.pt/downloads.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001504,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.anu.edu.au/research/research-initiatives",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000138,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://miro.com/solutions/design/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000396,
+      "latency_s": 0.91
+    },
+    {
+      "url": "https://www.sagepub.com/useful-tools/sage-author-service",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000134,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://raptive.com/raptive-resources/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000355,
+      "latency_s": 1.14
+    },
+    {
+      "url": "https://az24.vn/xskt-sxkt-xo-so-kon-tum.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000488,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.nbcnews.com/tech-media",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 4.9e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.justice.gov/careers/benefits",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000461,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.kraken.com/proof-of-reserves",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000816,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://mihanwebhost.com/my/order.php",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.093671,
+      "latency_s": 7.23
+    },
+    {
+      "url": "https://www.billboard.com/author/ediltsmarshall/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00041,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.atom.com/trademark-filing",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001534,
+      "latency_s": 1.21
+    },
+    {
+      "url": "https://www.ndr.de:443/ratgeber/verbraucher/haushaltsaufloesung-kosten-und-richtiges-vorgehen-beim-entruempeln,haushaltsaufloesung-116.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000119,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://giantpanda.com/blog",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001178,
+      "latency_s": 1.22
+    },
+    {
+      "url": "https://www.zoneedit.com/free-dns/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000578,
+      "latency_s": 0.15
+    },
+    {
+      "url": "https://www.citrix.com/events/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 9.9e-05,
+      "latency_s": 0.13
+    },
+    {
+      "url": "https://xhtotal.com/categories/cute",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000413,
+      "latency_s": 1.14
+    },
+    {
+      "url": "https://sketchfab.com/3d-models/categories/animals-pets?date=week&sort_by=-likeCount",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003112,
+      "latency_s": 3.43
+    },
+    {
+      "url": "https://thenai.org/annual-report-2025/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 8.3e-05,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.ezoic.com/contact-us",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000192,
+      "latency_s": 1.12
+    },
+    {
+      "url": "https://blog.reverbnation.com/3-ways-make-live-shows-exciting/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001164,
+      "latency_s": 0.1
+    },
+    {
+      "url": "https://www.bigcommerce.com/product/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00121,
+      "latency_s": 1.1
+    },
+    {
+      "url": "https://www.cpanel.net/extensions/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000448,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://caniuse.com/css-grid",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005908,
+      "latency_s": 5.11
+    },
+    {
+      "url": "https://www.flashscore.mobi/standings/Obnyfa5k/fTckxvPN/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.00844,
+      "latency_s": 4.22
+    },
+    {
+      "url": "https://corp.fluct.jp/company/?target=4",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000873,
+      "latency_s": 0.67
+    },
+    {
+      "url": "https://news.cornell.edu/stories/2024/11/could-inoculation-limit-misinformation",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.00488,
+      "latency_s": 1.58
+    },
+    {
+      "url": "https://www.vinted.de/catalog/79-jumpers-and-sweaters",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000215,
+      "latency_s": 0.83
+    },
+    {
+      "url": "https://developers.snap.com/games/home",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.009346,
+      "latency_s": 3.27
+    },
+    {
+      "url": "https://www.threatlocker.com/pages/2025-gartner-peer-insights-voice-of-the-customer",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001008,
+      "latency_s": 1.21
+    },
+    {
+      "url": "https://porkbun.com/legal/agreement/privacy_policy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000172,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.speedtest.net/about/accessibility",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000466,
+      "latency_s": 0.24
+    },
+    {
+      "url": "https://www.delta.nl/klantenservice/mobiel/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000164,
+      "latency_s": 2.28
+    },
+    {
+      "url": "https://www.nespresso.com/worldofcoffee/WCP/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.004723,
+      "latency_s": 2.44
+    },
+    {
+      "url": "https://www.nicovideo.jp/login?sec=pc_video_ellipsismenu_usermute",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002343,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.truecaller.com/premium/partner-with-truecaller-premium?utm_source=WebMain&utm_medium=Footer",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000389,
+      "latency_s": 0.95
+    },
+    {
+      "url": "https://community.jimdo.com/jimdoconnect",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.032093,
+      "latency_s": 3.77
+    },
+    {
+      "url": "https://www.mi.com/vn/mobile/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000605,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://simpli.fi/solutions/targeting-and-optimization/unified-reporting",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000569,
+      "latency_s": 0.44
+    },
+    {
+      "url": "https://www.google.com/advanced_search?hl=en-VN&authuser=0",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.756608,
+      "latency_s": 2.27
+    },
+    {
+      "url": "https://www.history.com/collections/20th-century",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 7.1e-05,
+      "latency_s": 0.08
+    },
+    {
+      "url": "https://www.theregister.com/networks/2026/09/28/ofcom-pulls-the-plug-on-openreachs-aggressive-fiber-discount/5299427",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.003064,
+      "latency_s": 0.07
+    },
+    {
+      "url": "https://down.chinaz.com/class/208_1.htm",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.012835,
+      "latency_s": 5.02
+    },
+    {
+      "url": "https://news.byu.edu/intellect/humans-or-ai-who-or-what-can-scam-you-more-effectively",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001116,
+      "latency_s": 0.93
+    },
+    {
+      "url": "https://disdarrummers.shop/vpn/en/",
+      "label": "clean",
+      "verdict": "phishing",
+      "decided_by": "D_llm",
+      "llm_verdict": "phishing",
+      "llm_unusable": false,
+      "c_score": 0.007026,
+      "latency_s": 3.69
+    },
+    {
+      "url": "https://meteofrance.com/meteo-a-z/saisons",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000316,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://nlnetlabs.nl/signing-keys/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000927,
+      "latency_s": 2.8
+    },
+    {
+      "url": "https://www.comodo.com/news/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000398,
+      "latency_s": 0.13
+    },
+    {
+      "url": "https://www.netsuite.com/portal/fr/home.shtml",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000292,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.hhs.gov/open/plain-writing/index.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000404,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://judge.me/blog/shopify-vs-bigcommerce",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.006182,
+      "latency_s": 7.66
+    },
+    {
+      "url": "https://www.walmart.ca/en",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000576,
+      "latency_s": 0.09
+    },
+    {
+      "url": "https://www.arbeitsagentur.de/arbeiten-in-deutschland/so-funktioniert-es",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000172,
+      "latency_s": 1.36
+    },
+    {
+      "url": "https://litnet.com/ru/tag/философия-t1234",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000266,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.google.com/advanced_search?hl=en-VN&authuser=0",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.756608,
+      "latency_s": 2.16
+    },
+    {
+      "url": "https://sportowefakty.wp.pl/koszykowka/1278761/trener-legii-nie-gryzl-sie-w-jezyk-jestesmy-slabi",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005054,
+      "latency_s": 3.94
+    },
+    {
+      "url": "https://www.telstra.com.au/accessories/sprout",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001847,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://sso.navigatorlogin.com/Account/Login?ReturnUrl=%2Fconnect%2Fauthorize%2Fcallback%3Fclient_id%3D949669a0-062a-4848-85c4-8243a63ddb1f%26response_type%3Dcode%26scope%3Dopenid%2520email%2520profile%2520offline_access%26state%3D%257B%2522data%2522%253Anull,%2522state%2522%253A%252257cf2bfd118e021bb05cea7da52eab0b%2522,%2522originUrl%2522%253Anull%257D%26redirect_uri%3Dhttps%253A%252F%252Fwww.system-monitor.com%252Fdashboard%252Fmsp_sso.php",
+      "label": "clean",
+      "verdict": "phishing",
+      "decided_by": "D_llm",
+      "llm_verdict": "phishing",
+      "llm_unusable": false,
+      "c_score": 0.013966,
+      "latency_s": 4.39
+    },
+    {
+      "url": "https://www.espn.com/baseball/savannah-bananas/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 6.3e-05,
+      "latency_s": 0.08
+    },
+    {
+      "url": "https://aads.com/blog/10-best-play-to-earn-crypto-games/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000127,
+      "latency_s": 1.24
+    },
+    {
+      "url": "https://www.loopia.se/pdf/dsa-annual-report-2024-loopia-group.xlsx",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001494,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://ecnavi.jp/contents/line_stamp/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 5.9e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://cj.sina.cn/article/norm_detail?url=https%3A%2F%2Ffinance.sina.cn%2F2026-10-12%2Fdetail-iniuyarc5312459.d.html&vt=4&pos=108",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.165227,
+      "latency_s": 6.27
+    },
+    {
+      "url": "https://www.revenuecat.com/feature/customer-management",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00177,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.eatingwell.com/zucchini-chicken-parmesan-casserole-12111186",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002423,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.pcloud.com/release-notes",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001055,
+      "latency_s": 0.9
+    },
+    {
+      "url": "https://www.gimp.org/books/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000972,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.nyc.gov/main?site=!",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000258,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://polybuzz.ai/character",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000328,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://pornoborshch.com/categ/swiss/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001551,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://libpng.org/pub/mng/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001676,
+      "latency_s": 2.37
+    },
+    {
+      "url": "https://pinduoduo.com/home/wangjing/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003452,
+      "latency_s": 5.21
+    },
+    {
+      "url": "https://surveys.webmd.com/survey/lu3n6U0tmKKU?eid=webmdheader",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.341089,
+      "latency_s": 3.86
+    },
+    {
+      "url": "https://www.marca.com/radio.html?intcmp=BOTONPORTADA&s_kw=radiomarca",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003578,
+      "latency_s": 3.52
+    },
+    {
+      "url": "https://libsyn.com/libsyn-podcast-hosting-features/distribution/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000175,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.kargo.com/news/pause-ads-emerge-new-category-on-ctv",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 8.2e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.google.com/setprefs?sig=0_jPq23BdCjGhvdP8oCXyaZ1HCvNU%3D&hl=vi&source=homepage&sa=X&ved=0ahUKEwjm_4OIhLWXAxW1SmwGHcJLNr0Q2ZgBCAU",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm+C_override",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.991679,
+      "latency_s": 4.33
+    },
+    {
+      "url": "https://www.merkur.de/raetsel/wordle/kostenlos-online-wordle-loesen-jeden-tag-neu-93266297.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 9.3e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.sonicwall.com/products/remote-access/secure-mobile-access-1000-series",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001021,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.blockchain.com/explorer",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.00299,
+      "latency_s": 3.02
+    },
+    {
+      "url": "https://chatgpt.com/plugins",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002483,
+      "latency_s": 0.17
+    },
+    {
+      "url": "https://www.archdaily.com/1186451/port-melbourne-secondary-college-billard-leece-partnership/6ac5609627ac8d0189cbbdf2-port-melbourne-secondary-college-billard-leece-partnership-photo",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.103602,
+      "latency_s": 2.93
+    },
+    {
+      "url": "https://clinicaltrials.gov/policy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001834,
+      "latency_s": 0.46
+    },
+    {
+      "url": "https://marketingplatform.google.com/about/enterprise/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.691172,
+      "latency_s": 2.31
+    },
+    {
+      "url": "https://cardgames.io/spidersolitaire/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000544,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://us.shop.battle.net/en-us/family/overwatch",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.004371,
+      "latency_s": 7.51
+    },
+    {
+      "url": "https://bitnami.com/support",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002633,
+      "latency_s": 1.1
+    },
+    {
+      "url": "https://www.google.com/imghp?hl=en&ogbl",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.922249,
+      "latency_s": 1.92
+    },
+    {
+      "url": "https://www.gameloft.com/gameloft-studios/sofia",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000391,
+      "latency_s": 1.0
+    },
+    {
+      "url": "https://ipapi.co/about/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.003091,
+      "latency_s": 0.59
+    },
+    {
+      "url": "https://grafana.com/products/cloud/agent-observability/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000754,
+      "latency_s": 1.25
+    },
+    {
+      "url": "https://www.heroku.com/blog/new-era-managed-databases-announcing-heroku-postgres-advanced/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000445,
+      "latency_s": 1.25
+    },
+    {
+      "url": "https://www.terra.com.br/noticias/eleicoes/area-tecnica-do-tse-nao-encontra-fake-news-em-canal-exercito-do-lula-mas-aponta-riscos-eleitorais,9a5500f1deaa091177949cee0e6c816cpr4phuqf.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005347,
+      "latency_s": 3.33
+    },
+    {
+      "url": "https://www.au.com/energy/denki/merit/plan/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001912,
+      "latency_s": 0.09
+    },
+    {
+      "url": "https://www.magnific.com/reviews",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000336,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.nanit.com/policies/terms-of-service",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000455,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.tube8.fr/porntags/dildo+anal/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002066,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://pruffme.com/pages/contacts/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000233,
+      "latency_s": 2.15
+    },
+    {
+      "url": "https://www.admaster.cc/contact-us",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000865,
+      "latency_s": 0.99
+    },
+    {
+      "url": "https://www.island.io/solutions/zero-trust",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000582,
+      "latency_s": 0.59
+    },
+    {
+      "url": "https://www.meitu.com/en",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000954,
+      "latency_s": 0.92
+    },
+    {
+      "url": "https://trust.grindr.com/en-US/privacy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.006906,
+      "latency_s": 3.22
+    },
+    {
+      "url": "https://bericht.telekom.com/cr-bericht/2025/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.020389,
+      "latency_s": 4.3
+    },
+    {
+      "url": "https://www.vedomosti.ru/global-ideas",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001867,
+      "latency_s": 1.42
+    },
+    {
+      "url": "http://icio.us/manual",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.043382,
+      "latency_s": 2.15
+    },
+    {
+      "url": "https://www.oppo.com/vn/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000272,
+      "latency_s": 1.01
+    },
+    {
+      "url": "https://www.adobe.com/homepage/fragments/loggedout/redesign/default/explore-whats-new/explore-whats-new",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000163,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.netlify.com/customers/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.06644,
+      "latency_s": 3.65
+    },
+    {
+      "url": "https://animanch.com/category/227280/%e3%81%b5%e3%81%a4%e3%81%86%e3%81%ae%e8%bb%bd%e9%9f%b3%e9%83%a8",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00086,
+      "latency_s": 0.16
+    },
+    {
+      "url": "https://grafana.com/legal/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001239,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.itmedia.co.jp/keywords/index.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000599,
+      "latency_s": 0.2
+    },
+    {
+      "url": "https://www.webnovel.com/book/33667044200629305",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.026739,
+      "latency_s": 4.75
+    },
+    {
+      "url": "https://sciencedaily.com/releases/2026/10/261007042116.htm",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002769,
+      "latency_s": 0.16
+    },
+    {
+      "url": "https://www.mongodb.com/products/platform/atlas-cloud-providers/aws",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 6.6e-05,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://pubmatic.com/case-studies",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000292,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.acorns.com/invest",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.0016,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://partners.trellix.com/partner",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001597,
+      "latency_s": 1.02
+    },
+    {
+      "url": "https://www.tesco.com/store-locator/uk/?stop_mobi=yes",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 7.8e-05,
+      "latency_s": 1.4
+    },
+    {
+      "url": "https://eu.com/privacy-policy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.069471,
+      "latency_s": 4.32
+    },
+    {
+      "url": "https://www.dtscout.com/techpolicy.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002971,
+      "latency_s": 1.16
+    },
+    {
+      "url": "https://www.annunci69.it/annunci/coppie/Veneto/Vicenza",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.0009,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://m365.cloud.microsoft/sl-si/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.026899,
+      "latency_s": 3.04
+    },
+    {
+      "url": "https://help.fullstory.com/hc/en-us/community/topics",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001142,
+      "latency_s": 1.42
+    },
+    {
+      "url": "https://render.com/docs/deploys",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.001061,
+      "latency_s": 3.4
+    },
+    {
+      "url": "https://www.bidease.com/terms-of-use",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001493,
+      "latency_s": 1.21
+    },
+    {
+      "url": "https://www.priceline.com/flight-routes/en-us/SFO/MIA/flights-from-san-francisco-to-miami.ssp",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00013,
+      "latency_s": 1.49
+    },
+    {
+      "url": "https://ind.xxx/videos/269369",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.012272,
+      "latency_s": 5.39
+    },
+    {
+      "url": "https://dotnet.microsoft.com/en-us/apps/aspnet/signalr",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005713,
+      "latency_s": 4.05
+    },
+    {
+      "url": "https://www.ap.org/intelligence/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.006098,
+      "latency_s": 2.99
+    },
+    {
+      "url": "https://www.joinmassive.com/monetization-sdk-privacy-policy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001495,
+      "latency_s": 1.26
+    },
+    {
+      "url": "https://wordpress.com/professional-email/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.044871,
+      "latency_s": 0.16
+    },
+    {
+      "url": "https://mailchimp.com/pricing/marketing/compare-plans/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000273,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.moviezwap.codes/category/Telugu-(2025)-Movies.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001549,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.transportation.gov/briefing-room/president-trump-transportation-secretary-duffy-finalize-freedom-means-affordable-cars",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000104,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://proxmox.com/en/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00046,
+      "latency_s": 1.07
+    },
+    {
+      "url": "https://minzdrav.gov.ru/poleznye-resursy/nauchno-prakticheskiy-sovet",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000245,
+      "latency_s": 2.13
+    },
+    {
+      "url": "https://www.transip.nl/openstack/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001427,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://robinhood.com/us/en/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000264,
+      "latency_s": 0.4
+    },
+    {
+      "url": "https://admin.shopify.com/signup?locale=en&language=en&signup_page=https%3A%2F%2Fwww.shopify.com%2F&signup_types%5B%5D=paid_trial_experience",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.015021,
+      "latency_s": 5.41
+    },
+    {
+      "url": "https://www.dazn.com/en-GLOBAL/welcome",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.0553,
+      "latency_s": 4.52
+    },
+    {
+      "url": "https://www.name.com/domain/search",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000526,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://luxuretv.com/longest/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000341,
+      "latency_s": 0.11
+    },
+    {
+      "url": "https://www.cnr.it/it/comunicato-stampa/14705/il-battito-del-mare-puo-svelare-lo-stato-di-salute-degli-ecosistemi-marini",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000164,
+      "latency_s": 0.13
+    },
+    {
+      "url": "https://signal.org/pt_BR/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.044498,
+      "latency_s": 2.13
+    },
+    {
+      "url": "https://www.fotmob.com/lineup-builder",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.004016,
+      "latency_s": 3.32
+    },
+    {
+      "url": "https://www.coca-cola.com/vn/vi/about-us/contact-us",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000148,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://adkernel.com/retail-media/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000523,
+      "latency_s": 0.95
+    },
+    {
+      "url": "https://xhplus.live/tags/porn",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000375,
+      "latency_s": 1.02
+    },
+    {
+      "url": "https://www.centos.org/legal/privacy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001692,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.hover.com/domains",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000846,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.linkedin.com/legal/user-agreement?trk=linkedin-tc_auth-button_user-agreement",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000692,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://console.hybrid.ai/login",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.053332,
+      "latency_s": 1.95
+    },
+    {
+      "url": "https://education.bentley.com/help/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.00841,
+      "latency_s": 8.09
+    },
+    {
+      "url": "https://open.spotify.com/playlist/37i9dQZF1E4EaeOQFKEeSY",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.016166,
+      "latency_s": 2.5
+    },
+    {
+      "url": "https://www.mbga.jp/_game_intro?game_id=12000273",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000985,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.twilio.com/en-us/use-cases/voice-AI",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 7e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.ea.com/games/starwars/zero-company/buy",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 3e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.finanzen.net/nachricht/zertifikate/werbung-die-trader-s-box-app-einfach-renditewunsch-eingeben-schon-kommt-ihr-anlageprodukt-handelbar-bei-ihrem-broker-dazu-news-watchlist-und-kursalame-15975879",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000619,
+      "latency_s": 1.01
+    },
+    {
+      "url": "https://www.logitech.com/vi-vn",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001718,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://archive.org/account/signup",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000484,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://note.com/tag/%E7%A1%A4%E5%90%88%E6%86%B2%E4%B8%89",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000437,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://ko-fi.com/ygcosplay",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.023644,
+      "latency_s": 3.69
+    },
+    {
+      "url": "https://www.verywellhealth.com/first-aid-4014723",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.020384,
+      "latency_s": 2.83
+    },
+    {
+      "url": "https://www.nber.org/people/david_frisvold?page=1&perPage=50",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003561,
+      "latency_s": 4.69
+    },
+    {
+      "url": "https://stripe.com/radar",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000291,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.realme.com/vn/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000238,
+      "latency_s": 1.08
+    },
+    {
+      "url": "https://www.nikkei.com/news/category/sports/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 2.8e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://letsencrypt.org/da/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000232,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.furaffinity.net/view/66667398/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002195,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.pendo.io:443/product/leo/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000123,
+      "latency_s": 0.09
+    },
+    {
+      "url": "https://us.com/registry-policies",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.147352,
+      "latency_s": 5.73
+    },
+    {
+      "url": "https://www.sonos.com/en/home",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000795,
+      "latency_s": 0.49
+    },
+    {
+      "url": "https://www.flashscore.com/football/sudan/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000244,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.ubc.ca:443/admissions/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000605,
+      "latency_s": 1.21
+    },
+    {
+      "url": "https://www.rudderstack.com/customers/nuts-cracks-customer-intelligence/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000373,
+      "latency_s": 1.09
+    },
+    {
+      "url": "https://www.pwc.com/gx/en.html",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.009457,
+      "latency_s": 0.77
+    },
+    {
+      "url": "https://www.pandasecurity.com/pt/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001748,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://techcrunch.com/2026/10/06/get-all-your-questions-answered-at-techcrunch-disrupt-2026-the-full-breakout-session-agenda-revealed/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000138,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://ncode.syosetu.com/n3131mv/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.469656,
+      "latency_s": 2.99
+    },
+    {
+      "url": "https://op.gg/lol/leaderboards/ranked5s",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.395178,
+      "latency_s": 4.03
+    },
+    {
+      "url": "https://www.dns.la/docs/ApiDoc",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.880659,
+      "latency_s": 3.75
+    },
+    {
+      "url": "https://www.otto.de/heimtextilien/handtuecher/?ansicht=einstieg",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000993,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.cloudflare.com/products/pages/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000295,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://pornone.com/toys/maki-hojo-wants-to-leave-an-impression/281041165/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 7e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://laravel.com/framework/docs/pennant",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.006535,
+      "latency_s": 5.47
+    },
+    {
+      "url": "https://www.vaticannews.va/en.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.00857,
+      "latency_s": 2.3
+    },
+    {
+      "url": "https://www.verisign.com/report-a-vulnerability/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00023,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken-frankfurt-stuerzt-im-ranking-der-finanzplaetze-ab-das-sind-die-gruende/100258263.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001158,
+      "latency_s": 0.82
+    },
+    {
+      "url": "https://www.latamairlines.com/cl/es/ofertas/canjea-tus-millas",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000335,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.trendmicro.com/ru_ru.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000209,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.redbull.com/int-en",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00072,
+      "latency_s": 0.99
+    },
+    {
+      "url": "https://passport.weibo.com/visitor/visitor?entry=miniblog&a=enter&url=https%3A%2F%2Fweibo.com%2F&domain=weibo.com&ua=Mozilla%2F5.0%20%28compatible%3B%20dacntt-phishing-research%2F1.0%29&_rand=1791827111040&sudaref=",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.014237,
+      "latency_s": 2.61
+    },
+    {
+      "url": "https://quizlet.com/nz",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.006288,
+      "latency_s": 0.7
+    },
+    {
+      "url": "https://www.cricinfo.com/series/one-day-cup-aus-2026-27-1544840/victoria-vs-south-australia-7th-match-1544848/full-scorecard",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000528,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.espn.com/espn/apps/download?app=tc",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000307,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.space.com/stargazing/eclipses",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001957,
+      "latency_s": 0.08
+    },
+    {
+      "url": "https://www.familysearch.org/en/global",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000992,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.foxbusiness.com/economy/lyft-agrees-272-million-settlement-over-california-wage-theft-claims",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000388,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://schneevonmorgen.com/privacypolicy.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002542,
+      "latency_s": 1.39
+    },
+    {
+      "url": "https://www.volvocars.com/vn/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000329,
+      "latency_s": 0.95
+    },
+    {
+      "url": "https://www.arizona.edu/campus-life/spirit-traditions",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000146,
+      "latency_s": 0.8
+    },
+    {
+      "url": "https://www.mi.com/vn/life-style/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 9.5e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.afternic.com/sell-domains",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000503,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://rtbwise.com/privacy-policy.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000661,
+      "latency_s": 1.2
+    },
+    {
+      "url": "https://disneycruise.disney.go.com/?CMP=AFC-DPFY13Q1DIENT1375C&DISCID=DI_go_dcl",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.047971,
+      "latency_s": 3.73
+    },
+    {
+      "url": "https://9mod.com/windows",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.004488,
+      "latency_s": 5.64
+    },
+    {
+      "url": "https://www.rnp.br/informe-se/noticias/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000158,
+      "latency_s": 2.03
+    },
+    {
+      "url": "https://www.ycombinator.com/people/tyler-bosmeny",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001235,
+      "latency_s": 1.12
+    },
+    {
+      "url": "https://www.capitalone.com/help-center/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000203,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://quicksetcloud.com/quickset-for-voice-assistant/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000522,
+      "latency_s": 1.18
+    },
+    {
+      "url": "https://www.next.co.uk/shop/home/f/brand-lauraashley?market=homepage",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000208,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.google.com/advanced_search?hl=en-VN&authuser=0",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.756608,
+      "latency_s": 2.66
+    },
+    {
+      "url": "https://codeberg.org/Codeberg-Infrastructure/forgejo",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.009983,
+      "latency_s": 4.79
+    },
+    {
+      "url": "https://www.southernliving.com/recipes/smoked-sausages-in-grape-jelly-and-chili-sauce-recipe",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001073,
+      "latency_s": 0.09
+    },
+    {
+      "url": "https://www.innovid.com/contact-us",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000357,
+      "latency_s": 0.08
+    },
+    {
+      "url": "https://learn.jquery.com/about-jquery/how-jquery-works/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.006722,
+      "latency_s": 4.01
+    },
+    {
+      "url": "https://www.servicenow.com/products/threat-intelligence-security-center.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000612,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://customer.io/platform",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002218,
+      "latency_s": 0.51
+    },
+    {
+      "url": "https://www.lg.com/vn/tv-va-loa-thanh/tv-by-inch/42-48-inch/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000124,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://v.youku.com/video?s=7aefbfbd1c6f0d4011ef&scm=20140719.rcmd.feed.show_7aefbfbd1c6f0d4011ef&alginfo=-1abId-2497217-1sceneId-246595-1seqId-21aH7MhL0CzJNlrAO-1reqId-255ffefee.4632.4f3e.9748.c010aab7b264_1789558800261&scg_id=22896573",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.989604,
+      "latency_s": 3.76
+    },
+    {
+      "url": "https://www.scribd.com/docs/Technology-Engineering",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001138,
+      "latency_s": 0.08
+    },
+    {
+      "url": "https://www.patreon.com/about",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000397,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.nrk.no/dokumentar/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.003042,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://virtualminds.com/privacy-center/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.019142,
+      "latency_s": 3.49
+    },
+    {
+      "url": "http://www.jp.net/press",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.08098,
+      "latency_s": 4.31
+    },
+    {
+      "url": "https://access.tufts.edu/accessibility",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.004529,
+      "latency_s": 3.54
+    },
+    {
+      "url": "https://weplayapp.com/vi",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00082,
+      "latency_s": 1.07
+    },
+    {
+      "url": "https://getbootstrap.com/docs/6.0/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.00989,
+      "latency_s": 3.88
+    },
+    {
+      "url": "https://account.box.com/login",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.026561,
+      "latency_s": 2.73
+    },
+    {
+      "url": "https://www.brightcove.com:443/products/player",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000235,
+      "latency_s": 1.18
+    },
+    {
+      "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.meta.com%2F&h=AUA0KidCgG6F1B6BmUIfRi5rermUnrI8hvFCnVA0LfxKHskBGF8PTfYCd8BRh55fETbhrSAQOWQQWBe8DGQkv8gwgd1_s8Wm8AxaB_jp4xJBv6EZKbJbRCLp48Q88xCxvNfpirfKQnPRnr2n",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "fallback_C",
+      "llm_verdict": null,
+      "llm_unusable": true,
+      "c_score": 0.512457,
+      "latency_s": 0.94
+    },
+    {
+      "url": "http://ly.so.com/?src=tab_web",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.017817,
+      "latency_s": 8.37
+    },
+    {
+      "url": "https://www.backblaze.com/cloud-storage",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005303,
+      "latency_s": 3.98
+    },
+    {
+      "url": "https://assine.abril.com.br/?redirect=abrilcom",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.020039,
+      "latency_s": 2.99
+    },
+    {
+      "url": "https://crazymaplestudios.com/maple-news",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002292,
+      "latency_s": 1.19
+    },
+    {
+      "url": "https://amplify.com/webinar-library/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000384,
+      "latency_s": 0.12
+    },
+    {
+      "url": "https://creativecommons.org/terms",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000388,
+      "latency_s": 0.16
+    },
+    {
+      "url": "https://www.cvent.com:443/en/product-terms-of-use",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000375,
+      "latency_s": 0.16
+    },
+    {
+      "url": "https://www.abc.es/espana/derecha-mantiene-mayoria-absoluta-pese-agitacion-callejera-20261012015025-nt.html",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001674,
+      "latency_s": 0.54
+    },
+    {
+      "url": "https://www.newyorker.com/podcast/the-new-yorker-radio-hour/ari-emanuel-on-donald-trump-elon-musk-and-mixing-business-with-politics",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 7.3e-05,
+      "latency_s": 0.06
+    },
+    {
+      "url": "https://www.cricinfo.com/story/afg-vs-ban-test-conditions-no-bar-as-hasan-mahmud-continues-to-raise-the-bar-1558025",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 5e-05,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://traffmonetizer.com/de/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002653,
+      "latency_s": 1.16
+    },
+    {
+      "url": "https://heyzine.com/ca",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00243,
+      "latency_s": 0.13
+    },
+    {
+      "url": "https://www.google.com/setprefs?sig=0_c77WMWahXC8ZL1d_4g0JvQiWogg%3D&hl=fr&source=homepage&sa=X&ved=0ahUKEwi1yrGZhLWXAxWhxzgGHeUYJ-UQ2ZgBCAY",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm+C_override",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.993434,
+      "latency_s": 2.74
+    },
+    {
+      "url": "https://www.xero.com:443/small-businesses/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00026,
+      "latency_s": 0.11
+    },
+    {
+      "url": "https://www.gov.br/pt-br/temas/controle-da-poluicao-e-outras-medidas-de-precaucao",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000159,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.nike.com/vn/w/womens-basketball-shoes-3glsmz5e1x6zy7ok",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.005368,
+      "latency_s": 3.14
+    },
+    {
+      "url": "https://safety.google/intl/en/safety/ads-data/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000476,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.fabguys.com/browse/country/New_Zealand",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000682,
+      "latency_s": 0.04
+    },
+    {
+      "url": "http://ble.ir/join/HzhkxGhrKt",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.301109,
+      "latency_s": 5.69
+    },
+    {
+      "url": "https://supabase.com/partners",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00095,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://zlib.net/zipknit17.tar.gz",
+      "label": "clean",
+      "verdict": "suspicious",
+      "decided_by": "D_llm",
+      "llm_verdict": "suspicious",
+      "llm_unusable": false,
+      "c_score": 0.010318,
+      "latency_s": 10.8
+    },
+    {
+      "url": "https://www.avast.com/premium-security",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000107,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.news.com.au/sport/superracing/qld-racing",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000119,
+      "latency_s": 0.48
+    },
+    {
+      "url": "https://www.instructure.com/higher-education",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000261,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://study.uq.edu.au/information-resources/non-school-leavers",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000408,
+      "latency_s": 0.9
+    },
+    {
+      "url": "https://micro-it.ru/rsr",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.840672,
+      "latency_s": 6.44
+    },
+    {
+      "url": "https://adblockplus.org/en/terms",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000182,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://maynoe.com/myanmar/video092615c/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001295,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.mediafire.com/credits/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000406,
+      "latency_s": 0.38
+    },
+    {
+      "url": "https://www.edx.org/modern-slavery-statement",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.004025,
+      "latency_s": 2.67
+    },
+    {
+      "url": "https://buzzoola.com/en/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000252,
+      "latency_s": 2.23
+    },
+    {
+      "url": "https://likee.video/notfound",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.008606,
+      "latency_s": 5.54
+    },
+    {
+      "url": "https://service.oray.com/remote/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.03094,
+      "latency_s": 6.26
+    },
+    {
+      "url": "https://www.joom.com/en",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000748,
+      "latency_s": 0.82
+    },
+    {
+      "url": "https://quickbooks.intuit.com/payroll?sc=seq_intuit_qbpayroll_click_ft",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000791,
+      "latency_s": 0.17
+    },
+    {
+      "url": "https://trello.com/teams/engineering",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.001794,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.msk-ix.ru/dns?utm_content=lvl_0//main_page//main_menu_uslugi//dns",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.010518,
+      "latency_s": 6.17
+    },
+    {
+      "url": "https://www.cronista.com:443/clase/break/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 5.7e-05,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://aws.amazon.com/transform/?nc2=h_prod_fs_trns",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.0031,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.evernote.com/client/web",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.014839,
+      "latency_s": 4.36
+    },
+    {
+      "url": "https://news.yahoo.co.jp/pickup/6598561",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002243,
+      "latency_s": 0.05
+    },
+    {
+      "url": "https://www.aditude.com/dynamic-flooring",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.014916,
+      "latency_s": 3.81
+    },
+    {
+      "url": "https://loteriadehoy.com/animalito/lottoactivo/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000722,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.ibm.com/us-en",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000127,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://imgsrc.ru/?lang=ru",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.00039,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.quantummetric.com/solutions/contact-center",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000365,
+      "latency_s": 1.1
+    },
+    {
+      "url": "https://www.rtve.es/noticias/20261012/supremo-mantiene-suspension-del-voto-para-29n-a-nacionalizados-por-ley-nietos/17263038.shtml",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000671,
+      "latency_s": 0.03
+    },
+    {
+      "url": "https://www.unsw.edu.au/about-us/social-media/wechat",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000169,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.strikingly.com/s/affiliate?source=landing_menu",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.423651,
+      "latency_s": 4.12
+    },
+    {
+      "url": "https://www.dreamstime.com/signup",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002324,
+      "latency_s": 0.86
+    },
+    {
+      "url": "https://www.pokemon.com/us",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000806,
+      "latency_s": 0.95
+    },
+    {
+      "url": "https://www.arin.net/resources/fees/payment",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.003646,
+      "latency_s": 4.03
+    },
+    {
+      "url": "https://www.verywellmind.com/therapy-4581775",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "D_llm",
+      "llm_verdict": "safe",
+      "llm_unusable": false,
+      "c_score": 0.023498,
+      "latency_s": 3.11
+    },
+    {
+      "url": "https://www.itu.int/en/Pages/default.aspx",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000128,
+      "latency_s": 1.73
+    },
+    {
+      "url": "https://beget.com/ru/security",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.002012,
+      "latency_s": 0.04
+    },
+    {
+      "url": "https://www.xfinity.com/national/",
+      "label": "clean",
+      "verdict": "clean",
+      "decided_by": "C_classifier",
+      "llm_verdict": null,
+      "llm_unusable": null,
+      "c_score": 0.000295,
+      "latency_s": 0.03
+    }
+  ]
+}

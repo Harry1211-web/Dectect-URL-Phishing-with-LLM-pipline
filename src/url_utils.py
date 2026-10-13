@@ -108,3 +108,26 @@ def is_ip_host(host: str) -> bool:
         return True
     except ValueError:
         return False
+
+
+_RE_HEADER_CHARSET = re.compile(r"charset\s*=\s*[\"']?([\w.:-]+)", re.I)
+_RE_META_CHARSET = re.compile(rb"<meta[^>]+charset\s*=\s*[\"']?([\w.:-]+)", re.I)
+
+
+def decode_html(body: bytes, content_type: str = "") -> str:
+    """Decode a page body. UTF-8 first (strict decoding almost never succeeds on another
+    charset), then the <meta> charset, then the header charset, then cp1252. requests falls back
+    to ISO-8859-1 when the header has no charset, which turns UTF-8 Vietnamese into mojibake;
+    invalid labels such as "utf-8, text/html" are skipped."""
+    meta = _RE_META_CHARSET.search(body[:4096])
+    header = _RE_HEADER_CHARSET.search(content_type or "")
+    candidates = ["utf-8", meta.group(1).decode("ascii", "ignore") if meta else "",
+                  header.group(1) if header else ""]
+    for enc in candidates:
+        if not enc:
+            continue
+        try:
+            return body.decode(enc)
+        except (LookupError, UnicodeDecodeError):
+            continue
+    return body.decode("cp1252", errors="ignore")

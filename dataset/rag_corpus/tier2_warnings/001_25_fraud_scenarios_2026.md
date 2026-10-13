@@ -1,13 +1,13 @@
 ---
 id: 001_25_fraud_scenarios_2026
 title: Cảnh giác trước 25 kịch bản lừa đảo trên không gian mạng năm 2026
-publisher: Lực lượng Công an (Bộ Công an)
-original_source: bocongan.gov.vn (nội dung gốc); trích lại qua CafeF
+publisher: People's Police (Ministry of Public Security)
+original_source: bocongan.gov.vn (original content); quoted by CafeF
 source_url: https://cafef.vn/canh-giac-truoc-25-kich-ban-lua-dao-tren-khong-gian-mang-nam-2026-188260908165542907.chn
 cross_check_source: https://bocongan.gov.vn/bai-viet/nang-cao-canh-giac-truoc-25-kich-ban-lua-dao-tren-khong-gian-mang-nam-2026-1788865614
 published_date: 2026-09-08
 verified_date: 2026-09-15
-verified_by: Bạn B (đọc trực tiếp qua WebFetch, đối chiếu 2 nguồn)
+verified_by: Teammate B (read directly via WebFetch, cross-checked against 2 sources)
 topics: [overview, impersonating_authority, deepfake, investment, online_shopping, data_theft]
 related_vn_brands: []
 ---

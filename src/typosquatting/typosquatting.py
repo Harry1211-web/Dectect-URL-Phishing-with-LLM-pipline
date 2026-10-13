@@ -60,13 +60,13 @@ PRIORITY = {
     "path_brand_lure": 6,
 }
 DESCRIPTION = {
-    "homoglyph": "dùng ký tự Unicode trông giống chữ Latin (homoglyph) để giả tên thương hiệu",
-    "exact_label": "dùng đúng tên thương hiệu nhưng không phải domain chính thức",
-    "subdomain": "đặt tên thương hiệu (hoặc biến thể) trong subdomain",
-    "path_fake_domain": "URL path giả dạng tên miền thương hiệu (kiểu www-brand-com)",
-    "typosquat": "sai khác chính tả nhỏ so với tên thương hiệu",
-    "embedded": "nhét nguyên tên thương hiệu vào nhãn domain",
-    "path_brand_lure": "tên thương hiệu trong path đi kèm từ khoá đăng nhập/xác minh",
+    "homoglyph": "uses Unicode characters that look like Latin letters (homoglyphs) to fake the brand name",
+    "exact_label": "uses the exact brand name but is not an official domain",
+    "subdomain": "puts the brand name (or a variant) in the subdomain",
+    "path_fake_domain": "URL path disguised as the brand's domain (like www-brand-com)",
+    "typosquat": "small misspelling of the brand name",
+    "embedded": "embeds the whole brand name in the domain label",
+    "path_brand_lure": "brand name in the path together with a login/verification keyword",
 }
 
 # Fake TLDs attackers append to a brand inside a path ("paypal-com", "www.vietcombank.com.vn")
@@ -237,17 +237,17 @@ def check_typosquatting(url: str) -> RuleResult:
     tk = extract_tokens(url)
     host = tk["host"]
     if not host:
-        return result("unknown", "Không tách được tên miền từ URL.")
+        return result("unknown", "Could not extract a domain from the URL.")
     if is_ip_host(host):
-        return result(False, f"{host} là địa chỉ IP — không áp dụng kiểm tra typosquatting.")
+        return result(False, f"{host} is an IP address — typosquatting check does not apply.")
     _, dom, suf = split_host(host)
     domain = f"{dom}.{suf}" if dom and suf else host
     user_content = is_user_content_host(host)
     if domain in all_official_domains() and not user_content:
-        return result(False, f"{domain} là domain chính thức của '{label_of_domain(domain)}'.")
+        return result(False, f"{domain} is an official domain of '{label_of_domain(domain)}'.")
     cand = tk["main"]
     if not cand:
-        return result(False, "Không tách được nhãn domain — bỏ qua kiểm tra typosquatting.")
+        return result(False, "Could not extract the domain label — typosquatting check skipped.")
 
     labels = brand_by_label()
     cand_is_brand = cand in labels
@@ -309,21 +309,21 @@ def check_typosquatting(url: str) -> RuleResult:
                 candidates.append(("path_brand_lure", 0, t, t))
 
     if not candidates:
-        return result(False, f"Nhãn '{cand}' không khớp thương hiệu nào trong ngưỡng so khớp.")
+        return result(False, f"Label '{cand}' matches no brand within the matching thresholds.")
 
     kind, d, brand, token = min(candidates, key=lambda x: (PRIORITY[x[0]], x[1]))
-    where = {"subdomain": f"Subdomain của '{domain}'",
-             "path_fake_domain": f"URL path của '{domain}'",
-             "path_brand_lure": f"URL path của '{domain}'"}.get(kind, f"Nhãn '{cand}'")
+    where = {"subdomain": f"Subdomain of '{domain}'",
+             "path_fake_domain": f"URL path of '{domain}'",
+             "path_brand_lure": f"URL path of '{domain}'"}.get(kind, f"Label '{cand}'")
     detail = ""
     if d:
         detail = (f" (Damerau-Levenshtein = {d}, Jaro-Winkler = "
                   f"{JaroWinkler.similarity(token, brand):.2f}"
-                  f" so với '{brand}')")
-    tail = (f"'{host}' là nền tảng cho phép người dùng tự đăng nội dung, không phải trang của "
+                  f" against '{brand}')")
+    tail = (f"'{host}' is a platform where users publish their own content, not a site of "
             f"'{brand}'." if user_content
-            else f"domain '{domain}' không nằm trong danh sách chính thức.")
-    return result(True, f"{where} — {DESCRIPTION[kind]}: nghi mạo danh '{brand}'{detail}; {tail}",
+            else f"domain '{domain}' is not in the official list.")
+    return result(True, f"{where} — {DESCRIPTION[kind]}: suspected impersonation of '{brand}'{detail}; {tail}",
                   brand, kind)
 
 
@@ -336,16 +336,12 @@ def check_typosquatting_deep(url: str) -> RuleResult:
     for target in embedded_urls(url)[:3]:
         t = check_typosquatting(target)
         if t["flag"] is True:
-            t["reason"] = f"URL chuyển hướng tới {target[:80]} — {t['reason']}"
+            t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"
             t["latency_ms"] = round(t["latency_ms"] + r["latency_ms"], 2)
             return t
     return r
 
 
-def suspected_brand(url: str) -> str | None:
-    """Impersonated brand label (used by RAG tier 1 and the LLM prompt), or None."""
-    r = check_typosquatting(url)
-    return r.get("brand") if r["flag"] is True else None
 
 
 if __name__ == "__main__":

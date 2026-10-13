@@ -42,6 +42,41 @@ def test_pipeline_without_llm():
     assert r["verdict"] in ("clean", "suspicious")
 
 
+def test_llm_safe_is_overruled_when_classifier_is_very_sure(monkeypatch):
+    import pipeline
+    from llm_rag import llm_client
+
+    def fake_classifier(score):
+        return lambda url, use_host_features=True: {"label": "suspicious", "score": score,
+                                                    "threshold": 0.5}
+    monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
+    monkeypatch.setattr(llm_client, "analyze_suspicious", lambda *a, **k: {
+        "verdict": "safe", "explanation": "", "timed_out": False})
+    url = "https://some-unknown-site.example/page"
+    monkeypatch.setattr(pipeline.classifier, "classify_url", fake_classifier(0.995))
+    r = pipeline.analyze_url(url)
+    assert r["verdict"] == "suspicious" and r["decided_by"] == "D_llm+C_override"
+    monkeypatch.setattr(pipeline.classifier, "classify_url", fake_classifier(0.7))
+    assert pipeline.analyze_url(url)["verdict"] == "clean"
+    # Official brand domain: a very high score is a classifier error, the LLM verdict stands
+    monkeypatch.setattr(pipeline.classifier, "classify_url", fake_classifier(0.999))
+    assert pipeline.analyze_url("https://accounts.google.com/ServiceLogin")["verdict"] == "clean"
+
+
+def test_verified_official_domain_is_trusted_without_loopholes():
+    from pipeline import analyze_url, trusted_official_domain
+    r = analyze_url("https://www.vietcombank.com.vn/vi-VN/KHCN", use_llm=False)
+    assert r["verdict"] == "clean" and r["decided_by"] == "verified_official_domain"
+    assert trusted_official_domain("https://ebank.bidv.vn/login") == "bidv.vn"
+    # Hidden destination (open redirect), marketplace content, user profiles, look-alikes
+    assert trusted_official_domain(
+        "https://vietcombank.com.vn/redirect?url=https://vietcombamk.com/login") is None
+    assert trusted_official_domain("https://shopee.vn/some-shop") is None
+    assert trusted_official_domain("https://zalo.me/g/abcdef") is None
+    assert trusted_official_domain("https://vietcombank.com.vn.evil.top/") is None
+    assert trusted_official_domain("https://vietcombamk.com/") is None
+
+
 def test_host_feature_vector_handles_missing_data():
     import math
     from url_classifier.host_features import HOST_FEATURE_NAMES, host_feature_vector

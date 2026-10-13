@@ -29,11 +29,10 @@ uvicorn[standard]==0.31.1
 pydantic==2.9.2
 httpx==0.27.2
 
-# --- Layer D: RAG + LLM ---
-chromadb==1.5.9             # vector store for RAG tier 2
-PyYAML==6.0.3               # front matter of the RAG corpus documents
+# --- Layer D: LLM ---
 beautifulsoup4==4.14.3      # HTML sanitizing against prompt injection
-openai==2.33.0              # LLM and embedding API
+openai==2.33.0              # LLM API (embeddings only for the few-shot experiment)
+playwright==1.63.0          # headless Chromium for Layer D (then: python -m playwright install chromium)
 python-dotenv==1.2.2        # reads .env
 
 # --- Tests ---

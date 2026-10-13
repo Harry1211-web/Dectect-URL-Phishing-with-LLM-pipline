@@ -1,11 +1,11 @@
 ---
 id: 014_fake_tax_social_insurance
 title: Xuất hiện tình trạng mạo danh ngành thuế, bảo hiểm xã hội để lừa đảo
-publisher: Bảo hiểm Xã hội tỉnh Khánh Hòa, Cục Thuế tỉnh Khánh Hòa (qua Vietnam+/TTXVN)
+publisher: Khanh Hoa Provincial Social Insurance, Khanh Hoa Provincial Tax Department (via Vietnam+/VNA)
 source_url: https://www.vietnamplus.vn/khanh-hoa-xuat-hien-tinh-trang-mao-danh-nganh-thue-bao-hiem-xa-hoi-de-lua-dao-post956514.vnp
 published_date: 2024-05-31
 verified_date: 2026-09-21
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [impersonating_authority, tax, social_insurance, fake_app, citizen_id]
 related_vn_brands: []
 ---

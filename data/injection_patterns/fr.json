@@ -1,0 +1,17 @@
+{
+  "fake_instruction": [
+    "(?:ignore|oublie)[rz]?\\s+(?:toutes\\s+)?les\\s+(?:instructions|consignes|directives)",
+    "(?:page|site)\\s+(?:\\w+\\s+){0,3}vérifiée?\\s+(?:\\w+\\s+){0,2}sûre?",
+    "(?:vous\\s+devez|tu\\s+dois)\\s+(?:répondre|confirmer)",
+    "(?:répondez|répondre|indiquez|classez|concluez)\\b.{0,40}(?:safe|sûre?|légitime|verdict)",
+    "(?:remarque|note|message)\\s+(?:pour|à)\\s+l['’]?\\s*(?:assistant|ia|ai|robot)"
+  ],
+  "direct_command": [
+    "(?:ignore|oublie)[rz]?\\s+(?:toutes\\s+)?les\\s+(?:instructions|consignes|directives)",
+    "(?:vous\\s+devez|tu\\s+dois)\\s+(?:répondre|confirmer)",
+    "(?:répondez|répondre|indiquez|classez|concluez)\\b.{0,40}(?:safe|sûre?|légitime|verdict)"
+  ],
+  "narrative": [],
+  "trusted_source": [],
+  "gov_source_keywords": []
+}

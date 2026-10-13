@@ -5,7 +5,7 @@ publisher: Chongluadao.vn
 source_url: https://chongluadao.vn/blog/en/2023/07/nhan-biet-chieu-tro-gia-mao-trang-thong-tin-dien-tu-cua-co-quan-doanh-nghiep-de-lua-dao/
 published_date: 2023-07-11
 verified_date: 2026-09-23
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [overview, impersonating_authority, fake_website, url_signs, technical_signs]
 related_vn_brands: []
 ---

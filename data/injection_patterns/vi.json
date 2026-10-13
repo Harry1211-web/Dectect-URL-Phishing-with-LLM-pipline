@@ -1,0 +1,40 @@
+{
+  "fake_instruction": [
+    "bỏ qua (?:mọi|các|hết)?\\s*(?:hướng dẫn|chỉ thị)",
+    "đã được xác minh an toàn",
+    "(?:bạn phải|hãy)\\s*(?:trả lời|xác nhận|kết luận).{0,30}(?:an toàn|safe)"
+  ],
+  "direct_command": [
+    "bỏ qua (?:mọi|các|hết)?\\s*(?:hướng dẫn|chỉ thị)",
+    "(?:bạn phải|hãy)\\s*(?:trả lời|xác nhận|kết luận)"
+  ],
+  "narrative": [
+    "kẻ (?:gian|lừa đảo|xấu)",
+    "đối tượng lừa đảo",
+    "hacker",
+    "tin tặc",
+    "chiêu trò",
+    "thủ đoạn",
+    "dấu hiệu (?:lừa đảo|nhận biết|đáng ngờ)",
+    "cách nhận (?:biết|diện)",
+    "nếu (?:thấy|nhận được|gặp|bạn nhận được)",
+    "thường (?:yêu cầu|giả mạo|dùng|dụ dỗ)",
+    "cảnh giác",
+    "lưu ý\\s*:?",
+    "giải thích cách",
+    "hướng dẫn nhận diện"
+  ],
+  "trusted_source": [
+    "bởi\\s+(?:chống lừa đảo|ncsc|cục an toàn thông tin|bộ công an|công an|ngân hàng nhà nước|sbv|bộ thông tin)"
+  ],
+  "gov_source_keywords": [
+    "chống lừa đảo",
+    "ncsc",
+    "cục an toàn thông tin",
+    "bộ công an",
+    "công an",
+    "ngân hàng nhà nước",
+    "sbv",
+    "bộ thông tin"
+  ]
+}

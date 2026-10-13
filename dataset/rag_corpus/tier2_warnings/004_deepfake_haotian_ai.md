@@ -1,11 +1,11 @@
 ---
 id: 004_deepfake_haotian_ai
 title: Phần mềm deepfake thời gian thực Trung Quốc đứng sau các vụ lừa đảo toàn cầu
-publisher: 404 Media (Joseph Cox); đăng lại qua Chongluadao.vn
+publisher: 404 Media (Joseph Cox); republished by Chongluadao.vn
 source_url: https://chongluadao.vn/blog/2026/07/kham-pha-phan-mem-deepfake-thoi-gian-thuc-trung-quoc-dung-sau-cac-vu-lua-dao-toan-cau/
 published_date: 2026-07-22
 verified_date: 2026-09-15
-verified_by: Bạn B (đọc trực tiếp qua WebFetch)
+verified_by: Teammate B (read directly via WebFetch)
 topics: [deepfake, fake_video_call, fraud_technology]
 related_vn_brands: []
 ---
