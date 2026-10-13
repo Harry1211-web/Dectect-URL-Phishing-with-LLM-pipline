@@ -8,6 +8,7 @@ def test_registrable_domain_handles_multi_part_suffix():
 
 def test_host_strips_credentials_and_port():
     assert host_of("http://user:pw@Example.COM:8080/a") == "example.com"
+    assert host_of("https://evil.com\\@bank.vn/") == "evil.com"  # as a browser reads it
 
 
 def test_normalize_url_is_scheme_www_and_slash_insensitive():

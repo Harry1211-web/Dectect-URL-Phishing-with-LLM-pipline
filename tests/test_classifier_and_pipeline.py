@@ -75,6 +75,12 @@ def test_verified_official_domain_is_trusted_without_loopholes():
     assert trusted_official_domain("https://zalo.me/g/abcdef") is None
     assert trusted_official_domain("https://vietcombank.com.vn.evil.top/") is None
     assert trusted_official_domain("https://vietcombamk.com/") is None
+    # Host read like a browser ('\' ends the host) and redirect values that are not full URLs
+    for u in ("https://evil.com\\@vietcombank.com.vn/", "https://evil.com\\.vietcombank.com.vn/",
+              "https://vietcombank.com.vn/r?next=//evil.com", "https://vietcombank.com.vn/r?url=evil.com",
+              "https://vietcombank.com.vn/r?to=%2F%2Fevil.com", "https://vietcombank.com.vn/go/https:/evil.com"):
+        assert trusted_official_domain(u) is None, u
+    assert trusted_official_domain("https://vietcombank.com.vn/vi/the?id=12&p=2") == "vietcombank.com.vn"
 
 
 def test_host_feature_vector_handles_missing_data():

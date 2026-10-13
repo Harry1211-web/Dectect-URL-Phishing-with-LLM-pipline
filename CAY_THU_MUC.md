@@ -15,9 +15,10 @@
 │   │                              also on trusted labels, without doubtful phishing labels)
 │   ├── evaluate_external.py       Layers A, B, C alone and A+B+C on the external PhreshPhish set
 │   ├── evaluate_live.py           Full pipeline on live URLs: Vietnamese set, fresh pages of top sites (paid API)
+│   ├── monitoring.py              Real-traffic verdict log + user feedback -> reported false-alarm / miss rates
 │   │
 │   ├── blocklist/                 Layer A — instant block from public phishing feeds
-│   │   ├── updater.py             Monthly refresh of OpenPhish / PhishTank / Phishing.Database + Tranco
+│   │   ├── updater.py             Hourly refresh of OpenPhish / PhishTank / Phishing.Database (per-feed age), Tranco monthly
 │   │   ├── lookup.py              URL / path-prefix / host / campaign-domain lookup (+ redirect targets)
 │   │   └── platforms.py           Derives abused platforms (site builders, link-in-bio, QR...) from feeds
 │   │
@@ -77,6 +78,7 @@
 │   ├── blocklist/                 Layer A snapshots (*.txt.gz), blockable hosts, abused_platforms.txt, meta.json
 │   ├── injection_patterns/        Prompt-injection patterns per language (vi, en, es, fr, de, zh...), merged by html_sanitize.py
 │   ├── llm_spend.json             Ledger of OpenAI spend (Layer D budget guard)
+│   ├── monitoring/                Verdict log, user feedback, hashing secret (no URLs stored; not in git)
 │   ├── phreshphish_html.parquet   HTML of the Layer D dev / test pages (sha256 -> html, re-downloadable)
 │   ├── host_cache.sqlite          Cache of DNS / TLS / RDAP lookups (Layer C host features)
 │   ├── tranco_top1m.csv           Tranco top-1M (popular-domain checks, common-token filter)

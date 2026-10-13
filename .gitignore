@@ -27,3 +27,6 @@ reports/**/_checkpoint_*
 
 # Editor tooling
 .markdown-collab/
+data/blocklist/meta.tmp
+# Real-traffic verdict log, user feedback and the hashing secret
+data/monitoring/

@@ -17,13 +17,13 @@
 4everland.app
 4nmn.com
 4pu.com
-500apps.org
 5gbfree.com
 66ghz.com
 7m.pl
 a2hosted.com
 aba.vg
 about.me
+abrdns.com
 abrir.link
 ac-page.com
 accesscam.org
@@ -68,7 +68,6 @@ bero-webspace.de
 bget.ru
 bgmi-india.com
 biglink.to
-biolink.website
 bit.do
 bit.ly
 bitbucket.io
@@ -180,6 +179,7 @@ cleverapps.io
 cli.re
 clickfunnels.com
 clickup-attachments.com
+cloud-ip.cc
 cloudaccess.host
 cloudclusters.net
 cloudflare-ipfs.com
@@ -230,8 +230,8 @@ ddns.ms
 ddns.net
 ddns.us
 ddnsfree.com
-ddnsgeek.com
 ddnsking.com
+ddnss.de
 ddnss.eu
 ddnss.org
 de.cool
@@ -353,7 +353,6 @@ gleeze.com
 glide.page
 glitch.me
 godaddysites.com
-goo.su
 google.com
 googleusercontent.com
 goorm.io
@@ -374,6 +373,7 @@ hicam.net
 hidora.com
 hier-im-netz.de
 hipolink.net
+home-webserver.de
 home.pl
 hop.ru
 hopto.org
@@ -467,7 +467,6 @@ list-manage.com
 live-website.com
 liveblog365.com
 ln.run
-lnk.ink
 lnkd.in
 lnkfi.re
 localhost.run
@@ -523,6 +522,7 @@ myfreesites.net
 myftp.biz
 myftp.org
 myftpupload.com
+myhome-server.de
 myhostpoint.ch
 myhuaweicloud.com
 mylftv.com
@@ -845,7 +845,6 @@ webydo.com
 weebly.com
 weeblysite.com
 welcome.to
-whf.bz
 whimsical.com
 wikaba.com
 windows.net

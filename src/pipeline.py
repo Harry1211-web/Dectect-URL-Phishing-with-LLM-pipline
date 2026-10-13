@@ -12,16 +12,18 @@
 Fallback when D is disabled, times out or fails: a B hit or a high classifier score gives
 "phishing", anything else that reached D stays "suspicious" (the user is warned, not blocked).
 
-Run: python src/pipeline.py <url> [<url> ...] [--no-llm]
+Run: python src/pipeline.py <url> [<url> ...] [--no-llm] [--log]   (--log: see monitoring.py)
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 import time
 from pathlib import Path
+from urllib.parse import parse_qsl, unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from blocklist.lookup import check_blocklist  # noqa: E402
@@ -31,7 +33,7 @@ from typosquatting.brands import (  # noqa: E402
 from typosquatting.paas_domains import is_user_content_host  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
-from url_utils import embedded_urls, host_of, registrable_domain  # noqa: E402
+from url_utils import embedded_urls, ensure_scheme, host_of, registrable_domain  # noqa: E402
 
 # Classifier score above which the fallback labels a URL "phishing" without the LLM
 FALLBACK_PHISHING_SCORE = 0.9
@@ -46,6 +48,24 @@ LLM_SAFE_OVERRIDE_SCORE = 0.99
 TRUST_EXCLUDED_CATEGORIES = frozenset({"ecommerce"})
 TRUST_EXCLUDED_DOMAINS = frozenset({"zalo.me"})
 
+# A query value or path part that could be a redirect destination: '//evil.com', '/\evil.com',
+# 'evil.com', 'evil.com/login', 'http...'
+_RE_DESTINATION = re.compile(r"^(?:[/\\]|https?:|[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/:?#]|$))", re.I)
+_RE_PATH_DESTINATION = re.compile(r"//|https?:|%2f%2f|\\", re.I)
+
+
+def may_redirect(url: str) -> bool:
+    """True when the URL carries something that could send the user elsewhere (open redirect on
+    an official domain). Broader than embedded_urls, which only catches full URLs."""
+    try:
+        parts = urlsplit(ensure_scheme(url))
+    except ValueError:
+        return True
+    if _RE_PATH_DESTINATION.search(parts.path[1:]):
+        return True
+    return any(_RE_DESTINATION.match(unquote(v).strip())
+               for _, v in parse_qsl(parts.query, keep_blank_values=False))
+
 
 def trusted_official_domain(url: str) -> str | None:
     """Registrable domain when the URL is a page of a verified official Vietnamese brand domain
@@ -59,7 +79,7 @@ def trusted_official_domain(url: str) -> str | None:
            for b in load_vn_brands()):
         return None
     # User-published content or a hidden destination (open redirect) is not the brand's own page
-    if is_user_content_host(host) or embedded_urls(url):
+    if "\\" in url or is_user_content_host(host) or embedded_urls(url) or may_redirect(url):
         return None
     return domain
 
@@ -143,8 +163,12 @@ if __name__ == "__main__":
     ap.add_argument("--no-llm", action="store_true", help="skip Layer D (no API cost)")
     ap.add_argument("--no-host", action="store_true", help="URL-only classifier (no network lookups)")
     ap.add_argument("--explain", action="store_true", help="ask the LLM for an explanation")
+    ap.add_argument("--log", action="store_true", help="log the verdict for false-alarm monitoring")
     args = ap.parse_args()
     for u in args.urls:
-        print(json.dumps(analyze_url(u, use_llm=not args.no_llm, use_host_features=not args.no_host,
-                                     explain=args.explain),
-                         ensure_ascii=False, indent=2))
+        res = analyze_url(u, use_llm=not args.no_llm, use_host_features=not args.no_host,
+                          explain=args.explain)
+        if args.log:
+            from monitoring import record_verdict
+            record_verdict(res)
+        print(json.dumps(res, ensure_ascii=False, indent=2))

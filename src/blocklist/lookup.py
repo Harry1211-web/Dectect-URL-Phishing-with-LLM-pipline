@@ -21,7 +21,7 @@ from functools import lru_cache
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from blocklist.updater import BLOCKLIST_DIR, FEEDS, TRANCO_PATH  # noqa: E402
+from blocklist.updater import BLOCKLIST_DIR, FEEDS, META_PATH, TRANCO_PATH  # noqa: E402
 from contracts import RuleResult  # noqa: E402
 from typosquatting.brands import all_official_domains  # noqa: E402
 from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
@@ -46,9 +46,18 @@ def _read_gz(path: Path) -> list[str]:
         return [ln.strip() for ln in f if ln.strip()]
 
 
-@lru_cache(maxsize=1)
 def _load() -> tuple[frozenset[str], frozenset[str]]:
-    """(listed normalized URLs, hosts eligible for host-level blocking)."""
+    """(listed normalized URLs, hosts eligible for host-level blocking), reloaded when the hourly
+    updater rewrites meta.json (long-running pipelines pick up new feeds without a restart)."""
+    try:
+        stamp = META_PATH.stat().st_mtime_ns
+    except OSError:
+        stamp = 0
+    return _load_files(stamp)
+
+
+@lru_cache(maxsize=1)
+def _load_files(stamp: int) -> tuple[frozenset[str], frozenset[str]]:
     urls: set[str] = set()
     for name in FEEDS:
         urls.update(_read_gz(BLOCKLIST_DIR / f"{name}.txt.gz"))
@@ -57,7 +66,7 @@ def _load() -> tuple[frozenset[str], frozenset[str]]:
 
 def build_blockable_hosts() -> int:
     """Precompute (at update time) the hosts that are safe to block as a whole."""
-    _load.cache_clear()
+    _load_files.cache_clear()
     urls, _ = _load()
     hosts = {u.split("/", 1)[0].split("?", 1)[0].split(":", 1)[0] for u in urls}
     keep = [h for h in hosts if h and not _is_shared_or_popular(h)]
@@ -66,7 +75,7 @@ def build_blockable_hosts() -> int:
     keep = sorted(keep) + sorted(f"*.{d}" for d, n in per_domain.items() if CAMPAIGN_MIN_HOSTS <= n <= CAMPAIGN_MAX_HOSTS)
     with gzip.open(BLOCKLIST_DIR / HOSTS_FILE, "wt", encoding="utf-8") as f:
         f.write("\n".join(keep))
-    _load.cache_clear()
+    _load_files.cache_clear()
     return len(keep)
 
 
@@ -91,7 +100,7 @@ def _is_shared_or_popular(host: str) -> bool:
 
 def reload() -> None:
     """Drop the in-memory cache after the updater refreshed the files."""
-    _load.cache_clear()
+    _load_files.cache_clear()
 
 
 def size() -> int:

@@ -21,9 +21,15 @@ def ensure_scheme(url: str) -> str:
 
 
 def host_of(url: str) -> str:
-    """Lower-cased hostname without credentials, port or trailing dot ('' if unparsable)."""
+    """Lower-cased hostname without credentials, port or trailing dot ('' if unparsable).
+
+    Parsed like a browser: for http(s) a backslash ends the host, so 'https://evil.com\\@bank.vn'
+    is evil.com (urlsplit alone would return bank.vn)."""
+    url = ensure_scheme(url)
+    if url[:5].lower() in ("http:", "https"):
+        url = url.replace("\\", "/")
     try:
-        host = urlsplit(ensure_scheme(url)).hostname or ""
+        host = urlsplit(url).hostname or ""
     except ValueError:
         return ""
     return host.strip(".").lower()

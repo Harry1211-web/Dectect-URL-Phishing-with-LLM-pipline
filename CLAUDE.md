@@ -19,7 +19,7 @@ Hướng dẫn cho Claude Code khi làm việc trong repo này.
 
 Pipeline khi người dùng click 1 URL:
 
-1. **Lớp A — chặn tức thì**: Được kéo định kì 1 tháng 1 lần từ PhishTank và OpenPhish.
+1. **Lớp A — chặn tức thì**: Kéo tự động mỗi giờ từ OpenPhish (1 giờ), PhishTank và Phishing.Database (6 giờ); danh sách Tranco 1 tháng 1 lần.
 2. **Lớp B — Typosquatting detection**: Để bắt Brand Impersonation. Kết hợp 2 thuật toán đo khoảng cách Damerau-Levenshtein (đo số thao tác lỗi/tráo đổi) và Jaro-Winkler (đo độ tương đồng tỉ lệ, ưu tiên phần đầu tên miền). Trích xuất từ khóa trong toàn bộ URL (bao gồm Subdomain & Path) thay vì chỉ kiểm tra mỗi Domain gốc
 3. **Lớp C — CNN/LSTM + XGBoost**: Chân lý, 0 được phép để 1 URL phishing nào được gán thành Clean
 - Đầu tiên đi qua CNN/LSTM Feature Extractor
