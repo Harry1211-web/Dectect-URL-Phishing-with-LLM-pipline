@@ -51,12 +51,12 @@ LLM_SAFE_OVERRIDE_SCORE = 0.99
 TRUST_EXCLUDED_CATEGORIES = frozenset({"ecommerce"})
 TRUST_EXCLUDED_DOMAINS = frozenset({"zalo.me"})
 
-# Allowlist, not a blocklist of redirect forms: the shortcut skips every check, so the decoded
-# path / query / fragment may only hold letters, digits and plain separators, with no '//' and no
-# token that is a host or an IP. Anything else (scheme ':', '\', '@', ';', tab, NUL, brackets...)
-# sends the URL through B/C/D instead: servers and browsers differ in how they split, decode, trim.
-_RE_ALLOWED = re.compile(r"[\w\-.~/?#&=,+ ]*")
-_RE_TOKEN_SPLIT = re.compile(r"[/&=,?#+ ]+")
+# Allowlist, not a blocklist of redirect forms: the shortcut skips every check, so it only takes a
+# bare path (no query, no fragment: redirect parameters and client-side '#' redirects have too many
+# encodings and parsers to rule out). The decoded path may only hold letters, digits and '-._~/',
+# with no '//' and no segment that is a host or an IP ('/go/evil.com'); anything else goes through
+# B/C/D. Costs about 8 % of the shortcut hits on training clean URLs (utm_ links), none on the VN set.
+_RE_ALLOWED_PATH = re.compile(r"[\w\-.~/]*")
 _DOTS = str.maketrans({"。": ".", "．": ".", "｡": "."})
 
 
@@ -70,22 +70,24 @@ def _decode(text: str, rounds: int = 3) -> str:
 
 
 def _names_a_host(token: str) -> bool:
-    token = token.strip(".").lower()
+    token = token.strip(".-_~").lower()
     _, dom, suf = split_host(token)
     return bool(dom and suf) or is_ip_host(token)
 
 
 def may_redirect(url: str) -> bool:
-    """True when the path, query or fragment could name another destination (open redirect on an
-    official domain): '?next=//evil.com', '?;u=evil.com', '/go/evil.com', '#//evil.com'..."""
+    """True unless the URL is a bare path that cannot name another destination (open redirect on
+    an official domain): any query or fragment, '/go/evil.com', '//evil.com', encoded forms..."""
+    if "?" in url or "#" in url:
+        return True
     try:
         parts = urlsplit(ensure_scheme(url))
     except ValueError:
         return True
-    rest = _decode(f"{parts.path}?{parts.query}#{parts.fragment}")
-    if not _RE_ALLOWED.fullmatch(rest) or "//" in rest:
+    path = _decode(parts.path)
+    if not _RE_ALLOWED_PATH.fullmatch(path) or "//" in path:
         return True
-    return any(_names_a_host(t) for t in _RE_TOKEN_SPLIT.split(rest) if "." in t)
+    return any(_names_a_host(seg) for seg in path.split("/") if "." in seg)
 
 
 def trusted_official_domain(url: str) -> str | None:

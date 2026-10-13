@@ -85,9 +85,10 @@ def test_verified_official_domain_is_trusted_without_loopholes():
               "https://vietcombank.com.vn/r?u=evil％2Ecom", "https://vietcombank.com.vn//evil.com",
               "https://vietcombank.com.vn/r?next=/%09/3232235777", "https://vietcombank.com.vn/r?u=1.2.3.4",
               "https://vietcombank.com.vn/r?u=evil.com+", "https://vietcombank.com.vn/r?u=(evil.com)",
-              "https://vietcombank.com.vn/r?u=evil.com%00"):
+              "https://vietcombank.com.vn/r?u=evil.com%00", "https://vietcombank.com.vn/vi?utm_source=x",
+              "https://vietcombank.com.vn/go/evil.com~", "https://vietcombank.com.vn/go/%E2%80%A4evil.com"):
         assert trusted_official_domain(u) is None, u
-    for u in ("https://vietcombank.com.vn/vi/the?id=12&p=2", "https://vietcombank.com.vn/a/report.pdf"):
+    for u in ("https://vietcombank.com.vn/vi/the-tin-dung", "https://vietcombank.com.vn/a/report.pdf"):
         assert trusted_official_domain(u) == "vietcombank.com.vn", u
 
 
