@@ -22,8 +22,9 @@ import json
 import re
 import sys
 import time
+import unicodedata
 from pathlib import Path
-from urllib.parse import parse_qsl, unquote, urlsplit
+from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from blocklist.lookup import check_blocklist  # noqa: E402
@@ -33,7 +34,9 @@ from typosquatting.brands import (  # noqa: E402
 from typosquatting.paas_domains import is_user_content_host  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
-from url_utils import embedded_urls, ensure_scheme, host_of, registrable_domain  # noqa: E402
+from url_utils import (  # noqa: E402
+    embedded_urls, ensure_scheme, host_of, registrable_domain, split_host,
+)
 
 # Classifier score above which the fallback labels a URL "phishing" without the LLM
 FALLBACK_PHISHING_SCORE = 0.9
@@ -48,23 +51,40 @@ LLM_SAFE_OVERRIDE_SCORE = 0.99
 TRUST_EXCLUDED_CATEGORIES = frozenset({"ecommerce"})
 TRUST_EXCLUDED_DOMAINS = frozenset({"zalo.me"})
 
-# A query value or path part that could be a redirect destination: '//evil.com', '/\evil.com',
-# 'evil.com', 'evil.com/login', 'http...'
-_RE_DESTINATION = re.compile(r"^(?:[/\\]|https?:|[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/:?#]|$))", re.I)
-_RE_PATH_DESTINATION = re.compile(r"//|https?:|%2f%2f|\\", re.I)
+# Allowlist, not a blocklist of redirect forms: the shortcut skips every check, so any part of the
+# path / query / fragment that could name another place (a host, '//', a scheme, a backslash) sends
+# the URL through B/C/D instead. Separators are read broadly ('&', ';', '=', ',', spaces) and the
+# text is decoded until stable, because servers and scripts differ in how they split and decode.
+_RE_UNSAFE_CHARS = re.compile(r"//|\\|[a-z][a-z0-9+.-]*:", re.I)
+_RE_TOKEN_SPLIT = re.compile(r"[/&;=,?#\s]+")
+_DOTS = str.maketrans({"。": ".", "．": ".", "｡": "."})
+
+
+def _decode(text: str, rounds: int = 3) -> str:
+    # NFKC: full-width forms ('％2E', 'ｅｖｉｌ'); browsers also read ideographic dots in hosts as '.'
+    for _ in range(rounds):
+        text, before = unquote(unicodedata.normalize("NFKC", text).translate(_DOTS)), text
+        if text == before:
+            break
+    return unicodedata.normalize("NFKC", text).translate(_DOTS)
+
+
+def _names_a_host(token: str) -> bool:
+    _, dom, suf = split_host(token.strip(".").lower())
+    return bool(dom and suf)
 
 
 def may_redirect(url: str) -> bool:
-    """True when the URL carries something that could send the user elsewhere (open redirect on
-    an official domain). Broader than embedded_urls, which only catches full URLs."""
+    """True when the path, query or fragment could name another destination (open redirect on an
+    official domain): '?next=//evil.com', '?;u=evil.com', '/go/evil.com', '#//evil.com'..."""
     try:
         parts = urlsplit(ensure_scheme(url))
     except ValueError:
         return True
-    if _RE_PATH_DESTINATION.search(parts.path[1:]):
+    rest = _decode(f"{parts.path}?{parts.query}#{parts.fragment}")
+    if _RE_UNSAFE_CHARS.search(rest):
         return True
-    return any(_RE_DESTINATION.match(unquote(v).strip())
-               for _, v in parse_qsl(parts.query, keep_blank_values=False))
+    return any(_names_a_host(t) for t in _RE_TOKEN_SPLIT.split(rest) if "." in t)
 
 
 def trusted_official_domain(url: str) -> str | None:
