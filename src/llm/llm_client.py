@@ -15,6 +15,7 @@ import os
 import re
 import secrets
 import socket
+import sqlite3
 import sys
 import time
 import unicodedata
@@ -36,7 +37,7 @@ from typosquatting.brands import (  # noqa: E402
 )
 from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting  # noqa: E402
-from url_utils import decode_html, split_host  # noqa: E402
+from url_utils import decode_html, normalize_url, split_host  # noqa: E402
 
 FETCH_TIMEOUT_S = 6.0
 UA = "Mozilla/5.0 (compatible; dacntt-phishing-detector/1.0)"
@@ -440,8 +441,14 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
     `page` (optional, already fetched): (title, content, injection_suspected[, final_url]).
     `explain`: also ask the model for a short explanation (more output tokens);
     by default only the verdict is requested and 'explanation' is empty.
+    Live calls (no `page` given) reuse a verdict cached for the same URL (VERDICT_CACHE_TTL_S);
+    failed calls are never cached.
     """
-    if page is None:
+    live = page is None
+    if live:
+        hit = cached_verdict(url, model, explain)
+        if hit:
+            return hit
         page = fetch(url)
     title, content, injection = page[:3]
     final_url = page[3] if len(page) > 3 else None
@@ -461,9 +468,53 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
         return _unusable(f"LLM call failed ({res['error']}).")
     if res.get("verdict") not in VALID_VERDICTS:
         return _unusable("The LLM answer is not in the expected format.")
-    return {"verdict": res["verdict"],
-            "explanation": (res.get("explanation") or "") if explain else "",
-            "timed_out": False}
+    out = {"verdict": res["verdict"],
+           "explanation": (res.get("explanation") or "") if explain else "",
+           "timed_out": False}
+    if live:
+        store_verdict(url, out, model, explain)
+    return out
+
+
+# Verdict cache: a URL clicked again within VERDICT_CACHE_TTL_S gets the stored verdict (no fetch,
+# no paid call, no 2-9 s wait). Kept short because a page can be swapped for a phishing kit later.
+VERDICT_CACHE_PATH = _SRC_DIR.parent / "data" / "llm_verdict_cache.sqlite"
+VERDICT_CACHE_TTL_S = 6 * 3600
+
+
+def _cache_key(url: str, model: str, explain: bool) -> str:
+    return f"{model}|{int(explain)}|{normalize_url(url)}"
+
+
+def _cache_db() -> sqlite3.Connection:
+    VERDICT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    con = sqlite3.connect(VERDICT_CACHE_PATH, timeout=10)
+    con.execute("CREATE TABLE IF NOT EXISTS verdicts "
+                "(key TEXT PRIMARY KEY, verdict TEXT, explanation TEXT, saved_at REAL)")
+    return con
+
+
+def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False) -> dict | None:
+    """Stored Layer D result younger than VERDICT_CACHE_TTL_S, else None (cache errors -> None)."""
+    try:
+        with _cache_db() as con:
+            row = con.execute("SELECT verdict, explanation, saved_at FROM verdicts WHERE key = ?",
+                              (_cache_key(url, model, explain),)).fetchone()
+    except sqlite3.Error:
+        return None
+    if row is None or time.time() - row[2] > VERDICT_CACHE_TTL_S:
+        return None
+    return {"verdict": row[0], "explanation": row[1], "timed_out": False, "cached": True}
+
+
+def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: bool = False) -> None:
+    try:
+        with _cache_db() as con:
+            con.execute("INSERT OR REPLACE INTO verdicts VALUES (?, ?, ?, ?)",
+                        (_cache_key(url, model, explain), result["verdict"],
+                         result["explanation"], time.time()))
+    except sqlite3.Error:
+        pass  # the cache only saves time; Layer D works without it
 
 
 def fallback_explanation(clf_score: float, rule_results: list[dict] | None = None) -> str:

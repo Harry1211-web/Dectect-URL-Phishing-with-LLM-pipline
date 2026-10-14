@@ -150,3 +150,24 @@ def test_layer_d_sets_strata_and_text_key():
     a = text_key("<title>Help</title><p>Call 1-800-123</p>", "https://a.com")
     assert a == text_key("<title>HELP</title><p>Call 1-888-999</p>", "https://b.com")
     assert text_key("", "https://a.com") is None
+
+
+def test_live_verdict_is_cached_but_failures_are_not(tmp_path, monkeypatch):
+    import llm_client
+    monkeypatch.setattr(llm_client, "VERDICT_CACHE_PATH", tmp_path / "cache.sqlite")
+    monkeypatch.setattr(llm_client, "fetch", lambda u: ("Login", "Enter your OTP", False, u))
+    calls = []
+
+    def fake_call(prompt, model, temperature=None, timeout_s=None):
+        calls.append(prompt)
+        return {"verdict": "phishing"} if len(calls) > 1 else {"error": "APITimeoutError"}
+
+    monkeypatch.setattr(llm_client, "call_openai", fake_call)
+    url = "https://evil.example/login"
+    assert analyze_suspicious(url)["timed_out"] is True          # failure: not cached
+    assert analyze_suspicious(url)["verdict"] == "phishing"      # second call reaches the model
+    hit = analyze_suspicious(url + "/")                          # same page: from the cache
+    assert hit["verdict"] == "phishing" and hit.get("cached") and len(calls) == 2
+    monkeypatch.setattr(llm_client, "VERDICT_CACHE_TTL_S", -1)   # expired -> model again
+    analyze_suspicious(url)
+    assert len(calls) == 3

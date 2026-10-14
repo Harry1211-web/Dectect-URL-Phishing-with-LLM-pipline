@@ -78,6 +78,7 @@
 │   ├── blocklist/                 Layer A snapshots (*.txt.gz), blockable hosts, abused_platforms.txt, meta.json
 │   ├── injection_patterns/        Prompt-injection patterns per language (vi, en, es, fr, de, zh...), merged by html_sanitize.py
 │   ├── llm_spend.json             Ledger of OpenAI spend (Layer D budget guard)
+│   ├── llm_verdict_cache.sqlite   Layer D verdicts per URL, reused for 6 h (not in git)
 │   ├── monitoring/                Verdict log, user feedback, hashing secret (no URLs stored; not in git)
 │   ├── phreshphish_html.parquet   HTML of the Layer D dev / test pages (sha256 -> html, re-downloadable)
 │   ├── host_cache.sqlite          Cache of DNS / TLS / RDAP lookups (Layer C host features)
