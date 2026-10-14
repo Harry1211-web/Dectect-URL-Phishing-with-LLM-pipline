@@ -150,11 +150,3 @@ def test_layer_d_sets_strata_and_text_key():
     a = text_key("<title>Help</title><p>Call 1-800-123</p>", "https://a.com")
     assert a == text_key("<title>HELP</title><p>Call 1-888-999</p>", "https://b.com")
     assert text_key("", "https://a.com") is None
-
-
-def test_headless_render_refuses_internal_destinations():
-    import pytest
-    pytest.importorskip("playwright")
-    from llm_client import render_page
-    assert render_page("http://127.0.0.1:8000/") is None
-    assert render_page("http://169.254.169.254/latest/") is None

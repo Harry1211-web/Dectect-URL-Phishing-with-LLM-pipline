@@ -81,9 +81,7 @@
 │   ├── monitoring/                Verdict log, user feedback, hashing secret (no URLs stored; not in git)
 │   ├── phreshphish_html.parquet   HTML of the Layer D dev / test pages (sha256 -> html, re-downloadable)
 │   ├── host_cache.sqlite          Cache of DNS / TLS / RDAP lookups (Layer C host features)
-│   ├── tranco_top1m.csv           Tranco top-1M (popular-domain checks, common-token filter)
-│   ├── allbrands.txt              Brand name list (not used by the code)
-│   └── agency_domains.json        Authority -> domain map (not used by the code)
+│   └── tranco_top1m.csv           Tranco top-1M (popular-domain checks, common-token filter)
 │
 ├── models/url_classifier/         Trained Layer C: cnn.pt + cnn_b.pt (cross-fitted CNNs), xgb_lexical.json, xgb_host.json, config.json
 └── reports/                       Evaluation outputs (JSON) of every layer (live/ = evaluate_live.py)

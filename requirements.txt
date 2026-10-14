@@ -34,7 +34,6 @@ pyarrow==23.0.1             # parquet (stored HTML pages)
 # --- Layer D: LLM ---
 beautifulsoup4==4.14.3      # HTML sanitizing against prompt injection
 openai==2.33.0              # LLM API (Layer D)
-playwright==1.63.0          # optional headless render, off by default (then: python -m playwright install chromium)
 python-dotenv==1.2.2        # reads .env
 
 # --- Tests ---
