@@ -1,7 +1,7 @@
 """Benchmark Layer D (LLM) accuracy and latency on live legit (Tranco) vs phishing (OpenPhish) URLs.
 
 Reports accuracy, precision, recall and latency p50/p95.
-Run: python src/llm_rag/llm_benchmark.py --n 15 [--model ...]   (calls the OpenAI API)
+Run: python src/llm/llm_benchmark.py --n 15 [--model ...]   (calls the OpenAI API)
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ from llm_client import (  # noqa: E402
 )
 
 ROOT = _HERE.parents[1]
-OUT_DIR = ROOT / "reports" / "llm_rag" / "llm_benchmark"
+OUT_DIR = ROOT / "reports" / "llm" / "llm_benchmark"
 
 
 def prepare_sample(url: str, label: str) -> dict | None:

@@ -26,7 +26,7 @@ from dotenv import dotenv_values, find_dotenv
 from openai import OpenAI, OpenAIError
 
 _SRC_DIR = Path(__file__).resolve().parents[1]
-for _p in (str(_SRC_DIR), str(_SRC_DIR / "llm_rag")):
+for _p in (str(_SRC_DIR), str(_SRC_DIR / "llm")):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 

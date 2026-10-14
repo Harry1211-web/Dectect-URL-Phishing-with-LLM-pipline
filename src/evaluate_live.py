@@ -26,7 +26,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from data_collection.crawl_clean import harvest  # noqa: E402
 from data_collection.sources import tranco_domains  # noqa: E402
-from llm_rag.llm_client import spent_usd  # noqa: E402
+from llm.llm_client import spent_usd  # noqa: E402
 from pipeline import analyze_url  # noqa: E402
 from url_utils import normalize_url  # noqa: E402
 

@@ -44,7 +44,7 @@ def test_pipeline_without_llm():
 
 def test_llm_safe_is_overruled_when_classifier_is_very_sure(monkeypatch):
     import pipeline
-    from llm_rag import llm_client
+    from llm import llm_client
 
     def fake_classifier(score):
         return lambda url, use_host_features=True: {"label": "suspicious", "score": score,

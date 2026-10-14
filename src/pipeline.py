@@ -143,7 +143,7 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                     f"URL model rates it safe (score {c['score']:.3f} < threshold {c['threshold']:.3f}).")
 
     if use_llm:
-        from llm_rag.llm_client import DEFAULT_LLM_TIMEOUT_S, analyze_suspicious
+        from llm.llm_client import DEFAULT_LLM_TIMEOUT_S, analyze_suspicious
         t_d = time.perf_counter()
         d = analyze_suspicious(url, rule_results=[b], explain=explain,
                                timeout_s=llm_timeout_s or DEFAULT_LLM_TIMEOUT_S)

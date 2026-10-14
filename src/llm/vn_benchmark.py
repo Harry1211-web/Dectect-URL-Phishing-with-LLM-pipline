@@ -3,7 +3,7 @@
 - Legit set: live `.vn` domains from Tranco.
 - Phishing set: simulated attacks on popular Vietnamese brands/services (not fetchable, so the
   prompt is built from the scenario text through the same path as production).
-Run: python src/llm_rag/vn_benchmark.py   (calls the OpenAI API)
+Run: python src/llm/vn_benchmark.py   (calls the OpenAI API)
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from llm_client import (  # noqa: E402
 from redteam_prompt_injection import BASE_SCENARIOS  # noqa: E402
 
 ROOT = _HERE.parents[1]
-OUT_DIR = ROOT / "reports" / "llm_rag" / "llm_benchmark"
+OUT_DIR = ROOT / "reports" / "llm" / "llm_benchmark"
 
 # Extra scenarios widening brand coverage (airlines, ride-hailing, insurance, more banks...)
 EXTRA_SCENARIOS: list[dict] = [

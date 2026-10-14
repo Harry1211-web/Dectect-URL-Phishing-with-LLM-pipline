@@ -29,7 +29,7 @@ from pathlib import Path
 import pandas as pd
 
 SRC = Path(__file__).resolve().parents[1]
-for p in (SRC, SRC / "llm_rag"):
+for p in (SRC, SRC / "llm"):
     sys.path.insert(0, str(p))
 from blocklist.lookup import check_blocklist  # noqa: E402
 from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402

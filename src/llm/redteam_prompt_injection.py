@@ -8,7 +8,7 @@
   language and a forged copy of the prompt's own system lines.
 - Real-page round (--real-pages N): the attacks are added to real PhreshPhish phishing pages of the
   Layer D dev set, whose evidence is weaker than in the simulated scenarios.
-Run: python src/llm_rag/redteam_prompt_injection.py [--model ...] [--real-pages 100]   (OpenAI API)
+Run: python src/llm/redteam_prompt_injection.py [--model ...] [--real-pages 100]   (OpenAI API)
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ from llm_client import (  # noqa: E402
 )
 
 ROOT = _HERE.parents[1]
-OUT_DIR = ROOT / "reports" / "llm_rag" / "redteam_injection"
+OUT_DIR = ROOT / "reports" / "llm" / "redteam_injection"
 MODEL = DEFAULT_MODEL
 
 # Simulated phishing pages impersonating real Vietnamese brands (login/OTP form, foreign domain).

@@ -17,7 +17,7 @@ Each source parquet has a single row group, so the HTML of a page means download
 the files are streamed one by one (~9 GB in all) and only the selected pages are kept.
 Layer C looks the test hosts up live (DNS / TLS / RDAP), as in evaluate_external.py.
 
-Run:    python src/llm_rag/phreshphish_sets.py [--dev-per-label 300] [--test-per-label 1000]
+Run:    python src/llm/phreshphish_sets.py [--dev-per-label 300] [--test-per-label 1000]
 Output: dataset/external/layer_d_dev.csv, dataset/external/layer_d_test.csv (one row per page),
         data/phreshphish_html.parquet (sha256 -> raw HTML, re-downloadable, not committed)
 """

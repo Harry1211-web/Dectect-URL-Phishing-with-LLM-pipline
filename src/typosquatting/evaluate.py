@@ -3,7 +3,7 @@
 Sets
   clean    : Tranco top-100k homepages + crawled clean URLs (dataset test split)
   phishing : phishing URLs of the dataset test split (only part of them impersonate a brand)
-  vn_brand : simulated attacks on Vietnamese brands (llm_rag scenarios) — all impersonate a brand
+  vn_brand : simulated attacks on Vietnamese brands (llm scenarios) — all impersonate a brand
 Variants
   dl_jw      : Damerau-Levenshtein + Jaro-Winkler gate (production)
   dl_only    : Damerau-Levenshtein without the Jaro-Winkler gate
@@ -23,7 +23,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "llm_rag"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "llm"))
 from typosquatting import typosquatting as ts  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]

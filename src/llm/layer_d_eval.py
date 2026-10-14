@@ -4,9 +4,9 @@ Each page is sanitized and prompted exactly as in production (llm_client.build_p
 one configuration, results per stratum (reaches_d = what D sees today, missed_by_abc = what D
 would catch if routed to it). Prompt changes are compared on dev first; --content-chars N sets
 the page text kept in the prompt (production: llm_client.MAX_CONTENT_CHARS).
-Run:    python src/llm_rag/layer_d_eval.py --dev [--tag x] [options]   (calls the OpenAI API)
-        python src/llm_rag/layer_d_eval.py --test --tag final           (held-out: run ONCE)
-Output: reports/llm_rag/layer_d/eval_{dev,test}_<tag>.json
+Run:    python src/llm/layer_d_eval.py --dev [--tag x] [options]   (calls the OpenAI API)
+        python src/llm/layer_d_eval.py --test --tag final           (held-out: run ONCE)
+Output: reports/llm/layer_d/eval_{dev,test}_<tag>.json
 """
 
 from __future__ import annotations
@@ -34,7 +34,7 @@ ROOT = _HERE.parents[1]
 DEV_SET = ROOT / "dataset" / "external" / "layer_d_dev.csv"
 TEST_SET = ROOT / "dataset" / "external" / "layer_d_test.csv"
 HTML_STORE = ROOT / "data" / "phreshphish_html.parquet"
-OUT_DIR = ROOT / "reports" / "llm_rag" / "layer_d"
+OUT_DIR = ROOT / "reports" / "llm" / "layer_d"
 
 
 def load_pages(path: Path, content_chars: int) -> pd.DataFrame:

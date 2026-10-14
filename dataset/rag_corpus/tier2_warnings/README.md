@@ -3,7 +3,7 @@
 Layer D no longer uses RAG: on the Layer D dev set, adding these articles (tier 2) or the official
 brand domains (tier 1) to the prompt did not change verdicts beyond run-to-run noise, because the
 LLM already knows this general advice and the domains of big brands
-(`reports/llm_rag/rag_pipeline/`). The code, the ChromaDB store and the ingestion scripts were
+(`reports/llm/rag_pipeline/`). The code, the ChromaDB store and the ingestion scripts were
 removed; the articles are kept as verified reference material.
 
 - 33 articles: 25 in Vietnamese (police, Chongluadao.vn, banks), 8 in English (FTC, Microsoft,

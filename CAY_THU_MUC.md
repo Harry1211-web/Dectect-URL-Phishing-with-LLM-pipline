@@ -38,7 +38,7 @@
 │   │   │                          (fewest val misses with >= 50 % clean recognised; --thresholds-only refits them)
 │   │   └── predict.py             Inference used by the pipeline (host branch / lexical fallback)
 │   │
-│   ├── llm_rag/                   Layer D — LLM verdict (phishing / suspicious / safe) for suspicious URLs
+│   ├── llm/                       Layer D — LLM verdict (phishing / suspicious / safe) for suspicious URLs
 │   │   ├── llm_client.py          Prompt building, page fetch, OpenAI call, verdict parsing
 │   │   ├── html_sanitize.py       Removes hidden text / fake instructions (patterns from data/injection_patterns/)
 │   │   ├── llm_benchmark.py       LLM accuracy/latency on live Tranco vs OpenPhish URLs (paid API)
