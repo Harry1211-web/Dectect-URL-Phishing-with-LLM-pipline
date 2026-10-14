@@ -28,7 +28,7 @@ Pipeline khi người dùng click 1 URL:
 4. **Lớp D — LLM (gpt-6-luna)**: đọc nội dung trang đã lọc prompt injection → phishing / suspicious / safe
 - Prompt gọn: luật quyết định (lấy thông tin, mạo danh, scam; thiếu bằng chứng → suspicious), nội dung trang đóng khung là DATA
 - Kết hợp các lớp: cờ B và cảnh báo kỹ thuật đưa vào prompt; D nói safe nhưng điểm C ≥ 0.99 → suspicious
-- Không dùng RAG: đã đo, không cải thiện kết luận (reports/llm_rag/rag_pipeline/)
+- Không dùng RAG: đã đo, không cải thiện kết luận (reports/llm/rag_pipeline/)
 
 **Timeout & fallback**: đo timeout thực tế trên máy chạy model
 
