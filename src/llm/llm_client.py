@@ -22,7 +22,8 @@ import unicodedata
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlparse, urlsplit
 
-import requests
+import certifi
+import urllib3
 from dotenv import dotenv_values, find_dotenv
 from openai import OpenAI, OpenAIError
 
@@ -214,23 +215,50 @@ ALLOWED_PORTS = {None, 80, 443, 8080, 8443}
 MAX_CONTENT_CHARS = 2500  # page text kept for the prompt
 
 
-def is_public_destination(url: str) -> bool:
-    """SSRF guard: http(s) only, usual web ports, and every address the host resolves to must be
-    public (no loopback, private, link-local such as 169.254.169.254 metadata, or reserved)."""
+def _public_address(url: str) -> str | None:
+    """SSRF guard: the IP to connect to, or None. http(s) only, usual web ports, and every address
+    the host resolves to must be public (no loopback, private, link-local such as the
+    169.254.169.254 metadata service, or reserved)."""
     if "\\" in url:  # browsers read a backslash as '/', urlsplit does not: refuse the ambiguity
-        return False
+        return None
     try:
         parts = urlsplit(url)
         port = parts.port
     except ValueError:
-        return False
+        return None
     if parts.scheme not in ("http", "https") or not parts.hostname or port not in ALLOWED_PORTS:
-        return False
+        return None
     try:
         infos = socket.getaddrinfo(parts.hostname, port or 443, proto=socket.IPPROTO_TCP)
     except OSError:
-        return False
-    return bool(infos) and all(ipaddress.ip_address(i[4][0].split("%")[0]).is_global for i in infos)
+        return None
+    ips = [i[4][0].split("%")[0] for i in infos]
+    if not ips or not all(ipaddress.ip_address(ip).is_global for ip in ips):
+        return None
+    return ips[0]
+
+
+def is_public_destination(url: str) -> bool:
+    return _public_address(url) is not None
+
+
+def _pinned_get(url: str, ip: str) -> urllib3.BaseHTTPResponse:
+    """GET `url` on the already-checked `ip` (no second DNS lookup, so a host cannot resolve to a
+    public address for the check and to an internal one for the connection: DNS rebinding).
+    Host header and TLS SNI / certificate check still use the hostname. No redirect following."""
+    parts = urlsplit(url)
+    host, port = parts.hostname, parts.port
+    default = 443 if parts.scheme == "https" else 80
+    headers = {"User-Agent": UA, "Host": host if port in (None, default) else f"{host}:{port}"}
+    if parts.scheme == "https":
+        pool = urllib3.HTTPSConnectionPool(ip, port or default, server_hostname=host,
+                                           assert_hostname=host, cert_reqs="CERT_REQUIRED",
+                                           ca_certs=certifi.where(), timeout=FETCH_TIMEOUT_S,
+                                           retries=False)
+    else:
+        pool = urllib3.HTTPConnectionPool(ip, port or default, timeout=FETCH_TIMEOUT_S, retries=False)
+    path = (parts.path or "/") + (f"?{parts.query}" if parts.query else "")
+    return pool.urlopen("GET", path, headers=headers, redirect=False, preload_content=False)
 
 
 def fetch(url: str) -> tuple[str, str, bool, str]:
@@ -238,34 +266,34 @@ def fetch(url: str) -> tuple[str, str, bool, str]:
 
     `final_url` is the URL after redirects: the content comes from there, so the technical
     rules must check it too (defeats shortener / open-redirect evasion). Redirects are followed
-    manually so that every hop passes the SSRF guard (a public page cannot bounce the fetcher to
-    an internal address); the body size is capped.
+    manually so that every hop passes the SSRF guard and is fetched on the IP that was checked
+    (a public page cannot bounce the fetcher to an internal address); the body size is capped.
     """
     current = url
     try:
         for _ in range(MAX_REDIRECTS + 1):
-            if not is_public_destination(current):
+            ip = _public_address(current)
+            if ip is None:
                 return "", "", False, current
-            r = requests.get(current, timeout=FETCH_TIMEOUT_S, headers={"User-Agent": UA},
-                             allow_redirects=False, stream=True)
-            if r.is_redirect:
-                location = r.headers.get("location", "")
-                r.close()
-                if not location:
+            r = _pinned_get(current, ip)
+            try:
+                if r.status in (301, 302, 303, 307, 308):
+                    location = r.headers.get("location", "")
+                    if not location:
+                        return "", "", False, current
+                    current = urljoin(current, location)
+                    continue
+                if r.status != 200:
                     return "", "", False, current
-                current = urljoin(current, location)
-                continue
-            if r.status_code != 200:
-                r.close()
-                return "", "", False, current
-            body = r.raw.read(MAX_PAGE_BYTES, decode_content=True)
-            r.close()
+                body = r.read(MAX_PAGE_BYTES, decode_content=True)
+            finally:
+                r.release_conn()
             html = decode_html(body, r.headers.get("content-type", ""))
             clean = sanitize_html(html, url=current)
             return (clean["title"], clean["text"][:MAX_CONTENT_CHARS],
                     clean["prompt_injection_suspected"], current)
         return "", "", False, current  # too many redirects
-    except (requests.RequestException, OSError, ValueError):
+    except (urllib3.exceptions.HTTPError, OSError, ValueError):
         return "", "", False, current
 
 

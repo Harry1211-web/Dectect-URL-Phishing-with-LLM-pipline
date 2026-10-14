@@ -103,22 +103,45 @@ def test_ssrf_guard_blocks_internal_destinations():
         assert fetch(u)[:2] == ("", ""), u
 
 
+class _FakeResponse:
+    def __init__(self, status=200, headers=None, body=b""):
+        self.status, self.headers, self._body = status, headers or {}, body
+
+    def read(self, n, decode_content=True):
+        return self._body[:n]
+
+    def release_conn(self):
+        pass
+
+
 def test_fetch_survives_invalid_charset(monkeypatch):
-    import io
+    import llm_client
+    monkeypatch.setattr(llm_client, "_public_address", lambda u: "93.184.216.34")
+    monkeypatch.setattr(llm_client, "_pinned_get", lambda u, ip: _FakeResponse(
+        headers={"content-type": "text/html; charset=utf-8,gbk"}, body=b"<title>Hi</title><p>text</p>"))
+    assert llm_client.fetch("https://example.com")[0] == "Hi"
+
+
+def test_fetch_connects_to_the_checked_ip_on_every_hop(monkeypatch):
+    """DNS rebinding: the host is resolved once per hop and the connection goes to that IP."""
+    import socket
 
     import llm_client
+    answers = iter(["93.184.216.34", "10.0.0.5", "93.184.216.35", "127.0.0.1"])  # rebinding host
+    monkeypatch.setattr(socket, "getaddrinfo",
+                        lambda *a, **k: [(2, 1, 6, "", (next(answers), 443))])
+    used = []
 
-    class Resp:
-        status_code, headers, encoding, is_redirect = 200, {}, "utf-8,gbk", False
-        raw = io.BytesIO(b"<title>Hi</title><p>text</p>")
-        raw.read = lambda n, decode_content=True, _r=raw.read: _r(n)
+    def pinned(url, ip):
+        used.append((url, ip))
+        if len(used) == 1:
+            return _FakeResponse(302, {"location": "https://b.example/next"})
+        return _FakeResponse(200, {"content-type": "text/html"}, b"<title>Ok</title>")
 
-        def close(self):
-            pass
-
-    monkeypatch.setattr(llm_client, "is_public_destination", lambda u: True)
-    monkeypatch.setattr(llm_client.requests, "get", lambda *a, **k: Resp())
-    assert llm_client.fetch("https://example.com")[0] == "Hi"
+    monkeypatch.setattr(llm_client, "_pinned_get", pinned)
+    # hop 1 checked on 93.184.216.34 -> connects there; hop 2 resolves to 10.0.0.5 -> refused
+    assert llm_client.fetch("https://a.example/")[:2] == ("", "")
+    assert used == [("https://a.example/", "93.184.216.34")]
 
 
 def test_injection_hidden_in_url_is_flagged():
