@@ -7,8 +7,8 @@
     "phishing": 6338
   },
   "host_lookup_failed": {
-    "clean": 2,
-    "phishing": 13
+    "clean": 0,
+    "phishing": 2
   },
   "all": {
     "n_phishing": 10000,
@@ -29,8 +29,8 @@
       "C": {
         "phishing_flagged": 9943,
         "phishing_flag_rate": 0.9943,
-        "clean_flagged": 5722,
-        "clean_flag_rate": 0.5722
+        "clean_flagged": 5726,
+        "clean_flag_rate": 0.5726
       }
     },
     "A+B+C": {
@@ -39,8 +39,8 @@
       "phishing_labelled_clean": 49,
       "phishing_miss_rate": 0.0049,
       "clean_blocked_by_A": 6,
-      "clean_recognized_rate": 0.4252,
-      "clean_sent_to_llm_rate": 0.5742
+      "clean_recognized_rate": 0.4248,
+      "clean_sent_to_llm_rate": 0.5746
     },
     "B+C (without A)": {
       "phishing_blocked_by_A": 0,
@@ -48,8 +48,8 @@
       "phishing_labelled_clean": 49,
       "phishing_miss_rate": 0.0049,
       "clean_blocked_by_A": 0,
-      "clean_recognized_rate": 0.4255,
-      "clean_sent_to_llm_rate": 0.5745
+      "clean_recognized_rate": 0.4251,
+      "clean_sent_to_llm_rate": 0.5749
     }
   },
   "unseen_domains": {
@@ -71,8 +71,8 @@
       "C": {
         "phishing_flagged": 5319,
         "phishing_flag_rate": 0.9911,
-        "clean_flagged": 4482,
-        "clean_flag_rate": 0.6127
+        "clean_flagged": 4484,
+        "clean_flag_rate": 0.613
       }
     },
     "A+B+C": {
@@ -81,8 +81,8 @@
       "phishing_labelled_clean": 42,
       "phishing_miss_rate": 0.00783,
       "clean_blocked_by_A": 2,
-      "clean_recognized_rate": 0.3852,
-      "clean_sent_to_llm_rate": 0.6145
+      "clean_recognized_rate": 0.385,
+      "clean_sent_to_llm_rate": 0.6148
     },
     "B+C (without A)": {
       "phishing_blocked_by_A": 0,
@@ -90,8 +90,8 @@
       "phishing_labelled_clean": 42,
       "phishing_miss_rate": 0.00783,
       "clean_blocked_by_A": 0,
-      "clean_recognized_rate": 0.3854,
-      "clean_sent_to_llm_rate": 0.6146
+      "clean_recognized_rate": 0.3851,
+      "clean_sent_to_llm_rate": 0.6149
     }
   },
   "missed_phishing": [
@@ -136,23 +136,23 @@
       "thr": 0.0034106061793863773
     },
     {
-      "url": "https://afribary.com/works/une-etude-thematique-d-rsquo-une-vie-de-boy-de-ferdinand-oyono-5227/save",
-      "target": "google",
-      "date": "2025-10-21",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.00040717291994951665,
-      "thr": 0.0034106061793863773
-    },
-    {
       "url": "https://howei.com/forum/discussion/news-updates/1-888-255-8018-how-do-i-contact-arlo-customer-service-247-live-support",
       "target": "arlo",
       "date": "2025-11-05",
       "A": false,
       "unseen_domain": false,
       "segment": "host_ranked_path",
-      "score": 0.00041131977923214436,
+      "score": 0.0003858573909383267,
+      "thr": 0.0034106061793863773
+    },
+    {
+      "url": "https://afribary.com/works/une-etude-thematique-d-rsquo-une-vie-de-boy-de-ferdinand-oyono-5227/save",
+      "target": "google",
+      "date": "2025-10-21",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0004163120756857097,
       "thr": 0.0034106061793863773
     },
     {
@@ -202,7 +202,7 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0006471369997598231,
+      "score": 0.0006128267268650234,
       "thr": 0.0034106061793863773
     },
     {
