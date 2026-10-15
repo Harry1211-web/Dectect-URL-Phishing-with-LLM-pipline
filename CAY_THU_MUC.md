@@ -5,7 +5,7 @@
 ├── CLAUDE.md                      Instructions for Claude Code
 ├── CAY_THU_MUC.md                 This file: what each folder/file is for
 ├── requirements.txt               Python dependencies (tested versions)
-├── .env                           API keys (OPENAI_API_KEY, optional OPENAI_MODEL) — not shared
+├── .env                           API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, optional OPENAI_MODEL) and budgets — not shared
 │
 ├── src/
 │   ├── contracts.py               Shared result types (RuleResult, Verdict)
@@ -17,6 +17,7 @@
 │   ├── evaluate_external.py       Layers A, B, C alone and A+B+C on the external PhreshPhish set
 │   ├── evaluate_live.py           Full pipeline on live URLs: Vietnamese set, fresh pages of top sites (paid API)
 │   ├── evaluate_trusted_shortcut.py  Trusted-domain shortcut before / after the international brand domains
+│   ├── relabel_subset.py          ~300-page subset for hand relabelling (export CSV) and error rates vs hand labels (score)
 │   ├── monitoring.py              Real-traffic verdict log + user feedback -> reported false-alarm / miss rates
 │   │
 │   ├── blocklist/                 Layer A — instant block from public phishing feeds
@@ -41,13 +42,15 @@
 │   │   └── predict.py             Inference used by the pipeline (host branch / lexical fallback)
 │   │
 │   ├── llm/                       Layer D — LLM verdict (phishing / suspicious / safe) for suspicious URLs
-│   │   ├── llm_client.py          Prompt building, page fetch, OpenAI call, verdict parsing
+│   │   ├── llm_client.py          Prompt building, page fetch, OpenAI / Anthropic call, verdict parsing,
+│   │   │                          spend ledger with a budget per provider
 │   │   ├── html_sanitize.py       Removes hidden text / fake instructions (patterns from data/injection_patterns/)
 │   │   ├── llm_benchmark.py       LLM accuracy/latency on live Tranco vs OpenPhish URLs (paid API)
 │   │   ├── vn_benchmark.py        LLM accuracy on Vietnamese brand scenarios (paid API)
 │   │   ├── layer_d_eval.py        Layer D on the stored dev / test pages, per stratum (paid API)
 │   │   ├── phreshphish_sets.py    Builds the Layer D dev / held-out test sets (PhreshPhish pages that reach D)
-│   │   ├── redteam_prompt_injection.py     Hidden-instruction red team: no defence vs production (paid API)
+│   │   ├── redteam_prompt_injection.py     Prompt-injection red team (hidden, advanced, hard visible / multi-step /
+│   │   │                                   multilingual attacks): no defence vs production (paid API)
 │   │   ├── redteam_fake_trusted_source.py  Fake "verified by authority" red team (paid API)
 │   │   └── live_traffic_sources.py         Live Tranco / OpenPhish samplers for the benchmarks
 │   │
@@ -84,7 +87,8 @@
 ├── data/
 │   ├── blocklist/                 Layer A snapshots (*.txt.gz), blockable hosts, abused_platforms.txt, meta.json
 │   ├── injection_patterns/        Prompt-injection patterns per language (vi, en, es, fr, de, zh...), merged by html_sanitize.py
-│   ├── llm_spend.json             Ledger of OpenAI spend (Layer D budget guard)
+│   ├── llm_spend.json             Ledger of LLM spend per model and provider (budget guard: LLM_BUDGET_USD,
+│   │                              ANTHROPIC_BUDGET_USD in .env)
 │   ├── llm_verdict_cache.sqlite   Layer D verdicts per URL, reused for 6 h (not in git)
 │   ├── monitoring/                Verdict log, user feedback, hashing secret (no URLs stored; not in git)
 │   ├── phreshphish_html.parquet   HTML of the Layer D dev / test pages (sha256 -> html, re-downloadable)

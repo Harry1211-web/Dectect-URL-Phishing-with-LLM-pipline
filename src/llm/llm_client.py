@@ -1,6 +1,7 @@
 """Layer D LLM client — shared by the production pipeline and the evaluation scripts.
 
-- Builds the prompt (page content, technical warnings) and calls the OpenAI Responses API.
+- Builds the prompt (page content, technical warnings) and calls the LLM: OpenAI Responses API
+  (production model) or Anthropic Messages API (claude-* models, used for model comparison).
 - Returns the standard result {verdict, explanation, timed_out}; verdict is phishing,
   suspicious (not enough evidence) or safe.
 - By default the model only classifies (one VERDICT line); an explanation is produced
@@ -27,6 +28,8 @@ import urllib3
 from dotenv import dotenv_values, find_dotenv
 from openai import OpenAI, OpenAIError
 
+import anthropic
+
 _SRC_DIR = Path(__file__).resolve().parents[1]
 for _p in (str(_SRC_DIR), str(_SRC_DIR / "llm")):
     if _p not in sys.path:
@@ -51,13 +54,21 @@ OPENAI_API_KEY = (ENV.get("OPENAI_API_KEY") or "").strip()
 DEFAULT_LLM_TIMEOUT_S = 12.0
 
 # Spend control: USD per 1M tokens (input, output); every call is added to a ledger shared by all
-# scripts, and calls are refused once LLM_BUDGET_USD (.env, default 1.40) is reached
-PRICES_PER_M = {"gpt-6-luna": (0.10, 0.50)}
+# scripts, kept per provider, and a provider's calls are refused once its budget is reached:
+# LLM_BUDGET_USD for OpenAI (.env, default 1.40), ANTHROPIC_BUDGET_USD for Anthropic (default 0)
+PRICES_PER_M = {"gpt-6-luna": (0.10, 0.50), "claude-haiku-5-5": (0.10, 0.50)}
+ANTHROPIC_API_KEY = (ENV.get("ANTHROPIC_API_KEY") or "").strip()
 SPEND_LEDGER = _SRC_DIR.parent / "data" / "llm_spend.json"
 BUDGET_USD = float((ENV.get("LLM_BUDGET_USD") or "1.40").strip())
+BUDGETS_USD = {"openai": BUDGET_USD,
+               "anthropic": float((ENV.get("ANTHROPIC_BUDGET_USD") or "0").strip())}
 _spend_lock = __import__("threading").Lock()
 SPEND_LOCK_FILE = SPEND_LEDGER.with_suffix(".lock")
 _STALE_LOCK_S = 30.0
+
+
+def provider_of(model: str) -> str:
+    return "anthropic" if model.startswith("claude") else "openai"
 
 
 class _LedgerLock:
@@ -91,13 +102,22 @@ class _LedgerLock:
 def _read_ledger() -> dict:
     import json
     if not SPEND_LEDGER.exists():
-        return {"total_usd": 0.0, "calls": 0, "by_model": {}}
-    return json.loads(SPEND_LEDGER.read_text(encoding="utf-8"))
+        led = {"total_usd": 0.0, "calls": 0, "by_model": {}}
+    else:
+        led = json.loads(SPEND_LEDGER.read_text(encoding="utf-8"))
+    if "by_provider" not in led:  # ledgers written before Anthropic support hold OpenAI calls only
+        led["by_provider"] = {"openai": {"calls": led["calls"], "usd": led["total_usd"]}}
+    return led
 
 
-def spent_usd() -> float:
+def spent_usd(provider: str = "openai") -> float:
     with _LedgerLock():
-        return _read_ledger().get("total_usd", 0.0)
+        return _read_ledger()["by_provider"].get(provider, {}).get("usd", 0.0)
+
+
+def budget_left(model: str) -> bool:
+    provider = provider_of(model)
+    return spent_usd(provider) < BUDGETS_USD.get(provider, 0.0)
 
 
 def record_spend(model: str, input_tokens: int, output_tokens: int) -> float:
@@ -115,6 +135,9 @@ def record_spend(model: str, input_tokens: int, output_tokens: int) -> float:
         m["input_tokens"] += input_tokens or 0
         m["output_tokens"] += output_tokens or 0
         m["usd"] = round(m["usd"] + cost, 6)
+        prov = led["by_provider"].setdefault(provider_of(model), {"calls": 0, "usd": 0.0})
+        prov["calls"] += 1
+        prov["usd"] = round(prov["usd"] + cost, 6)
         SPEND_LEDGER.parent.mkdir(parents=True, exist_ok=True)
         tmp = SPEND_LEDGER.with_suffix(".tmp")  # atomic replace: readers never see a half file
         tmp.write_text(json.dumps(led, indent=2), encoding="utf-8")
@@ -138,6 +161,19 @@ def openai_client() -> OpenAI | None:
     if _openai_client is None:
         _openai_client = OpenAI(api_key=OPENAI_API_KEY)
     return _openai_client
+
+
+_anthropic_client: anthropic.Anthropic | None = None
+
+
+def anthropic_client() -> anthropic.Anthropic | None:
+    """Lazy singleton; None when no API key is configured."""
+    global _anthropic_client
+    if not ANTHROPIC_API_KEY:
+        return None
+    if _anthropic_client is None:
+        _anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    return _anthropic_client
 
 
 # Default: classification only (fewest output tokens). The explanation is generated only when
@@ -363,7 +399,7 @@ def call_openai(prompt: str, model: str = DEFAULT_MODEL, temperature: float | No
     client = openai_client()
     if client is None:
         return {"error": "MissingOpenAIApiKey", "latency_s": round(time.perf_counter() - t0, 2)}
-    if spent_usd() >= BUDGET_USD:
+    if not budget_left(model):
         return {"error": "BudgetExceeded", "latency_s": 0.0}
     kwargs: dict = {"model": model, "input": prompt}
     if temperature is not None:
@@ -386,6 +422,57 @@ def call_openai(prompt: str, model: str = DEFAULT_MODEL, temperature: float | No
         "latency_s": round(time.perf_counter() - t0, 2),
         "raw_response_len": len(text),
     }
+
+
+# Anthropic thinking modes compared on the pilot pages: "default" keeps the model's own setting
+# (adaptive thinking), "off" disables it (one verdict line, like the OpenAI call)
+ANTHROPIC_THINKING = {"default": None, "off": {"type": "disabled"}}
+ANTHROPIC_MAX_TOKENS = 4096  # room for adaptive thinking; a verdict line needs ~10 tokens
+
+
+def call_anthropic(prompt: str, model: str, temperature: float | None = None,
+                   timeout_s: float | None = None, thinking: str = "default") -> dict:
+    """Same prompt and result format as call_openai, through the Anthropic Messages API."""
+    t0 = time.perf_counter()
+    client = anthropic_client()
+    if client is None:
+        return {"error": "MissingAnthropicApiKey", "latency_s": round(time.perf_counter() - t0, 2)}
+    if not budget_left(model):
+        return {"error": "BudgetExceeded", "latency_s": 0.0}
+    kwargs: dict = {"model": model, "max_tokens": ANTHROPIC_MAX_TOKENS,
+                    "messages": [{"role": "user", "content": prompt}]}
+    if ANTHROPIC_THINKING[thinking] is not None:
+        kwargs["thinking"] = ANTHROPIC_THINKING[thinking]
+    if temperature is not None:
+        kwargs["temperature"] = temperature
+    if timeout_s is not None:
+        client = client.with_options(timeout=timeout_s)
+    try:
+        r = client.messages.create(**kwargs)
+    except anthropic.APIError as e:
+        return {"error": type(e).__name__, "latency_s": round(time.perf_counter() - t0, 2)}
+    in_tok, out_tok = r.usage.input_tokens, r.usage.output_tokens
+    cost = record_spend(model, in_tok or 0, out_tok or 0)
+    if r.stop_reason == "refusal":
+        return {"error": "Refusal", "latency_s": round(time.perf_counter() - t0, 2),
+                "input_tokens": in_tok, "output_tokens": out_tok, "cost_usd": round(cost, 7)}
+    text = "".join(b.text for b in r.content if b.type == "text")
+    m = re.search(r"EXPLANATION:\s*(.+)", text, re.I | re.S)
+    return {
+        "verdict": parse_verdict(text),
+        "explanation": m.group(1).strip()[:300] if m else (text[:300] or None),
+        "input_tokens": in_tok, "output_tokens": out_tok, "cost_usd": round(cost, 7),
+        "latency_s": round(time.perf_counter() - t0, 2),
+        "raw_response_len": len(text),
+    }
+
+
+def call_llm(prompt: str, model: str = DEFAULT_MODEL, temperature: float | None = None,
+             timeout_s: float | None = None, thinking: str = "default") -> dict:
+    """Route the prompt to the provider of `model` (claude-* -> Anthropic, otherwise OpenAI)."""
+    if provider_of(model) == "anthropic":
+        return call_anthropic(prompt, model, temperature, timeout_s, thinking)
+    return call_openai(prompt, model, temperature, timeout_s)
 
 
 def build_tech_warnings(url: str, final_url: str | None = None) -> str:
@@ -491,7 +578,7 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
 
     prompt = build_prompt(url, title, content, injection, typosquatting=typo_flag,
                           final_url=final_url, explain=explain)
-    res = call_openai(prompt, model, temperature, timeout_s=timeout_s)
+    res = call_llm(prompt, model, temperature, timeout_s=timeout_s)
     if "error" in res:
         return _unusable(f"LLM call failed ({res['error']}).")
     if res.get("verdict") not in VALID_VERDICTS:
