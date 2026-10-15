@@ -10,11 +10,13 @@
 ├── src/
 │   ├── contracts.py               Shared result types (RuleResult, Verdict)
 │   ├── url_utils.py               URL helpers: host, registrable domain, normalization
-│   ├── pipeline.py                Full A -> B -> C -> D pipeline for one URL (CLI)
+│   ├── pipeline.py                Full A -> B -> C -> D pipeline for one URL (CLI); trusted official
+│   │                              domains (verified VN brands + international brands without user content)
 │   ├── evaluate_pipeline.py       A+B+C evaluation on the test split (miss rate, LLM load, latency;
 │   │                              also on trusted labels, without doubtful phishing labels)
 │   ├── evaluate_external.py       Layers A, B, C alone and A+B+C on the external PhreshPhish set
 │   ├── evaluate_live.py           Full pipeline on live URLs: Vietnamese set, fresh pages of top sites (paid API)
+│   ├── evaluate_trusted_shortcut.py  Trusted-domain shortcut before / after the international brand domains
 │   ├── monitoring.py              Real-traffic verdict log + user feedback -> reported false-alarm / miss rates
 │   │
 │   ├── blocklist/                 Layer A — instant block from public phishing feeds
@@ -26,7 +28,7 @@
 │   │   ├── typosquatting.py       Damerau-Levenshtein + Jaro-Winkler on keywords of the whole URL
 │   │   ├── brands.py              Loads the brand catalogue from dataset/brands/
 │   │   ├── paas_domains.py        Free hosting, URL shorteners, user-content hosts
-│   │   └── evaluate.py            False-positive / detection evaluation of Layer B
+│   │   └── evaluate.py            False-positive / detection evaluation of Layer B (+ rejected variants)
 │   │
 │   ├── url_classifier/            Layer C — URL-only classifier (clean / suspicious)
 │   │   ├── features.py            Hand-crafted lexical features (incl. redirect features)

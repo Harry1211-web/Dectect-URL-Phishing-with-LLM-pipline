@@ -106,6 +106,19 @@ def load_intl_brands() -> tuple[Brand, ...]:
 
 
 @lru_cache(maxsize=1)
+def intl_source_categories() -> dict[str, str]:
+    """International brand label -> category of its source CSV ("Finance", "Retail", ...)."""
+    out: dict[str, str] = {}
+    for path in (INTL_BRANDS_PATH, INTL_BRANDS_EXTRA_PATH):
+        if path.exists():
+            with path.open(encoding="utf-8-sig", newline="") as f:
+                for r in csv.DictReader(f):
+                    out.setdefault((r.get("identifier") or "").strip().lower(),
+                                   (r.get("category") or "").strip())
+    return out
+
+
+@lru_cache(maxsize=1)
 def load_all_brands() -> tuple[Brand, ...]:
     """Vietnamese + international brands (input of the typosquatting check)."""
     return load_vn_brands() + load_intl_brands()

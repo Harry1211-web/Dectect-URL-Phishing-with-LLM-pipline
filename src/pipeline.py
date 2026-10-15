@@ -1,7 +1,8 @@
 """Full detection pipeline for one clicked URL: A -> B -> C -> D.
 
   A. blocklist      known phishing URL/host (also redirect targets)     -> phishing (stop)
-     verified official domain of a Vietnamese brand (no user content, no hidden redirect)
+     verified official domain of a Vietnamese brand, or official domain of an international
+     brand that hosts no third-party content (no user content, no hidden redirect)
                                                                         -> clean (stop)
   B. typosquatting  brand impersonation (also in redirect targets)      -> suspicious (needs D)
   C. URL classifier CNN/BiLSTM + XGBoost (+ host features), high-recall gate
@@ -28,10 +29,13 @@ from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from blocklist.lookup import check_blocklist  # noqa: E402
+from functools import lru_cache  # noqa: E402
+
 from typosquatting.brands import (  # noqa: E402
-    all_official_domains, label_of_domain, load_vn_brands, verified_official_domains,
+    all_official_domains, intl_source_categories, label_of_domain, load_vn_brands,
+    verified_official_domains,
 )
-from typosquatting.paas_domains import is_user_content_host  # noqa: E402
+from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
 from url_utils import (  # noqa: E402
@@ -50,6 +54,30 @@ LLM_SAFE_OVERRIDE_SCORE = 0.99
 # third-party content (fake shops, scam listings); zalo.me serves user profiles and group links
 TRUST_EXCLUDED_CATEGORIES = frozenset({"ecommerce"})
 TRUST_EXCLUDED_DOMAINS = frozenset({"zalo.me"})
+
+# International brands: their official domains are trusted the same way, except where anyone can
+# publish a page under the brand's domain. Excluded by catalogue category (marketplaces, retail,
+# travel listings, social / video / music / gaming platforms, cloud storage, hosting) and by name
+# where the category does not say it: user-content or file-sharing sites, hosting / domain
+# providers, form / document services, and domains with phishing in the train / val URLs
+# (orange.fr, venmo.com, walletconnect.com). pinterest.com, token.im: excluded on review.
+# Evidence: src/evaluate_trusted_shortcut.py -> reports/pipeline/trusted_shortcut.json
+TRUST_INTL_EXCLUDED_CATEGORIES = ("commerce", "shopping", "retail", "travel", "social", "streaming",
+                                  "music", "gaming", "cloud storage", "hosting", "classified")
+TRUST_INTL_EXCLUDED_DOMAINS = frozenset({
+    # user content, file sharing, forms, chat / developer platforms
+    "google.com", "microsoft.com", "live.com", "onedrive.live.com", "office.com", "sharepoint.com",
+    "apple.com", "icloud.com", "yahoo.com", "aol.com", "adobe.com", "intuit.com", "github.com",
+    "googleapis.com", "gstatic.com", "zoom.us", "dropbox.com", "reddit.com", "youtube.com",
+    "youtube.vn", "discord.com", "twitch.tv", "canva.com", "docusign.com", "naver.com",
+    "slack.com", "okta.com", "salesforce.com", "shopify.com", "opensea.io", "leboncoin.fr",
+    "biglobe.ne.jp",
+    # hosting and domain providers
+    "godaddy.com", "hostinger.com", "hostinger.vn", "ionos.com", "namecheap.com", "arubacloud.com",
+    "cloudflare.com",
+    # phishing found on the domain (train / val) or excluded on review
+    "orange.fr", "venmo.com", "walletconnect.com", "pinterest.com", "token.im",
+})
 
 # Allowlist, not a blocklist of redirect forms: the shortcut skips every check, so it only takes a
 # bare path (no query, no fragment: redirect parameters and client-side '#' redirects have too many
@@ -90,16 +118,34 @@ def may_redirect(url: str) -> bool:
     return any(_names_a_host(seg) for seg in path.split("/") if "." in seg)
 
 
-def trusted_official_domain(url: str) -> str | None:
-    """Registrable domain when the URL is a page of a verified official Vietnamese brand domain
-    that can be trusted without further checks, else None."""
+@lru_cache(maxsize=1)
+def trusted_intl_domains() -> frozenset[str]:
+    """Official domains of international brands that host no third-party pages (see above)."""
+    vn_labels = {b["label"] for b in load_vn_brands()}
+    cats = intl_source_categories()
+    out = set()
+    for d in all_official_domains() - verified_official_domains():
+        label = label_of_domain(d)
+        cat = cats.get(label, "").lower()
+        if (label in vn_labels or d in TRUST_INTL_EXCLUDED_DOMAINS or is_untrusted_hosting(d)
+                or any(c in cat for c in TRUST_INTL_EXCLUDED_CATEGORIES)):
+            continue
+        out.add(d)
+    return frozenset(out)
+
+
+def trusted_official_domain(url: str, include_intl: bool = True) -> str | None:
+    """Registrable domain when the URL is a page of a verified official Vietnamese brand domain or
+    of a trusted international brand domain, that can be trusted without further checks, else
+    None. include_intl=False: Vietnamese domains only (the shortcut before the extension)."""
     host = host_of(url)
     domain = registrable_domain(host)
-    if domain not in verified_official_domains() or domain in TRUST_EXCLUDED_DOMAINS:
+    vn = domain in verified_official_domains() and domain not in TRUST_EXCLUDED_DOMAINS
+    if not vn and not (include_intl and domain in trusted_intl_domains()):
         return None
     label = label_of_domain(domain)
-    if any(b["label"] == label and b["category"] in TRUST_EXCLUDED_CATEGORIES
-           for b in load_vn_brands()):
+    if vn and any(b["label"] == label and b["category"] in TRUST_EXCLUDED_CATEGORIES
+                  for b in load_vn_brands()):
         return None
     # User-published content or a hidden destination (open redirect) is not the brand's own page
     if "\\" in url or is_user_content_host(host) or embedded_urls(url) or may_redirect(url):

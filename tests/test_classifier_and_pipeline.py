@@ -92,6 +92,20 @@ def test_verified_official_domain_is_trusted_without_loopholes():
         assert trusted_official_domain(u) == "vietcombank.com.vn", u
 
 
+def test_trusted_shortcut_international_brands():
+    from pipeline import trusted_intl_domains, trusted_official_domain
+    assert trusted_official_domain("https://www.paypal.com/signin") == "paypal.com"
+    assert trusted_official_domain("https://www.paypal.com/signin", include_intl=False) is None
+    # Same redirect rules as the Vietnamese domains
+    assert trusted_official_domain("https://paypal.com/r?u=https://evil.com") is None
+    # Platforms where anyone can publish under the brand's domain stay out
+    trusted = trusted_intl_domains()
+    for d in ("canva.com", "github.com", "pinterest.com", "token.im", "amazon.com", "airbnb.com",
+              "facebook.com", "godaddy.com", "googleapis.com", "shopee.sg", "google.com"):
+        assert d not in trusted, d
+    assert trusted_official_domain("https://shopee.vn/some-shop") is None
+
+
 def test_host_feature_vector_handles_missing_data():
     import math
     from url_classifier.host_features import HOST_FEATURE_NAMES, host_feature_vector

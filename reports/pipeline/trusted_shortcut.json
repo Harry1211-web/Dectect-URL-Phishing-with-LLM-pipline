@@ -1,0 +1,80 @@
+{
+  "time": "2026-10-15T05:34:10.529478+00:00",
+  "n_trusted_intl_domains": 173,
+  "sets": {
+    "dataset_test": {
+      "clean": 42367,
+      "clean_reaching_D_before": 20778,
+      "clean_saved_from_D": 6,
+      "clean_saved_rate": 0.0003,
+      "clean_saved_examples": [
+        "https://pancakeswap.finance/info",
+        "https://telegram.org/apps",
+        "https://telegram.org/blog/communities-editor-invisible-messages",
+        "https://telegram.org/press",
+        "https://telegram.org/safety",
+        "https://www.klikbca.com/OnlineApplication/online_application.html"
+      ],
+      "phishing": 39266,
+      "phishing_trusted_before": 0,
+      "phishing_trusted_after": 0,
+      "new_misses (caught before, trusted after)": 0,
+      "phishing_trusted_examples": []
+    },
+    "phreshphish": {
+      "clean": 10000,
+      "clean_reaching_D_before": 5738,
+      "clean_saved_from_D": 37,
+      "clean_saved_rate": 0.0064,
+      "clean_saved_examples": [
+        "https://support.metamask.io/more-web3/learn/how-to-estimate-the-gas-fee/",
+        "https://about.usps.com/publications/pub699/pub699_tech_016.htm",
+        "https://creditcards.chase.com/avios/britishairways",
+        "https://careers.truist.com/us/en/",
+        "https://www.att.com/deviceunlock/unlockstep1",
+        "https://www.garantibbva.com.tr/krediler/konut-kredisi",
+        "http://www.rbcroyalbank.com/caribbean/cayman/everyday-banking/banking-accounts.html",
+        "https://news.trendmicro.com/2023/05/17/stanley-1913-us-scam/",
+        "https://postcalc.usps.com/calculator/largepackageproperties",
+        "https://www.paypal.com/au/cshelp/business",
+        "www.paypal.com/au/home",
+        "https://secure.bankofamerica.com/secure-offers/customizedoffers/",
+        "https://www.postfinance.ch/it/privati/pagamenti-risparmio/e-banking-apps/e-finance.html",
+        "https://www.coinbase.com/price/melania-meme",
+        "http://www.bing.com/webmasters/help/my-sites-05a5a164"
+      ],
+      "phishing": 10000,
+      "phishing_trusted_before": 0,
+      "phishing_trusted_after": 0,
+      "new_misses (caught before, trusted after)": 0,
+      "phishing_trusted_examples": []
+    },
+    "vi": {
+      "clean": 1580,
+      "clean_reaching_D_before": 788,
+      "clean_saved_from_D": 1,
+      "clean_saved_rate": 0.0013,
+      "clean_saved_examples": [
+        "http://visa.com.vn/"
+      ],
+      "phishing": 2710,
+      "phishing_trusted_before": 0,
+      "phishing_trusted_after": 0,
+      "new_misses (caught before, trusted after)": 0,
+      "phishing_trusted_examples": []
+    }
+  },
+  "dataset_all_phishing": {
+    "n": 260734,
+    "trusted_after_only": 0,
+    "by_split": {},
+    "examples": []
+  },
+  "live_top_sites_clean_reaching_D": {
+    "n": 116,
+    "saved": 1,
+    "examples": [
+      "https://bericht.telekom.com/cr-bericht/2025/"
+    ]
+  }
+}
