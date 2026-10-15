@@ -98,5 +98,6 @@
 │
 ├── models/url_classifier/         Trained Layer C: cnn.pt + cnn_b.pt (cross-fitted CNNs), xgb_lexical.json, xgb_host.json, config.json
 └── reports/                       Evaluation outputs (JSON) of every layer (live/ = evaluate_live.py,
-                                   baselines/ = src/baselines, relabel/ = relabel_subset.py)
+                                   baselines/ = src/baselines, relabel/ = relabel_subset.py,
+                                   summary.md = before / after tables of every experiment and spend)
 ```
