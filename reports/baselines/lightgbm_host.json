@@ -1,0 +1,74 @@
+{
+  "model": "lightgbm_host",
+  "time": "2026-10-15T05:50:26.624322+00:00",
+  "rule": "threshold = lowest score recognising >= 50% of val clean",
+  "threshold": 0.0026813672826041354,
+  "val": {
+    "phishing": 38761,
+    "phishing_missed": 24,
+    "miss_rate": 0.00062,
+    "clean": 40598,
+    "clean_recognized": 0.5
+  },
+  "train_seconds": 94.8,
+  "test": {
+    "roc_auc": 0.99541,
+    "pr_auc": 0.99555,
+    "alone": {
+      "phishing": 39266,
+      "phishing_missed": 13,
+      "miss_rate": 0.00033,
+      "clean": 42367,
+      "clean_recognized": 0.51007,
+      "verified_phishing": 5549,
+      "verified_missed": 4,
+      "verified_miss_rate": 0.00072
+    },
+    "with_B": {
+      "phishing": 39266,
+      "phishing_missed": 13,
+      "miss_rate": 0.00033,
+      "clean": 42367,
+      "clean_recognized": 0.50834,
+      "verified_phishing": 5549,
+      "verified_missed": 4,
+      "verified_miss_rate": 0.00072
+    }
+  },
+  "phreshphish": {
+    "roc_auc": 0.97143,
+    "pr_auc": 0.97354,
+    "alone": {
+      "phishing": 10000,
+      "phishing_missed": 44,
+      "miss_rate": 0.0044,
+      "clean": 10000,
+      "clean_recognized": 0.4105
+    },
+    "with_B": {
+      "phishing": 10000,
+      "phishing_missed": 41,
+      "miss_rate": 0.0041,
+      "clean": 10000,
+      "clean_recognized": 0.409
+    }
+  },
+  "vi": {
+    "roc_auc": 0.98344,
+    "pr_auc": 0.99256,
+    "alone": {
+      "phishing": 2710,
+      "phishing_missed": 21,
+      "miss_rate": 0.00775,
+      "clean": 1580,
+      "clean_recognized": 0.16329
+    },
+    "with_B": {
+      "phishing": 2710,
+      "phishing_missed": 21,
+      "miss_rate": 0.00775,
+      "clean": 1580,
+      "clean_recognized": 0.16329
+    }
+  }
+}

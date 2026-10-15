@@ -51,6 +51,11 @@
 │   │   ├── redteam_fake_trusted_source.py  Fake "verified by authority" red team (paid API)
 │   │   └── live_traffic_sources.py         Live Tranco / OpenPhish samplers for the benchmarks
 │   │
+│   ├── baselines/                 Layer C baselines, same splits and operating rule (>= 50 % val clean recognised)
+│   │   ├── common.py              Data splits, threshold rule, metrics (alone / with Layer B, ROC-AUC, PR-AUC)
+│   │   ├── classic.py             Logistic regression, random forest, LightGBM (lexical / + host), Layer C itself
+│   │   └── deep.py                char-CNN, BiLSTM, URLNet (reduced), small Transformer (URL only)
+│   │
 │   └── data_collection/           Builds the labelled URL dataset for Layer C
 │       ├── sources.py             Downloaders: OpenPhish, PhishTank, Phishing.Database, PhiUSIIL, Tranco
 │       ├── crawl_clean.py         Crawls clean URLs (with paths) from Tranco-ranked homepages
@@ -87,5 +92,6 @@
 │   └── tranco_top1m.csv           Tranco top-1M (popular-domain checks, common-token filter)
 │
 ├── models/url_classifier/         Trained Layer C: cnn.pt + cnn_b.pt (cross-fitted CNNs), xgb_lexical.json, xgb_host.json, config.json
-└── reports/                       Evaluation outputs (JSON) of every layer (live/ = evaluate_live.py)
+└── reports/                       Evaluation outputs (JSON) of every layer (live/ = evaluate_live.py,
+                                   baselines/ = src/baselines, relabel/ = relabel_subset.py)
 ```

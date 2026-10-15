@@ -17,6 +17,7 @@ ipykernel==6.29.5
 # CUDA build used for training: pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 torch==2.6.0
 xgboost==3.4.1
+lightgbm==4.7.0
 
 # --- Layer B: string distance + URL parsing ---
 rapidfuzz==3.14.6           # Damerau-Levenshtein and Jaro-Winkler
