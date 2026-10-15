@@ -4,7 +4,8 @@ Each page is sanitized and prompted exactly as in production (llm_client.build_p
 one configuration, results per stratum (reaches_d = what D sees today, missed_by_abc = what D
 would catch if routed to it). Prompt changes are compared on dev first; --content-chars N sets
 the page text kept in the prompt (production: llm_client.MAX_CONTENT_CHARS).
-Run:    python src/llm/layer_d_eval.py --dev [--tag x] [options]   (calls the OpenAI API)
+--model claude-haiku-5-5 runs the same prompt on Anthropic (model comparison, --thinking off|default).
+Run:    python src/llm/layer_d_eval.py --dev [--tag x] [options]   (calls the paid LLM API)
         python src/llm/layer_d_eval.py --test --tag final           (held-out: run ONCE)
 Output: reports/llm/layer_d/eval_{dev,test}_<tag>.json
 """
@@ -28,7 +29,7 @@ for _p in (str(_HERE), str(_HERE.parent)):
 
 from html_sanitize import sanitize_html  # noqa: E402
 from llm_benchmark import compute_metrics  # noqa: E402
-from llm_client import DEFAULT_MODEL, MAX_CONTENT_CHARS, build_prompt, call_openai  # noqa: E402
+from llm_client import DEFAULT_MODEL, MAX_CONTENT_CHARS, build_prompt, call_llm  # noqa: E402
 
 ROOT = _HERE.parents[1]
 DEV_SET = ROOT / "dataset" / "external" / "layer_d_dev.csv"
@@ -61,19 +62,25 @@ def main() -> int:
     ap.add_argument("--tag", default="")
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--content-chars", type=int, default=MAX_CONTENT_CHARS)
+    ap.add_argument("--thinking", choices=("default", "off"), default="default",
+                    help="Anthropic models only: keep adaptive thinking or disable it")
     ap.add_argument("--limit", type=int, default=None, help="at most N pages per label")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="with --limit: random sample of N pages per label instead of the first N")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
     pages = load_pages(TEST_SET if args.test else DEV_SET, args.content_chars)
     if args.limit:
-        pages = pages.groupby("label").head(args.limit).reset_index(drop=True)
+        pages = (pages.groupby("label").sample(args.limit, random_state=args.seed)
+                 if args.seed is not None else pages.groupby("label").head(args.limit))
+        pages = pages.reset_index(drop=True)
     print(f"{len(pages)} pages", file=sys.stderr)
 
     def run(i: int) -> dict:
         r = pages.iloc[i]
         prompt = build_prompt(r.url, r.title, r.text, bool(r.injection), typosquatting=bool(r.B))
-        res = call_openai(prompt, args.model)
+        res = call_llm(prompt, args.model, thinking=args.thinking)
         if i and i % 50 == 0:
             print(f"{i}/{len(pages)}", file=sys.stderr, flush=True)
         return {"url": r.url, "label": "phishing" if r.label == "phishing" else "legit",
@@ -90,6 +97,7 @@ def main() -> int:
                 "input_tokens_mean": round(float(np.mean([r["input_tokens"] or 0 for r in rs])), 1)}
 
     out = {"time": datetime.now(timezone.utc).isoformat(), "model": args.model,
+           "thinking": args.thinking if args.model.startswith("claude") else None,
            "set": "test" if args.test else "dev", "tag": args.tag,
            "content_chars": args.content_chars,
            "cost_usd": round(sum(r["cost_usd"] or 0 for r in rows), 4),

@@ -194,3 +194,33 @@ def test_live_verdict_is_cached_but_failures_are_not(tmp_path, monkeypatch):
     monkeypatch.setattr(llm_client, "VERDICT_CACHE_TTL_S", -1)   # expired -> model again
     analyze_suspicious(url)
     assert len(calls) == 3
+
+
+def test_spend_ledger_keeps_a_budget_per_provider(tmp_path, monkeypatch):
+    import json
+    import llm_client
+    ledger = tmp_path / "spend.json"
+    # Old ledger without by_provider: its total is OpenAI spend
+    ledger.write_text(json.dumps({"total_usd": 1.0, "calls": 10, "by_model": {}}), encoding="utf-8")
+    monkeypatch.setattr(llm_client, "SPEND_LEDGER", ledger)
+    monkeypatch.setattr(llm_client, "SPEND_LOCK_FILE", tmp_path / "spend.lock")
+    monkeypatch.setattr(llm_client, "BUDGETS_USD", {"openai": 1.0, "anthropic": 0.5})
+    assert not llm_client.budget_left("gpt-6-luna")
+    assert llm_client.budget_left("claude-haiku-5-5")
+    llm_client.record_spend("claude-haiku-5-5", 5_000_000, 0)   # $0.50 -> Anthropic cap reached
+    assert llm_client.spent_usd("anthropic") == 0.5 and llm_client.spent_usd("openai") == 1.0
+    assert not llm_client.budget_left("claude-haiku-5-5")
+    assert llm_client.call_anthropic("x", "claude-haiku-5-5")["error"] in (
+        "BudgetExceeded", "MissingAnthropicApiKey")
+
+
+def test_compare_models_statistics():
+    from compare_models import mcnemar, wilson, with_override
+    lo, hi = wilson(5, 100)
+    assert lo < 0.05 < hi and wilson(0, 0) is None
+    # 3 discordant pairs one way, 0 the other: not significant at this size
+    t = mcnemar([True, True, True, False], [False, False, False, False])
+    assert (t["only_first"], t["only_second"]) == (3, 0) and t["p_value"] == 0.25
+    row = {"verdict": "safe", "c_score": 0.995, "url": "https://evil-shop.top/x"}
+    assert with_override(row) == "suspicious"
+    assert with_override({**row, "url": "https://accounts.google.com/x"}) == "safe"

@@ -47,7 +47,8 @@
 │   │   ├── html_sanitize.py       Removes hidden text / fake instructions (patterns from data/injection_patterns/)
 │   │   ├── llm_benchmark.py       LLM accuracy/latency on live Tranco vs OpenPhish URLs (paid API)
 │   │   ├── vn_benchmark.py        LLM accuracy on Vietnamese brand scenarios (paid API)
-│   │   ├── layer_d_eval.py        Layer D on the stored dev / test pages, per stratum (paid API)
+│   │   ├── layer_d_eval.py        Layer D on the stored dev / test pages, per stratum (paid API; --model claude-*)
+│   │   ├── compare_models.py      Layer D runs side by side: outcomes, C override, latency, cost, Wilson CI, McNemar
 │   │   ├── phreshphish_sets.py    Builds the Layer D dev / held-out test sets (PhreshPhish pages that reach D)
 │   │   ├── redteam_prompt_injection.py     Prompt-injection red team (hidden, advanced, hard visible / multi-step /
 │   │   │                                   multilingual attacks): no defence vs production (paid API)
