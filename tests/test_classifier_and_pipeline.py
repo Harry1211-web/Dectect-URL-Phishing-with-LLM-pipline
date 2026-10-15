@@ -101,7 +101,9 @@ def test_trusted_shortcut_international_brands():
     # Platforms where anyone can publish under the brand's domain stay out
     trusted = trusted_intl_domains()
     for d in ("canva.com", "github.com", "pinterest.com", "token.im", "amazon.com", "airbnb.com",
-              "facebook.com", "godaddy.com", "googleapis.com", "shopee.sg", "google.com"):
+              "facebook.com", "godaddy.com", "googleapis.com", "shopee.sg", "google.com",
+              # every domain of an excluded brand, payment links
+              "googlevideo.com", "google.dev", "microsoft365.com", "stripe.com", "cash.app"):
         assert d not in trusted, d
     assert trusted_official_domain("https://shopee.vn/some-shop") is None
 

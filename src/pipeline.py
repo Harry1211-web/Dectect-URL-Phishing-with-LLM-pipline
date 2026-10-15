@@ -61,6 +61,7 @@ TRUST_EXCLUDED_DOMAINS = frozenset({"zalo.me"})
 # where the category does not say it: user-content or file-sharing sites, hosting / domain
 # providers, form / document services, and domains with phishing in the train / val URLs
 # (orange.fr, venmo.com, walletconnect.com). pinterest.com, token.im: excluded on review.
+# An excluded domain excludes every domain of its brand (google.com -> googlevideo.com, google.dev).
 # Evidence: src/evaluate_trusted_shortcut.py -> reports/pipeline/trusted_shortcut.json
 TRUST_INTL_EXCLUDED_CATEGORIES = ("commerce", "shopping", "retail", "travel", "social", "streaming",
                                   "music", "gaming", "cloud storage", "hosting", "classified")
@@ -72,6 +73,8 @@ TRUST_INTL_EXCLUDED_DOMAINS = frozenset({
     "youtube.vn", "discord.com", "twitch.tv", "canva.com", "docusign.com", "naver.com",
     "slack.com", "okta.com", "salesforce.com", "shopify.com", "opensea.io", "leboncoin.fr",
     "biglobe.ne.jp",
+    # payment links / profile pages anyone can create (buy.stripe.com/..., cash.app/$name)
+    "stripe.com", "squareup.com", "cash.app",
     # hosting and domain providers
     "godaddy.com", "hostinger.com", "hostinger.vn", "ionos.com", "namecheap.com", "arubacloud.com",
     "cloudflare.com",
@@ -123,12 +126,15 @@ def trusted_intl_domains() -> frozenset[str]:
     """Official domains of international brands that host no third-party pages (see above)."""
     vn_labels = {b["label"] for b in load_vn_brands()}
     cats = intl_source_categories()
+    domains = all_official_domains() - verified_official_domains()
+    excluded_labels = {label_of_domain(d) for d in domains
+                       if d in TRUST_INTL_EXCLUDED_DOMAINS or is_untrusted_hosting(d)}
     out = set()
-    for d in all_official_domains() - verified_official_domains():
+    for d in domains:
         label = label_of_domain(d)
         cat = cats.get(label, "").lower()
-        if (label in vn_labels or d in TRUST_INTL_EXCLUDED_DOMAINS or is_untrusted_hosting(d)
-                or any(c in cat for c in TRUST_INTL_EXCLUDED_CATEGORIES)):
+        if (label in vn_labels or label in excluded_labels or d in TRUST_INTL_EXCLUDED_DOMAINS
+                or is_untrusted_hosting(d) or any(c in cat for c in TRUST_INTL_EXCLUDED_CATEGORIES)):
             continue
         out.add(d)
     return frozenset(out)

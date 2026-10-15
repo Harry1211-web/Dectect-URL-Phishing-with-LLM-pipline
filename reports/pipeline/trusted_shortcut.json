@@ -1,10 +1,10 @@
 {
-  "time": "2026-10-15T05:34:10.529478+00:00",
-  "n_trusted_intl_domains": 173,
+  "time": "2026-10-15T05:58:59.529816+00:00",
+  "n_trusted_intl_domains": 160,
   "sets": {
     "dataset_test": {
       "clean": 42367,
-      "clean_reaching_D_before": 20778,
+      "clean_reaching_D_before": 20779,
       "clean_saved_from_D": 6,
       "clean_saved_rate": 0.0003,
       "clean_saved_examples": [
@@ -24,8 +24,8 @@
     "phreshphish": {
       "clean": 10000,
       "clean_reaching_D_before": 5738,
-      "clean_saved_from_D": 37,
-      "clean_saved_rate": 0.0064,
+      "clean_saved_from_D": 34,
+      "clean_saved_rate": 0.0059,
       "clean_saved_examples": [
         "https://support.metamask.io/more-web3/learn/how-to-estimate-the-gas-fee/",
         "https://about.usps.com/publications/pub699/pub699_tech_016.htm",
