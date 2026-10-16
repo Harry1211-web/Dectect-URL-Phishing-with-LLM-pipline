@@ -19,11 +19,13 @@ Hướng dẫn cho Claude Code khi làm việc trong repo này.
 
 Pipeline khi người dùng click 1 URL:
 
-1. **Lớp A — chặn tức thì**: Kéo tự động mỗi giờ từ OpenPhish (1 giờ), PhishTank và Phishing.Database (6 giờ); danh sách Tranco 1 tháng 1 lần.
+1. **Lớp A — chặn tức thì**: Kéo tự động mỗi giờ từ OpenPhish (1 giờ), PhishTank và Phishing.Database (6 giờ); danh sách Tranco 1 tháng 1 lần. Sau đó tra VirusTotal (VT_API_KEY, ≥ 2 engine malicious → phishing; có cache, không submit URL, lỗi/quota → bỏ qua).
 2. **Lớp B — Typosquatting detection**: Để bắt Brand Impersonation. Kết hợp 2 thuật toán đo khoảng cách Damerau-Levenshtein (đo số thao tác lỗi/tráo đổi) và Jaro-Winkler (đo độ tương đồng tỉ lệ, ưu tiên phần đầu tên miền). Trích xuất từ khóa trong toàn bộ URL (bao gồm Subdomain & Path) thay vì chỉ kiểm tra mỗi Domain gốc
-3. **Lớp C — CNN/LSTM + XGBoost**: Chân lý, 0 được phép để 1 URL phishing nào được gán thành Clean
-- Đầu tiên đi qua CNN/LSTM Feature Extractor
-- Sau đó đi XGBoost Classifier
+3. **Lớp C — BiLSTM + XGBoost (+ DOM)**: Chân lý, 0 được phép để 1 URL phishing nào được gán thành Clean
+- Đầu tiên đi qua mô hình DL (BiLSTM, cross-fitted) → điểm phishing của URL
+- Sau đó đi XGBoost Classifier (đặc trưng URL + host + điểm DL)
+- Cặp DL + ML chọn trên val (src/layer_c_selection.py: 5 DL × RF/XGBoost/LightGBM)
+- Mô hình DOM (PhreshPhish ngoài mọi tập đánh giá) chỉ được THÊM nghi ngờ, không bao giờ xóa cờ (trang có thể cloaking); hiện không bật vì trên val không đạt ≥ 50 % sạch
 - Output: Clean/suspicious
 4. **Lớp D — LLM (gpt-6-luna)**: đọc nội dung trang đã lọc prompt injection → phishing / suspicious / safe
 - Prompt gọn: luật quyết định (lấy thông tin, mạo danh, scam; thiếu bằng chứng → suspicious), nội dung trang đóng khung là DATA
