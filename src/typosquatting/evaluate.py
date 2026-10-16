@@ -54,7 +54,7 @@ def _load_sets() -> dict[str, list[str]]:
     vn = [s["url"] for s in BASE_SCENARIOS + EXTRA_SCENARIOS]
     import pandas as pd
     ext = pd.read_csv(ROOT / "dataset" / "external" / "phreshphish_urls.csv")
-    vi_clean = pd.read_csv(ROOT / "dataset" / "urls" / "vi" / "clean.csv").url.tolist()
+    vi_clean = pd.read_csv(ROOT / "data" / "test_sets" / "vi" / "clean.csv").url.tolist()
     return {"clean_tranco_top100k": tranco, "clean_crawled_test": clean_crawl,
             "phishing_test": phishing, "vn_brand_scenarios": vn,
             "phreshphish_clean": ext[ext.label == "clean"].url.tolist(),

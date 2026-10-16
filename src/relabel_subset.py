@@ -50,7 +50,7 @@ def _phreshphish_rows(name: str, haiku_path: Path) -> pd.DataFrame:
     from html_sanitize import sanitize_html
     d = pd.read_csv(SETS[name])
     gpt, haiku = _verdicts(GPT_RUNS[name]), _verdicts(haiku_path)
-    html = pd.read_parquet(HTML_STORE).set_index("sha256").html
+    html = pd.read_parquet(HTML_STORE, filters=[("sha256", "in", list(set(d.sha256)))]).set_index("sha256").html
     rows = []
     for r in d.itertuples():
         g, h = gpt.get(r.url), haiku.get(r.url)

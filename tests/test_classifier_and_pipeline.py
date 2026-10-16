@@ -148,3 +148,26 @@ def test_segment_thresholds_are_never_fail_open():
     y = np.array([0, 0, 0, 0, 0, 1, 0, 1])  # segment "a" has no phishing at all
     thr, _ = segment_thresholds(seg, score, y, np.ones(8, bool), n_clean=6, min_clean=0.5)
     assert all(t <= MAX_SEGMENT_THRESHOLD for t in thr.values())
+
+
+def test_dom_combination_rules(monkeypatch):
+    from url_classifier import dom_features
+    cfg = {"combine": "or", "dom_threshold": 0.7}
+    monkeypatch.setattr(dom_features, "_load_dom", lambda: (object(), cfg))
+    assert dom_features.combined_label("clean", 0.9) == "suspicious"
+    assert dom_features.combined_label("clean", 0.1) == "clean"
+    assert dom_features.combined_label("suspicious", 0.1) == "suspicious"
+    assert dom_features.combined_label("clean", None) == "clean"  # page not downloaded
+    cfg["combine"] = "and"  # a cloaked clean-looking page must never clear a URL flag
+    assert dom_features.combined_label("suspicious", 0.0) == "suspicious"
+
+
+def test_dom_features_shape():
+    from url_classifier.dom_features import DOM_FEATURE_NAMES, dom_features
+    html = ('<html><title>PayPal login</title><form action="https://evil.top/p.php">'
+            '<input type="password"><input type="hidden"></form>Verify your account</html>')
+    f = dict(zip(DOM_FEATURE_NAMES, dom_features(html, "https://a.example/")))
+    assert len(f) == len(DOM_FEATURE_NAMES)
+    assert f["n_password_inputs"] == 1 and f["n_forms_external_action"] == 1
+    assert f["brand_in_title_off_domain"] == 1 and f["n_bait_words"] >= 1
+    assert dom_features("", "https://a.example/") == [0.0] * len(DOM_FEATURE_NAMES)

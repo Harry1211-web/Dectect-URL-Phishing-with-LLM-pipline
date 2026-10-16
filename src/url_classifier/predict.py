@@ -1,6 +1,8 @@
-"""Layer C inference: URL -> 'clean' / 'suspicious' (stacked CNN/BiLSTM + XGBoost).
+"""Layer C inference: URL -> 'clean' / 'suspicious' (stacked DL model + ML classifier).
 
-cnn_score = mean phishing probability of the two cross-fitted CNNs; it feeds the host branch
+The DL architecture and the ML model are those of models/url_classifier/config.json (chosen on
+validation data by src/layer_c_selection.py).
+dl_score = mean phishing probability of the two cross-fitted DL models; it feeds the host branch
 (URL + DNS/TLS/RDAP/Tranco features) when the host resolves, the lexical branch otherwise. Each
 segment (branch x popularity/age bucket x bare/path) has its own threshold chosen on validation
 data; 'suspicious' means "send to Layer D (LLM)".
@@ -16,6 +18,8 @@ import time
 from functools import lru_cache
 from pathlib import Path
 
+import joblib
+import lightgbm as lgb
 import numpy as np
 import torch
 import xgboost as xgb
@@ -23,7 +27,7 @@ import xgboost as xgb
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from url_classifier import host_features as hf  # noqa: E402
 from url_classifier.features import feature_matrix  # noqa: E402
-from url_classifier.model import CharCnnLstm, encode_urls  # noqa: E402
+from url_classifier.model import DL_ARCHS, encode_inputs  # noqa: E402
 from url_utils import host_of  # noqa: E402
 
 MODEL_DIR = Path(__file__).resolve().parents[2] / "models" / "url_classifier"
@@ -31,43 +35,68 @@ DEVICE = "cpu"  # single-URL inference is faster on CPU than paying the GPU tran
 HOST_BUDGET_S = 2.5  # max time spent on DNS/TLS/RDAP lookups for one URL
 
 
-@lru_cache(maxsize=1)
-def _load() -> tuple[list[CharCnnLstm], xgb.XGBClassifier, xgb.XGBClassifier | None, dict]:
-    cfg = json.loads((MODEL_DIR / "config.json").read_text(encoding="utf-8"))
-    cnns = []
-    for name in ("cnn.pt", "cnn_b.pt"):
-        if (MODEL_DIR / name).exists():
-            m = CharCnnLstm()
-            m.load_state_dict(torch.load(MODEL_DIR / name, map_location=DEVICE, weights_only=True))
-            m.eval()
-            cnns.append(m)
+class _LgbModel:
+    """LightGBM booster with the predict_proba interface of the other models."""
 
-    def load(name: str) -> xgb.XGBClassifier | None:
-        if not (MODEL_DIR / name).exists():
-            return None
+    def __init__(self, path: Path):
+        self.booster = lgb.Booster(model_file=str(path))
+
+    def predict_proba(self, x: np.ndarray) -> np.ndarray:
+        p = self.booster.predict(x)
+        return np.column_stack([1 - p, p])
+
+
+def _load_ml(ml: str, path: Path):
+    if not path.exists():
+        return None
+    if ml == "xgboost":
         m = xgb.XGBClassifier()
-        m.load_model(MODEL_DIR / name)
+        m.load_model(path)
         m.set_params(device="cpu")
         return m
+    if ml == "lightgbm":
+        return _LgbModel(path)
+    m = joblib.load(path)
+    m.set_params(n_jobs=1)  # one URL at a time: no thread pool start-up
+    return m
 
-    return cnns, load("xgb_lexical.json"), load("xgb_host.json"), cfg
+
+_ML_EXT = {"xgboost": "json", "lightgbm": "txt", "random_forest": "joblib"}
+
+
+@lru_cache(maxsize=1)
+def _load() -> tuple[list[torch.nn.Module], object, object | None, dict]:
+    cfg = json.loads((MODEL_DIR / "config.json").read_text(encoding="utf-8"))
+    arch, ml = cfg.get("dl_arch", "cnn_bilstm"), cfg.get("ml", "xgboost")
+    dls = []
+    for name in ("dl_a.pt", "dl_b.pt"):
+        if (MODEL_DIR / name).exists():
+            m = DL_ARCHS[arch]()
+            m.load_state_dict(torch.load(MODEL_DIR / name, map_location=DEVICE, weights_only=True))
+            m.eval()
+            dls.append(m)
+    ext = _ML_EXT[ml]
+    return dls, _load_ml(ml, MODEL_DIR / f"ml_lexical.{ext}"), _load_ml(ml, MODEL_DIR / f"ml_host.{ext}"), cfg
 
 
 def is_available() -> bool:
-    return (MODEL_DIR / "config.json").exists() and (MODEL_DIR / "xgb_lexical.json").exists()
+    if not (MODEL_DIR / "config.json").exists():
+        return False
+    ml = json.loads((MODEL_DIR / "config.json").read_text(encoding="utf-8")).get("ml", "xgboost")
+    return (MODEL_DIR / f"ml_lexical.{_ML_EXT[ml]}").exists()
 
 
-def _cnn_score(urls: list[str]) -> np.ndarray:
-    cnns = _load()[0]
-    x = torch.from_numpy(encode_urls(urls))
+def _dl_score(urls: list[str]) -> np.ndarray:
+    dls, cfg = _load()[0], _load()[3]
+    c, w = (torch.from_numpy(a) for a in encode_inputs(cfg.get("dl_arch", "cnn_bilstm"), urls))
     with torch.no_grad():
-        return np.mean([torch.sigmoid(m(x)).numpy() for m in cnns], axis=0).astype(np.float32)
+        return np.mean([torch.sigmoid(m(c, w)).numpy() for m in dls], axis=0).astype(np.float32)
 
 
 def _matrices(urls: list[str], rows: list) -> tuple[np.ndarray, np.ndarray]:
     """(lexical matrix, host matrix) with the training column order."""
     hand = feature_matrix(urls)
-    cs = _cnn_score(urls)[:, None]
+    cs = _dl_score(urls)[:, None]
     hx = np.array([hf.host_feature_vector(u, r or {}) for u, r in zip(urls, rows)], dtype=np.float32)
     return np.hstack([hand, cs]), np.hstack([hand, hx, cs])
 

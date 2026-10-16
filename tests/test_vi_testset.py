@@ -28,4 +28,4 @@ def test_no_domain_shared_with_training(name):
 def test_training_code_never_reads_the_vi_set():
     for script in ("data_collection/build_dataset.py", "url_classifier/train.py"):
         text = (SRC / script).read_text(encoding="utf-8")
-        assert "vi_testset" not in text and "urls/vi" not in text and '"vi"' not in text, script
+        assert "vi_testset" not in text and "test_sets" not in text and '"vi"' not in text, script

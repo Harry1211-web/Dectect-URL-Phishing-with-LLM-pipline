@@ -1,4 +1,4 @@
-"""Build the Vietnamese evaluation set of Layer C (dataset/urls/vi/). Evaluation only: never read
+"""Build the Vietnamese evaluation set of Layer C (data/test_sets/vi/). Evaluation only: never read
 by build_dataset.py or train.py.
 
 Phishing: domains / URLs blacklisted by the Chong Lua Dao project (chongluadao.vn), taken from a
@@ -13,7 +13,7 @@ Zero overlap: a URL is dropped when its registrable domain appears anywhere in t
 data (urls_labeled.csv, noisy_labels.csv) or in the external test set.
 
 Run:    python src/data_collection/vi_testset.py   (network: GitHub, Tranco, DNS / TLS / RDAP)
-Output: dataset/urls/vi/phishing.csv, dataset/urls/vi/clean.csv
+Output: data/test_sets/vi/phishing.csv, data/test_sets/vi/clean.csv
 """
 
 from __future__ import annotations
@@ -32,7 +32,7 @@ from typosquatting.brands import verified_official_domains  # noqa: E402
 from url_classifier import host_features as hf  # noqa: E402
 from url_utils import ensure_scheme, registrable_domain  # noqa: E402
 
-OUT_DIR = ROOT / "dataset" / "urls" / "vi"
+OUT_DIR = ROOT / "data" / "test_sets" / "vi"
 # Mirror of the Chong Lua Dao blacklist, pinned to the last commit that changed the data
 CLD_REPO = "elliotwutingfeng/ChongLuaDao-Phishing-Blocklist"
 CLD_SNAPSHOT = dt.date(2024, 5, 16)

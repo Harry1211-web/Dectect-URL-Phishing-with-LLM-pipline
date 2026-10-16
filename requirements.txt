@@ -13,7 +13,7 @@ jupyter==1.1.1
 notebook==7.2.2
 ipykernel==6.29.5
 
-# --- Layer C: CNN/BiLSTM feature extractor + XGBoost ---
+# --- Layer C: deep URL models + ML classifiers (XGBoost, LightGBM, random forest) ---
 # CUDA build used for training: pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 torch==2.6.0
 xgboost==3.4.1
@@ -35,6 +35,7 @@ pyarrow==23.0.1             # parquet (stored HTML pages)
 # --- Layer D: LLM ---
 beautifulsoup4==4.14.3      # HTML sanitizing against prompt injection
 openai==2.33.0              # LLM API (Layer D)
+anthropic==0.120.2          # Claude API (Layer D model comparison)
 python-dotenv==1.2.2        # reads .env
 
 # --- Tests ---

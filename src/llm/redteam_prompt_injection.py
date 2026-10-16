@@ -515,7 +515,7 @@ def run_real_pages(n: int, attacks: dict | None = None, samples_path: Path | Non
     from concurrent.futures import ThreadPoolExecutor
     d = pd.read_csv(DEV_SET)
     d = d[(d.label == "phishing") & (d.stratum == "reaches_d")].sample(frac=1, random_state=3).head(n)
-    html = pd.read_parquet(HTML_STORE).set_index("sha256").html
+    html = pd.read_parquet(HTML_STORE, filters=[("sha256", "in", list(set(d.sha256)))]).set_index("sha256").html
     jobs = []
     for r in d.itertuples():
         raw = html.get(r.sha256, "")

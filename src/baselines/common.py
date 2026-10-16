@@ -28,7 +28,7 @@ from url_classifier.train import MIN_CLEAN_RECOGNIZED, VERIFIED_SOURCES  # noqa:
 DATA_PATH = ROOT / "dataset" / "urls" / "urls_labeled.csv"
 NOISY_PATH = DATA_PATH.parent / "noisy_labels.csv"
 PHRESHPHISH = ROOT / "dataset" / "external" / "phreshphish_urls.csv"
-VI_DIR = ROOT / "dataset" / "urls" / "vi"
+VI_DIR = ROOT / "data" / "test_sets" / "vi"
 OUT_DIR = ROOT / "reports" / "baselines"
 
 

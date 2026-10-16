@@ -1,0 +1,170 @@
+{
+  "n": {
+    "train_clean": 2361,
+    "train_phishing": 2397,
+    "val_clean": 639,
+    "val_phishing": 603
+  },
+  "candidates": {
+    "xgboost": {
+      "val_pr_auc": 0.97373,
+      "val_roc_auc": 0.97091,
+      "val_at_50pct_clean": {
+        "phishing": 603,
+        "phishing_missed": 6,
+        "miss_rate": 0.00995,
+        "clean": 639,
+        "clean_recognized": 0.49922
+      }
+    },
+    "lightgbm": {
+      "val_pr_auc": 0.97203,
+      "val_roc_auc": 0.96969,
+      "val_at_50pct_clean": {
+        "phishing": 603,
+        "phishing_missed": 3,
+        "miss_rate": 0.00498,
+        "clean": 639,
+        "clean_recognized": 0.50078
+      }
+    },
+    "random_forest": {
+      "val_pr_auc": 0.97155,
+      "val_roc_auc": 0.96874,
+      "val_at_50pct_clean": {
+        "phishing": 603,
+        "phishing_missed": 6,
+        "miss_rate": 0.00995,
+        "clean": 639,
+        "clean_recognized": 0.50078
+      }
+    }
+  },
+  "time": "2026-10-16T04:14:05.989184+00:00",
+  "winner": "xgboost",
+  "rule": "highest val PR-AUC",
+  "feature_importance": [
+    [
+      "n_external_domains",
+      0.11958764493465424
+    ],
+    [
+      "brand_in_title_off_domain",
+      0.11778806895017624
+    ],
+    [
+      "n_iframes",
+      0.09086722135543823
+    ],
+    [
+      "n_scripts",
+      0.07537756115198135
+    ],
+    [
+      "text_len",
+      0.06874590367078781
+    ],
+    [
+      "n_password_inputs",
+      0.054048120975494385
+    ],
+    [
+      "external_link_ratio",
+      0.043240442872047424
+    ],
+    [
+      "n_obfuscation_calls",
+      0.03657178580760956
+    ],
+    [
+      "favicon_external",
+      0.03477708250284195
+    ],
+    [
+      "external_script_ratio",
+      0.03338126838207245
+    ],
+    [
+      "n_hidden_inputs",
+      0.028855128213763237
+    ],
+    [
+      "bait_words_per_kchar",
+      0.027565715834498405
+    ],
+    [
+      "n_brands_off_domain",
+      0.025470880791544914
+    ],
+    [
+      "n_images",
+      0.02537914365530014
+    ],
+    [
+      "null_link_ratio",
+      0.02504388988018036
+    ],
+    [
+      "title_len",
+      0.02436993457376957
+    ],
+    [
+      "n_forms_external_action",
+      0.02422906830906868
+    ],
+    [
+      "n_links",
+      0.023519035428762436
+    ],
+    [
+      "n_forms",
+      0.022851061075925827
+    ],
+    [
+      "n_bait_words",
+      0.022055059671401978
+    ],
+    [
+      "n_inputs",
+      0.021891992539167404
+    ],
+    [
+      "n_forms_empty_action",
+      0.020942319184541702
+    ],
+    [
+      "external_image_ratio",
+      0.01904214732348919
+    ],
+    [
+      "blocks_right_click",
+      0.01439952477812767
+    ],
+    [
+      "has_meta_refresh",
+      0.0
+    ],
+    [
+      "injection_suspected",
+      0.0
+    ]
+  ],
+  "combine_val": {
+    "options": {
+      "url_only": {
+        "phishing_missed": 1,
+        "phishing": 603,
+        "clean_recognized": 0.36307
+      },
+      "or": null,
+      "and": {
+        "dom_threshold": 0.008768575638532639,
+        "phishing_missed": 1,
+        "phishing": 603,
+        "clean_recognized": 0.52582
+      }
+    },
+    "choice": "url_only",
+    "n_val": 1242
+  }
+}

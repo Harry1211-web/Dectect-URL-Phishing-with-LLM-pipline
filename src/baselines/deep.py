@@ -14,10 +14,8 @@ Output: reports/baselines/<model>.json
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 import time
-import zlib
 from pathlib import Path
 
 import numpy as np
@@ -27,86 +25,9 @@ from torch import nn
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import b_flags_for, evaluate_scores, load_splits, save  # noqa: E402
-from url_classifier.model import MAX_LEN, VOCAB_SIZE, encode_urls  # noqa: E402
-from url_utils import strip_scheme_www  # noqa: E402
+from url_classifier.model import DL_ARCHS, encode_urls, encode_words  # noqa: E402
 
-MODELS = ("char_cnn", "bilstm", "urlnet", "transformer")
-WORD_BUCKETS = 100_000
-MAX_WORDS = 40
-_RE_WORD_SPLIT = re.compile(r"[^a-z0-9]+")
-
-
-def encode_words(urls: list[str]) -> np.ndarray:
-    """Word-id matrix (n, MAX_WORDS): URL split on non-alphanumerics, words hashed (0 = padding)."""
-    out = np.zeros((len(urls), MAX_WORDS), dtype=np.int32)
-    for i, u in enumerate(urls):
-        words = [w for w in _RE_WORD_SPLIT.split(strip_scheme_www(u).lower()) if w][:MAX_WORDS]
-        out[i, :len(words)] = [zlib.crc32(w.encode()) % (WORD_BUCKETS - 1) + 1 for w in words]
-    return out
-
-
-class CharCnn(nn.Module):
-    def __init__(self, dim: int = 32, ch: int = 128):
-        super().__init__()
-        self.emb = nn.Embedding(VOCAB_SIZE, dim, padding_idx=0)
-        self.convs = nn.ModuleList(nn.Conv1d(dim, ch, k, padding=k // 2) for k in (3, 4, 5))
-        self.head = nn.Sequential(nn.Dropout(0.3), nn.Linear(3 * ch, 128), nn.ReLU(), nn.Linear(128, 1))
-
-    def forward(self, c, w=None):
-        h = self.emb(c).transpose(1, 2)
-        return self.head(torch.cat([torch.relu(cv(h)).max(2).values for cv in self.convs], 1)).squeeze(-1)
-
-
-class BiLstm(nn.Module):
-    def __init__(self, dim: int = 32, hidden: int = 128):
-        super().__init__()
-        self.emb = nn.Embedding(VOCAB_SIZE, dim, padding_idx=0)
-        self.lstm = nn.LSTM(dim, hidden, batch_first=True, bidirectional=True)
-        self.head = nn.Sequential(nn.Dropout(0.3), nn.Linear(4 * hidden, 1))
-
-    def forward(self, c, w=None):
-        mask = (c != 0).unsqueeze(-1).float()
-        h, _ = self.lstm(self.emb(c))
-        h_max = (h - (1 - mask) * 1e4).max(1).values
-        h_mean = (h * mask).sum(1) / mask.sum(1).clamp(min=1)
-        return self.head(torch.cat([h_max, h_mean], 1)).squeeze(-1)
-
-
-class UrlNet(nn.Module):
-    def __init__(self, dim: int = 32, ch: int = 128):
-        super().__init__()
-        self.cemb = nn.Embedding(VOCAB_SIZE, dim, padding_idx=0)
-        self.wemb = nn.Embedding(WORD_BUCKETS, dim, padding_idx=0)
-        self.cconv = nn.ModuleList(nn.Conv1d(dim, ch, k, padding=k // 2) for k in (3, 4, 5, 6))
-        self.wconv = nn.ModuleList(nn.Conv1d(dim, ch, k, padding=k // 2) for k in (1, 2, 3))
-        self.head = nn.Sequential(nn.Dropout(0.5), nn.Linear(7 * ch, 256), nn.ReLU(),
-                                  nn.Linear(256, 64), nn.ReLU(), nn.Linear(64, 1))
-
-    def forward(self, c, w):
-        hc, hw = self.cemb(c).transpose(1, 2), self.wemb(w).transpose(1, 2)
-        pc = [torch.relu(cv(hc)).max(2).values for cv in self.cconv]
-        pw = [torch.relu(cv(hw)).max(2).values for cv in self.wconv]
-        return self.head(torch.cat(pc + pw, 1)).squeeze(-1)
-
-
-class TinyTransformer(nn.Module):
-    def __init__(self, d: int = 64, heads: int = 4, layers: int = 2):
-        super().__init__()
-        self.emb = nn.Embedding(VOCAB_SIZE, d, padding_idx=0)
-        self.pos = nn.Parameter(torch.zeros(1, MAX_LEN, d))
-        enc = nn.TransformerEncoderLayer(d, heads, dim_feedforward=2 * d, dropout=0.1, batch_first=True)
-        self.enc = nn.TransformerEncoder(enc, layers)
-        self.head = nn.Linear(d, 1)
-
-    def forward(self, c, w=None):
-        pad = c == 0
-        pad[:, 0] = False  # an empty URL must still attend to something
-        h = self.enc(self.emb(c) + self.pos[:, :c.shape[1]], src_key_padding_mask=pad)
-        keep = (~pad).unsqueeze(-1).float()
-        return self.head((h * keep).sum(1) / keep.sum(1).clamp(min=1)).squeeze(-1)
-
-
-BUILDERS = {"char_cnn": CharCnn, "bilstm": BiLstm, "urlnet": UrlNet, "transformer": TinyTransformer}
+MODELS = ("char_cnn", "bilstm", "urlnet", "transformer")  # architectures: url_classifier/model.py
 
 
 def predict(model: nn.Module, c: np.ndarray, w: np.ndarray, device: str, bs: int = 1024) -> np.ndarray:
@@ -123,7 +44,7 @@ def predict(model: nn.Module, c: np.ndarray, w: np.ndarray, device: str, bs: int
 def train(name: str, data: dict, y_tr: np.ndarray, y_va: np.ndarray, device: str, epochs: int,
           seed: int = 42, bs: int = 512) -> tuple[nn.Module, list]:
     torch.manual_seed(seed)
-    model = BUILDERS[name]().to(device)
+    model = DL_ARCHS[name]().to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=2e-3 if name != "transformer" else 5e-4,
                             weight_decay=1e-4)
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([(y_tr == 0).sum() / max(1, y_tr.sum())],

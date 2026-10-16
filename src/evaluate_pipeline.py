@@ -135,9 +135,9 @@ def main() -> int:
     # Real single-URL latency (network lookups + models), LLM disabled
     sample = random.Random(0).sample(urls, 200)
     lat = {"A": [], "B": [], "C": [], "C_host_lookup": [], "total": []}
-    analyze_url(sample[0], use_llm=False)
+    analyze_url(sample[0], use_llm=False, use_vt=False)
     for u in sample:
-        r = analyze_url(u, use_llm=False)
+        r = analyze_url(u, use_llm=False, use_vt=False)
         lat["total"].append(r["latency_ms"])
         lat["A"].append(r["layers"]["A_blocklist"]["latency_ms"])
         if "B_typosquatting" in r["layers"]:

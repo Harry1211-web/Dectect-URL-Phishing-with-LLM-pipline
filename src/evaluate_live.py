@@ -1,10 +1,10 @@
 """Run the full pipeline (A -> B -> C -> D, live page fetch) on live URLs.
 
 Modes (never used for training or tuning — measurement only):
-  --vi         dataset/urls/vi/: Vietnamese phishing (Chong Lua Dao) + clean .vn domains
+  --vi         data/test_sets/vi/: Vietnamese phishing (Chong Lua Dao) + clean .vn domains
   --top-sites  fresh deep links harvested from the homepages of Tranco top domains
                (URLs already in the training data are skipped): false alarms in normal browsing
-Run:    python src/evaluate_live.py --vi --n 300        (calls the OpenAI API for Layer D)
+Run:    python src/evaluate_live.py --vi --n 300 [--model claude-haiku-5-5]   (paid LLM API)
         python src/evaluate_live.py --top-sites --n 400
 Output: reports/live/<mode>[_tag].json — verdicts, deciding layer, latency, spend
 """
@@ -26,12 +26,12 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from data_collection.crawl_clean import harvest  # noqa: E402
 from data_collection.sources import tranco_domains  # noqa: E402
-from llm.llm_client import spent_usd  # noqa: E402
+from llm.llm_client import DEFAULT_MODEL, provider_of, spent_usd  # noqa: E402
 from pipeline import analyze_url  # noqa: E402
 from url_utils import normalize_url  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-VI_DIR = ROOT / "dataset" / "urls" / "vi"
+VI_DIR = ROOT / "data" / "test_sets" / "vi"
 TRAINING = ROOT / "dataset" / "urls" / "urls_labeled.csv"
 OUT_DIR = ROOT / "reports" / "live"
 TOP_SITES = 5000
@@ -81,23 +81,28 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--tag", default="")
     ap.add_argument("--workers", type=int, default=8)
+    ap.add_argument("--model", default=DEFAULT_MODEL, help="Layer D model")
     args = ap.parse_args()
 
     jobs = vi_urls(args.n, args.seed) if args.vi else top_site_urls(args.n, args.seed)
     print(f"{len(jobs)} URLs", file=sys.stderr, flush=True)
-    spent0 = spent_usd()
+    provider = provider_of(args.model)
+    spent0 = spent_usd(provider)
 
     def run(job: tuple[str, str]) -> dict:
         url, label = job
         t0 = time.perf_counter()
         try:
-            r = analyze_url(url)
+            r = analyze_url(url, use_vt=False, llm_model=args.model)
         except Exception as e:  # one broken URL must not stop the run
             return {"url": url, "label": label, "verdict": None, "decided_by": f"error:{type(e).__name__}"}
         d = r["layers"].get("D_llm") or {}
         return {"url": url, "label": label, "verdict": r["verdict"], "decided_by": r["decided_by"],
                 "llm_verdict": d.get("verdict"), "llm_unusable": d.get("timed_out"),
                 "c_score": (r["layers"].get("C_classifier") or {}).get("score"),
+                "dom_score": (r["layers"].get("C_classifier") or {}).get("dom_score"),
+                "layer_ms": {k: v.get("latency_ms") for k, v in r["layers"].items()
+                             if isinstance(v, dict)},
                 "latency_s": round(time.perf_counter() - t0, 2)}
 
     with ThreadPoolExecutor(args.workers) as pool:
@@ -120,7 +125,8 @@ def main() -> int:
                 "latency_p95_s": lat[min(len(lat) - 1, int(len(lat) * 0.95))] if lat else None}
 
     out = {"time": datetime.now(timezone.utc).isoformat(), "mode": "vi" if args.vi else "top_sites",
-           "n_per_label": args.n, "seed": args.seed, "llm_spend_usd": round(spent_usd() - spent0, 4),
+           "n_per_label": args.n, "seed": args.seed, "model": args.model,
+           "llm_spend_usd": round(spent_usd(provider) - spent0, 4),
            **{label: summary([r for r in rows if r["label"] == label])
               for label in sorted({r["label"] for r in rows})},
            "details": rows}

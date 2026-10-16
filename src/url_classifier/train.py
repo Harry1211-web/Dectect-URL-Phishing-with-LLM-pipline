@@ -1,10 +1,12 @@
-"""Train Layer C: two cross-fitted char CNN/BiLSTM models stacked under two XGBoost branches.
+"""Train Layer C: two cross-fitted deep URL models (DL) stacked under two ML branches.
 
-Stacking: the train sites are split in two parts; CNN A learns on one, CNN B on the other, so
-every train URL gets a CNN phishing score from the CNN that never saw it (val/test URLs get the
-mean of both). That score is one feature of two XGBoost branches, which can therefore learn from
-ALL train rows instead of the 30 % part the CNN did not see:
-  lexical branch : hand-crafted URL features + cnn_score (no network needed, every train row)
+DL = one architecture of url_classifier/model.py (--dl), ML = XGBoost, LightGBM or random
+forest (--ml); the pair is chosen on validation data by src/layer_c_selection.py.
+Stacking: the train sites are split in two parts; DL model A learns on one, B on the other, so
+every train URL gets a DL phishing score from the model that never saw it (val/test URLs get the
+mean of both). That score is one feature of two ML branches, which can therefore learn from
+ALL train rows instead of the 30 % part the DL model did not see:
+  lexical branch : hand-crafted URL features + dl_score (no network needed, every train row)
   host branch    : + host features (DNS, TLS certificate, RDAP domain age, Tranco rank), trained
                    only on live hosts whose lookups are complete (dead phishing domains would be a
                    fake shortcut); used at inference when the host resolves.
@@ -15,10 +17,11 @@ Layer B flags go to Layer D anyway, so they are left out of that choice.
 The test split is used for the final metrics only.
 Host features must be collected first (collect_host_features.py); they are read from the cache.
 
-Run:    python src/url_classifier/train.py [--reuse-cnn]
+Run:    python src/url_classifier/train.py --dl <arch> --ml <xgboost|lightgbm|random_forest>
+                                         [--dl-dir models/layer_c_selection]  (reuse DL models)
         python src/url_classifier/train.py --thresholds-only   (refit the segment thresholds of
                                                                  the saved models, no training)
-Output: models/url_classifier/{cnn.pt, cnn_b.pt, xgb_lexical.json, xgb_host.json, config.json},
+Output: models/url_classifier/{dl_a.pt, dl_b.pt, ml_lexical.*, ml_host.*, config.json},
         reports/url_classifier/metrics.json
 """
 
@@ -36,6 +39,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import torch
+import joblib
+import lightgbm as lgb
 import xgboost as xgb
 from sklearn.metrics import average_precision_score, roc_auc_score
 from torch import nn
@@ -44,7 +49,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import host_features as hf  # noqa: E402
 from url_classifier.features import FEATURE_NAMES, feature_matrix  # noqa: E402
-from url_classifier.model import CharCnnLstm, encode_urls  # noqa: E402
+from url_classifier.model import DL_ARCHS, encode_inputs  # noqa: E402
 from url_utils import host_of  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -63,58 +68,113 @@ def _cnn_part(group: str) -> bool:
     return int(hashlib.md5(f"cnn:{group}".encode()).hexdigest(), 16) % 100 < 70
 
 
-def predict_logits(model: CharCnnLstm, x: np.ndarray, device: str, bs: int = 512) -> np.ndarray:
+def dl_split(tr: pd.DataFrame) -> np.ndarray:
+    """True = train row of DL model A (70 % of the sites), False = model B."""
+    return tr.group.map(_cnn_part).to_numpy()
+
+
+def predict_logits(model: torch.nn.Module, x: tuple[np.ndarray, np.ndarray], device: str,
+                   bs: int = 512) -> np.ndarray:
     model.eval()
+    c, w = x
     out = []
     with torch.no_grad():
-        for i in range(0, len(x), bs):
-            out.append(model(torch.from_numpy(x[i:i + bs]).to(device)).float().cpu().numpy())
+        for i in range(0, len(c), bs):
+            out.append(model(torch.from_numpy(c[i:i + bs]).to(device),
+                             torch.from_numpy(w[i:i + bs]).to(device)).float().cpu().numpy())
     return np.concatenate(out)
 
 
-def embeddings(model: CharCnnLstm, x: np.ndarray, device: str, bs: int = 512) -> np.ndarray:
-    model.eval()
-    out = []
-    with torch.no_grad():
-        for i in range(0, len(x), bs):
-            out.append(model.embed(torch.from_numpy(x[i:i + bs]).to(device)).float().cpu().numpy())
-    return np.concatenate(out)
+DL_PATIENCE = 3  # epochs without val ROC-AUC gain before early stopping
 
 
-def train_cnn(x_tr, y_tr, x_va, y_va, device: str, epochs: int, seed: int) -> CharCnnLstm:
+def train_dl(arch: str, x_tr: tuple, y_tr: np.ndarray, x_va: tuple, y_va: np.ndarray, device: str,
+             epochs: int, seed: int) -> tuple[torch.nn.Module, list]:
+    """One DL model: class-weighted BCE, AdamW, early stopping on val ROC-AUC -> (model, log)."""
     torch.manual_seed(seed)
-    model = CharCnnLstm().to(device)
-    opt = torch.optim.AdamW(model.parameters(), lr=2e-3, weight_decay=1e-4)
+    model = DL_ARCHS[arch]().to(device)
+    opt = torch.optim.AdamW(model.parameters(), lr=5e-4 if arch == "transformer" else 2e-3,
+                            weight_decay=1e-4)
     pos_weight = torch.tensor([(y_tr == 0).sum() / max(1, (y_tr == 1).sum())], device=device)
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-    best_auc, best_state, bad = -1.0, None, 0
+    best_auc, best_state, bad, log = -1.0, None, 0, []
     rng = np.random.default_rng(seed)
+    c_tr, w_tr = x_tr
     for ep in range(1, epochs + 1):
         model.train()
-        idx = rng.permutation(len(x_tr))
+        idx = rng.permutation(len(c_tr))
         t0, tot = time.time(), 0.0
         for i in range(0, len(idx), 512):
             b = idx[i:i + 512]
-            xb = torch.from_numpy(x_tr[b]).to(device)
             yb = torch.from_numpy(y_tr[b].astype(np.float32)).to(device)
             # Plain fp32: mixed precision (AMP) crashes the CUDA driver on the GTX 1650 used here
             opt.zero_grad()
-            loss = loss_fn(model(xb), yb)
+            loss = loss_fn(model(torch.from_numpy(c_tr[b]).to(device),
+                                 torch.from_numpy(w_tr[b]).to(device)), yb)
             loss.backward()
+            nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             opt.step()
             tot += loss.item() * len(b)
         auc = roc_auc_score(y_va, predict_logits(model, x_va, device))
-        print(f"  epoch {ep}: loss={tot / len(idx):.4f} val_auc={auc:.5f} ({time.time() - t0:.0f}s)",
-              flush=True)
+        log.append({"epoch": ep, "val_auc": round(float(auc), 5), "seconds": round(time.time() - t0)})
+        print(f"  {arch} epoch {ep}: loss={tot / len(idx):.4f} val_auc={auc:.5f} "
+              f"({time.time() - t0:.0f}s)", flush=True)
         if auc > best_auc:
             best_auc, bad = auc, 0
             best_state = {k: v.detach().clone() for k, v in model.state_dict().items()}
         else:
             bad += 1
-            if bad >= 3:
+            if bad >= DL_PATIENCE:
                 break
     model.load_state_dict(best_state)
-    return model
+    return model, log
+
+
+def dl_scores(models: list[torch.nn.Module], arch: str, urls: list[str], device: str) -> np.ndarray:
+    """Mean phishing probability of the given DL models (encoded in chunks to bound memory)."""
+    out = []
+    for i in range(0, len(urls), 50_000):
+        x = encode_inputs(arch, urls[i:i + 50_000])
+        out.append(np.mean([1 / (1 + np.exp(-predict_logits(m, x, device))) for m in models], axis=0))
+    return np.concatenate(out) if out else np.zeros(0)
+
+
+ML_MODELS = ("xgboost", "lightgbm", "random_forest")
+ML_EXT = {"xgboost": "json", "lightgbm": "txt", "random_forest": "joblib"}
+
+
+def fit_ml(name: str, xtr, ytr, xva, yva, seed: int):
+    """One ML branch; the boosted trees stop early on val ROC-AUC. Missing values stay NaN: all
+    three models handle them natively."""
+    if name == "xgboost":
+        m = xgb.XGBClassifier(n_estimators=2000, max_depth=8, learning_rate=0.05, subsample=0.9,
+                              colsample_bytree=0.8, min_child_weight=2, tree_method="hist",
+                              device="cpu",  # the installed xgboost build has no CUDA
+                              eval_metric="auc", early_stopping_rounds=80, random_state=seed)
+        m.fit(xtr, ytr, eval_set=[(xva, yva)], verbose=False)
+    elif name == "lightgbm":
+        m = lgb.LGBMClassifier(n_estimators=3000, learning_rate=0.05, num_leaves=127,
+                               subsample=0.9, subsample_freq=1, colsample_bytree=0.8,
+                               random_state=seed, verbose=-1)
+        m.fit(xtr, ytr, eval_set=[(xva, yva)], eval_metric="auc",
+              callbacks=[lgb.early_stopping(100, verbose=False)])
+    elif name == "random_forest":
+        from sklearn.ensemble import RandomForestClassifier
+        m = RandomForestClassifier(n_estimators=300, min_samples_leaf=2, n_jobs=-1,
+                                   random_state=seed)
+        m.fit(xtr, ytr)
+    else:
+        raise ValueError(name)
+    return m
+
+
+def save_ml(name: str, m, path: Path) -> None:
+    if name == "xgboost":
+        m.save_model(path)
+    elif name == "lightgbm":
+        m.booster_.save_model(str(path))
+    else:
+        joblib.dump(m, path, compress=3)
 
 
 def threshold_for_recall(y: np.ndarray, p: np.ndarray, target: float) -> float:
@@ -262,54 +322,118 @@ def thresholds_only() -> int:
     return 0
 
 
-def fit_xgb(xtr, ytr, xva, yva, seed: int) -> xgb.XGBClassifier:
-    m = xgb.XGBClassifier(n_estimators=2000, max_depth=8, learning_rate=0.05, subsample=0.9,
-                          colsample_bytree=0.8, min_child_weight=2, tree_method="hist",
-                          device="cpu",  # the installed xgboost build has no CUDA
-                          eval_metric="auc", early_stopping_rounds=80, random_state=seed)
-    m.fit(xtr, ytr, eval_set=[(xva, yva)], verbose=False)
-    return m
-
-
-def cnn_scores(models: list[CharCnnLstm], urls: list[str], device: str) -> np.ndarray:
-    """Mean phishing probability of the given CNNs (encoded in chunks to bound memory)."""
-    out = []
-    for i in range(0, len(urls), 50_000):
-        x = encode_urls(urls[i:i + 50_000])
-        out.append(np.mean([1 / (1 + np.exp(-predict_logits(m, x, device))) for m in models], axis=0))
-    return np.concatenate(out) if out else np.zeros(0)
-
-
-def build_matrices(df: pd.DataFrame, chunk: int = 20_000) -> dict:
-    """Lexical matrix (hand-crafted + cnn_score), host matrix (hand-crafted + host + cnn_score)
-    and host-data flags, computed in chunks so raw host lookups never sit in memory at once."""
-    lex, host, live, complete = [], [], [], []
+def base_matrices(df: pd.DataFrame, chunk: int = 20_000) -> dict:
+    """Hand-crafted matrix, host matrix and host-data flags (no DL score), computed in chunks so
+    raw host lookups never sit in memory at once."""
+    hand, host, live, complete = [], [], [], []
     for i in range(0, len(df), chunk):
-        part = df.iloc[i:i + chunk]
-        urls = part.url.tolist()
-        hand = feature_matrix(urls)
-        cs = part.cnn_score.to_numpy(dtype=np.float32)[:, None]
+        urls = df.url.iloc[i:i + chunk].tolist()
+        hand.append(feature_matrix(urls))
         raw = hf.raw_lookups(urls, offline=True)
         rows = [raw[host_of(u)] for u in urls]
-        hx = np.array([hf.host_feature_vector(u, r or {}) for u, r in zip(urls, rows)],
-                      dtype=np.float32)
-        lex.append(np.hstack([hand, cs]))
-        host.append(np.hstack([hand, hx, cs]))
+        host.append(np.array([hf.host_feature_vector(u, r or {}) for u, r in zip(urls, rows)],
+                             dtype=np.float32))
         live.append(np.array([hf.is_live(r) for r in rows]))
         complete.append(np.array([hf.is_complete(r) for r in rows]))
         del raw, rows
         gc.collect()
-    return {"lex": np.vstack(lex), "host": np.vstack(host), "live": np.concatenate(live),
+    return {"hand": np.vstack(hand), "hostx": np.vstack(host), "live": np.concatenate(live),
             "complete": np.concatenate(complete)}
+
+
+def with_dl_score(base: dict, dl_score: np.ndarray) -> dict:
+    """Lexical matrix (hand-crafted + dl_score) and host matrix (hand-crafted + host + dl_score)."""
+    cs = dl_score.astype(np.float32)[:, None]
+    return {"lex": np.hstack([base["hand"], cs]), "host": np.hstack([base["hand"], base["hostx"], cs]),
+            "live": base["live"], "complete": base["complete"]}
+
+
+def load_splits() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, int]:
+    """(train without noisy rows, val, test, number of dropped noisy rows); y = 1 for phishing."""
+    df = pd.read_csv(DATA_PATH)
+    df["y"] = (df["label"] == "phishing").astype(np.int64)
+    tr = df[df.split == "train"]
+    n_noisy = 0
+    if NOISY_PATH.exists():  # drop likely mislabelled rows found by clean_labels.py
+        noisy = set(pd.read_csv(NOISY_PATH).url)
+        n_noisy = int(tr.url.isin(noisy).sum())
+        tr = tr[~tr.url.isin(noisy)]
+    tr = tr.assign(dl_part=dl_split(tr)).reset_index(drop=True)
+    return (tr, df[df.split == "val"].reset_index(drop=True),
+            df[df.split == "test"].reset_index(drop=True), n_noisy)
+
+
+def cross_fit_dl(arch: str, tr: pd.DataFrame, va: pd.DataFrame, device: str, epochs: int,
+                 seed: int, dl_dir: Path | None = None, save_dir: Path | None = None
+                 ) -> tuple[list[torch.nn.Module], np.ndarray, dict]:
+    """DL models A (on dl_part) and B (on the rest); returns (models, out-of-fold train score,
+    training log). With dl_dir, saved <arch>_a.pt / <arch>_b.pt are loaded instead of trained."""
+    models, log = [], {}
+    x_va = encode_inputs(arch, va.url.tolist())
+    for i, (tag, part) in enumerate((("a", tr[tr.dl_part]), ("b", tr[~tr.dl_part]))):
+        path = (dl_dir / f"{arch}_{tag}.pt") if dl_dir else None
+        if path is not None and path.exists():
+            m = DL_ARCHS[arch]().to(device)
+            m.load_state_dict(torch.load(path, map_location=device, weights_only=True))
+            log[tag] = "loaded"
+        else:
+            print(f"Training {arch} {tag} on {len(part)} rows...", flush=True)
+            t0 = time.time()
+            m, ep = train_dl(arch, encode_inputs(arch, part.url.tolist()), part.y.to_numpy(),
+                             x_va, va.y.to_numpy(), device, epochs, seed + i)
+            log[tag] = {"epochs": ep, "seconds": round(time.time() - t0)}
+            if save_dir is not None:
+                save_dir.mkdir(parents=True, exist_ok=True)
+                torch.save(m.state_dict(), save_dir / f"{arch}_{tag}.pt")
+        models.append(m)
+    # Out-of-fold score for every train row: each row is scored by the model that never saw it
+    urls = tr.url.tolist()
+    oof = np.where(tr.dl_part, dl_scores([models[1]], arch, urls, device),
+                   dl_scores([models[0]], arch, urls, device))
+    return models, oof, log
+
+
+def fit_branches(ml: str, M: dict, y: dict, seed: int) -> dict:
+    """Lexical branch on every train row, host branch on live hosts with complete lookups (dead
+    phishing domains would be a fake shortcut, half-collected rows would leak the collection
+    order). Returns the models and the routed score of every scored split."""
+    t0 = time.time()
+    lex = fit_ml(ml, M["train"]["lex"], y["train"], M["val"]["lex"], y["val"], seed)
+    lex_secs = time.time() - t0
+    Ltr, Lv = M["train"]["live"] & M["train"]["complete"], M["val"]["live"]
+    t0 = time.time()
+    host = fit_ml(ml, M["train"]["host"][Ltr], y["train"][Ltr], M["val"]["host"][Lv],
+                  y["val"][Lv], seed)
+    out = {"lex": lex, "host": host, "train_seconds": {"lexical": round(lex_secs),
+                                                       "host": round(time.time() - t0)},
+           "p_lex": {}, "p_host": {}, "score": {}}
+    for k in M:
+        if k == "train":
+            continue
+        out["p_lex"][k] = lex.predict_proba(M[k]["lex"])[:, 1]
+        out["p_host"][k] = host.predict_proba(M[k]["host"])[:, 1]
+        out["score"][k] = np.where(M[k]["live"], out["p_host"][k], out["p_lex"][k])
+    return out
+
+
+def segments(d: pd.DataFrame, live: np.ndarray) -> np.ndarray:
+    segs = []
+    for i in range(0, len(d), 20_000):
+        part = d.url.iloc[i:i + 20_000].tolist()
+        raw = hf.raw_lookups(part, offline=True)
+        segs += [hf.segment_of(u, raw[host_of(u)], bool(h)) for u, h in zip(part, live[i:i + 20_000])]
+    return np.array(segs)
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--dl", choices=tuple(DL_ARCHS), default="cnn_bilstm")
+    ap.add_argument("--ml", choices=ML_MODELS, default="xgboost")
     ap.add_argument("--epochs", type=int, default=12)
     ap.add_argument("--seed", type=int, default=42)
-    ap.add_argument("--reuse-cnn", action="store_true",
-                    help="load models/url_classifier/cnn.pt and cnn_b.pt instead of training them")
+    ap.add_argument("--dl-dir", type=Path, default=None,
+                    help="load <arch>_a.pt / <arch>_b.pt from this folder instead of training")
     ap.add_argument("--target-recall", type=float, default=0.998,
                     help="recall on verified validation phishing used to pick the thresholds")
     ap.add_argument("--thresholds-only", action="store_true",
@@ -319,160 +443,111 @@ def main() -> int:
         return thresholds_only()
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    df = pd.read_csv(DATA_PATH)
-    df["y"] = (df["label"] == "phishing").astype(np.int64)
-    tr = df[df.split == "train"]
-    n_noisy = 0
-    if NOISY_PATH.exists():  # drop likely mislabelled rows found by clean_labels.py
-        noisy = set(pd.read_csv(NOISY_PATH).url)
-        n_noisy = int(tr.url.isin(noisy).sum())
-        tr = tr[~tr.url.isin(noisy)]
-    tr = tr.assign(cnn_part=tr.group.map(_cnn_part).to_numpy())
-    va = df[df.split == "val"].copy()
-    te = df[df.split == "test"].copy()
-    del df
-    print(f"train={len(tr)} (cnn part {int(tr.cnn_part.sum())}) val={len(va)} test={len(te)} "
-          f"device={device}", flush=True)
+    tr, va, te, n_noisy = load_splits()
+    print(f"train={len(tr)} (DL part a {int(tr.dl_part.sum())}) val={len(va)} test={len(te)} "
+          f"dl={args.dl} ml={args.ml} device={device}", flush=True)
 
-    # ---------------------------------------------------------------- cross-fitted CNNs
+    # ---------------------------------------------------------------- cross-fitted DL models
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
-    cnns = []
-    for name, part in (("cnn.pt", tr[tr.cnn_part]), ("cnn_b.pt", tr[~tr.cnn_part])):
-        m = CharCnnLstm().to(device)
-        if args.reuse_cnn and (MODEL_DIR / name).exists():
-            m.load_state_dict(torch.load(MODEL_DIR / name, map_location=device, weights_only=True))
-        else:
-            print(f"Training {name} on {len(part)} rows...", flush=True)
-            m = train_cnn(encode_urls(part.url.tolist()), part.y.to_numpy(),
-                          encode_urls(va.url.tolist()), va.y.to_numpy(), device, args.epochs,
-                          args.seed + len(cnns))
-            torch.save(m.state_dict(), MODEL_DIR / name)
-        cnns.append(m)
-    cnn_secs = time.time() - t0
-    # Out-of-fold score for every train row: each row is scored by the CNN that never saw it
-    s_a = cnn_scores([cnns[0]], tr.url.tolist(), device)
-    s_b = cnn_scores([cnns[1]], tr.url.tolist(), device)
-    tr["cnn_score"] = np.where(tr.cnn_part, s_b, s_a)
+    dls, oof, dl_log = cross_fit_dl(args.dl, tr, va, device, args.epochs, args.seed, args.dl_dir)
+    dl_secs = time.time() - t0
+    for m, name in zip(dls, ("dl_a.pt", "dl_b.pt")):
+        torch.save(m.state_dict(), MODEL_DIR / name)
+    tr["dl_score"] = oof
     for d in (va, te):
-        d["cnn_score"] = cnn_scores(cnns, d.url.tolist(), device)
-    del s_a, s_b
+        d["dl_score"] = dl_scores(dls, args.dl, d.url.tolist(), device)
     torch.cuda.empty_cache()
 
     print("Computing features...", flush=True)
-    M = {"train": build_matrices(tr), "val": build_matrices(va), "test": build_matrices(te)}
+    M = {k: with_dl_score(base_matrices(d), d.dl_score.to_numpy())
+         for k, d in (("train", tr), ("val", va), ("test", te))}
     y = {"train": tr.y.to_numpy(), "val": va.y.to_numpy(), "test": te.y.to_numpy()}
     ver = {k: ((d.y == 0) | d.source.isin(VERIFIED_SOURCES)).to_numpy()
            for k, d in (("train", tr), ("val", va), ("test", te))}
-    lex_names = FEATURE_NAMES + ["cnn_score"]
-    host_names = FEATURE_NAMES + hf.HOST_FEATURE_NAMES + ["cnn_score"]
+    lex_names = FEATURE_NAMES + ["dl_score"]
+    host_names = FEATURE_NAMES + hf.HOST_FEATURE_NAMES + ["dl_score"]
 
-    # ---------------------------------------------------------------- lexical branch (all rows)
-    print("Training XGBoost lexical branch (all train rows)...", flush=True)
-    t0 = time.time()
-    clf_lex = fit_xgb(M["train"]["lex"], y["train"], M["val"]["lex"], y["val"], args.seed)
-    xgb_secs = time.time() - t0
-    p_lex = {k: clf_lex.predict_proba(M[k]["lex"])[:, 1] for k in ("val", "test")}
-    results = {
-        "cnn_bilstm_only": evaluate("cnn_only", y["val"], va.cnn_score.to_numpy(), y["test"],
-                                    te.cnn_score.to_numpy(), ver["val"], ver["test"]),
-        "lexical_branch": evaluate("lexical", y["val"], p_lex["val"], y["test"], p_lex["test"],
-                                   ver["val"], ver["test"]),
-    }
-    thr_lex = threshold_for_recall(y["val"][ver["val"]], p_lex["val"][ver["val"]], args.target_recall)
-
-    # ---------------------------------------------------------------- host branch (live rows)
-    # Trained only on live hosts whose DNS/TLS/RDAP lookups are all done: dead phishing domains
-    # would be a fake shortcut, half-collected rows would leak the collection order
-    Ltr = M["train"]["live"] & M["train"]["complete"]
-    Lv, Lt = M["val"]["live"], M["test"]["live"]
+    print(f"Training {args.ml} branches...", flush=True)
+    B = fit_branches(args.ml, M, y, args.seed)
+    Ltr, Lv, Lt = M["train"]["live"] & M["train"]["complete"], M["val"]["live"], M["test"]["live"]
     host_data = {k: {"live": int(M[k]["live"].sum()), "live_and_complete": int(
         (M[k]["live"] & M[k]["complete"]).sum())} for k in M}
-    print(host_data, flush=True)
-
-    def live_branch(name: str, cols: np.ndarray) -> tuple[xgb.XGBClassifier, dict, np.ndarray]:
-        m = fit_xgb(M["train"]["host"][Ltr][:, cols], y["train"][Ltr],
-                    M["val"]["host"][Lv][:, cols], y["val"][Lv], args.seed)
-        pv = m.predict_proba(M["val"]["host"][Lv][:, cols])[:, 1]
-        pt = m.predict_proba(M["test"]["host"][Lt][:, cols])[:, 1]
-        return m, evaluate(name, y["val"][Lv], pv, y["test"][Lt], pt, ver["val"][Lv],
-                           ver["test"][Lt]), pv
-
-    print("Training XGBoost host branch (live train rows)...", flush=True)
-    all_cols = np.arange(len(host_names))
-    no_rank = np.array([i for i, n in enumerate(host_names) if n not in TRANCO_FEATURES])
-    clf_host, results["host_branch_live"], pv_host = live_branch("host", all_cols)
-    _, results["host_branch_live_without_tranco"], _ = live_branch("host_no_tranco", no_rank)
-    results["lexical_branch_live"] = evaluate("lexical_live", y["val"][Lv], p_lex["val"][Lv],
-                                              y["test"][Lt], p_lex["test"][Lt],
-                                              ver["val"][Lv], ver["test"][Lt])
-    thr_host = threshold_for_recall(y["val"][Lv][ver["val"][Lv]], pv_host[ver["val"][Lv]],
+    p_lex, p_host = B["p_lex"], B["p_host"]
+    results = {
+        "dl_only": evaluate("dl_only", y["val"], va.dl_score.to_numpy(), y["test"],
+                            te.dl_score.to_numpy(), ver["val"], ver["test"]),
+        "lexical_branch": evaluate("lexical", y["val"], p_lex["val"], y["test"], p_lex["test"],
+                                   ver["val"], ver["test"]),
+        "host_branch_live": evaluate("host", y["val"][Lv], p_host["val"][Lv], y["test"][Lt],
+                                     p_host["test"][Lt], ver["val"][Lv], ver["test"][Lt]),
+        "lexical_branch_live": evaluate("lexical_live", y["val"][Lv], p_lex["val"][Lv],
+                                        y["test"][Lt], p_lex["test"][Lt], ver["val"][Lv],
+                                        ver["test"][Lt]),
+    }
+    thr_lex = threshold_for_recall(y["val"][ver["val"]], p_lex["val"][ver["val"]], args.target_recall)
+    thr_host = threshold_for_recall(y["val"][Lv][ver["val"][Lv]], p_host["val"][Lv][ver["val"][Lv]],
                                     args.target_recall)
 
     # ---------------------------------------------------------------- routing + segment thresholds
-    p_host = {k: clf_host.predict_proba(M[k]["host"])[:, 1] for k in ("val", "test")}
-    score = {k: np.where(M[k]["live"], p_host[k], p_lex[k]) for k in ("val", "test")}
-    raw_seg = {}
-    for k, d in (("val", va), ("test", te)):
-        segs = []
-        for i in range(0, len(d), 20_000):
-            part = d.iloc[i:i + 20_000]
-            raw = hf.raw_lookups(part.url.tolist(), offline=True)
-            live = M[k]["live"][i:i + 20_000]
-            segs += [hf.segment_of(u, raw[host_of(u)], bool(h)) for u, h in zip(part.url, live)]
-        raw_seg[k] = np.array(segs)
-    seg_thr, seg_cost = fit_segment_thresholds(va.url.tolist(), raw_seg["val"], score["val"],
+    score = B["score"]
+    seg = {"val": segments(va, Lv), "test": segments(te, Lt)}
+    seg_thr, seg_cost = fit_segment_thresholds(va.url.tolist(), seg["val"], score["val"],
                                                y["val"], ver["val"])
     yt = y["test"]
-
-    def routed(flag: np.ndarray, mask: np.ndarray) -> dict:
-        return routed_counts(yt, flag, mask)
-
     single_t = np.where(Lt, p_host["test"] >= thr_host, p_lex["test"] >= thr_lex)
-    seg_t = score["test"] >= np.array([seg_thr.get(s, 0.0) for s in raw_seg["test"]])
+    seg_t = score["test"] >= np.array([seg_thr.get(s, 0.0) for s in seg["test"]])
     every = np.ones(len(te), bool)
     routed_report = {
-        "single_threshold": {"all": routed(single_t, every), "verified": routed(single_t, ver["test"])},
-        "segment_thresholds": {"all": routed(seg_t, every), "verified": routed(seg_t, ver["test"]),
-                               "by_segment": {s: routed(seg_t, raw_seg["test"] == s)
-                                              for s in sorted(set(raw_seg["test"]))}},
+        "single_threshold": {"all": routed_counts(yt, single_t, every),
+                             "verified": routed_counts(yt, single_t, ver["test"])},
+        "segment_thresholds": {"all": routed_counts(yt, seg_t, every),
+                               "verified": routed_counts(yt, seg_t, ver["test"]),
+                               "by_segment": {s: routed_counts(yt, seg_t, seg["test"] == s)
+                                              for s in sorted(set(seg["test"]))}},
     }
     print("single:", json.dumps(routed_report["single_threshold"]["all"]),
           "| segments:", json.dumps(routed_report["segment_thresholds"]["all"]), flush=True)
 
     # ---------------------------------------------------------------- save
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    clf_lex.save_model(MODEL_DIR / "xgb_lexical.json")
-    clf_host.save_model(MODEL_DIR / "xgb_host.json")
+    ext = ML_EXT[args.ml]
+    save_ml(args.ml, B["lex"], MODEL_DIR / f"ml_lexical.{ext}")
+    save_ml(args.ml, B["host"], MODEL_DIR / f"ml_host.{ext}")
+    for old in ("cnn.pt", "cnn_b.pt", "xgb_lexical.json", "xgb_host.json", "xgb.json",
+                "cnn_b_experiment.pt", *(f"ml_{b}.{e}" for b in ("lexical", "host")
+                                         for e in ML_EXT.values() if e != ext)):
+        (MODEL_DIR / old).unlink(missing_ok=True)
     config = {
         "trained_at": datetime.now(timezone.utc).isoformat(),
-        "architecture": "stacking: 2 cross-fitted CNN/BiLSTM (cnn.pt, cnn_b.pt) -> cnn_score "
-                        "feature of the XGBoost lexical and host branches",
+        "dl_arch": args.dl, "ml": args.ml,
+        "architecture": f"stacking: 2 cross-fitted {args.dl} models (dl_a.pt, dl_b.pt) -> dl_score "
+                        f"feature of the {args.ml} lexical and host branches",
         "target_recall_on_verified_val": args.target_recall,
         "threshold_lexical": thr_lex, "threshold_host": thr_host,
         "thresholds_by_val_recall": {
             "lexical": {str(t): threshold_for_recall(y["val"][ver["val"]], p_lex["val"][ver["val"]], t)
                         for t in RECALL_TARGETS},
             "host": {str(t): threshold_for_recall(y["val"][Lv][ver["val"][Lv]],
-                                                  pv_host[ver["val"][Lv]], t) for t in RECALL_TARGETS}},
+                                                  p_host["val"][Lv][ver["val"][Lv]], t)
+                     for t in RECALL_TARGETS}},
         "segment_thresholds": seg_thr, "segment_miss_cost_val": seg_cost,
         "segment_min_clean_recognized_val": MIN_CLEAN_RECOGNIZED,
         "lexical_feature_names": lex_names, "host_feature_names": host_names,
     }
     (MODEL_DIR / "config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
-    (MODEL_DIR / "xgb.json").unlink(missing_ok=True)
-    (MODEL_DIR / "cnn_b_experiment.pt").unlink(missing_ok=True)
-    imp = sorted(zip(host_names, clf_host.feature_importances_.tolist()), key=lambda x: -x[1])
-    te = te.assign(score=score["test"], flagged=seg_t, segment=raw_seg["test"])
+    imp = getattr(B["host"], "feature_importances_", None)
+    te = te.assign(score=score["test"], flagged=seg_t, segment=seg["test"])
     report = {
         **{k: v for k, v in config.items() if not k.endswith("feature_names")},
         "data": {"train": len(tr), "val": len(va), "test": len(te), "dropped_noisy": n_noisy,
                  "host_branch_train_rows": int(Ltr.sum()), "host_data": host_data},
-        "train_seconds": {"cnn": round(cnn_secs), "xgb_lexical": round(xgb_secs)},
+        "train_seconds": {"dl": round(dl_secs), **B["train_seconds"]}, "dl_training": dl_log,
         "results": results, "routed_system_test": routed_report,
         "test_missed_phishing_examples": te[(yt == 1) & ~seg_t].sort_values("score").head(30)[
             ["url", "source", "segment", "score"]].to_dict("records"),
-        "top_features_host_branch": imp[:30],
+        "top_features_host_branch": (sorted(zip(host_names, np.asarray(imp, float).tolist()),
+                                            key=lambda x: -x[1])[:30] if imp is not None else []),
     }
     (REPORT_DIR / "metrics.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     return 0

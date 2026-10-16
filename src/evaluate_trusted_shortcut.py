@@ -39,7 +39,7 @@ def load_sets() -> pd.DataFrame:
             pd.read_csv(ROOT / "dataset" / "external" / "phreshphish_urls.csv")
             .assign(set="phreshphish")[["url", "label", "set"]]]
     for lab in ("phishing", "clean"):
-        v = pd.read_csv(ROOT / "dataset" / "urls" / "vi" / f"{lab}.csv", usecols=["url"])
+        v = pd.read_csv(ROOT / "data" / "test_sets" / "vi" / f"{lab}.csv", usecols=["url"])
         sets.append(v.assign(label=lab, set="vi"))
     return pd.concat(sets, ignore_index=True)
 

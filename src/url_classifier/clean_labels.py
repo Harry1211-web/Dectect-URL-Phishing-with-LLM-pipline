@@ -24,8 +24,8 @@ import pandas as pd
 import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from url_classifier.model import encode_urls  # noqa: E402
-from url_classifier.train import DATA_PATH, predict_logits, train_cnn  # noqa: E402
+from url_classifier.model import encode_inputs  # noqa: E402
+from url_classifier.train import DATA_PATH, predict_logits, train_dl  # noqa: E402
 
 OUT_PATH = DATA_PATH.parent / "noisy_labels.csv"
 # Human-verified feeds are trusted as-is; only aggregated/academic sources are filtered
@@ -41,15 +41,15 @@ def main() -> int:
     tr["y"] = (tr.label == "phishing").astype(np.int64)
     half = tr.group.map(lambda g: int(hashlib.md5(f"oof:{g}".encode()).hexdigest(), 16) % 2)
     va = df[df.split == "val"]
-    x_va, y_va = encode_urls(va.url.tolist()), (va.label == "phishing").to_numpy().astype(np.int64)
+    x_va, y_va = encode_inputs("cnn_bilstm", va.url.tolist()), (va.label == "phishing").to_numpy().astype(np.int64)
 
     tr["oof_score"] = np.nan
     for k in (0, 1):
         fit, held = tr[half != k], tr[half == k]
         print(f"fold {k}: train {len(fit)}, score {len(held)}", flush=True)
-        model = train_cnn(encode_urls(fit.url.tolist()), fit.y.to_numpy(), x_va, y_va, device,
-                          epochs=5, seed=k)
-        logits = predict_logits(model, encode_urls(held.url.tolist()), device)
+        model, _ = train_dl("cnn_bilstm", encode_inputs("cnn_bilstm", fit.url.tolist()),
+                            fit.y.to_numpy(), x_va, y_va, device, epochs=5, seed=k)
+        logits = predict_logits(model, encode_inputs("cnn_bilstm", held.url.tolist()), device)
         tr.loc[held.index, "oof_score"] = 1 / (1 + np.exp(-logits))
 
     unverified = tr.source.isin(UNVERIFIED_SOURCES)
