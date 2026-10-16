@@ -46,3 +46,12 @@ def test_path_tenant_skips_short_container_segment():
     assert _path_tenant("flowcode.com/p/abc?x=1") == "/p/abc"
     assert _path_tenant("linkpop.com/maily") == "/maily"
     assert _path_tenant("example.com/") == "/"
+
+
+def test_virustotal_verdict_rule():
+    from blocklist.virustotal import url_id, verdict_of
+    found = lambda m, s=0: {"status": "found", "stats": {"malicious": m, "suspicious": s}}
+    assert verdict_of(found(2)) == "phishing" and verdict_of(found(0)) == "clean"
+    assert verdict_of(found(1)) == "unsure" and verdict_of(found(0, 1)) == "unsure"
+    assert verdict_of({"status": "not_found", "stats": None}) == "unsure"
+    assert "=" not in url_id("http://a.com/") and "/" not in url_id("http://a.com/?x=~~~")

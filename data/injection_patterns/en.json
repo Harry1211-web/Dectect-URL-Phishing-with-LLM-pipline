@@ -1,4 +1,5 @@
 {
+  "language_name": "English",
   "fake_instruction": [
     "(?:ignore|disregard|forget|override|bypass|skip)\\s+(?:all\\s+|any\\s+|the\\s+|your\\s+)*(?:previous\\s+|prior\\s+|above\\s+|earlier\\s+|preceding\\s+|existing\\s+|system\\s+)*(?:instructions?|prompts?|rules|directions|guidelines|directives)",
     "ignore\\s*(?:all|previous|the\\s*above)\\s*instructions?",
@@ -84,5 +85,55 @@
     "cisa",
     "europol",
     "interpol"
+  ],
+  "verdict_phishing_words": [
+    "phishing",
+    "dangerous",
+    "scam",
+    "fraud",
+    "impersonat",
+    "suspicious",
+    "malicious"
+  ],
+  "verdict_safe_words": [
+    "\\bsafe\\b",
+    "legitimate",
+    "no signs?\\b",
+    "trustworthy",
+    "benign"
+  ],
+  "negations": [
+    "not ",
+    "no ",
+    "n't ",
+    "never ",
+    "without "
+  ],
+  "authority_domains": [
+    "gov",
+    "gov.uk",
+    "gc.ca",
+    "gov.au",
+    "gov.sg",
+    "europa.eu",
+    "europol.europa.eu",
+    "interpol.int"
+  ],
+  "bait_words": [
+    "verify your (?:account|identity)",
+    "account (?:has been |is )?(?:suspended|locked|limited|disabled)",
+    "confirm your (?:identity|account|details)",
+    "unusual (?:activity|sign-?in)",
+    "update your (?:payment|billing|account)",
+    "(?:seed|recovery|secret) phrase",
+    "one-time (?:password|code)",
+    "claim your (?:reward|prize|gift)",
+    "congratulations",
+    "your account will be",
+    "sign in to continue",
+    "enter your (?:password|card)",
+    "card number",
+    "security (?:alert|notice)",
+    "within 24 hours"
   ]
 }

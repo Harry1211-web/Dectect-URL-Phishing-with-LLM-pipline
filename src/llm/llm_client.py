@@ -35,7 +35,7 @@ for _p in (str(_SRC_DIR), str(_SRC_DIR / "llm")):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from html_sanitize import is_fake_instruction, sanitize_html  # noqa: E402
+from html_sanitize import PATTERNS, is_fake_instruction, sanitize_html  # noqa: E402
 from typosquatting.brands import (  # noqa: E402
     INTL_CATEGORY, all_official_domains, load_all_brands, normalize_domain,
 )
@@ -182,9 +182,15 @@ ANSWER_VERDICT_ONLY = "Answer with one line only: VERDICT: <phishing, suspicious
 ANSWER_WITH_EXPLANATION = (
     "Answer with exactly two lines:\n"
     "VERDICT: <phishing, suspicious or safe>\n"
-    "EXPLANATION: <1-2 short sentences in the language of the page (Vietnamese for a Vietnamese "
-    "page, otherwise English)>\n"
+    "EXPLANATION: <1-2 short sentences in {language}>\n"
 )
+# Explanation language: chosen by the user (ISO code of a data/injection_patterns/ file);
+# the prompt itself stays English and the VERDICT keyword stays English
+DEFAULT_LANG = "vi"
+
+
+def language_name(lang: str) -> str:
+    return PATTERNS.language_names.get(lang, "English")
 
 # Static instructions first, page data last (a fixed prefix can be cached by the provider).
 # Pages only reach this layer after earlier checks found the URL suspicious, so the model must
@@ -297,8 +303,8 @@ def _pinned_get(url: str, ip: str) -> urllib3.BaseHTTPResponse:
     return pool.urlopen("GET", path, headers=headers, redirect=False, preload_content=False)
 
 
-def fetch(url: str) -> tuple[str, str, bool, str]:
-    """Download and sanitize a page -> (title, short_text, injection_suspected, final_url).
+def fetch_html(url: str) -> tuple[str, str]:
+    """Download a page -> (raw HTML, final_url); HTML is "" when the page cannot be read.
 
     `final_url` is the URL after redirects: the content comes from there, so the technical
     rules must check it too (defeats shortener / open-redirect evasion). Redirects are followed
@@ -310,27 +316,38 @@ def fetch(url: str) -> tuple[str, str, bool, str]:
         for _ in range(MAX_REDIRECTS + 1):
             ip = _public_address(current)
             if ip is None:
-                return "", "", False, current
+                return "", current
             r = _pinned_get(current, ip)
             try:
                 if r.status in (301, 302, 303, 307, 308):
                     location = r.headers.get("location", "")
                     if not location:
-                        return "", "", False, current
+                        return "", current
                     current = urljoin(current, location)
                     continue
                 if r.status != 200:
-                    return "", "", False, current
+                    return "", current
                 body = r.read(MAX_PAGE_BYTES, decode_content=True)
             finally:
                 r.release_conn()
-            html = decode_html(body, r.headers.get("content-type", ""))
-            clean = sanitize_html(html, url=current)
-            return (clean["title"], clean["text"][:MAX_CONTENT_CHARS],
-                    clean["prompt_injection_suspected"], current)
-        return "", "", False, current  # too many redirects
+            return decode_html(body, r.headers.get("content-type", "")), current
+        return "", current  # too many redirects
     except (urllib3.exceptions.HTTPError, OSError, ValueError):
-        return "", "", False, current
+        return "", current
+
+
+def page_from_html(html: str, final_url: str) -> tuple[str, str, bool, str]:
+    """Sanitized page as Layer D reads it -> (title, short_text, injection_suspected, final_url)."""
+    if not html:
+        return "", "", False, final_url
+    clean = sanitize_html(html, url=final_url)
+    return (clean["title"], clean["text"][:MAX_CONTENT_CHARS],
+            clean["prompt_injection_suspected"], final_url)
+
+
+def fetch(url: str) -> tuple[str, str, bool, str]:
+    """Download and sanitize a page -> (title, short_text, injection_suspected, final_url)."""
+    return page_from_html(*fetch_html(url))
 
 
 def _urls_to_check(url: str, final_url: str | None) -> list[str]:
@@ -356,14 +373,11 @@ def check_typosquatting_with_redirect(url: str, final_url: str | None = None) ->
     return next((r for r in results if r["flag"] is True), results[-1])
 
 
-# Fallback keywords when the VERDICT line is missing: English + Vietnamese, because the
-# explanation follows the language of the page
-_RE_PHISHING_WORDS = re.compile(r"phishing|dangerous|scam|fraud|impersonat|suspicious|malicious|"
-                                r"nguy hiểm|lừa đảo|giả mạo|đáng ngờ", re.I)
-_RE_SAFE_WORDS = re.compile(r"\bsafe\b|legitimate|no signs?\b|trustworthy|benign|"
-                            r"an toàn|hợp pháp|không có dấu hiệu|đáng tin", re.I)
-_NEGATIONS = ("not ", "no ", "n't ", "never ", "without ",
-              "không", "chẳng", "chưa", "chả", "đâu có")
+# Fallback keywords when the VERDICT line is missing, every language (data/injection_patterns/),
+# because the explanation follows the language chosen by the user
+_RE_PHISHING_WORDS = PATTERNS.regex("verdict_phishing_words")
+_RE_SAFE_WORDS = PATTERNS.regex("verdict_safe_words")
+_NEGATIONS = tuple(PATTERNS["negations"])
 _CLAUSE_BOUNDARIES = (",", ".", ";", "\n")
 
 
@@ -522,7 +536,7 @@ _RE_FRAME_MARKER = re.compile(rf"(?i:{_LT}\s*{_LT}\s*{_LT}\s*PAGE)|PAGE(?:\s*-\s
 
 def build_prompt(url: str, title: str, content: str, injection_suspected: bool,
                  typosquatting: str | bool = "unknown", final_url: str | None = None,
-                 explain: bool = False) -> str:
+                 explain: bool = False, lang: str = DEFAULT_LANG) -> str:
     # A page that writes the frame markers itself could "close" the data block early and put
     # instructions outside it: the markers are removed from page text and counted as injection
     page_text = f"{title}\n{content}"
@@ -530,7 +544,8 @@ def build_prompt(url: str, title: str, content: str, injection_suspected: bool,
                    or _RE_FRAME_MARKER.search(unicodedata.normalize("NFKC", page_text)))
     title, content = (_RE_FRAME_MARKER.sub(" ", t or "") for t in (title, content))
     return PROMPT_TEMPLATE.format(
-        answer_format=ANSWER_WITH_EXPLANATION if explain else ANSWER_VERDICT_ONLY,
+        answer_format=(ANSWER_WITH_EXPLANATION.format(language=language_name(lang)) if explain
+                       else ANSWER_VERDICT_ONLY),
         url=display_url(url, final_url), title=title or "(title could not be read)",
         content=content or "(content could not be read)",
         injection_warning=(WARNING_INJECTION_DETECTED
@@ -550,20 +565,23 @@ def _unusable(reason: str) -> dict:
 def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
                        page: tuple | None = None, model: str = DEFAULT_MODEL,
                        timeout_s: float = DEFAULT_LLM_TIMEOUT_S,
-                       temperature: float | None = None, explain: bool = False) -> dict:
+                       temperature: float | None = None, explain: bool = False,
+                       lang: str = DEFAULT_LANG, cache: bool | None = None) -> dict:
     """Layer D entry point -> {'verdict', 'explanation', 'timed_out'}.
 
     `page` (optional, already fetched): (title, content, injection_suspected[, final_url]).
     `explain`: also ask the model for a short explanation (more output tokens);
     by default only the verdict is requested and 'explanation' is empty.
-    Live calls (no `page` given) reuse a verdict cached for the same URL (VERDICT_CACHE_TTL_S);
-    failed calls are never cached.
+    `lang`: language of the explanation (user setting, default Vietnamese).
+    Live calls (no `page` given, or cache=True) reuse a verdict cached for the same URL
+    (VERDICT_CACHE_TTL_S); failed calls are never cached.
     """
-    live = page is None
+    live = page is None if cache is None else cache
     if live:
-        hit = cached_verdict(url, model, explain)
+        hit = cached_verdict(url, model, explain, lang)
         if hit:
             return hit
+    if page is None:
         page = fetch(url)
     title, content, injection = page[:3]
     final_url = page[3] if len(page) > 3 else None
@@ -577,7 +595,7 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
                          "unknown")
 
     prompt = build_prompt(url, title, content, injection, typosquatting=typo_flag,
-                          final_url=final_url, explain=explain)
+                          final_url=final_url, explain=explain, lang=lang)
     res = call_llm(prompt, model, temperature, timeout_s=timeout_s)
     if "error" in res:
         return _unusable(f"LLM call failed ({res['error']}).")
@@ -587,7 +605,7 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
            "explanation": (res.get("explanation") or "") if explain else "",
            "timed_out": False}
     if live:
-        store_verdict(url, out, model, explain)
+        store_verdict(url, out, model, explain, lang)
     return out
 
 
@@ -597,8 +615,9 @@ VERDICT_CACHE_PATH = _SRC_DIR.parent / "data" / "llm_verdict_cache.sqlite"
 VERDICT_CACHE_TTL_S = 6 * 3600
 
 
-def _cache_key(url: str, model: str, explain: bool) -> str:
-    return f"{model}|{int(explain)}|{normalize_url(url)}"
+def _cache_key(url: str, model: str, explain: bool, lang: str = DEFAULT_LANG) -> str:
+    # The explanation language only matters when an explanation is stored
+    return f"{model}|{int(explain)}{'|' + lang if explain else ''}|{normalize_url(url)}"
 
 
 def _cache_db() -> sqlite3.Connection:
@@ -609,12 +628,13 @@ def _cache_db() -> sqlite3.Connection:
     return con
 
 
-def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False) -> dict | None:
+def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False,
+                   lang: str = DEFAULT_LANG) -> dict | None:
     """Stored Layer D result younger than VERDICT_CACHE_TTL_S, else None (cache errors -> None)."""
     try:
         with _cache_db() as con:
             row = con.execute("SELECT verdict, explanation, saved_at FROM verdicts WHERE key = ?",
-                              (_cache_key(url, model, explain),)).fetchone()
+                              (_cache_key(url, model, explain, lang),)).fetchone()
     except sqlite3.Error:
         return None
     if row is None or time.time() - row[2] > VERDICT_CACHE_TTL_S:
@@ -622,11 +642,12 @@ def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False) 
     return {"verdict": row[0], "explanation": row[1], "timed_out": False, "cached": True}
 
 
-def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: bool = False) -> None:
+def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: bool = False,
+                  lang: str = DEFAULT_LANG) -> None:
     try:
         with _cache_db() as con:
             con.execute("INSERT OR REPLACE INTO verdicts VALUES (?, ?, ?, ?)",
-                        (_cache_key(url, model, explain), result["verdict"],
+                        (_cache_key(url, model, explain, lang), result["verdict"],
                          result["explanation"], time.time()))
     except sqlite3.Error:
         pass  # the cache only saves time; Layer D works without it

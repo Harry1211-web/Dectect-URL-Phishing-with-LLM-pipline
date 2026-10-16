@@ -1,4 +1,5 @@
 {
+  "language_name": "Portuguese",
   "fake_instruction": [
     "(?:ignore|esqueça|esqueca)\\w*\\s+(?:todas\\s+)?(?:as|os)\\s+(?:instruções|instrucoes)",
     "(?:página|pagina|site)\\s+(?:\\w+\\s+){0,3}verificad[ao]\\s+(?:\\w+\\s+){0,2}segur[ao]",
@@ -10,5 +11,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "gov.br"
+  ]
 }

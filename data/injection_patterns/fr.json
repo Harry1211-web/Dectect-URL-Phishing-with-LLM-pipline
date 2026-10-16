@@ -1,4 +1,5 @@
 {
+  "language_name": "French",
   "fake_instruction": [
     "(?:ignore|oublie)[rz]?\\s+(?:toutes\\s+)?les\\s+(?:instructions|consignes|directives)",
     "(?:page|site)\\s+(?:\\w+\\s+){0,3}vérifiée?\\s+(?:\\w+\\s+){0,2}sûre?",
@@ -13,5 +14,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "gouv.fr"
+  ]
 }

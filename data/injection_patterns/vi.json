@@ -1,4 +1,5 @@
 {
+  "language_name": "Vietnamese",
   "fake_instruction": [
     "bỏ qua (?:mọi|các|hết)?\\s*(?:hướng dẫn|chỉ thị)",
     "đã được xác minh an toàn",
@@ -36,5 +37,45 @@
     "ngân hàng nhà nước",
     "sbv",
     "bộ thông tin"
+  ],
+  "verdict_phishing_words": [
+    "nguy hiểm",
+    "lừa đảo",
+    "giả mạo",
+    "đáng ngờ"
+  ],
+  "verdict_safe_words": [
+    "an toàn",
+    "hợp pháp",
+    "không có dấu hiệu",
+    "đáng tin"
+  ],
+  "negations": [
+    "không",
+    "chẳng",
+    "chưa",
+    "chả",
+    "đâu có"
+  ],
+  "authority_domains": [
+    "gov.vn",
+    "chongluadao.vn"
+  ],
+  "bait_words": [
+    "xác (?:minh|thực) tài khoản",
+    "tài khoản (?:của quý khách |của bạn )?(?:đã )?bị (?:khóa|tạm khóa|đình chỉ)",
+    "mã otp",
+    "(?:nhận|trúng) thưởng",
+    "cập nhật thông tin",
+    "đăng nhập để",
+    "hoàn tiền",
+    "khóa vĩnh viễn",
+    "chuẩn hóa thông tin",
+    "mật khẩu",
+    "số thẻ",
+    "cccd",
+    "quá hạn",
+    "trong vòng \\d+ (?:phút|giờ)",
+    "giao dịch bất thường"
   ]
 }

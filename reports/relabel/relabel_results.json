@@ -1,0 +1,410 @@
+{
+  "n_rows": 300,
+  "n_labelled": 149,
+  "dataset_label_wrong": {
+    "k": 7,
+    "n": 149,
+    "rate": 0.047,
+    "ci95": [
+      0.0229,
+      0.0938
+    ],
+    "by_source": {
+      "phreshphish_dev": 0.0667,
+      "phreshphish_test": 0.0678,
+      "vi_live": 0.0167
+    }
+  },
+  "all": {
+    "D_gpt": {
+      "phishing_passed": {
+        "k": 33,
+        "n": 79,
+        "rate": 0.4177,
+        "ci95": [
+          0.3153,
+          0.5278
+        ],
+        "weighted_rate": 0.0882
+      },
+      "clean_blocked": {
+        "k": 9,
+        "n": 48,
+        "rate": 0.1875,
+        "ci95": [
+          0.1019,
+          0.3194
+        ],
+        "weighted_rate": 0.0749
+      },
+      "clean_warned": {
+        "k": 1,
+        "n": 48,
+        "rate": 0.0208,
+        "ci95": [
+          0.0037,
+          0.109
+        ],
+        "weighted_rate": 0.0071
+      }
+    },
+    "D_gpt_with_C_override": {
+      "phishing_passed": {
+        "k": 11,
+        "n": 54,
+        "rate": 0.2037,
+        "ci95": [
+          0.1177,
+          0.329
+        ],
+        "weighted_rate": 0.0625
+      },
+      "clean_blocked": {
+        "k": 4,
+        "n": 35,
+        "rate": 0.1143,
+        "ci95": [
+          0.0454,
+          0.2595
+        ],
+        "weighted_rate": 0.0817
+      },
+      "clean_warned": {
+        "k": 2,
+        "n": 35,
+        "rate": 0.0571,
+        "ci95": [
+          0.0158,
+          0.1861
+        ],
+        "weighted_rate": 0.0173
+      }
+    },
+    "D_haiku": {
+      "phishing_passed": {
+        "k": 11,
+        "n": 54,
+        "rate": 0.2037,
+        "ci95": [
+          0.1177,
+          0.329
+        ],
+        "weighted_rate": 0.0599
+      },
+      "clean_blocked": {
+        "k": 9,
+        "n": 35,
+        "rate": 0.2571,
+        "ci95": [
+          0.1416,
+          0.4207
+        ],
+        "weighted_rate": 0.1214
+      },
+      "clean_warned": {
+        "k": 3,
+        "n": 35,
+        "rate": 0.0857,
+        "ci95": [
+          0.0296,
+          0.2238
+        ],
+        "weighted_rate": 0.026
+      }
+    },
+    "pipeline_verdict": {
+      "phishing_passed": {
+        "k": 22,
+        "n": 35,
+        "rate": 0.6286,
+        "ci95": [
+          0.4634,
+          0.7683
+        ],
+        "weighted_rate": 0.1101
+      },
+      "clean_blocked": {
+        "k": 5,
+        "n": 25,
+        "rate": 0.2,
+        "ci95": [
+          0.0886,
+          0.3913
+        ],
+        "weighted_rate": 0.0188
+      },
+      "clean_warned": {
+        "k": 2,
+        "n": 25,
+        "rate": 0.08,
+        "ci95": [
+          0.0222,
+          0.2497
+        ],
+        "weighted_rate": 0.1029
+      }
+    }
+  },
+  "phreshphish_dev": {
+    "D_gpt": {
+      "phishing_passed": {
+        "k": 2,
+        "n": 20,
+        "rate": 0.1,
+        "ci95": [
+          0.0279,
+          0.301
+        ],
+        "weighted_rate": 0.0322
+      },
+      "clean_blocked": {
+        "k": 0,
+        "n": 10,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2775
+        ],
+        "weighted_rate": 0.0
+      },
+      "clean_warned": {
+        "k": 0,
+        "n": 10,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2775
+        ],
+        "weighted_rate": 0.0
+      }
+    },
+    "D_gpt_with_C_override": {
+      "phishing_passed": {
+        "k": 2,
+        "n": 20,
+        "rate": 0.1,
+        "ci95": [
+          0.0279,
+          0.301
+        ],
+        "weighted_rate": 0.0322
+      },
+      "clean_blocked": {
+        "k": 0,
+        "n": 10,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2775
+        ],
+        "weighted_rate": 0.0
+      },
+      "clean_warned": {
+        "k": 0,
+        "n": 10,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2775
+        ],
+        "weighted_rate": 0.0
+      }
+    },
+    "D_haiku": {
+      "phishing_passed": {
+        "k": 3,
+        "n": 20,
+        "rate": 0.15,
+        "ci95": [
+          0.0524,
+          0.3604
+        ],
+        "weighted_rate": 0.0483
+      },
+      "clean_blocked": {
+        "k": 1,
+        "n": 10,
+        "rate": 0.1,
+        "ci95": [
+          0.0179,
+          0.4042
+        ],
+        "weighted_rate": 0.0294
+      },
+      "clean_warned": {
+        "k": 0,
+        "n": 10,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2775
+        ],
+        "weighted_rate": 0.0
+      }
+    }
+  },
+  "phreshphish_test": {
+    "D_gpt": {
+      "phishing_passed": {
+        "k": 10,
+        "n": 34,
+        "rate": 0.2941,
+        "ci95": [
+          0.1683,
+          0.4617
+        ],
+        "weighted_rate": 0.079
+      },
+      "clean_blocked": {
+        "k": 4,
+        "n": 25,
+        "rate": 0.16,
+        "ci95": [
+          0.064,
+          0.3465
+        ],
+        "weighted_rate": 0.0986
+      },
+      "clean_warned": {
+        "k": 1,
+        "n": 25,
+        "rate": 0.04,
+        "ci95": [
+          0.0071,
+          0.1954
+        ],
+        "weighted_rate": 0.0104
+      }
+    },
+    "D_gpt_with_C_override": {
+      "phishing_passed": {
+        "k": 9,
+        "n": 34,
+        "rate": 0.2647,
+        "ci95": [
+          0.146,
+          0.4312
+        ],
+        "weighted_rate": 0.0711
+      },
+      "clean_blocked": {
+        "k": 4,
+        "n": 25,
+        "rate": 0.16,
+        "ci95": [
+          0.064,
+          0.3465
+        ],
+        "weighted_rate": 0.0986
+      },
+      "clean_warned": {
+        "k": 2,
+        "n": 25,
+        "rate": 0.08,
+        "ci95": [
+          0.0222,
+          0.2497
+        ],
+        "weighted_rate": 0.0209
+      }
+    },
+    "D_haiku": {
+      "phishing_passed": {
+        "k": 8,
+        "n": 34,
+        "rate": 0.2353,
+        "ci95": [
+          0.1244,
+          0.4
+        ],
+        "weighted_rate": 0.0632
+      },
+      "clean_blocked": {
+        "k": 8,
+        "n": 25,
+        "rate": 0.32,
+        "ci95": [
+          0.172,
+          0.5159
+        ],
+        "weighted_rate": 0.1403
+      },
+      "clean_warned": {
+        "k": 3,
+        "n": 25,
+        "rate": 0.12,
+        "ci95": [
+          0.0417,
+          0.2996
+        ],
+        "weighted_rate": 0.0313
+      }
+    }
+  },
+  "vi_live": {
+    "D_gpt": {
+      "phishing_passed": {
+        "k": 21,
+        "n": 25,
+        "rate": 0.84,
+        "ci95": [
+          0.6535,
+          0.936
+        ],
+        "weighted_rate": 0.2773
+      },
+      "clean_blocked": {
+        "k": 5,
+        "n": 13,
+        "rate": 0.3846,
+        "ci95": [
+          0.1771,
+          0.6448
+        ],
+        "weighted_rate": 0.0437
+      },
+      "clean_warned": {
+        "k": 0,
+        "n": 13,
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.2281
+        ],
+        "weighted_rate": 0.0
+      }
+    },
+    "pipeline_verdict": {
+      "phishing_passed": {
+        "k": 22,
+        "n": 35,
+        "rate": 0.6286,
+        "ci95": [
+          0.4634,
+          0.7683
+        ],
+        "weighted_rate": 0.1101
+      },
+      "clean_blocked": {
+        "k": 5,
+        "n": 25,
+        "rate": 0.2,
+        "ci95": [
+          0.0886,
+          0.3913
+        ],
+        "weighted_rate": 0.0188
+      },
+      "clean_warned": {
+        "k": 2,
+        "n": 25,
+        "rate": 0.08,
+        "ci95": [
+          0.0222,
+          0.2497
+        ],
+        "weighted_rate": 0.1029
+      }
+    }
+  }
+}

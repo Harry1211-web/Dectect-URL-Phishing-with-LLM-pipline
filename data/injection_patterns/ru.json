@@ -1,4 +1,5 @@
 {
+  "language_name": "Russian",
   "fake_instruction": [
     "(?:игнорир|забудь|забуд|проигнорир|ігнор)\\w*\\s+(?:все\\s+|всі\\s+)?(?:предыдущие\\s+|попередні\\s+)?(?:инструкции|указания|інструкції)",
     "(?:проверен|подтвержд)\\w*.{0,20}безопас",
@@ -10,5 +11,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "gov.ru"
+  ]
 }

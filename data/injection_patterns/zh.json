@@ -1,4 +1,5 @@
 {
+  "language_name": "Chinese",
   "fake_instruction": [
     "(?:忽略|无视|無視|忘记|忘記)(?:之前|以上|先前|前面|上述)?(?:的)?(?:所有)?(?:指令|指示|说明|說明|提示)",
     "(?:已验证|已驗證|经过验证|經過驗證).{0,6}(?:安全|合法)",
@@ -10,5 +11,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "gov.cn"
+  ]
 }

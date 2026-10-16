@@ -1,4 +1,5 @@
 {
+  "language_name": "Japanese",
   "fake_instruction": [
     "(?:以前|前|上記|これまで)の指示を無視|指示を無視",
     "安全性が確認",
@@ -10,5 +11,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "go.jp"
+  ]
 }

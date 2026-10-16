@@ -1,4 +1,5 @@
 {
+  "language_name": "German",
   "fake_instruction": [
     "(?:ignorier|vergiss|vergessen)\\w*\\s+(?:sie\\s+)?(?:alle\\s+)?(?:vorherigen\\s+|bisherigen\\s+|obigen\\s+)?(?:anweisungen|instruktionen|regeln)",
     "(?:seite|website)\\s+(?:\\w+\\s+){0,3}(?:verifiziert|geprüft)\\s+(?:\\w+\\s+){0,2}sicher",
@@ -10,5 +11,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "bund.de"
+  ]
 }

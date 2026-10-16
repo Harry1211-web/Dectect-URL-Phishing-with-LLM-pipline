@@ -1,4 +1,5 @@
 {
+  "language_name": "Thai",
   "fake_instruction": [
     "(?:เพิกเฉย|ละเว้น|ไม่ต้องสนใจ)\\s*(?:ต่อ)?คำสั่ง"
   ],
@@ -7,5 +8,8 @@
   ],
   "narrative": [],
   "trusted_source": [],
-  "gov_source_keywords": []
+  "gov_source_keywords": [],
+  "authority_domains": [
+    "go.th"
+  ]
 }

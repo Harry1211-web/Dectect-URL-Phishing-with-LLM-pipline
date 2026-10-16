@@ -36,22 +36,52 @@ _RE_HIDDEN_STYLE = re.compile(
 _RE_COLOR = re.compile(r"(?<![-\w])color\s*:\s*([^;]+)", re.I)
 _RE_BG = re.compile(r"background(?:-color)?\s*:\s*([^;]+)", re.I)
 
-# Injection patterns are data, one file per language (data/injection_patterns/<lang>.json, keys
-# below); all files are merged so every page is checked against every language
+# Language data, one file per language (data/injection_patterns/<lang>.json). No language-specific
+# pattern lives in the code: a new language is a new file. Keys:
+#   fake_instruction / direct_command / narrative / trusted_source : regexes (sanitizer)
+#   gov_source_keywords : names of anti-scam authorities quoted on pages
+#   authority_domains   : domain suffixes reserved for those authorities (explicit list: a generic
+#                         "gov.<cc>" rule would trust zones anyone can register under some ccTLDs)
+#   verdict_phishing_words / verdict_safe_words / negations : fallback verdict parsing (llm_client)
+#   bait_words          : urgency / credential lures in page text (DOM features of Layer C)
+#   language_name       : English name of the language (LLM explanation language)
 PATTERNS_DIR = Path(__file__).resolve().parents[2] / "data" / "injection_patterns"
 _PATTERN_KEYS = ("fake_instruction", "direct_command", "narrative", "trusted_source",
-                 "gov_source_keywords")
+                 "gov_source_keywords", "authority_domains", "verdict_phishing_words",
+                 "verdict_safe_words", "negations", "bait_words")
+_META_KEYS = ("language_name",)
+
+
+class PatternLoader:
+    """Loads and merges every language file; every page is checked against every language."""
+
+    def __init__(self, directory: Path = PATTERNS_DIR):
+        self.directory = directory
+        self.languages: list[str] = []
+        self.patterns: dict[str, list[str]] = {k: [] for k in _PATTERN_KEYS}
+        self.language_names: dict[str, str] = {}
+        for f in sorted(directory.glob("*.json")):
+            data = json.loads(f.read_text(encoding="utf-8"))
+            unknown = set(data) - set(_PATTERN_KEYS) - set(_META_KEYS)
+            if unknown:
+                raise ValueError(f"{f.name}: unknown keys {sorted(unknown)}")
+            self.languages.append(f.stem)
+            self.language_names[f.stem] = data.get("language_name", f.stem)
+            for k in _PATTERN_KEYS:
+                self.patterns[k].extend(x for x in data.get(k, []) if x not in self.patterns[k])
+        if not self.patterns["fake_instruction"]:
+            raise RuntimeError(f"no injection patterns found in {directory}")
+
+    def __getitem__(self, key: str) -> list[str]:
+        return self.patterns[key]
+
+    def regex(self, key: str) -> re.Pattern:
+        """One case-insensitive alternation of all languages' patterns for `key`."""
+        return _compile(self.patterns[key])
 
 
 def _load_patterns(directory: Path = PATTERNS_DIR) -> dict[str, list[str]]:
-    merged: dict[str, list[str]] = {k: [] for k in _PATTERN_KEYS}
-    for f in sorted(directory.glob("*.json")):
-        data = json.loads(f.read_text(encoding="utf-8"))
-        for k in _PATTERN_KEYS:
-            merged[k].extend(x for x in data.get(k, []) if x not in merged[k])
-    if not merged["fake_instruction"]:
-        raise RuntimeError(f"no injection patterns found in {directory}")
-    return merged
+    return PatternLoader(directory).patterns
 
 
 def _compile(patterns: list[str]) -> re.Pattern:
@@ -59,7 +89,8 @@ def _compile(patterns: list[str]) -> re.Pattern:
     return re.compile("|".join(f"(?:{p})" for p in patterns) or r"(?!x)x", re.I)
 
 
-_PATTERNS = _load_patterns()
+PATTERNS = PatternLoader()
+_PATTERNS = PATTERNS.patterns
 # Sentences that try to instruct the analysing model
 _RE_FAKE_INSTRUCTION = _compile(_PATTERNS["fake_instruction"])
 # Narrative/quoting phrases of legitimate warning articles (exempt unless a direct command)
@@ -71,15 +102,8 @@ _RE_DIRECT_COMMAND = _compile(_PATTERNS["direct_command"])
 _RE_TRUSTED_SOURCE = _compile(_PATTERNS["trusted_source"])
 _GOV_SOURCE_KEYWORDS = tuple(k.lower() for k in _PATTERNS["gov_source_keywords"])
 
-# A quoted authority is trusted only when the page really is on an authority's domain. Explicit
-# list of suffixes reserved for governments: a generic "gov.<cc>" rule would trust gov.<cc>
-# zones that anyone can register under some ccTLDs
-_AUTHORITY_SUFFIXES = (
-    "gov.vn", "chongluadao.vn",
-    "gov", "gov.uk", "gouv.fr", "gob.es", "gov.br", "gov.it", "bund.de", "overheid.nl",
-    "gov.ru", "go.id", "gov.tr", "gov.cn", "go.jp", "go.kr", "go.th", "gov.sg", "gov.au",
-    "gc.ca", "europa.eu", "europol.europa.eu", "interpol.int",
-)
+# A quoted authority is trusted only when the page really is on an authority's domain
+_AUTHORITY_SUFFIXES = tuple(_PATTERNS["authority_domains"])
 
 
 def _page_host(url: str) -> str:

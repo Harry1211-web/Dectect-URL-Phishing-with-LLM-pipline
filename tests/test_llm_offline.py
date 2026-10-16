@@ -224,3 +224,22 @@ def test_compare_models_statistics():
     row = {"verdict": "safe", "c_score": 0.995, "url": "https://evil-shop.top/x"}
     assert with_override(row) == "suspicious"
     assert with_override({**row, "url": "https://accounts.google.com/x"}) == "safe"
+
+
+def test_pattern_loader_reads_language_files(tmp_path):
+    import json
+    import pytest
+    from html_sanitize import PATTERNS, PatternLoader
+    assert {"en", "vi"} <= set(PATTERNS.languages)
+    assert "gov.vn" in PATTERNS["authority_domains"]
+    assert PATTERNS.regex("verdict_phishing_words").search("Trang này lừa đảo")
+    (tmp_path / "xx.json").write_text(json.dumps({"fake_instruction": ["a"], "typo_key": []}))
+    with pytest.raises(ValueError):
+        PatternLoader(tmp_path)
+
+
+def test_explanation_language_is_a_user_setting():
+    from llm_client import build_prompt
+    assert "in Vietnamese>" in build_prompt("http://a.com", "t", "c", False, explain=True)
+    assert "in English>" in build_prompt("http://a.com", "t", "c", False, explain=True, lang="en")
+    assert "EXPLANATION" not in build_prompt("http://a.com", "t", "c", False)
