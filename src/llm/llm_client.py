@@ -570,6 +570,20 @@ def build_prompt(url: str, title: str, content: str, injection_suspected: bool,
     )
 
 
+_RE_LINK = re.compile(r"(?:https?://|www\.)\S+|<[^>]{0,200}>", re.I)
+# 8+ digits, optionally split by spaces, dots, dashes or brackets: phone / account numbers
+_RE_NUMBER = re.compile(r"\+?\d(?:[\s.\-()]{0,2}\d){7,}")
+
+
+def user_safe_explanation(text: str) -> str:
+    """The explanation is shown to the user in a trusted UI, but the model wrote it after reading
+    an attacker's page: links, HTML tags and phone / account numbers are removed so a page cannot
+    make the warning say "safe, call 1900..." or carry a clickable link. Domain names stay
+    ("paypa1.com is not PayPal's domain" is the useful part)."""
+    text = _RE_NUMBER.sub("[…]", _RE_LINK.sub("[…]", text))
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def _unusable(reason: str) -> dict:
     """Result when no valid verdict was obtained (the pipeline falls back on rules)."""
     return {"verdict": None, "explanation": reason, "timed_out": True}
@@ -615,7 +629,7 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
     if res.get("verdict") not in VALID_VERDICTS:
         return _unusable("The LLM answer is not in the expected format.")
     out = {"verdict": res["verdict"],
-           "explanation": (res.get("explanation") or "") if explain else "",
+           "explanation": user_safe_explanation(res.get("explanation") or "") if explain else "",
            "timed_out": False}
     if live:
         store_verdict(url, out, model, explain, lang)

@@ -6,6 +6,7 @@
 ├── IMPROVEMENTS_NOTE.md           Optimizations kept / discarded, benchmark table, research contributions
 ├── CLAUDE.md                      Instructions for Claude Code
 ├── CAY_THU_MUC.md                 This file: what each folder/file is for
+├── DEPLOY.txt                     Deployment for a front end: Docker, HTTPS proxy, API key, FE call example
 ├── requirements.txt               Python dependencies (tested versions)
 ├── requirements-api.txt           Runtime-only subset for the API image (torch CPU installed separately)
 ├── Dockerfile                     API image: src/, models/url_classifier/, dataset/brands/ (data/ and .env mounted)

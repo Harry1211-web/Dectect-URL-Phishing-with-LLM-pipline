@@ -44,6 +44,7 @@ from blocklist import lookup  # noqa: E402
 from blocklist.updater import META_PATH  # noqa: E402
 from monitoring import record_feedback, record_verdict  # noqa: E402
 from pipeline import analyze_url  # noqa: E402
+from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
 from url_utils import ensure_scheme  # noqa: E402
 
@@ -57,8 +58,9 @@ MAX_URL_LEN = 4096
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    # Load blocklist and models once, so the first user request is not the slow one
+    # Load blocklist, brand / Tranco tables and models once, so the first user request is not the slow one
     lookup.size()
+    check_typosquatting_deep("https://example.com/")
     if classifier.is_available():
         classifier.classify_url("https://example.com/", use_host_features=False)
     yield

@@ -130,7 +130,7 @@ def _path_and_query(url: str) -> str:
     return rest.split("#", 1)[0].lower()
 
 
-@lru_cache(maxsize=256)
+@lru_cache(maxsize=2048)  # one per brand: must hold the whole catalogue (361 brands) or it never hits
 def _fake_domain_regex(brand: str) -> re.Pattern:
     return re.compile(
         rf"(?:^|[/\-_.=])(?:www[\-_.])?{re.escape(brand)}[\-_.](?:{_FAKE_TLD})(?:[/\-_.?&]|$)")

@@ -1,0 +1,117 @@
+DEPLOYMENT — phishing detection API for a front end (FE)
+=========================================================
+
+Layout
+  FE (browser) --HTTPS--> Caddy (reverse proxy, TLS) --> container "api" (uvicorn, src/api.py)
+                                                         container "updater" (blocklist refresh, hourly)
+  Both containers share ./data (blocklist, Tranco, caches, injection patterns, monitoring log).
+  API keys of the layers come from ./.env (mounted read-only).
+
+Endpoints
+  POST /analyze   {"url": "...", "explain": false, "lang": "vi"}
+                  -> {verdict: phishing | suspicious | clean, explanation, decided_by, layers, latency_ms}
+  POST /feedback  {"url": "...", "label": "clean" | "phishing"}   (user report, no URL stored)
+  GET  /health    blocklist size / age, classifier ready, LLM / VirusTotal enabled
+  /docs           interactive documentation
+  Every POST needs the header  X-API-Key: <API_KEY>
+  Errors: 401 wrong / missing key, 422 invalid URL (blank, javascript:, file:...), 429 rate limit,
+          503 server started without API_KEY.
+
+
+0. Decide where API_KEY lives
+-----------------------------
+Code running in a browser cannot hide a key (anyone can read it in DevTools).
+  - Recommended: the FE calls its own backend, which adds the X-API-Key header and forwards the
+    request to this API. The key stays on a server.
+  - Demo / thesis: the key is in the FE, CORS_ORIGINS is limited to the FE domain and the rate
+    limit stays on. Worst case if the key leaks is capped by LLM_BUDGET_USD in .env.
+
+
+1. Server (Ubuntu VPS, >= 2 GB RAM)
+-----------------------------------
+  curl -fsSL https://get.docker.com | sh
+  git clone <repo> phishing && cd phishing     # models/url_classifier and data/injection_patterns are in git
+  nano .env                                    # OPENAI_API_KEY=...  VT_API_KEY=...  LLM_BUDGET_USD=...
+  sudo chown -R 1000 data                      # the containers run as uid 1000
+
+
+2. Only the proxy may reach the API
+-----------------------------------
+In docker-compose.yml, service api:
+    ports:
+      - "127.0.0.1:8000:8000"      # instead of "8000:8000"
+
+
+3. Start
+--------
+  export API_KEY=$(openssl rand -hex 24)       # give it to the FE (or to the FE's backend)
+  export CORS_ORIGINS=https://your-fe.com      # FE origin(s), comma-separated
+  export FORWARDED_ALLOW_IPS='*'               # safe only because port 8000 is bound to localhost (step 2)
+  docker compose up -d --build
+  docker compose logs -f updater               # first run downloads the feeds and Tranco (a few minutes)
+  curl localhost:8000/health                   # expect "blocklist_stale": false
+
+Optional settings (environment):
+  RATE_LIMIT_PER_MIN   POST requests per client IP and minute, per worker (default 60; 2 workers)
+  USE_LLM=0            disable Layer D (no LLM cost; suspicious URLs stay "suspicious")
+  USE_VT=0             disable the VirusTotal lookup
+
+
+4. HTTPS with Caddy (an HTTPS FE cannot call an HTTP API)
+---------------------------------------------------------
+Point the DNS record api.your-domain.com to the VPS, then:
+  sudo apt install caddy
+  echo 'api.your-domain.com {
+      reverse_proxy 127.0.0.1:8000
+  }' | sudo tee /etc/caddy/Caddyfile
+  sudo systemctl reload caddy                  # Caddy obtains the certificate by itself
+
+
+5. Call from the FE
+-------------------
+  async function checkUrl(url) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 30000);   // 2-15 s when the LLM is used
+    try {
+      const r = await fetch("https://api.your-domain.com/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-API-Key": API_KEY },
+        body: JSON.stringify({ url, explain: true, lang: "vi" }),
+        signal: ctrl.signal,
+      });
+      if (r.status === 422) throw new Error("Invalid URL");
+      if (r.status === 429) throw new Error("Too many requests, retry in a minute");
+      if (!r.ok) throw new Error(`Error ${r.status}`);
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+  // "Report a mistake" button: POST /feedback {url, label: "clean" | "phishing"}
+
+Show a loading state. explain: true adds a short explanation in `lang` (extra tokens);
+explain: false returns the verdict only.
+
+SECURITY — render every text field of the response as TEXT, never as HTML
+(no innerHTML / dangerouslySetInnerHTML / v-html). `explanation` was written by the LLM after
+reading the attacker's page, and the `reason` fields in `layers` quote parts of the URL: both are
+attacker-influenced. Links, tags and phone numbers are already stripped from `explanation`, but
+the FE must not rely on that alone. Never make the analysed URL clickable in a warning.
+
+
+Quick test without a server
+---------------------------
+Windows (cmd):
+  set API_KEY=k123
+  set CORS_ORIGINS=http://localhost:5173
+  uvicorn api:app --app-dir src --port 8000
+FE on the same machine calls http://localhost:8000. For an FE hosted elsewhere, open a temporary
+HTTPS tunnel:
+  cloudflared tunnel --url http://localhost:8000
+Without Docker the blocklist must be refreshed by a scheduled task (hourly):
+  schtasks /Create /SC HOURLY /TN PhishingBlocklist /TR "python <repo>\src\blocklist\updater.py"
+
+
+Operations
+----------
+  docker compose exec api python src/monitoring.py report --days 7    # reported false alarms / misses
+  git pull && docker compose up -d --build                             # update to a new version
+  LLM spend: data/llm_spend.json (calls refused once LLM_BUDGET_USD is reached)

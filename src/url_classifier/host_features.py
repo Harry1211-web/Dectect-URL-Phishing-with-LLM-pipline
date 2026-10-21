@@ -343,8 +343,11 @@ def raw_lookups(urls: list[str], offline: bool = False, workers: int = 16) -> di
         return dict(zip(hosts, pool.map(lambda h: lookup_host(h, offline), hosts)))
 
 
-# Shared pool for live (single-URL) lookups: DNS, then TLS and RDAP in parallel
-_LIVE_POOL = ThreadPoolExecutor(max_workers=8, thread_name_prefix="host-lookup")
+# Live (single-URL) lookups: DNS on its own pool, TLS and RDAP on another. TLS / RDAP may keep
+# running after the budget (up to ~6 s against a slow host); sharing one pool would let a stream
+# of such URLs queue every other user's DNS lookup past its budget (-> fail closed -> LLM)
+_DNS_POOL = ThreadPoolExecutor(max_workers=8, thread_name_prefix="dns-lookup")
+_LIVE_POOL = ThreadPoolExecutor(max_workers=16, thread_name_prefix="host-lookup")
 
 
 def lookup_host_live(host: str, budget_s: float = 2.5) -> dict | None:
@@ -354,7 +357,7 @@ def lookup_host_live(host: str, budget_s: float = 2.5) -> dict | None:
         return {"dns": {}, "tls": {}, "rdap": {}}
     t0 = time.perf_counter()
     try:
-        d = _LIVE_POOL.submit(_cached, "dns", host, _dns).result(timeout=budget_s)
+        d = _DNS_POOL.submit(_cached, "dns", host, _dns).result(timeout=budget_s)
     except Exception:
         return None
     if not d.get("resolves"):

@@ -53,6 +53,14 @@ def test_sanitizer_decodes_ascii_smuggling():
     assert not re.search("[\U000E0000-\U000E007F‮]", out["text"])
 
 
+def test_explanation_shown_to_user_has_no_link_tag_or_phone():
+    from llm_client import user_safe_explanation
+    out = user_safe_explanation("Safe page. Call +84 1900-123-456 or visit https://help.evil.top/x "
+                                "<img src=x onerror=alert(1)> — paypa1.com is not PayPal (2025).")
+    assert "1900" not in out and "evil.top" not in out and "<img" not in out
+    assert "paypa1.com" in out and "2025" in out
+
+
 def test_parse_verdict():
     assert parse_verdict("VERDICT: phishing\nEXPLANATION: giả mạo") == "phishing"
     assert parse_verdict("VERDICT: safe") == "safe"
