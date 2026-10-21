@@ -603,15 +603,18 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
     by default only the verdict is requested and 'explanation' is empty.
     `lang`: language of the explanation (user setting, default Vietnamese).
     Live calls (no `page` given, or cache=True) reuse a verdict cached for the same URL
-    (VERDICT_CACHE_TTL_S); failed calls are never cached.
+    (VERDICT_CACHE_TTL_S); failed calls are never cached. A cached 'safe' is reused only while
+    the page content is unchanged (fingerprint), so a page swapped for a phishing kit after
+    the check is analysed again; phishing / suspicious are reused as they are.
     """
     live = page is None if cache is None else cache
-    if live:
-        hit = cached_verdict(url, model, explain, lang)
-        if hit:
-            return hit
+    hit = cached_verdict(url, model, explain, lang) if live else None
+    if hit and hit["verdict"] != VERDICT_SAFE:
+        return hit
     if page is None:
         page = fetch(url)
+    if hit and hit.get("fingerprint") == page_fingerprint(page):
+        return hit
     title, content, injection = page[:3]
     final_url = page[3] if len(page) > 3 else None
     if not title and not content:
@@ -634,7 +637,8 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
            "explanation": user_safe_explanation(res.get("explanation") or "") if explain else "",
            "timed_out": False}
     if live:
-        store_verdict(url, out, model, explain, lang, final_url=final_url)
+        store_verdict(url, out, model, explain, lang, final_url=final_url,
+                      fingerprint=page_fingerprint(page))
     return out
 
 
@@ -642,6 +646,19 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
 # no paid call, no 2-9 s wait). Kept short because a page can be swapped for a phishing kit later.
 VERDICT_CACHE_PATH = _SRC_DIR.parent / "data" / "llm_verdict_cache.sqlite"
 VERDICT_CACHE_TTL_S = 6 * 3600
+
+
+_RE_DIGITS = re.compile(r"\d+")
+
+
+def page_fingerprint(page: tuple) -> str:
+    """Hash of what the model reads (title, text, injection flag, final URL), digits folded so
+    clocks, counters and prices do not count as a new page."""
+    import hashlib
+    title, content, injection = page[:3]
+    final_url = page[3] if len(page) > 3 else ""
+    text = _RE_DIGITS.sub("0", "\n".join((title, content, str(bool(injection)), final_url or "")))
+    return hashlib.sha256(re.sub(r"\s+", " ", text).encode("utf-8")).hexdigest()
 
 
 def _exact_url(url: str) -> str:
@@ -671,9 +688,11 @@ def _cache_db():
     try:
         with con:
             # final_url: where the page redirected, so a cache hit can still run the redirect
-            # target through Layers A / B (blocklist updates, evasion rule) without a download
-            con.execute("CREATE TABLE IF NOT EXISTS verdicts_v2 (key TEXT PRIMARY KEY, "
-                        "verdict TEXT, explanation TEXT, final_url TEXT, saved_at REAL)")
+            # target through Layers A / B (blocklist updates, evasion rule) without a download.
+            # fingerprint: of the content the model judged (a 'safe' is only reused for it)
+            con.execute("CREATE TABLE IF NOT EXISTS verdicts_v3 (key TEXT PRIMARY KEY, "
+                        "verdict TEXT, explanation TEXT, final_url TEXT, fingerprint TEXT, "
+                        "saved_at REAL)")
             yield con
     finally:
         con.close()
@@ -684,25 +703,27 @@ def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False,
     """Stored Layer D result younger than VERDICT_CACHE_TTL_S, else None (cache errors -> None)."""
     try:
         with _cache_db() as con:
-            row = con.execute("SELECT verdict, explanation, final_url, saved_at FROM verdicts_v2 "
-                              "WHERE key = ?", (_cache_key(url, model, explain, lang),)).fetchone()
+            row = con.execute("SELECT verdict, explanation, final_url, fingerprint, saved_at "
+                              "FROM verdicts_v3 WHERE key = ?",
+                              (_cache_key(url, model, explain, lang),)).fetchone()
     except sqlite3.Error:
         return None
-    if row is None or time.time() - row[3] > VERDICT_CACHE_TTL_S:
+    if row is None or time.time() - row[4] > VERDICT_CACHE_TTL_S:
         return None
-    return {"verdict": row[0], "explanation": row[1], "final_url": row[2], "timed_out": False,
-            "cached": True}
+    return {"verdict": row[0], "explanation": row[1], "final_url": row[2],
+            "fingerprint": row[3], "timed_out": False, "cached": True}
 
 
 def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: bool = False,
-                  lang: str = DEFAULT_LANG, final_url: str | None = None) -> None:
+                  lang: str = DEFAULT_LANG, final_url: str | None = None,
+                  fingerprint: str | None = None) -> None:
     try:
         with _cache_db() as con:
-            con.execute("INSERT OR REPLACE INTO verdicts_v2 VALUES (?, ?, ?, ?, ?)",
+            con.execute("INSERT OR REPLACE INTO verdicts_v3 VALUES (?, ?, ?, ?, ?, ?)",
                         (_cache_key(url, model, explain, lang), result["verdict"],
-                         result["explanation"], final_url, time.time()))
+                         result["explanation"], final_url, fingerprint, time.time()))
             if secrets.randbelow(200) == 0:  # now and then: expired rows are never read again
-                con.execute("DELETE FROM verdicts_v2 WHERE saved_at < ?",
+                con.execute("DELETE FROM verdicts_v3 WHERE saved_at < ?",
                             (time.time() - VERDICT_CACHE_TTL_S,))
     except sqlite3.Error:
         pass  # the cache only saves time; Layer D works without it

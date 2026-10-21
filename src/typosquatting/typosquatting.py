@@ -335,6 +335,15 @@ def check_typosquatting(url: str) -> RuleResult:
 # cap cannot hide a target. Without it, a 4 KB chain 'www.a/www.b/www.a/...' cost ~9 s of CPU
 MAX_TARGETS_CHECKED = 20
 MAX_TARGET_CHARS = 512
+TARGETS_BUDGET_S = 0.3  # real redirect / tracking URLs: a few ms
+
+
+def warm_up() -> None:
+    """Load every lazy table (brand catalogue, Tranco token counts: ~1 s) before the first user."""
+    _brands_by_len()
+    brand_by_label()
+    _token_frequency()
+    check_typosquatting_deep("https://example.com/")
 
 
 def _bounded_target(target: str) -> str:
@@ -350,7 +359,8 @@ def _bounded_target(target: str) -> str:
     except ValueError:
         return target[:MAX_TARGET_CHARS]
     rest = p.path + (f"?{p.query}" if p.query else "")
-    return f"{p.scheme}://{host_of(url)}{rest[:MAX_TARGET_CHARS]}"
+    # A resolvable host is at most 253 chars (DNS); a longer one cannot be opened anyway
+    return f"{p.scheme}://{host_of(url)[:253]}{rest}"[:MAX_TARGET_CHARS + 270]
 
 
 def check_typosquatting_deep(url: str) -> RuleResult:
@@ -358,13 +368,18 @@ def check_typosquatting_deep(url: str) -> RuleResult:
     'tracker.com/r?u=https://paypa1-login.com' is judged on 'paypa1-login.com' as well.
     Shallow ones first (the redirect parameters themselves), at most MAX_TARGETS_CHECKED.
     More than that is an evasion pattern: every result then carries 'hidden_destinations'
-    (count), which callers must treat as suspicious (pipeline: never clean before Layer D)."""
+    (count), which callers must treat as suspicious (pipeline: never clean before Layer D).
+    Hidden targets are also checked within TARGETS_BUDGET_S: crafted hosts (many brand-like
+    labels) make each check slow, and running out of time counts as evasion as well."""
+    deadline = time.perf_counter() + TARGETS_BUDGET_S
     targets = all_embedded_urls(url)
     evasive = {"hidden_destinations": len(targets)} if len(targets) > MAX_TARGETS_CHECKED else {}
     r = check_typosquatting(url)
     if r["flag"] is True:
         return {**r, **evasive}
-    for target in targets[:MAX_TARGETS_CHECKED]:
+    for i, target in enumerate(targets[:MAX_TARGETS_CHECKED]):
+        if time.perf_counter() > deadline:  # the rest is never checked: fail towards suspicion
+            return {**r, "hidden_destinations": len(targets), "targets_unchecked": len(targets) - i}
         t = check_typosquatting(_bounded_target(target))
         if t["flag"] is True:
             t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"

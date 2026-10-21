@@ -259,6 +259,25 @@ def test_live_verdict_is_cached_but_failures_are_not(tmp_path, monkeypatch):
     assert len(calls) == 3
 
 
+def test_cached_safe_is_not_reused_after_the_page_changes(tmp_path, monkeypatch):
+    """Clean page at check time, phishing kit afterwards: the cached 'safe' must not cover it.
+    Numbers that change on every load (clock, counters) do not count as a new page."""
+    import llm_client
+    monkeypatch.setattr(llm_client, "VERDICT_CACHE_PATH", tmp_path / "cache.sqlite")
+    calls = []
+    monkeypatch.setattr(llm_client, "call_openai", lambda prompt, *a, **k: (
+        calls.append(prompt) or {"verdict": "phishing" if "KIT-7731" in prompt else "safe"}))
+    url = "https://shop.example/a"
+    page = {"v": ("Shop", "Welcome, 10:41, 1203 visitors", False, url)}
+    monkeypatch.setattr(llm_client, "fetch", lambda u: page["v"])
+    assert analyze_suspicious(url)["verdict"] == "safe"
+    page["v"] = ("Shop", "Welcome, 10:52, 1311 visitors", False, url)   # only numbers changed
+    assert analyze_suspicious(url).get("cached") and len(calls) == 1
+    page["v"] = ("Bank", "KIT-7731 enter your card", False, url)          # swapped
+    assert analyze_suspicious(url)["verdict"] == "phishing" and len(calls) == 2
+    assert analyze_suspicious(url).get("cached") and len(calls) == 2      # phishing reused as is
+
+
 def test_verdict_cache_cannot_be_poisoned_through_url_variants(tmp_path, monkeypatch):
     """A '#fragment' (never sent to the server) or the https twin of a link is part of what the
     model reads: a 'safe' obtained through it must not be served for the plain link."""

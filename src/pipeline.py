@@ -239,7 +239,9 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
         # blocked instead of being left to the LLM. On a cached verdict the stored target is
         # checked again (no download): the cache must not skip the blocklist / evasion rules
         hit = cached_verdict(url, model, explain, lang)
-        if page is None and not hit:
+        # A cached 'safe' is only reused for unchanged content (page swapped after the check):
+        # the page is downloaded again and its fingerprint compared in analyze_suspicious
+        if page is None and (not hit or hit["verdict"] == "safe"):
             page = fetch(url)
         final_url = page[3] if page and len(page) > 3 else (hit or {}).get("final_url")
         # The target comes from the site's Location header: same length bound and same

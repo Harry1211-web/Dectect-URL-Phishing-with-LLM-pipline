@@ -134,8 +134,9 @@ def test_evasive_redirect_target_is_never_cleared(monkeypatch):
 
 
 def test_cached_verdict_still_checks_the_stored_redirect_target(tmp_path, monkeypatch):
-    """A cached LLM 'safe' must not skip the redirect-target rules (blocklist updated since,
-    evasion): the stored final URL is checked again, without downloading the page."""
+    """A cached LLM verdict must not skip the redirect-target rules (blocklist updated since,
+    evasion): the stored final URL is checked again. A cached 'suspicious' is reused without a
+    download, so the target can only come from the cache."""
     import pipeline
     from blocklist import lookup
     from llm import llm_client
@@ -143,10 +144,10 @@ def test_cached_verdict_still_checks_the_stored_redirect_target(tmp_path, monkey
     monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
     monkeypatch.setattr(pipeline.classifier, "classify_url", lambda url, use_host_features=True: {
         "label": "suspicious", "score": 0.3, "threshold": 0.1})
-    monkeypatch.setattr(llm_client, "call_openai", lambda *a, **k: {"verdict": "safe"})
+    monkeypatch.setattr(llm_client, "call_openai", lambda *a, **k: {"verdict": "suspicious"})
     monkeypatch.setattr(lookup, "_load", lambda: (frozenset(), frozenset()))
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, "https://new-phish.top/a"))
-    assert pipeline.analyze_url("https://bit.ly/zz", use_vt=False)["verdict"] == "clean"
+    assert pipeline.analyze_url("https://bit.ly/zz", use_vt=False)["verdict"] == "suspicious"
     # Next click: verdict from the cache, page not downloaded, target listed in the meantime
     monkeypatch.setattr(llm_client, "fetch", lambda url: pytest.fail("downloaded again"))
     monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"new-phish.top/a"}), frozenset()))
