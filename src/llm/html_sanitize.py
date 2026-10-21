@@ -21,18 +21,34 @@ from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup, Comment
 
-# Zero-width / invisible characters commonly used to split or hide text
-_INVISIBLE_CHARS = "​‌‍⁠﻿"
-_RE_INVISIBLE = re.compile(f"[{_INVISIBLE_CHARS}]")
+# Zero-width / invisible characters used to split or hide text: zero-width and joiner characters,
+# soft hyphen, bidi controls, invisible operators, variation selectors
+_INVISIBLE_CHARS = ("­͏؜ᅟᅠ឴឵᠎​-‏‪-‮"
+                    "⁠-⁤⁦-⁯ㅤ︀-️﻿ﾠ"
+                    "\U000e0100-\U000e01ef")
+_RE_INVISIBLE = re.compile(f"[{_INVISIBLE_CHARS}\U000e0000-\U000e007f]")
+# Unicode tag characters (U+E0000-E007F) mirror ASCII and are invisible on screen, but LLMs read
+# them ("ASCII smuggling"): they are decoded so the injection scan sees the hidden sentence
+_RE_TAG_RUN = re.compile("[\U000e0020-\U000e007e]+")
 
 # opacity/font-size count as hidden only when exactly 0 (0, 0.0, 0px...) — keeps visible
-# elements such as opacity:0.5 or font-size:0.8em
+# elements such as opacity:0.5 or font-size:0.8em. Also: transparent text, element moved far
+# off screen (left/top/text-indent of -999px or more), clipped to nothing, scaled to 0
 _RE_HIDDEN_STYLE = re.compile(
     r"display\s*:\s*none|visibility\s*:\s*hidden|"
     r"opacity\s*:\s*0*(?:\.0+)?\s*(?:!important)?\s*(?:;|$)|"
-    r"font-size\s*:\s*0+(?:\.0+)?(?:px|em|rem|pt|%)?\s*(?:!important)?\s*(?:;|$)",
+    r"font-size\s*:\s*0+(?:\.0+)?(?:px|em|rem|pt|%)?\s*(?:!important)?\s*(?:;|$)|"
+    r"(?<![-\w])color\s*:\s*transparent|"
+    r"(?<![-\w])(?:left|top|right|text-indent|margin-left|margin-top)\s*:\s*-\d{3,}|"
+    r"clip\s*:\s*rect\(\s*0[^)]*\)|clip-path\s*:\s*inset\(\s*(?:50|100)%|"
+    r"transform\s*:\s*scale\(\s*0(?:\.0+)?\s*[,)]",
     re.I,
 )
+
+
+def _smuggled_text(text: str) -> list[str]:
+    """ASCII hidden as Unicode tag characters, decoded (flag emoji use only a few, harmlessly)."""
+    return ["".join(chr(ord(c) - 0xE0000) for c in m) for m in _RE_TAG_RUN.findall(text)]
 _RE_COLOR = re.compile(r"(?<![-\w])color\s*:\s*([^;]+)", re.I)
 _RE_BG = re.compile(r"background(?:-color)?\s*:\s*([^;]+)", re.I)
 
@@ -181,7 +197,7 @@ def sanitize_html(html: str, url: str = "") -> dict:
     title = _RE_INVISIBLE.sub("", title_tag.get_text(" ")) if title_tag else ""
     title = re.sub(r"\s+", " ", title).strip()
 
-    removed_text: list[str] = []
+    removed_text: list[str] = _smuggled_text(html or "")
     for c in soup.find_all(string=lambda s: isinstance(s, Comment)):
         removed_text.append(str(c))
         c.extract()

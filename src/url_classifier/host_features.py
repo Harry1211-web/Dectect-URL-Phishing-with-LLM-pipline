@@ -204,16 +204,29 @@ def _tls(host: str) -> dict:
     return {}
 
 
-@lru_cache(maxsize=1)
+RDAP_BOOTSTRAP_RETRY_S = 600
+_bootstrap_failed_at = -float("inf")
+
+
 def _rdap_bootstrap() -> dict[str, str]:
-    """TLD -> RDAP base URL from the IANA bootstrap file. A failed download raises (lru_cache keeps
-    no exception, so the next lookup retries) instead of returning {}: an empty table would be
-    cached for the process lifetime and store 'RDAP unsupported' for every domain for 30 days."""
+    """TLD -> RDAP base URL from the IANA bootstrap file. A failed download raises (nothing cached)
+    instead of returning {}: an empty table would store 'RDAP unsupported' for every domain for
+    30 days. After a failure, lookups fail fast for RDAP_BOOTSTRAP_RETRY_S instead of each one
+    waiting 20 s and filling the shared live-lookup pool."""
+    global _bootstrap_failed_at
+    if time.monotonic() - _bootstrap_failed_at < RDAP_BOOTSTRAP_RETRY_S:
+        raise LookupUnavailable("IANA RDAP bootstrap (recent failure)")
     try:
-        data = requests.get("https://data.iana.org/rdap/dns.json", timeout=20).json()
-        return {tld: urls[0] for tlds, urls in data["services"] for tld in tlds}
+        return _rdap_bootstrap_table()
     except (requests.RequestException, ValueError, KeyError, TypeError) as e:
+        _bootstrap_failed_at = time.monotonic()
         raise LookupUnavailable("IANA RDAP bootstrap") from e
+
+
+@lru_cache(maxsize=1)
+def _rdap_bootstrap_table() -> dict[str, str]:
+    data = requests.get("https://data.iana.org/rdap/dns.json", timeout=20).json()
+    return {tld: urls[0] for tlds, urls in data["services"] for tld in tlds}
 
 
 def _rdap(domain: str) -> dict:

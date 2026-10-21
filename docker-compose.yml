@@ -11,6 +11,12 @@ services:
     environment:
       API_KEY: ${API_KEY:?API_KEY must be set}  # clients send it as the X-API-Key header
       CORS_ORIGINS: ${CORS_ORIGINS:-*}  # origin(s) of the partner's UI
+      RATE_LIMIT_PER_MIN: ${RATE_LIMIT_PER_MIN:-60}
+      USE_LLM: ${USE_LLM:-1}
+      USE_VT: ${USE_VT:-1}
+      # Behind a reverse proxy (HTTPS): its IP, so uvicorn takes the client IP from
+      # X-Forwarded-For (rate limit per real user, not per proxy)
+      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
     restart: unless-stopped
 
   # Refreshes the phishing feeds every hour (each feed is only downloaded when due); the API
