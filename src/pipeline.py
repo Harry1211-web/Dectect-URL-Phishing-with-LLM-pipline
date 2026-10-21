@@ -1,6 +1,7 @@
 """Full detection pipeline for one clicked URL: A -> B -> C -> D.
 
   A. blocklist      known phishing URL/host (also redirect targets)     -> phishing (stop)
+                    (a listed plain page of a brand-owned domain: every layer, never "clean")
      verified official domain of a Vietnamese brand, or official domain of an international
      brand that hosts no third-party content (no user content, no hidden redirect)
                                                                         -> clean (stop)
@@ -56,6 +57,12 @@ FALLBACK_PHISHING_SCORE = 0.9
 # Not applied on official brand domains: there a high score is a classifier error (google.com
 # login pages), and no dev / test phishing page fell in that case
 LLM_SAFE_OVERRIDE_SCORE = 0.99
+
+# Messages when a URL may not be cleared even if the LLM finds the page safe
+HOLD_EVASION = ("The page looks safe to the LLM, but the link hides many other destinations, "
+                "a pattern used to evade checks — be careful.")
+HOLD_LISTED_OFFICIAL = ("This page is on the brand's official domain but a public phishing list "
+                        "reports it (possibly a list error, possibly a hacked page) — be careful.")
 
 # Verified official domains that still go through B/C/D: marketplaces and classifieds host
 # third-party content (fake shops, scam listings); zalo.me serves user profiles and group links
@@ -183,13 +190,20 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                 "explanation": explanation, "layers": layers,
                 "latency_ms": round((time.perf_counter() - t0) * 1000, 2)}
 
+    # Reasons a URL may not be cleared, whatever later layers say: (kind, message for the user)
+    holds: list[tuple[str, str]] = []
+
     a = check_blocklist(url)
     layers["A_blocklist"] = a
-    if a["flag"] is True:
-        return done("phishing", "A_blocklist", a["reason"])
-
     official = trusted_official_domain(url)
-    if official:
+    if a["flag"] is True and official is None:
+        return done("phishing", "A_blocklist", a["reason"])
+    if a["flag"] is True:
+        # A plain page of a brand-owned domain (no redirect, no user content) in a public feed:
+        # usually a feed false positive, sometimes a hacked page. Not blocked outright, never
+        # cleared: it goes through every layer and the user is at least warned
+        holds.append(("listed_official", HOLD_LISTED_OFFICIAL))
+    elif official:
         return done("clean", "verified_official_domain",
                     f"{official} is a verified official domain of '{label_of_domain(official)}'.")
 
@@ -204,8 +218,8 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
     # More hidden destinations than Layer B checks: an evasion pattern (decoys, long redirect
     # chains), never confirmed clean by Layer C; Layer D then checks the real final URL
     # (a URL longer than MAX_URL_LEN is only read in part: same treatment)
-    evasive = bool(b.get("hidden_destinations")) or len(url) > MAX_URL_LEN
-    if evasive:
+    if b.get("hidden_destinations") or len(url) > MAX_URL_LEN:
+        holds.append(("evasion", HOLD_EVASION))
         layers["hidden_destinations"] = b.get("hidden_destinations", 0)
 
     c = (classifier.classify_url(url, use_host_features=use_host_features)
@@ -224,7 +238,7 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                   "label": dom_features.combined_label(c["label"], p_dom),
                   "page_ms": round((time.perf_counter() - t_p) * 1000, 1)})
         page = page_from_html(html, final_url)
-    if b["flag"] is not True and not evasive and c is not None and c["label"] == "clean":
+    if b["flag"] is not True and not holds and c is not None and c["label"] == "clean":
         return done("clean", "C_classifier",
                     f"URL model rates it safe (score {c['score']:.3f} < threshold {c['threshold']:.3f}).")
 
@@ -247,7 +261,7 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
         # The target comes from the site's Location header: same length bound and same
         # "too long = evasion" rule as the clicked URL
         if final_url and len(final_url) > MAX_URL_LEN:
-            evasive = True
+            holds.append(("evasion", HOLD_EVASION))
             layers["redirect_target_too_long"] = len(final_url)
             final_url = final_url[:MAX_URL_LEN]
         if final_url and normalize_url(final_url) != normalize_url(url):
@@ -262,7 +276,7 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                     b = {**b2, "reason": f"URL redirects to {final_url[:80]} — {b2['reason']}"}
                     layers["B_typosquatting"] = b
                 if b2.get("hidden_destinations"):  # same evasion rule as for the clicked URL
-                    evasive = True
+                    holds.append(("evasion", HOLD_EVASION))
                     layers["hidden_destinations_redirect_target"] = b2["hidden_destinations"]
         d = analyze_suspicious(url, rule_results=[b], explain=explain, lang=lang, page=page,
                                cache=True, model=model,
@@ -273,10 +287,9 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
             # LLM 'suspicious' = not enough evidence either way: warn the user, never 'clean'
             verdict = {"phishing": "phishing", "suspicious": "suspicious"}.get(d["verdict"], "clean")
             score = (c or {}).get("score")
-            if verdict == "clean" and evasive:  # some hidden destinations were never checked
-                return done("suspicious", "D_llm+evasion",
-                            "The page looks safe to the LLM, but the link hides many other "
-                            "destinations, a pattern used to evade checks — be careful.")
+            if verdict == "clean" and holds:  # see HOLD_*: the LLM alone cannot clear it
+                kind, message = holds[0]
+                return done("suspicious", f"D_llm+{kind}", message)
             if (verdict == "clean" and score is not None and score >= LLM_SAFE_OVERRIDE_SCORE
                     and registrable_domain(url) not in all_official_domains()):
                 return done("suspicious", "D_llm+C_override",

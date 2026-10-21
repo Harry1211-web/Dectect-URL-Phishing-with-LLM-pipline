@@ -155,6 +155,30 @@ def test_cached_verdict_still_checks_the_stored_redirect_target(tmp_path, monkey
     assert r["verdict"] == "phishing" and "redirects to" in r["explanation"]
 
 
+def test_listed_official_page_is_warned_not_blocked(monkeypatch):
+    """A feed entry on a plain page of a brand-owned domain (feed error or hacked page) is not
+    blocked outright and not trusted either; an open redirect there is still blocked."""
+    import pipeline
+    from blocklist import lookup
+    from llm import llm_client
+    listed = frozenset({"vietcombank.com.vn/vi-VN/KHCN", "vietcombank.com.vn/go"})
+    monkeypatch.setattr(lookup, "_load", lambda: (listed, frozenset()))
+    monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
+    monkeypatch.setattr(pipeline.classifier, "classify_url", lambda url, use_host_features=True: {
+        "label": "clean", "score": 0.01, "threshold": 0.1})
+    monkeypatch.setattr(llm_client, "analyze_suspicious", lambda *a, **k: {
+        "verdict": "safe", "explanation": "", "timed_out": False})
+    url = "https://www.vietcombank.com.vn/vi-VN/KHCN"
+    r = pipeline.analyze_url(url, use_vt=False)
+    assert r["verdict"] == "suspicious" and r["decided_by"] == "D_llm+listed_official"
+    assert pipeline.analyze_url(url, use_vt=False, use_llm=False)["verdict"] == "suspicious"
+    # Redirect parameter on the official domain: not a plain page, the feed entry blocks it
+    r = pipeline.analyze_url("https://www.vietcombank.com.vn/go?u=https://evil.top/", use_vt=False)
+    assert r["verdict"] == "phishing" and r["decided_by"] == "A_blocklist"
+    # Not listed: the trusted shortcut as before
+    assert pipeline.analyze_url("https://www.vietcombank.com.vn/vi-VN/KHDN", use_vt=False)["verdict"] == "clean"
+
+
 def test_verified_official_domain_is_trusted_without_loopholes():
     from pipeline import analyze_url, trusted_official_domain
     r = analyze_url("https://www.vietcombank.com.vn/vi-VN/KHCN", use_llm=False)
