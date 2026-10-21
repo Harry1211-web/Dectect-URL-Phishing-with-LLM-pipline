@@ -1,117 +1,121 @@
-DEPLOYMENT — phishing detection API for a front end (FE)
-=========================================================
+TRIỂN KHAI — API phát hiện phishing cho front end (FE)
+======================================================
 
-Layout
-  FE (browser) --HTTPS--> Caddy (reverse proxy, TLS) --> container "api" (uvicorn, src/api.py)
-                                                         container "updater" (blocklist refresh, hourly)
-  Both containers share ./data (blocklist, Tranco, caches, injection patterns, monitoring log).
-  API keys of the layers come from ./.env (mounted read-only).
+Mô hình
+  FE (trình duyệt) --HTTPS--> Caddy (reverse proxy, cấp TLS) --> container "api" (uvicorn, src/api.py)
+                                                               container "updater" (làm mới blocklist mỗi giờ)
+  Hai container dùng chung ./data (blocklist, Tranco, cache, mẫu injection, log giám sát).
+  API key của các lớp (OpenAI, VirusTotal) đọc từ ./.env (mount chỉ đọc).
 
-Endpoints
+Các endpoint
   POST /analyze   {"url": "...", "explain": false, "lang": "vi"}
-                  -> {verdict: phishing | suspicious | clean, explanation, decided_by, layers, latency_ms}
-  POST /feedback  {"url": "...", "label": "clean" | "phishing"}   (user report, no URL stored)
-  GET  /health    blocklist size / age, classifier ready, LLM / VirusTotal enabled
-  /docs           interactive documentation
-  Every POST needs the header  X-API-Key: <API_KEY>
-  Errors: 401 wrong / missing key, 422 invalid URL (blank, javascript:, file:...), 429 rate limit,
-          503 server started without API_KEY.
+                  -> {url, verdict: phishing | suspicious | clean, explanation, decided_by, latency_ms}
+                  (chi tiết từng lớp "layers" chỉ trả về khi bật API_EXPOSE_LAYERS=1, xem bước 3)
+  POST /feedback  {"url": "...", "label": "clean" | "phishing"}   (người dùng báo sai, không lưu URL)
+  GET  /health    số URL / tuổi blocklist, classifier sẵn sàng, LLM / VirusTotal có bật không
+  /docs           tài liệu API tương tác
+  Mọi request POST phải có header  X-API-Key: <API_KEY>
+  Mã lỗi: 401 thiếu / sai key, 422 URL không hợp lệ (rỗng, javascript:, file:...), 429 vượt giới
+          hạn tần suất, 503 server khởi động mà không có API_KEY.
 
 
-0. Decide where API_KEY lives
+0. Quyết định nơi giữ API_KEY
 -----------------------------
-Code running in a browser cannot hide a key (anyone can read it in DevTools).
-  - Recommended: the FE calls its own backend, which adds the X-API-Key header and forwards the
-    request to this API. The key stays on a server.
-  - Demo / thesis: the key is in the FE, CORS_ORIGINS is limited to the FE domain and the rate
-    limit stays on. Worst case if the key leaks is capped by LLM_BUDGET_USD in .env.
+Code chạy trong trình duyệt KHÔNG giấu được key (ai mở DevTools cũng thấy).
+  - Nên làm: FE gọi backend riêng của FE, backend đó gắn header X-API-Key rồi chuyển tiếp sang
+    API này. Key chỉ nằm trên server.
+  - Demo / đồ án: để key trong FE, nhưng giới hạn CORS_ORIGINS đúng domain FE và giữ rate limit.
+    Thiệt hại tối đa nếu lộ key bị chặn bởi LLM_BUDGET_USD trong .env.
 
 
-1. Server (Ubuntu VPS, >= 2 GB RAM)
------------------------------------
+1. Chuẩn bị server (Ubuntu VPS, RAM >= 2 GB)
+--------------------------------------------
   curl -fsSL https://get.docker.com | sh
-  git clone <repo> phishing && cd phishing     # models/url_classifier and data/injection_patterns are in git
+  git clone <repo> phishing && cd phishing     # models/url_classifier và data/injection_patterns có sẵn trong git
   nano .env                                    # OPENAI_API_KEY=...  VT_API_KEY=...  LLM_BUDGET_USD=...
-  sudo chown -R 1000 data                      # the containers run as uid 1000
+  sudo chown -R 1000 data                      # container chạy với uid 1000
 
 
-2. Only the proxy may reach the API
------------------------------------
-In docker-compose.yml, service api:
+2. Chỉ cho proxy gọi được API
+-----------------------------
+Trong docker-compose.yml, service api:
     ports:
-      - "127.0.0.1:8000:8000"      # instead of "8000:8000"
+      - "127.0.0.1:8000:8000"      # thay cho "8000:8000": bên ngoài không gọi thẳng vào cổng 8000
 
 
-3. Start
---------
-  export API_KEY=$(openssl rand -hex 24)       # give it to the FE (or to the FE's backend)
-  export CORS_ORIGINS=https://your-fe.com      # FE origin(s), comma-separated
-  export FORWARDED_ALLOW_IPS='*'               # safe only because port 8000 is bound to localhost (step 2)
+3. Chạy
+-------
+  export API_KEY=$(openssl rand -hex 24)       # đưa cho FE (hoặc backend của FE)
+  export CORS_ORIGINS=https://fe-cua-ban.com   # domain FE, nhiều domain thì cách nhau dấu phẩy
+  export FORWARDED_ALLOW_IPS='*'               # chỉ an toàn vì cổng 8000 chỉ mở cho localhost (bước 2)
   docker compose up -d --build
-  docker compose logs -f updater               # first run downloads the feeds and Tranco (a few minutes)
-  curl localhost:8000/health                   # expect "blocklist_stale": false
+  docker compose logs -f updater               # lần đầu tải feed + Tranco mất vài phút
+  curl localhost:8000/health                   # "blocklist_stale": false là ổn
 
-Optional settings (environment):
-  RATE_LIMIT_PER_MIN   POST requests per client IP and minute, per worker (default 60; 2 workers)
-  USE_LLM=0            disable Layer D (no LLM cost; suspicious URLs stay "suspicious")
-  USE_VT=0             disable the VirusTotal lookup
+Tuỳ chọn (biến môi trường):
+  RATE_LIMIT_PER_MIN   số request POST mỗi IP mỗi phút, tính riêng từng worker (mặc định 60; có 2 worker)
+  USE_LLM=0            tắt Lớp D (không tốn tiền LLM; URL nghi ngờ giữ kết luận "suspicious")
+  USE_VT=0             tắt tra cứu VirusTotal
+  API_EXPOSE_LAYERS=1  trả thêm chi tiết từng lớp (điểm, ngưỡng của Lớp C...) — CHỈ dùng khi debug /
+                       demo: kẻ tấn công có thể dò điểm để chỉnh URL lọt xuống dưới ngưỡng
 
 
-4. HTTPS with Caddy (an HTTPS FE cannot call an HTTP API)
----------------------------------------------------------
-Point the DNS record api.your-domain.com to the VPS, then:
+4. HTTPS bằng Caddy (FE chạy HTTPS không được gọi API HTTP)
+-----------------------------------------------------------
+Trỏ bản ghi DNS api.domain-cua-ban.com về IP của VPS, rồi:
   sudo apt install caddy
-  echo 'api.your-domain.com {
+  echo 'api.domain-cua-ban.com {
       reverse_proxy 127.0.0.1:8000
   }' | sudo tee /etc/caddy/Caddyfile
-  sudo systemctl reload caddy                  # Caddy obtains the certificate by itself
+  sudo systemctl reload caddy                  # Caddy tự xin chứng chỉ HTTPS
 
 
-5. Call from the FE
--------------------
+5. Gọi từ FE
+------------
   async function checkUrl(url) {
     const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 30000);   // 2-15 s when the LLM is used
+    const t = setTimeout(() => ctrl.abort(), 30000);   // có LLM thì mất khoảng 2-15 giây
     try {
-      const r = await fetch("https://api.your-domain.com/analyze", {
+      const r = await fetch("https://api.domain-cua-ban.com/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-API-Key": API_KEY },
         body: JSON.stringify({ url, explain: true, lang: "vi" }),
         signal: ctrl.signal,
       });
-      if (r.status === 422) throw new Error("Invalid URL");
-      if (r.status === 429) throw new Error("Too many requests, retry in a minute");
-      if (!r.ok) throw new Error(`Error ${r.status}`);
+      if (r.status === 422) throw new Error("URL không hợp lệ");
+      if (r.status === 429) throw new Error("Gửi quá nhiều yêu cầu, thử lại sau 1 phút");
+      if (!r.ok) throw new Error(`Lỗi ${r.status}`);
       return await r.json();
     } finally { clearTimeout(t); }
   }
-  // "Report a mistake" button: POST /feedback {url, label: "clean" | "phishing"}
+  // Nút "Báo sai": POST /feedback {url, label: "clean" | "phishing"}
 
-Show a loading state. explain: true adds a short explanation in `lang` (extra tokens);
-explain: false returns the verdict only.
+Hiện trạng thái đang tải. explain: true trả thêm lời giải thích ngắn bằng ngôn ngữ `lang` (tốn thêm
+token); explain: false chỉ trả kết luận.
 
-SECURITY — render every text field of the response as TEXT, never as HTML
-(no innerHTML / dangerouslySetInnerHTML / v-html). `explanation` was written by the LLM after
-reading the attacker's page, and the `reason` fields in `layers` quote parts of the URL: both are
-attacker-influenced. Links, tags and phone numbers are already stripped from `explanation`, but
-the FE must not rely on that alone. Never make the analysed URL clickable in a warning.
+BẢO MẬT — mọi trường văn bản trong response phải hiển thị dạng TEXT, không bao giờ dạng HTML
+(không dùng innerHTML / dangerouslySetInnerHTML / v-html). `explanation` do LLM viết sau khi đọc trang
+của kẻ tấn công, các trường `reason` (khi bật API_EXPOSE_LAYERS) trích một phần URL: cả hai đều có
+thể bị kẻ tấn công tác động. Server đã lọc link, thẻ HTML và số điện thoại khỏi `explanation`, nhưng
+FE không được chỉ dựa vào đó. Không bao giờ biến URL đang bị cảnh báo thành link bấm được.
 
 
-Quick test without a server
----------------------------
+Chạy thử nhanh không cần server
+-------------------------------
 Windows (cmd):
   set API_KEY=k123
   set CORS_ORIGINS=http://localhost:5173
   uvicorn api:app --app-dir src --port 8000
-FE on the same machine calls http://localhost:8000. For an FE hosted elsewhere, open a temporary
-HTTPS tunnel:
+FE chạy cùng máy gọi http://localhost:8000. FE đặt ở nơi khác thì mở tunnel HTTPS tạm thời:
   cloudflared tunnel --url http://localhost:8000
-Without Docker the blocklist must be refreshed by a scheduled task (hourly):
+Không dùng Docker thì phải lên lịch làm mới blocklist mỗi giờ:
   schtasks /Create /SC HOURLY /TN PhishingBlocklist /TR "python <repo>\src\blocklist\updater.py"
 
 
-Operations
-----------
-  docker compose exec api python src/monitoring.py report --days 7    # reported false alarms / misses
-  git pull && docker compose up -d --build                             # update to a new version
-  LLM spend: data/llm_spend.json (calls refused once LLM_BUDGET_USD is reached)
+Vận hành
+--------
+  docker compose exec api python src/monitoring.py report --days 7    # tỉ lệ báo nhầm / bỏ sót do người dùng báo
+  git pull && docker compose up -d --build                             # cập nhật phiên bản mới
+  Chi phí LLM: data/llm_spend.json (từ chối gọi khi chạm LLM_BUDGET_USD)
+  Sức chịu tải: 1 request đầy đủ có thể tới ~25 giây; 2 worker x 40 luồng ~ 3 request/giây.
+  Cần hơn thì tăng --workers trong Dockerfile hoặc thêm máy.

@@ -1,7 +1,8 @@
 """HTTP API around the detection pipeline, for the UI (browser extension / web app).
 
 Endpoints
-  POST /analyze   {"url": "...", "explain": false, "lang": "vi"} -> analyze_url() result
+  POST /analyze   {"url": "...", "explain": false, "lang": "vi"}
+                  -> {url, verdict, explanation, decided_by, latency_ms} (see API_EXPOSE_LAYERS)
   POST /feedback  {"url": "...", "label": "clean" | "phishing"}   -> user report (monitoring.py)
   GET  /health    readiness of every layer (blocklist age, classifier, LLM key)
 Interactive docs: /docs
@@ -12,6 +13,8 @@ Settings (environment variables)
   CORS_ORIGINS   comma-separated origins allowed to call the API from a browser (default "*")
   USE_LLM, USE_VT  "0" disables Layer D / the VirusTotal lookup (default on)
   RATE_LIMIT_PER_MIN  POST requests per client IP and minute, per worker process (default 60, 0 = off)
+  API_EXPOSE_LAYERS  "1" adds per-layer details (scores, thresholds) to /analyze; debug / demo only
+                   (default: verdict, explanation without scores, decided_by, latency_ms)
 Only http(s) URLs (or a bare host such as "example.com") are accepted.
 API keys of the layers (OPENAI_API_KEY, VT_API_KEY) are read from .env by the layers themselves.
 
@@ -52,6 +55,7 @@ API_KEY = os.getenv("API_KEY", "").strip()
 ALLOW_NO_AUTH = os.getenv("ALLOW_NO_AUTH", "0") == "1"
 USE_LLM = os.getenv("USE_LLM", "1") != "0"
 USE_VT = os.getenv("USE_VT", "1") != "0"
+EXPOSE_LAYERS = os.getenv("API_EXPOSE_LAYERS", "0") == "1"
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "60"))
 MAX_URL_LEN = 4096
 
@@ -148,8 +152,23 @@ def analyze(req: AnalyzeRequest) -> dict:
     """Plain `def`: FastAPI runs it in a worker thread, so slow lookups never block other requests."""
     result = analyze_url(req.url, use_llm=USE_LLM, use_vt=USE_VT, explain=req.explain, lang=req.lang)
     record_verdict(result)  # no URL stored, see monitoring.py
+    if not EXPOSE_LAYERS:
+        result = public_result(result)
     # default=str: numpy numbers in the layer details become plain JSON values
     return json.loads(json.dumps(result, ensure_ascii=False, default=str))
+
+
+# "(score 0.012 < threshold 0.034)", "(score 0.995)", "(Damerau-Levenshtein = 1, ... against 'x')"
+_RE_SCORE_DETAIL = re.compile(r"\s*\((?:score|Damerau-Levenshtein)\b[^)]*\)", re.I)
+
+
+def public_result(result: dict) -> dict:
+    """What a client sees by default: verdict and explanation without per-layer scores and
+    thresholds. Returned scores would let an attacker probe URL variants until one lands just
+    under a threshold (evasion oracle). API_EXPOSE_LAYERS=1 returns everything (debug / demo)."""
+    return {"url": result["url"], "verdict": result["verdict"], "decided_by": result["decided_by"],
+            "explanation": _RE_SCORE_DETAIL.sub("", result.get("explanation") or ""),
+            "latency_ms": result.get("latency_ms")}
 
 
 @app.post("/feedback", dependencies=[Depends(check_key), Depends(rate_limit)])

@@ -15,6 +15,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setattr(api, "API_KEY", KEY)
     monkeypatch.setattr(api, "ALLOW_NO_AUTH", False)
     monkeypatch.setattr(api, "RATE_LIMIT_PER_MIN", 100)
+    monkeypatch.setattr(api, "EXPOSE_LAYERS", False)
     monkeypatch.setattr(api, "_hits", {})
     for name, path in (("MONITORING_DIR", tmp_path), ("VERDICTS_PATH", tmp_path / "v.jsonl"),
                        ("FEEDBACK_PATH", tmp_path / "f.jsonl"), ("SECRET_PATH", tmp_path / "k")):
@@ -61,6 +62,27 @@ def test_web_urls_reach_the_pipeline_stripped(client, url):
     r = post(client, "/analyze", {"url": url})
     assert r.status_code == 200 and r.json()["verdict"] == "suspicious"
     assert client.seen == [url.strip()]
+
+
+@pytest.mark.parametrize("explanation, public", [
+    ("URL model rates it safe (score 0.012 < threshold 0.034).", "URL model rates it safe."),
+    ("The URL looks suspicious (score 0.512) but the page content could not be analysed.",
+     "The URL looks suspicious but the page content could not be analysed."),
+    ("Label 'vietcombamk' — typosquat: suspected impersonation of 'vietcombank' (Damerau-Levenshtein"
+     " = 1, Jaro-Winkler = 0.96 against 'vietcombank'); domain 'x.com' is not in the official list.",
+     "Label 'vietcombamk' — typosquat: suspected impersonation of 'vietcombank'; domain 'x.com' is"
+     " not in the official list."),
+])
+def test_scores_and_thresholds_are_hidden_by_default(client, monkeypatch, explanation, public):
+    """Returned scores would be an evasion oracle: tweak the URL until it lands under a threshold."""
+    full = {"url": "x.com", "verdict": "clean", "decided_by": "C_classifier", "explanation": explanation,
+            "layers": {"C_classifier": {"score": 0.012, "threshold": 0.034}}, "latency_ms": 3.0}
+    monkeypatch.setattr(api, "analyze_url", lambda url, **kw: full)
+    body = post(client, "/analyze", {"url": "x.com"}).json()
+    assert body == {"url": "x.com", "verdict": "clean", "decided_by": "C_classifier",
+                    "explanation": public, "latency_ms": 3.0}
+    monkeypatch.setattr(api, "EXPOSE_LAYERS", True)
+    assert post(client, "/analyze", {"url": "x.com"}).json()["layers"]["C_classifier"]["threshold"] == 0.034
 
 
 def test_rate_limit_per_client(client, monkeypatch):

@@ -14,6 +14,7 @@ services:
       RATE_LIMIT_PER_MIN: ${RATE_LIMIT_PER_MIN:-60}
       USE_LLM: ${USE_LLM:-1}
       USE_VT: ${USE_VT:-1}
+      API_EXPOSE_LAYERS: ${API_EXPOSE_LAYERS:-0}  # 1 = per-layer scores in /analyze (debug / demo only)
       # Behind a reverse proxy (HTTPS): its IP, so uvicorn takes the client IP from
       # X-Forwarded-For (rate limit per real user, not per proxy)
       FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}

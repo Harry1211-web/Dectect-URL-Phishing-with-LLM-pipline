@@ -129,7 +129,9 @@ discarded, the benchmark table and the research contributions.
    chown -R 1000 data             # Linux: the container runs as uid 1000
    API_KEY=change-me docker compose up -d --build
    ```
-   - `POST /analyze` `{"url": "...", "explain": false, "lang": "vi"}` → verdict and per-layer detail;
+   - `POST /analyze` `{"url": "...", "explain": false, "lang": "vi"}` → verdict, explanation, deciding
+     layer (per-layer scores / thresholds only with `API_EXPOSE_LAYERS=1`: they would let an attacker
+     tune a URL under the threshold);
      `POST /feedback` `{"url": "...", "label": "clean" | "phishing"}`; `GET /health`.
    - Every POST needs the header `X-API-Key: <API_KEY>`; without `API_KEY` the server refuses all
      requests (`ALLOW_NO_AUTH=1` only for local tests).
