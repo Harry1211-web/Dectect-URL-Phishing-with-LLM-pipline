@@ -88,13 +88,16 @@ does not show a large defence effect. The measurable effect is on gpt-6-luna rea
 production path cuts phishing → suspicious downgrades from 21 to 5 and the one flip to 0. Haiku is
 robust with or without the defence.
 
-### Hand-relabelled subset
+### Relabelled subset (VirusTotal labels)
 
 `reports/relabel/relabel_subset.csv`: 300 pages (PhreshPhish dev 100, test 120, live VN 80; half
 from pages where the layers disagree with the label or with each other), with URL, title, text
-snippet and every layer's verdict. **Waiting for hand labels** (`my_label`); then
-`python src/relabel_subset.py score` writes the true error rates (per row and re-weighted by the
-sampling pools) to `reports/relabel/relabel_results.json`. 22 VN pages could no longer be downloaded.
+snippet and every layer's verdict. Reference labels are VirusTotal's (`vt_label`, filled by
+`src/relabel_vt.py`: >= 2 engines phishing, 0 clean, else unsure); there are no hand labels.
+`python src/relabel_subset.py score` writes the error rates against them (per row and re-weighted
+by the sampling pools) to `reports/relabel/relabel_results.json`: dataset labels disagree on 7 of
+149 decided rows (4.7 %, 95 % CI 2.3-9.4 %); 151 rows are unsure. 22 VN pages could no longer be
+downloaded.
 
 ## Phase 4 — Layer D: gpt-6-luna vs Claude Haiku 5.5
 

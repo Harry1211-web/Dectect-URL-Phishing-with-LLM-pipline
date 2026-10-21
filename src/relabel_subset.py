@@ -1,17 +1,17 @@
-"""Hand-relabelled subset: how much of the measured Layer D error is label noise?
+"""Relabelled subset: how much of the measured Layer D error is label noise?
 
 export : draws ~300 pages from the Layer D dev / held-out test sets (PhreshPhish) and the live
          Vietnamese run (reports/live/vi.json), half from pages where the layers disagree (with the
          dataset label or with each other), half from the others, inside each source. Writes a CSV
-         with URL, title, a text snippet and every layer's verdict, plus empty `my_label` /
-         `my_note` columns for the hand label (phishing / clean / unsure). Nothing is labelled
-         automatically. Vietnamese pages are not stored: their text is fetched now.
-score  : reads the hand-labelled CSV and recomputes the error rates against the hand labels:
+         with URL, title, a text snippet and every layer's verdict. Vietnamese pages are not
+         stored: their text is fetched now. Reference labels: VirusTotal (src/relabel_vt.py ->
+         column vt_label: phishing / clean / unsure); there are no hand labels.
+score  : recomputes the error rates against vt_label (unsure rows left out):
          per subset row (with 95 % Wilson interval) and re-weighted by the sampling pools
          (weight = pool size / rows drawn), so the oversampled disagreements do not inflate rates.
 Run:    python src/relabel_subset.py export --haiku-dev <eval_dev.json> --haiku-test <eval_test.json>
         python src/relabel_subset.py score
-Output: reports/relabel/relabel_subset.csv (to fill in), reports/relabel/relabel_results.json
+Output: reports/relabel/relabel_subset.csv, reports/relabel/relabel_results.json
 """
 
 from __future__ import annotations
@@ -112,17 +112,19 @@ def export(haiku_dev: Path, haiku_test: Path) -> int:
     parts.append(vi.assign(title=titles, snippet=snippets))
     d = pd.concat(parts, ignore_index=True).sample(frac=1, random_state=SEED)  # mix sources / pools
     d.insert(0, "id", range(1, len(d) + 1))
-    d["my_label"], d["my_note"] = "", ""
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     d.to_csv(CSV_PATH, index=False, encoding="utf-8-sig")
     print(d.groupby(["source", "pool"]).size().to_dict(), "->", CSV_PATH)
     return 0
 
 
+REF = "vt_label"  # reference label column (VirusTotal, filled by relabel_vt.py)
+
+
 def _rates(d: pd.DataFrame, col: str) -> dict:
-    """Errors of verdict column `col` against the hand label; 'clean' and 'safe' both pass."""
+    """Errors of verdict column `col` against the reference label; 'clean' and 'safe' both pass."""
     d = d[d[col].notna() & (d[col] != "")]
-    ph, cl = d[d.my_label == "phishing"], d[d.my_label == "clean"]
+    ph, cl = d[d[REF] == "phishing"], d[d[REF] == "clean"]
     miss = ph[col].isin(["safe", "clean"])
     block = cl[col] == "phishing"
     warn = cl[col] == "suspicious"
@@ -139,10 +141,13 @@ def _rates(d: pd.DataFrame, col: str) -> dict:
 
 def score() -> int:
     d = pd.read_csv(CSV_PATH)
-    d["my_label"] = d.my_label.astype(str).str.strip().str.lower()
-    labelled = d[d.my_label.isin(["phishing", "clean"])]
+    if REF not in d:
+        print(f"no {REF} column: run python src/relabel_vt.py first")
+        return 1
+    d[REF] = d[REF].astype(str).str.strip().str.lower()
+    labelled = d[d[REF].isin(["phishing", "clean"])]
     print(f"{len(labelled)} of {len(d)} rows labelled (unsure / empty left out)")
-    noise = labelled.dataset_label != labelled.my_label
+    noise = labelled.dataset_label != labelled[REF]
     out = {"n_rows": len(d), "n_labelled": len(labelled),
            "dataset_label_wrong": {"k": int(noise.sum()), "n": len(labelled),
                                    "rate": round(float(noise.mean()), 4) if len(labelled) else None,

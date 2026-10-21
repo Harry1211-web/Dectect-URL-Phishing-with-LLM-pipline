@@ -6,6 +6,7 @@
 ├── IMPROVEMENTS_NOTE.md           Optimizations kept / discarded, benchmark table, research contributions
 ├── CLAUDE.md                      Instructions for Claude Code
 ├── CAY_THU_MUC.md                 This file: what each folder/file is for
+├── DE_TAI.md                     Thesis topic (Vietnamese): title, description, three main contributions
 ├── DEPLOY.txt                     Deployment guide in Vietnamese: Docker, HTTPS proxy, API key, FE call example
 ├── requirements.txt               Python dependencies (tested versions)
 ├── requirements-api.txt           Runtime-only subset for the API image (torch CPU installed separately)
@@ -26,7 +27,7 @@
 │   ├── evaluate_external.py       Layers A, B, C alone and A+B+C on the external PhreshPhish set
 │   ├── evaluate_live.py           Full pipeline on live URLs: Vietnamese set, fresh pages of top sites (paid API)
 │   ├── evaluate_trusted_shortcut.py  Trusted-domain shortcut before / after the international brand domains
-│   ├── relabel_subset.py          ~300-page relabelling subset (export CSV) and error rates vs its labels (score)
+│   ├── relabel_subset.py          ~300-page relabelling subset (export CSV) and error rates vs its VirusTotal labels (score)
 │   ├── relabel_vt.py              Fills that subset with VirusTotal labels (>= 2 engines phishing, 0 clean, else unsure)
 │   ├── layer_c_selection.py       Chooses Layer C on val: best of 5 DL URL models, then best of RF / XGBoost / LightGBM
 │   │                              (+ ablation step: feature groups removed one at a time, 3 seeds)
