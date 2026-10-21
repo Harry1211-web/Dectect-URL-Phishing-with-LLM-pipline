@@ -6,6 +6,8 @@
                                                                         -> clean (stop)
      VirusTotal     >= 2 engines report the URL as malicious            -> phishing (stop)
   B. typosquatting  brand impersonation (also in redirect targets)      -> suspicious (needs D)
+     Before D the page is downloaded once; when it redirects elsewhere, the final URL goes
+     through A (listed -> phishing, stop) and B as well
   C. URL classifier DL score + ML classifier (+ host features), high-recall gate; when the
                     page can be downloaded, the DOM model's score joins the decision
                     (models/url_classifier/dom_config.json)        -> clean (stop) / suspicious
@@ -43,7 +45,7 @@ from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import dom_features  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
 from url_utils import (  # noqa: E402
-    embedded_urls, ensure_scheme, host_of, is_ip_host, registrable_domain, split_host,
+    embedded_urls, ensure_scheme, host_of, is_ip_host, normalize_url, registrable_domain, split_host,
 )
 
 # Classifier score above which the fallback labels a URL "phishing" without the LLM
@@ -220,10 +222,30 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                     f"URL model rates it safe (score {c['score']:.3f} < threshold {c['threshold']:.3f}).")
 
     if use_llm:
-        from llm.llm_client import DEFAULT_LLM_TIMEOUT_S, DEFAULT_MODEL, analyze_suspicious
+        from llm.llm_client import (
+            DEFAULT_LLM_TIMEOUT_S, DEFAULT_MODEL, analyze_suspicious, cached_verdict, fetch,
+        )
+        model = llm_model or DEFAULT_MODEL
         t_d = time.perf_counter()
+        # Layer D downloads the page anyway: done here so the redirect target (shortener, open
+        # redirect) also goes through Layers A and B — bit.ly/x -> a listed phishing page is
+        # blocked instead of being left to the LLM. Skipped when D has a cached verdict
+        if page is None and not cached_verdict(url, model, explain, lang):
+            page = fetch(url)
+        final_url = page[3] if page and len(page) > 3 else None
+        if final_url and normalize_url(final_url) != normalize_url(url):
+            a2 = check_blocklist(final_url)
+            layers["A_redirect_target"] = a2
+            if a2["flag"] is True:
+                return done("phishing", "A_blocklist",
+                            f"URL redirects to {final_url[:80]} — {a2['reason']}")
+            if b["flag"] is not True:
+                b2 = check_typosquatting_deep(final_url)
+                if b2["flag"] is True:  # used by the prompt and by the fallback below
+                    b = {**b2, "reason": f"URL redirects to {final_url[:80]} — {b2['reason']}"}
+                    layers["B_typosquatting"] = b
         d = analyze_suspicious(url, rule_results=[b], explain=explain, lang=lang, page=page,
-                               cache=True, model=llm_model or DEFAULT_MODEL,
+                               cache=True, model=model,
                                timeout_s=llm_timeout_s or DEFAULT_LLM_TIMEOUT_S)
         d["latency_ms"] = round((time.perf_counter() - t_d) * 1000, 1)
         layers["D_llm"] = d

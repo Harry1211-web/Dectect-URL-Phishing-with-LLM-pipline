@@ -63,6 +63,33 @@ def test_llm_safe_is_overruled_when_classifier_is_very_sure(monkeypatch):
     assert pipeline.analyze_url("https://accounts.google.com/ServiceLogin")["verdict"] == "clean"
 
 
+def test_redirect_target_goes_through_layers_a_and_b(monkeypatch):
+    """bit.ly/x -> a listed phishing page is blocked, not left to the LLM; a redirect to a
+    brand look-alike reaches the LLM with the typosquatting flag set."""
+    import pipeline
+    from blocklist import lookup
+    from llm import llm_client
+    monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
+    monkeypatch.setattr(pipeline.classifier, "classify_url", lambda url, use_host_features=True: {
+        "label": "suspicious", "score": 0.5, "threshold": 0.1})
+    monkeypatch.setattr(llm_client, "cached_verdict", lambda *a, **k: None)
+    seen = {}
+
+    def fake_d(url, rule_results=None, **k):
+        seen["b"] = rule_results[0]["flag"]
+        return {"verdict": "suspicious", "explanation": "", "timed_out": False}
+    monkeypatch.setattr(llm_client, "analyze_suspicious", fake_d)
+    monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"phish.top/login"}), frozenset()))
+
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("Login", "x", False, "https://phish.top/login"))
+    r = pipeline.analyze_url("https://bit.ly/abc", use_vt=False)
+    assert r["verdict"] == "phishing" and r["decided_by"] == "A_blocklist" and "b" not in seen
+
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("Login", "x", False, "https://vietcombamk.com/login"))
+    r = pipeline.analyze_url("https://bit.ly/abc", use_vt=False)
+    assert seen["b"] is True and "redirects to" in r["layers"]["B_typosquatting"]["reason"]
+
+
 def test_verified_official_domain_is_trusted_without_loopholes():
     from pipeline import analyze_url, trusted_official_domain
     r = analyze_url("https://www.vietcombank.com.vn/vi-VN/KHCN", use_llm=False)

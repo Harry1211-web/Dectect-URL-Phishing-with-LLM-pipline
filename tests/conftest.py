@@ -20,6 +20,14 @@ def _no_virustotal(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
+def _no_page_download_before_layer_d(monkeypatch):
+    """The pipeline downloads the page before Layer D: an unreadable page unless a test sets one.
+    (Tests of fetch itself import the module as `llm_client`, a separate module object.)"""
+    from llm import llm_client
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("", "", False, url))
+
+
+@pytest.fixture(autouse=True)
 def _no_page_download_in_layer_c(monkeypatch):
     """Layer C's DOM step would download pages: off unless a test turns it on."""
     from url_classifier import dom_features
