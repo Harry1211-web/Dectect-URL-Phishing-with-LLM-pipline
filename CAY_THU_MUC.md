@@ -7,13 +7,19 @@
 ├── CLAUDE.md                      Instructions for Claude Code
 ├── CAY_THU_MUC.md                 This file: what each folder/file is for
 ├── DE_TAI.md                     Thesis topic (Vietnamese): title, description, three main contributions
-├── DEPLOY.txt                     Deployment guide in Vietnamese: Docker, HTTPS proxy, API key, FE call example
+├── DEPLOY.txt                     Deployment guide in Vietnamese: Docker, BFF, HTTPS proxy, Turnstile, FE call example
 ├── requirements.txt               Python dependencies (tested versions)
 ├── requirements-api.txt           Runtime-only subset for the API image (torch CPU installed separately)
 ├── Dockerfile                     API image: src/, models/url_classifier/, dataset/brands/ (data/ and .env mounted)
-├── docker-compose.yml             api service (port 8000) + updater service (blocklist refresh every hour)
+├── docker-compose.yml             api (private network only) + bff (public entry, 127.0.0.1:8080) + updater (hourly)
 ├── .dockerignore                  Keeps data, datasets, notebooks, reports and .env out of the image
 ├── .env                           API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, VT_API_KEY, optional OPENAI_MODEL) and budgets — not shared
+│
+├── bff/                           Backend-for-frontend: the browser calls it without a key
+│   ├── app.py                     Adds API_KEY server-side, forwards /api/analyze, /api/feedback to src/api.py;
+│   │                              origin check, per-IP minute / day limits, optional Cloudflare Turnstile
+│   ├── Dockerfile                 Small image (no model, no project code)
+│   └── requirements.txt           fastapi, uvicorn, httpx
 │
 ├── src/
 │   ├── contracts.py               Shared result types (RuleResult, Verdict)
@@ -82,7 +88,7 @@
 │       ├── build_dataset.py       Merge, clean, de-duplicate, cap per site, split by site, apply label fixes
 │       └── audit_labels.py        Finds mislabelled URLs with model-independent evidence -> label_fixes.csv
 │
-├── tests/                         pytest suite (no paid API calls; test_api.py = HTTP API auth / validation / rate limit)
+├── tests/                         pytest suite (no paid API calls; test_api.py = HTTP API, test_bff.py = BFF)
 ├── notebooks/
 │   ├── pipeline_experiment.ipynb  Every experiment end to end: setup, sanitizer, features, Layer C selection,
 │                                  val / test / VN evaluation, Layer D, benchmark (keeps outputs)

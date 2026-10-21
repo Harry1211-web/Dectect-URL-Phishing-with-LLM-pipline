@@ -1,0 +1,4 @@
+# BFF (bff/app.py): no model, no project code — only the HTTP layer
+fastapi==0.136.1
+uvicorn==0.46.0
+httpx==0.28.1

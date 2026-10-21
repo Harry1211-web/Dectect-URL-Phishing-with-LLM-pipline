@@ -1,24 +1,46 @@
-# docker compose up -d --build   -> API on http://localhost:8000 (docs: /docs)
+# docker compose up -d --build
+#   bff -> http://127.0.0.1:8080/api/... (the only public entry, behind the HTTPS proxy; no key needed)
+#   api -> private Docker network only (http://api:8000), reached by the BFF with API_KEY
+# API_KEY never leaves the server: generate one (openssl rand -hex 24) and keep it in the shell / .env
 services:
   api:
     build: .
     image: phishing-api
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"                    # not published: only containers of this project can call it
     volumes:
       - ./data:/app/data          # blocklist, Tranco, caches, injection patterns, monitoring log
       - ./.env:/app/.env:ro       # OPENAI_API_KEY, VT_API_KEY, budgets (read by the layers)
     environment:
-      API_KEY: ${API_KEY:?API_KEY must be set}  # clients send it as the X-API-Key header
-      CORS_ORIGINS: ${CORS_ORIGINS:-*}  # origin(s) of the partner's UI
+      API_KEY: ${API_KEY:?API_KEY must be set}  # sent by the BFF as the X-API-Key header
       RATE_LIMIT_PER_MIN: ${RATE_LIMIT_PER_MIN:-60}
       USE_LLM: ${USE_LLM:-1}
       USE_VT: ${USE_VT:-1}
       API_EXPOSE_LAYERS: ${API_EXPOSE_LAYERS:-0}  # 1 = per-layer scores in /analyze (debug / demo only)
       MONITORING_KEEP_MONTHS: ${MONITORING_KEEP_MONTHS:-12}  # monthly verdict / feedback logs kept
-      # Behind a reverse proxy (HTTPS): its IP, so uvicorn takes the client IP from
-      # X-Forwarded-For (rate limit per real user, not per proxy)
-      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
+      # Only the BFF can reach the API (not published), so its X-Forwarded-For (the real client
+      # IP) is trusted: the API's per-IP limit and logs see users, not the BFF
+      FORWARDED_ALLOW_IPS: "*"
+    restart: unless-stopped
+
+  # Backend-for-frontend: the browser calls it without any key; it adds API_KEY server-side and
+  # applies its own abuse controls (origin check, per-IP minute / day limits, optional Turnstile)
+  bff:
+    build: ./bff
+    image: phishing-bff
+    depends_on: [api]
+    ports:
+      - "127.0.0.1:8080:8080"     # only the reverse proxy on this machine (Caddy) reaches it
+    environment:
+      API_URL: http://api:8000
+      API_KEY: ${API_KEY:?API_KEY must be set}
+      FE_ORIGINS: ${FE_ORIGINS:?FE_ORIGINS must be set (e.g. https://app.example.com)}
+      BFF_RATE_PER_MIN: ${BFF_RATE_PER_MIN:-10}
+      BFF_RATE_PER_DAY: ${BFF_RATE_PER_DAY:-300}
+      TURNSTILE_SECRET: ${TURNSTILE_SECRET:-}  # set to require Cloudflare Turnstile on every POST
+      # Port bound to 127.0.0.1: only the local proxy connects, so its X-Forwarded-For is trusted.
+      # If the port is ever published, set this to the proxy IP instead (else IPs can be forged)
+      FORWARDED_ALLOW_IPS: "*"
     restart: unless-stopped
 
   # Refreshes the phishing feeds every hour (each feed is only downloaded when due); the API
