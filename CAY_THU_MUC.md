@@ -112,7 +112,7 @@
 │   ├── llm_spend.json             Ledger of LLM spend per model and provider (budget guard: LLM_BUDGET_USD,
 │   │                              ANTHROPIC_BUDGET_USD in .env)
 │   ├── llm_verdict_cache.sqlite   Layer D verdicts per URL, reused for 6 h (not in git)
-│   ├── monitoring/                Verdict log, user feedback, hashing secret (no URLs stored; not in git)
+│   ├── monitoring/                Monthly verdict / feedback logs (kept MONITORING_KEEP_MONTHS), hashing secret (no URLs; not in git)
 │   ├── phreshphish_html.parquet   HTML of the Layer D dev / test pages and DOM pages (sha256 -> html, re-downloadable)
 │   ├── host_cache.sqlite          Cache of DNS / TLS / RDAP lookups (Layer C host features)
 │   └── tranco_top1m.csv           Tranco top-1M (popular-domain checks, common-token filter)

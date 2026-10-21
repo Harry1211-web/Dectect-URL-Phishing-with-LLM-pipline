@@ -56,6 +56,8 @@ Tuỳ chọn (biến môi trường):
   RATE_LIMIT_PER_MIN   số request POST mỗi IP mỗi phút, tính riêng từng worker (mặc định 60; có 2 worker)
   USE_LLM=0            tắt Lớp D (không tốn tiền LLM; URL nghi ngờ giữ kết luận "suspicious")
   USE_VT=0             tắt tra cứu VirusTotal
+  MONITORING_KEEP_MONTHS  số tháng giữ log giám sát (mỗi tháng 1 file trong data/monitoring/,
+                       mặc định 12; tháng cũ hơn tự xoá)
   API_EXPOSE_LAYERS=1  trả thêm chi tiết từng lớp (điểm, ngưỡng của Lớp C...) — CHỈ dùng khi debug /
                        demo: kẻ tấn công có thể dò điểm để chỉnh URL lọt xuống dưới ngưỡng
 

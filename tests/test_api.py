@@ -17,9 +17,8 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setattr(api, "RATE_LIMIT_PER_MIN", 100)
     monkeypatch.setattr(api, "EXPOSE_LAYERS", False)
     monkeypatch.setattr(api, "_hits", {})
-    for name, path in (("MONITORING_DIR", tmp_path), ("VERDICTS_PATH", tmp_path / "v.jsonl"),
-                       ("FEEDBACK_PATH", tmp_path / "f.jsonl"), ("SECRET_PATH", tmp_path / "k")):
-        monkeypatch.setattr(monitoring, name, path)
+    monkeypatch.setattr(monitoring, "MONITORING_DIR", tmp_path)
+    monkeypatch.setattr(monitoring, "SECRET_PATH", tmp_path / "k")
     seen = []
 
     def fake_analyze(url, **kw):
@@ -96,7 +95,7 @@ def test_feedback_is_logged_without_the_url(client, tmp_path):
     url = "https://shop.example.com/account?token=abc123"
     assert post(client, "/feedback", {"url": url, "label": "clean"}).json() == {"ok": True}
     assert post(client, "/feedback", {"url": url, "label": "maybe"}).status_code == 422
-    log = (tmp_path / "f.jsonl").read_text(encoding="utf-8")
+    log = "".join(p.read_text(encoding="utf-8") for p in tmp_path.glob("feedback-*.jsonl"))
     assert "abc123" not in log and '"label": "clean"' in log
 
 

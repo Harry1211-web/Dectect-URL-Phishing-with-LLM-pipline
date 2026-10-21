@@ -177,6 +177,11 @@ def test_listed_official_page_is_warned_not_blocked(monkeypatch):
     assert r["verdict"] == "phishing" and r["decided_by"] == "A_blocklist"
     # Not listed: the trusted shortcut as before
     assert pipeline.analyze_url("https://www.vietcombank.com.vn/vi-VN/KHDN", use_vt=False)["verdict"] == "clean"
+    # Other subdomains and international brand domains: the feed still blocks
+    monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"promo.vietcombank.com.vn/a",
+                                                             "netflix.com/login"}), frozenset()))
+    for u in ("https://promo.vietcombank.com.vn/a", "https://netflix.com/login"):
+        assert pipeline.analyze_url(u, use_vt=False)["decided_by"] == "A_blocklist", u
 
 
 def test_verified_official_domain_is_trusted_without_loopholes():

@@ -1,7 +1,8 @@
 """Full detection pipeline for one clicked URL: A -> B -> C -> D.
 
   A. blocklist      known phishing URL/host (also redirect targets)     -> phishing (stop)
-                    (a listed plain page of a brand-owned domain: every layer, never "clean")
+                    (a listed plain page on the apex / www host of a verified Vietnamese brand
+                    domain, likely a feed error: every layer, never "clean")
      verified official domain of a Vietnamese brand, or official domain of an international
      brand that hosts no third-party content (no user content, no hidden redirect)
                                                                         -> clean (stop)
@@ -173,6 +174,14 @@ def trusted_official_domain(url: str, include_intl: bool = True) -> str | None:
     return domain
 
 
+def _feed_error_candidate(url: str) -> bool:
+    """Feed hit that is warned instead of blocked: a plain page (trusted-shortcut rules: no
+    redirect form, no user content) on the apex or www host of a hand-verified Vietnamese brand
+    domain. Not the derived international list, not other subdomains (microsites get hacked)."""
+    domain = trusted_official_domain(url, include_intl=False)
+    return domain is not None and host_of(url) in (domain, f"www.{domain}")
+
+
 def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = None,
                 use_host_features: bool = True, explain: bool = False, use_vt: bool = True,
                 lang: str = "vi", use_dom: bool = True, llm_model: str | None = None) -> dict:
@@ -196,12 +205,12 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
     a = check_blocklist(url)
     layers["A_blocklist"] = a
     official = trusted_official_domain(url)
-    if a["flag"] is True and official is None:
-        return done("phishing", "A_blocklist", a["reason"])
     if a["flag"] is True:
-        # A plain page of a brand-owned domain (no redirect, no user content) in a public feed:
-        # usually a feed false positive, sometimes a hacked page. Not blocked outright, never
-        # cleared: it goes through every layer and the user is at least warned
+        if not _feed_error_candidate(url):
+            return done("phishing", "A_blocklist", a["reason"])
+        # A plain page on the apex / www host of a hand-verified Vietnamese brand domain in a
+        # public feed: usually a feed false positive, sometimes a hacked page. Not blocked
+        # outright, never cleared: it goes through every layer and the user is at least warned
         holds.append(("listed_official", HOLD_LISTED_OFFICIAL))
     elif official:
         return done("clean", "verified_official_domain",

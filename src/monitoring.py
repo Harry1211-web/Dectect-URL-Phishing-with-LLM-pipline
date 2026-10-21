@@ -5,7 +5,9 @@ Privacy: no URL is stored. Each entry keeps the registrable domain and a keyed h
 (HMAC-SHA256 with a local secret in data/monitoring/secret.key), so feedback can be matched to its
 verdict but paths and query strings (tokens, e-mails) never reach the log.
 
-Files: data/monitoring/verdicts.jsonl, data/monitoring/feedback.jsonl (one JSON object per line).
+Files: data/monitoring/verdicts-YYYY-MM.jsonl, feedback-YYYY-MM.jsonl (one JSON object per line,
+one file per month; files older than MONITORING_KEEP_MONTHS months, default 12, are deleted).
+Files without a month (verdicts.jsonl, feedback.jsonl: older format) are still read.
 
 Run:
   python src/pipeline.py <url> --log                         (logs the verdict)
@@ -31,10 +33,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from url_utils import normalize_url, registrable_domain  # noqa: E402
 
 MONITORING_DIR = Path(__file__).resolve().parents[1] / "data" / "monitoring"
-VERDICTS_PATH = MONITORING_DIR / "verdicts.jsonl"
-FEEDBACK_PATH = MONITORING_DIR / "feedback.jsonl"
 SECRET_PATH = MONITORING_DIR / "secret.key"
 WARNED = ("phishing", "suspicious")  # verdicts that show the user a warning
+KEEP_MONTHS = int(os.getenv("MONITORING_KEEP_MONTHS", "12"))
 
 
 def _secret() -> bytes:
@@ -61,10 +62,27 @@ def url_id(url: str) -> str:
     return hmac.new(_secret(), normalize_url(url).encode("utf-8"), hashlib.sha256).hexdigest()[:24]
 
 
-def _append(path: Path, entry: dict) -> None:
+def _append(kind: str, entry: dict) -> None:
+    """Add one line to this month's file of `kind` (verdicts / feedback)."""
     MONITORING_DIR.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as f:
+    now = datetime.now(timezone.utc)
+    with (MONITORING_DIR / f"{kind}-{now:%Y-%m}.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    if secrets.randbelow(500) == 0:  # now and then, not on every request
+        prune(now)
+
+
+def prune(now: datetime | None = None) -> list[str]:
+    """Delete monthly files older than KEEP_MONTHS months; returns their names."""
+    now = now or datetime.now(timezone.utc)
+    y, m = divmod(now.year * 12 + now.month - 1 - KEEP_MONTHS, 12)
+    oldest_kept = f"{y:04d}-{m + 1:02d}"
+    gone = []
+    for f in MONITORING_DIR.glob("*-????-??.jsonl"):
+        if f.stem[-7:] < oldest_kept:
+            f.unlink(missing_ok=True)
+            gone.append(f.name)
+    return gone
 
 
 def _now() -> str:
@@ -76,7 +94,7 @@ def record_verdict(result: dict) -> None:
     layers = result.get("layers", {})
     c = layers.get("C_classifier") or {}
     d = layers.get("D_llm") or {}
-    _append(VERDICTS_PATH, {
+    _append("verdicts", {
         "time": _now(), "url_id": url_id(result["url"]), "domain": registrable_domain(result["url"]),
         "verdict": result["verdict"], "decided_by": result["decided_by"],
         "B_flag": (layers.get("B_typosquatting") or {}).get("flag"),
@@ -89,19 +107,23 @@ def record_feedback(url: str, label: str) -> None:
     """User report: label 'clean' (false alarm) or 'phishing' (missed / confirmed)."""
     if label not in ("clean", "phishing"):
         raise ValueError("label must be 'clean' or 'phishing'")
-    _append(FEEDBACK_PATH, {"time": _now(), "url_id": url_id(url),
-                            "domain": registrable_domain(url), "label": label})
+    _append("feedback", {"time": _now(), "url_id": url_id(url),
+                         "domain": registrable_domain(url), "label": label})
 
 
-def _read(path: Path, since: datetime) -> list[dict]:
-    if not path.exists():
-        return []
+def _read(kind: str, since: datetime) -> list[dict]:
+    """Entries of `kind` since `since`, in time order: only the monthly files of that period are
+    opened (plus a file of the older format without a month)."""
+    first = f"{since:%Y-%m}"
+    months = sorted(p for p in MONITORING_DIR.glob(f"{kind}-????-??.jsonl") if p.stem[-7:] >= first)
+    legacy = MONITORING_DIR / f"{kind}.jsonl"
     rows = []
-    for ln in path.read_text(encoding="utf-8").splitlines():
-        try:
-            rows.append(json.loads(ln))
-        except ValueError:
-            continue  # blank or damaged line (crash mid-write): one entry lost, not the report
+    for path in ([legacy] if legacy.exists() else []) + months:
+        for ln in path.read_text(encoding="utf-8").splitlines():
+            try:
+                rows.append(json.loads(ln))
+            except ValueError:
+                continue  # blank or damaged line (crash mid-write): one entry lost, not the report
     return [r for r in rows if datetime.fromisoformat(r["time"]) >= since]
 
 
@@ -109,7 +131,7 @@ def report(days: int = 7) -> dict:
     """Reported error rates over the last `days`. Feedback is matched to the latest verdict of the
     same URL; a rate is a lower bound (most users never report)."""
     since = datetime.now(timezone.utc) - timedelta(days=days)
-    verdicts, feedback = _read(VERDICTS_PATH, since), _read(FEEDBACK_PATH, since)
+    verdicts, feedback = _read("verdicts", since), _read("feedback", since)
     latest = {v["url_id"]: v for v in verdicts}  # file order = time order
     false_alarms, misses, confirmed = [], [], 0
     for fb in {f["url_id"]: f for f in feedback}.values():  # last report per URL
