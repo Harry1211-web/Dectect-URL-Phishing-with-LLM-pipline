@@ -41,12 +41,12 @@ from typosquatting.brands import (  # noqa: E402
     verified_official_domains,
 )
 from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402
-from typosquatting.typosquatting import MAX_TARGETS_CHECKED, check_typosquatting_deep  # noqa: E402
+from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import dom_features  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
 from url_utils import (  # noqa: E402
-    MAX_URL_LEN, all_embedded_urls, embedded_urls, ensure_scheme, host_of, is_ip_host,
-    normalize_url, registrable_domain, split_host,
+    MAX_URL_LEN, embedded_urls, ensure_scheme, host_of, is_ip_host, normalize_url,
+    registrable_domain, split_host,
 )
 
 # Classifier score above which the fallback labels a URL "phishing" without the LLM
@@ -204,10 +204,9 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
     # More hidden destinations than Layer B checks: an evasion pattern (decoys, long redirect
     # chains), never confirmed clean by Layer C; Layer D then checks the real final URL
     # (a URL longer than MAX_URL_LEN is only read in part: same treatment)
-    n_hidden = len(all_embedded_urls(url))
-    evasive = n_hidden > MAX_TARGETS_CHECKED or len(url) > MAX_URL_LEN
+    evasive = bool(b.get("hidden_destinations")) or len(url) > MAX_URL_LEN
     if evasive:
-        layers["hidden_destinations"] = n_hidden
+        layers["hidden_destinations"] = b.get("hidden_destinations", 0)
 
     c = (classifier.classify_url(url, use_host_features=use_host_features)
          if classifier.is_available() else None)
@@ -254,6 +253,9 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                 if b2["flag"] is True:  # used by the prompt and by the fallback below
                     b = {**b2, "reason": f"URL redirects to {final_url[:80]} — {b2['reason']}"}
                     layers["B_typosquatting"] = b
+                if b2.get("hidden_destinations"):  # same evasion rule as for the clicked URL
+                    evasive = True
+                    layers["hidden_destinations_redirect_target"] = b2["hidden_destinations"]
         d = analyze_suspicious(url, rule_results=[b], explain=explain, lang=lang, page=page,
                                cache=True, model=model,
                                timeout_s=llm_timeout_s or DEFAULT_LLM_TIMEOUT_S)
@@ -263,6 +265,10 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
             # LLM 'suspicious' = not enough evidence either way: warn the user, never 'clean'
             verdict = {"phishing": "phishing", "suspicious": "suspicious"}.get(d["verdict"], "clean")
             score = (c or {}).get("score")
+            if verdict == "clean" and evasive:  # some hidden destinations were never checked
+                return done("suspicious", "D_llm+evasion",
+                            "The page looks safe to the LLM, but the link hides many other "
+                            "destinations, a pattern used to evade checks — be careful.")
             if (verdict == "clean" and score is not None and score >= LLM_SAFE_OVERRIDE_SCORE
                     and registrable_domain(url) not in all_official_domains()):
                 return done("suspicious", "D_llm+C_override",

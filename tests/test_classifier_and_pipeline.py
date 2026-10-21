@@ -110,6 +110,25 @@ def test_crafted_redirect_chain_is_cheap_and_never_clean(monkeypatch):
     assert r["verdict"] == "clean"
 
 
+def test_evasive_redirect_target_is_never_cleared(monkeypatch):
+    """The rule holds for the page's redirect target too, and an LLM 'safe' does not clear it."""
+    import pipeline
+    from llm import llm_client
+    monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
+    monkeypatch.setattr(pipeline.classifier, "classify_url", lambda url, use_host_features=True: {
+        "label": "suspicious", "score": 0.3, "threshold": 0.1})
+    monkeypatch.setattr(llm_client, "cached_verdict", lambda *a, **k: None)
+    monkeypatch.setattr(llm_client, "analyze_suspicious", lambda *a, **k: {
+        "verdict": "safe", "explanation": "", "timed_out": False})
+    chain = ("https://hop.example/" + "www.a/www.b/" * 100)[:3000]
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, chain))
+    r = pipeline.analyze_url("https://bit.ly/abc", use_vt=False)
+    assert r["verdict"] == "suspicious" and r["decided_by"] == "D_llm+evasion"
+    assert r["layers"]["hidden_destinations_redirect_target"] > 20
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, "https://shop.example/a"))
+    assert pipeline.analyze_url("https://bit.ly/abc", use_vt=False)["verdict"] == "clean"
+
+
 def test_verified_official_domain_is_trusted_without_loopholes():
     from pipeline import analyze_url, trusted_official_domain
     r = analyze_url("https://www.vietcombank.com.vn/vi-VN/KHCN", use_llm=False)

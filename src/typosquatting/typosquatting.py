@@ -338,17 +338,21 @@ MAX_TARGETS_CHECKED = 20
 def check_typosquatting_deep(url: str) -> RuleResult:
     """Check the URL and the destinations hidden in it (open redirects, click trackers):
     'tracker.com/r?u=https://paypa1-login.com' is judged on 'paypa1-login.com' as well.
-    Shallow ones first (the redirect parameters themselves), at most MAX_TARGETS_CHECKED."""
+    Shallow ones first (the redirect parameters themselves), at most MAX_TARGETS_CHECKED.
+    More than that is an evasion pattern: every result then carries 'hidden_destinations'
+    (count), which callers must treat as suspicious (pipeline: never clean before Layer D)."""
+    targets = all_embedded_urls(url)
+    evasive = {"hidden_destinations": len(targets)} if len(targets) > MAX_TARGETS_CHECKED else {}
     r = check_typosquatting(url)
     if r["flag"] is True:
-        return r
-    for target in all_embedded_urls(url)[:MAX_TARGETS_CHECKED]:
+        return {**r, **evasive}
+    for target in targets[:MAX_TARGETS_CHECKED]:
         t = check_typosquatting(target)
         if t["flag"] is True:
             t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"
             t["latency_ms"] = round(t["latency_ms"] + r["latency_ms"], 2)
-            return t
-    return r
+            return {**t, **evasive}
+    return {**r, **evasive}
 
 
 
