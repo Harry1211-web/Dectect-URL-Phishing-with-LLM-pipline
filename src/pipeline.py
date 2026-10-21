@@ -236,12 +236,18 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
         t_d = time.perf_counter()
         # Layer D downloads the page anyway: done here so the redirect target (shortener, open
         # redirect) also goes through Layers A and B — bit.ly/x -> a listed phishing page is
-        # blocked instead of being left to the LLM. Skipped when D has a cached verdict
-        if page is None and not cached_verdict(url, model, explain, lang):
+        # blocked instead of being left to the LLM. On a cached verdict the stored target is
+        # checked again (no download): the cache must not skip the blocklist / evasion rules
+        hit = cached_verdict(url, model, explain, lang)
+        if page is None and not hit:
             page = fetch(url)
-        final_url = page[3] if page and len(page) > 3 else None
-        # The target comes from the site's Location header: same length bound as an API URL
-        final_url = final_url[:MAX_URL_LEN] if final_url else None
+        final_url = page[3] if page and len(page) > 3 else (hit or {}).get("final_url")
+        # The target comes from the site's Location header: same length bound and same
+        # "too long = evasion" rule as the clicked URL
+        if final_url and len(final_url) > MAX_URL_LEN:
+            evasive = True
+            layers["redirect_target_too_long"] = len(final_url)
+            final_url = final_url[:MAX_URL_LEN]
         if final_url and normalize_url(final_url) != normalize_url(url):
             a2 = check_blocklist(final_url)
             layers["A_redirect_target"] = a2

@@ -39,3 +39,23 @@ def test_decode_html_handles_missing_and_broken_charsets():
     assert decode_html(vi, "text/html; charset=utf-8, text/html") .startswith("<title>Đồng")
     latin = '<meta charset="windows-1252"><p>café</p>'.encode("cp1252")
     assert "café" in decode_html(latin, "text/html")
+
+
+def test_host_is_read_like_a_browser():
+    """Percent-encoded, full-width and ideographic-dot hosts open the plain host in a browser:
+    they used to escape the blocklist and Layer B."""
+    for u in ("https://%70hish.top/login", "https://ｐｈｉｓｈ.top/login", "https://phish。top/login",
+              "https://phish%2Etop/login", "https://PHISH.top./login"):
+        assert host_of(u) == "phish.top", u
+        assert normalize_url(u) == "phish.top/login", u
+    assert host_of("https://pаypal.com/") == "pаypal.com"  # Cyrillic а kept: Layer B reads homoglyphs
+
+
+def test_disguised_host_is_blocked_and_flagged(monkeypatch):
+    from blocklist import lookup
+    from typosquatting.typosquatting import check_typosquatting_deep
+    monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"phish.top/login"}), frozenset({"phish.top"})))
+    for u in ("https://%70hish.top/login", "https://ｐｈｉｓｈ.top/login", "https://phish。top/x"):
+        assert lookup.check_blocklist(u)["flag"] is True, u
+    for u in ("https://%76ietcombamk.com/", "https://ｖｉｅｔｃｏｍｂａｍｋ.com/"):
+        assert check_typosquatting_deep(u)["flag"] is True, u

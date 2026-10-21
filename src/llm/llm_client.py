@@ -42,7 +42,7 @@ from typosquatting.brands import (  # noqa: E402
 )
 from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting  # noqa: E402
-from url_utils import decode_html, split_host  # noqa: E402
+from url_utils import canonical_host, decode_html, split_host  # noqa: E402
 
 FETCH_TIMEOUT_S = 6.0   # per socket operation (connect / one read)
 # Whole page download, every redirect hop included: FETCH_TIMEOUT_S alone does not stop a server
@@ -275,7 +275,9 @@ def _public_address(url: str) -> str | None:
     if parts.scheme not in ("http", "https") or not parts.hostname or port not in ALLOWED_PORTS:
         return None
     try:
-        infos = socket.getaddrinfo(parts.hostname, port or 443, proto=socket.IPPROTO_TCP)
+        # The host the browser would resolve ('%70hish.top', full-width letters -> phish.top)
+        infos = socket.getaddrinfo(canonical_host(parts.hostname), port or 443,
+                                   proto=socket.IPPROTO_TCP)
     except OSError:
         return None
     ips = [i[4][0].split("%")[0] for i in infos]
@@ -293,7 +295,7 @@ def _pinned_get(url: str, ip: str, timeout_s: float = FETCH_TIMEOUT_S) -> urllib
     public address for the check and to an internal one for the connection: DNS rebinding).
     Host header and TLS SNI / certificate check still use the hostname. No redirect following."""
     parts = urlsplit(url)
-    host, port = parts.hostname, parts.port
+    host, port = canonical_host(parts.hostname), parts.port
     default = 443 if parts.scheme == "https" else 80
     headers = {"User-Agent": UA, "Host": host if port in (None, default) else f"{host}:{port}"}
     if parts.scheme == "https":
@@ -632,7 +634,7 @@ def analyze_suspicious(url: str, rule_results: list[dict] | None = None,
            "explanation": user_safe_explanation(res.get("explanation") or "") if explain else "",
            "timed_out": False}
     if live:
-        store_verdict(url, out, model, explain, lang)
+        store_verdict(url, out, model, explain, lang, final_url=final_url)
     return out
 
 
@@ -668,8 +670,10 @@ def _cache_db():
     con = sqlite3.connect(VERDICT_CACHE_PATH, timeout=10)
     try:
         with con:
-            con.execute("CREATE TABLE IF NOT EXISTS verdicts "
-                        "(key TEXT PRIMARY KEY, verdict TEXT, explanation TEXT, saved_at REAL)")
+            # final_url: where the page redirected, so a cache hit can still run the redirect
+            # target through Layers A / B (blocklist updates, evasion rule) without a download
+            con.execute("CREATE TABLE IF NOT EXISTS verdicts_v2 (key TEXT PRIMARY KEY, "
+                        "verdict TEXT, explanation TEXT, final_url TEXT, saved_at REAL)")
             yield con
     finally:
         con.close()
@@ -680,24 +684,25 @@ def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False,
     """Stored Layer D result younger than VERDICT_CACHE_TTL_S, else None (cache errors -> None)."""
     try:
         with _cache_db() as con:
-            row = con.execute("SELECT verdict, explanation, saved_at FROM verdicts WHERE key = ?",
-                              (_cache_key(url, model, explain, lang),)).fetchone()
+            row = con.execute("SELECT verdict, explanation, final_url, saved_at FROM verdicts_v2 "
+                              "WHERE key = ?", (_cache_key(url, model, explain, lang),)).fetchone()
     except sqlite3.Error:
         return None
-    if row is None or time.time() - row[2] > VERDICT_CACHE_TTL_S:
+    if row is None or time.time() - row[3] > VERDICT_CACHE_TTL_S:
         return None
-    return {"verdict": row[0], "explanation": row[1], "timed_out": False, "cached": True}
+    return {"verdict": row[0], "explanation": row[1], "final_url": row[2], "timed_out": False,
+            "cached": True}
 
 
 def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: bool = False,
-                  lang: str = DEFAULT_LANG) -> None:
+                  lang: str = DEFAULT_LANG, final_url: str | None = None) -> None:
     try:
         with _cache_db() as con:
-            con.execute("INSERT OR REPLACE INTO verdicts VALUES (?, ?, ?, ?)",
+            con.execute("INSERT OR REPLACE INTO verdicts_v2 VALUES (?, ?, ?, ?, ?)",
                         (_cache_key(url, model, explain, lang), result["verdict"],
-                         result["explanation"], time.time()))
+                         result["explanation"], final_url, time.time()))
             if secrets.randbelow(200) == 0:  # now and then: expired rows are never read again
-                con.execute("DELETE FROM verdicts WHERE saved_at < ?",
+                con.execute("DELETE FROM verdicts_v2 WHERE saved_at < ?",
                             (time.time() - VERDICT_CACHE_TTL_S,))
     except sqlite3.Error:
         pass  # the cache only saves time; Layer D works without it

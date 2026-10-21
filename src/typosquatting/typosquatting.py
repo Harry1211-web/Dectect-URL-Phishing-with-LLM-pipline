@@ -333,6 +333,7 @@ def check_typosquatting(url: str) -> RuleResult:
 # a URL with more is treated as evasion by the pipeline (never "clean" before Layer D), so this
 # cap cannot hide a target. Without it, a 4 KB chain 'www.a/www.b/www.a/...' cost ~9 s of CPU
 MAX_TARGETS_CHECKED = 20
+MAX_TARGET_CHARS = 512
 
 
 def check_typosquatting_deep(url: str) -> RuleResult:
@@ -347,7 +348,9 @@ def check_typosquatting_deep(url: str) -> RuleResult:
     if r["flag"] is True:
         return {**r, **evasive}
     for target in targets[:MAX_TARGETS_CHECKED]:
-        t = check_typosquatting(target)
+        # Head of each target only: in a crafted chain each one is ~4 KB (20 x 361 brand regexes
+        # over it took 2.5 s); a longer tail only holds deeper targets, listed separately
+        t = check_typosquatting(target[:MAX_TARGET_CHARS])
         if t["flag"] is True:
             t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"
             t["latency_ms"] = round(t["latency_ms"] + r["latency_ms"], 2)

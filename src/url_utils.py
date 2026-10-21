@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import re
 import time
+import unicodedata
 from functools import lru_cache
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import unquote, urlsplit, urlunsplit
 
 import tldextract
 
@@ -51,6 +52,22 @@ def host_of(url: str) -> str:
         host = urlsplit(url).hostname or ""
     except ValueError:
         return ""
+    return canonical_host(host)
+
+
+# Dots a browser reads as '.' in a host (IDNA / UTS 46 mapping)
+HOST_DOTS = str.maketrans({"。": ".", "．": ".", "｡": "."})
+
+
+def canonical_host(host: str) -> str:
+    """Host as a browser resolves it: percent-decoded, then NFKC (full-width letters) and
+    ideographic dots mapped, lower case, no trailing dot. Without it '%70hish.top',
+    'ｐｈｉｓｈ.top' and 'phish。top' open phish.top but escaped the blocklist and Layer B.
+    Non-ASCII letters stay Unicode (Layer B reads homoglyphs from them)."""
+    if "%" in host:
+        host = unquote(host)
+    if not host.isascii():
+        host = unicodedata.normalize("NFKC", host).translate(HOST_DOTS)
     return host.strip(".").lower()
 
 
@@ -80,7 +97,7 @@ def normalize_url(url: str) -> str:
     """
     try:
         parts = urlsplit(ensure_scheme(url))
-        host = (parts.hostname or "").strip(".").lower()
+        host = canonical_host(parts.hostname or "")
         port = parts.port
     except ValueError:
         return url.strip().lower()

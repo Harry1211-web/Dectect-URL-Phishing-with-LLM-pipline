@@ -28,6 +28,13 @@ def _no_page_download_before_layer_d(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
+def _private_verdict_cache(tmp_path, monkeypatch):
+    """Pipeline tests never read or write the real Layer D cache in data/."""
+    from llm import llm_client
+    monkeypatch.setattr(llm_client, "VERDICT_CACHE_PATH", tmp_path / "verdicts.sqlite")
+
+
+@pytest.fixture(autouse=True)
 def _no_page_download_in_layer_c(monkeypatch):
     """Layer C's DOM step would download pages: off unless a test turns it on."""
     from url_classifier import dom_features

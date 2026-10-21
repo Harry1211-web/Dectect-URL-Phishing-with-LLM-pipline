@@ -101,9 +101,9 @@ def test_crafted_redirect_chain_is_cheap_and_never_clean(monkeypatch):
         "label": "clean", "score": 0.01, "threshold": 0.1})
     url = ("http://a.com/" + "www.a/www.b/" * 400)[:4096]
     pipeline.check_typosquatting_deep("http://warm.example/")
-    t0 = time.perf_counter()
-    r = pipeline.analyze_url(url, use_llm=False, use_vt=False)
-    assert time.perf_counter() - t0 < 2.0
+    t0 = time.perf_counter()  # CPU only: no host lookups (network time is not the point here)
+    r = pipeline.analyze_url(url, use_llm=False, use_vt=False, use_host_features=False)
+    assert time.perf_counter() - t0 < 1.5
     assert r["verdict"] == "suspicious" and r["layers"]["hidden_destinations"] > 20
     # An ordinary tracking link is unaffected
     r = pipeline.analyze_url("https://t.example/r?u=https://news.example.org/a", use_llm=False, use_vt=False)
@@ -127,6 +127,31 @@ def test_evasive_redirect_target_is_never_cleared(monkeypatch):
     assert r["layers"]["hidden_destinations_redirect_target"] > 20
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, "https://shop.example/a"))
     assert pipeline.analyze_url("https://bit.ly/abc", use_vt=False)["verdict"] == "clean"
+    # Redirect target longer than an API URL: same rule as the clicked URL
+    long_target = "https://shop.example/?" + "a" * 5000
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, long_target))
+    assert pipeline.analyze_url("https://bit.ly/abc", use_vt=False)["decided_by"] == "D_llm+evasion"
+
+
+def test_cached_verdict_still_checks_the_stored_redirect_target(tmp_path, monkeypatch):
+    """A cached LLM 'safe' must not skip the redirect-target rules (blocklist updated since,
+    evasion): the stored final URL is checked again, without downloading the page."""
+    import pipeline
+    from blocklist import lookup
+    from llm import llm_client
+    monkeypatch.setattr(llm_client, "VERDICT_CACHE_PATH", tmp_path / "cache.sqlite")
+    monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
+    monkeypatch.setattr(pipeline.classifier, "classify_url", lambda url, use_host_features=True: {
+        "label": "suspicious", "score": 0.3, "threshold": 0.1})
+    monkeypatch.setattr(llm_client, "call_openai", lambda *a, **k: {"verdict": "safe"})
+    monkeypatch.setattr(lookup, "_load", lambda: (frozenset(), frozenset()))
+    monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, "https://new-phish.top/a"))
+    assert pipeline.analyze_url("https://bit.ly/zz", use_vt=False)["verdict"] == "clean"
+    # Next click: verdict from the cache, page not downloaded, target listed in the meantime
+    monkeypatch.setattr(llm_client, "fetch", lambda url: pytest.fail("downloaded again"))
+    monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"new-phish.top/a"}), frozenset()))
+    r = pipeline.analyze_url("https://bit.ly/zz", use_vt=False)
+    assert r["verdict"] == "phishing" and "redirects to" in r["explanation"]
 
 
 def test_verified_official_domain_is_trusted_without_loopholes():
