@@ -19,7 +19,9 @@ import re
 from pathlib import Path
 from urllib.parse import urlparse
 
-from bs4 import BeautifulSoup, Comment
+from bs4 import BeautifulSoup, CData, Comment, NavigableString, Tag
+
+_VISIBLE, _HIDDEN, _DROPPED = 0, 1, 2
 
 # Zero-width / invisible characters used to split or hide text: zero-width and joiner characters,
 # soft hyphen, bidi controls, invisible operators, variation selectors
@@ -198,22 +200,32 @@ def sanitize_html(html: str, url: str = "") -> dict:
     title = re.sub(r"\s+", " ", title).strip()
 
     removed_text: list[str] = _smuggled_text(html or "")
-    for c in soup.find_all(string=lambda s: isinstance(s, Comment)):
-        removed_text.append(str(c))
-        c.extract()
-    for tag in soup(["script", "style"]):
-        tag.decompose()
-
+    # One pass over the tree, nothing is removed from it: removing nodes one by one costs a
+    # search in the parent each time, so 100k hidden elements or comments took ~20 s (DoS).
+    # State of a tag: visible, hidden (text kept for the injection scan) or dropped
+    # (script / style: not page text). Descendants come after their parent.
+    state: dict[int, int] = {id(soup): _VISIBLE}
+    visible_parts: list[str] = []
     n_hidden = 0
-    for tag in soup.find_all(True):
-        if tag.parent is None:  # already removed together with a hidden ancestor
-            continue
-        if _is_hidden(tag):
-            removed_text.append(tag.get_text(" "))
-            tag.decompose()
-            n_hidden += 1
+    for el in soup.descendants:
+        parent = state[id(el.parent)]
+        if isinstance(el, Tag):
+            if el.name in ("script", "style"):
+                s = _DROPPED
+            elif parent != _VISIBLE:
+                s = parent
+            elif _is_hidden(el):
+                s, n_hidden = _HIDDEN, n_hidden + 1
+            else:
+                s = _VISIBLE
+            state[id(el)] = s
+        elif isinstance(el, Comment):
+            if parent != _DROPPED:
+                removed_text.append(str(el))
+        elif type(el) in (NavigableString, CData) and parent != _DROPPED:
+            (visible_parts if parent == _VISIBLE else removed_text).append(str(el))
 
-    visible = _RE_INVISIBLE.sub("", soup.get_text(" "))
+    visible = _RE_INVISIBLE.sub("", " ".join(visible_parts))
     visible = re.sub(r"\s+", " ", visible).strip()
 
     everything = _RE_INVISIBLE.sub("", title + "\n" + visible + " " + " ".join(removed_text))
