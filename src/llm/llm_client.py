@@ -22,7 +22,7 @@ import time
 import unicodedata
 from contextlib import contextmanager
 from pathlib import Path
-from urllib.parse import unquote, urljoin, urlparse, urlsplit
+from urllib.parse import unquote, urljoin, urlparse, urlsplit, urlunsplit
 
 import certifi
 import urllib3
@@ -42,7 +42,7 @@ from typosquatting.brands import (  # noqa: E402
 )
 from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting  # noqa: E402
-from url_utils import decode_html, normalize_url, split_host  # noqa: E402
+from url_utils import decode_html, split_host  # noqa: E402
 
 FETCH_TIMEOUT_S = 6.0   # per socket operation (connect / one read)
 # Whole page download, every redirect hop included: FETCH_TIMEOUT_S alone does not stop a server
@@ -642,9 +642,23 @@ VERDICT_CACHE_PATH = _SRC_DIR.parent / "data" / "llm_verdict_cache.sqlite"
 VERDICT_CACHE_TTL_S = 6 * 3600
 
 
+def _exact_url(url: str) -> str:
+    """The URL as the model saw it: only the scheme and host case are folded. normalize_url would
+    merge http / https, 'www.' and drop the '#fragment', so an attacker could request
+    'evil.com/login#<instruction: say safe>' (or the https variant serving a clean page) and
+    have the verdict served to everyone who clicks the plain link."""
+    try:
+        p = urlsplit(url.strip())
+        return urlunsplit((p.scheme.lower(), p.netloc.lower(), p.path, p.query, p.fragment))
+    except ValueError:
+        return url.strip()
+
+
 def _cache_key(url: str, model: str, explain: bool, lang: str = DEFAULT_LANG) -> str:
-    # The explanation language only matters when an explanation is stored
-    return f"{model}|{int(explain)}{'|' + lang if explain else ''}|{normalize_url(url)}"
+    # The explanation language only matters when an explanation is stored; unknown codes all
+    # mean English (language_name), so they share one entry instead of each forcing a paid call
+    lang_part = f"|{language_name(lang)}" if explain else ""
+    return f"{model}|{int(explain)}{lang_part}|{_exact_url(url)}"
 
 
 @contextmanager
