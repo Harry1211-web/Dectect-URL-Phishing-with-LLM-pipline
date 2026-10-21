@@ -41,11 +41,12 @@ from typosquatting.brands import (  # noqa: E402
     verified_official_domains,
 )
 from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402
-from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
+from typosquatting.typosquatting import MAX_TARGETS_CHECKED, check_typosquatting_deep  # noqa: E402
 from url_classifier import dom_features  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
 from url_utils import (  # noqa: E402
-    embedded_urls, ensure_scheme, host_of, is_ip_host, normalize_url, registrable_domain, split_host,
+    MAX_URL_LEN, all_embedded_urls, embedded_urls, ensure_scheme, host_of, is_ip_host,
+    normalize_url, registrable_domain, split_host,
 )
 
 # Classifier score above which the fallback labels a URL "phishing" without the LLM
@@ -200,6 +201,13 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
 
     b = check_typosquatting_deep(url)
     layers["B_typosquatting"] = b
+    # More hidden destinations than Layer B checks: an evasion pattern (decoys, long redirect
+    # chains), never confirmed clean by Layer C; Layer D then checks the real final URL
+    # (a URL longer than MAX_URL_LEN is only read in part: same treatment)
+    n_hidden = len(all_embedded_urls(url))
+    evasive = n_hidden > MAX_TARGETS_CHECKED or len(url) > MAX_URL_LEN
+    if evasive:
+        layers["hidden_destinations"] = n_hidden
 
     c = (classifier.classify_url(url, use_host_features=use_host_features)
          if classifier.is_available() else None)
@@ -217,7 +225,7 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
                   "label": dom_features.combined_label(c["label"], p_dom),
                   "page_ms": round((time.perf_counter() - t_p) * 1000, 1)})
         page = page_from_html(html, final_url)
-    if b["flag"] is not True and c is not None and c["label"] == "clean":
+    if b["flag"] is not True and not evasive and c is not None and c["label"] == "clean":
         return done("clean", "C_classifier",
                     f"URL model rates it safe (score {c['score']:.3f} < threshold {c['threshold']:.3f}).")
 
@@ -233,6 +241,8 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
         if page is None and not cached_verdict(url, model, explain, lang):
             page = fetch(url)
         final_url = page[3] if page and len(page) > 3 else None
+        # The target comes from the site's Location header: same length bound as an API URL
+        final_url = final_url[:MAX_URL_LEN] if final_url else None
         if final_url and normalize_url(final_url) != normalize_url(url):
             a2 = check_blocklist(final_url)
             layers["A_redirect_target"] = a2

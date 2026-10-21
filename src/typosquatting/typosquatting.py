@@ -329,13 +329,20 @@ def check_typosquatting(url: str) -> RuleResult:
                   brand, kind)
 
 
+# Hidden destinations checked by Layer B (~1-20 ms each). Real redirect / tracking URLs carry 1-3;
+# a URL with more is treated as evasion by the pipeline (never "clean" before Layer D), so this
+# cap cannot hide a target. Without it, a 4 KB chain 'www.a/www.b/www.a/...' cost ~9 s of CPU
+MAX_TARGETS_CHECKED = 20
+
+
 def check_typosquatting_deep(url: str) -> RuleResult:
-    """Check the URL and every destination hidden in it (open redirects, click trackers):
-    'tracker.com/r?u=https://paypa1-login.com' is judged on 'paypa1-login.com' as well."""
+    """Check the URL and the destinations hidden in it (open redirects, click trackers):
+    'tracker.com/r?u=https://paypa1-login.com' is judged on 'paypa1-login.com' as well.
+    Shallow ones first (the redirect parameters themselves), at most MAX_TARGETS_CHECKED."""
     r = check_typosquatting(url)
     if r["flag"] is True:
         return r
-    for target in all_embedded_urls(url):
+    for target in all_embedded_urls(url)[:MAX_TARGETS_CHECKED]:
         t = check_typosquatting(target)
         if t["flag"] is True:
             t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"

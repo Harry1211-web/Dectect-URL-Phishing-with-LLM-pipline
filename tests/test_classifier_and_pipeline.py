@@ -90,6 +90,26 @@ def test_redirect_target_goes_through_layers_a_and_b(monkeypatch):
     assert seen["b"] is True and "redirects to" in r["layers"]["B_typosquatting"]["reason"]
 
 
+def test_crafted_redirect_chain_is_cheap_and_never_clean(monkeypatch):
+    """'www.a/www.b/www.a/...' nests hundreds of hidden URLs: Layer B used to spend ~9 s on it.
+    Too many hidden destinations is evasion: Layer C may not call it clean, Layer D decides."""
+    import time
+
+    import pipeline
+    monkeypatch.setattr(pipeline.classifier, "is_available", lambda: True)
+    monkeypatch.setattr(pipeline.classifier, "classify_url", lambda url, use_host_features=True: {
+        "label": "clean", "score": 0.01, "threshold": 0.1})
+    url = ("http://a.com/" + "www.a/www.b/" * 400)[:4096]
+    pipeline.check_typosquatting_deep("http://warm.example/")
+    t0 = time.perf_counter()
+    r = pipeline.analyze_url(url, use_llm=False, use_vt=False)
+    assert time.perf_counter() - t0 < 2.0
+    assert r["verdict"] == "suspicious" and r["layers"]["hidden_destinations"] > 20
+    # An ordinary tracking link is unaffected
+    r = pipeline.analyze_url("https://t.example/r?u=https://news.example.org/a", use_llm=False, use_vt=False)
+    assert r["verdict"] == "clean"
+
+
 def test_verified_official_domain_is_trusted_without_loopholes():
     from pipeline import analyze_url, trusted_official_domain
     r = analyze_url("https://www.vietcombank.com.vn/vi-VN/KHCN", use_llm=False)

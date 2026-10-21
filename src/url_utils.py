@@ -125,15 +125,20 @@ def embedded_urls(url: str) -> list[str]:
     return [u for u in dict.fromkeys(out) if host_of(u) and host_of(u) != own]
 
 
-# Above what fits in an API URL (4096 chars, >= ~10 chars per embedded URL): a cap that decoys can
-# reach would be a bypass ('?a=https://news.org&b=...&q=https://phish' pushes the target out)
+# Work bound for crafted chains ('www.a/www.b/www.a/...' in 4 KB nests ~680 levels). Reaching it
+# cannot hide a target: a URL with this many destinations is far past
+# typosquatting.MAX_TARGETS_CHECKED, so the pipeline sends it to Layer D, which checks the real
+# final URL (Layers A and B on the redirect target)
 MAX_EMBEDDED = 512
+MAX_URL_LEN = 4096  # longest URL analysed in full (API limit; longer ones are treated as evasion)
 
 
 def all_embedded_urls(url: str, limit: int = MAX_EMBEDDED) -> list[str]:
     """Every hidden destination, nested ones included (tracker -> tracker -> phishing), breadth
     first, with no depth limit: each embedded URL is a (decoded) part of its parent, so nesting
-    ends by itself; the seen-set stops cycles."""
+    ends by itself; the seen-set stops cycles. Only the first MAX_URL_LEN characters are read,
+    so the work bound holds for any caller (redirect targets come from attacker headers)."""
+    url = url[:MAX_URL_LEN]
     out, seen, level = [], {url}, [url]
     while level:
         nxt = []

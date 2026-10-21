@@ -50,7 +50,7 @@ from monitoring import record_feedback, record_verdict  # noqa: E402
 from pipeline import analyze_url  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting_deep  # noqa: E402
 from url_classifier import predict as classifier  # noqa: E402
-from url_utils import ensure_scheme  # noqa: E402
+from url_utils import MAX_URL_LEN, ensure_scheme  # noqa: E402
 
 API_KEY = os.getenv("API_KEY", "").strip()
 ALLOW_NO_AUTH = os.getenv("ALLOW_NO_AUTH", "0") == "1"
@@ -58,7 +58,6 @@ USE_LLM = os.getenv("USE_LLM", "1") != "0"
 USE_VT = os.getenv("USE_VT", "1") != "0"
 EXPOSE_LAYERS = os.getenv("API_EXPOSE_LAYERS", "0") == "1"
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "60"))
-MAX_URL_LEN = 4096
 
 
 @asynccontextmanager
@@ -80,18 +79,41 @@ app.add_middleware(CORSMiddleware, allow_origins=os.getenv("CORS_ORIGINS", "*").
 MAX_BODY_BYTES = 16_384  # a request is one URL (<= 4096 chars) plus two small fields
 
 
-@app.middleware("http")
-async def limit_body(request: Request, call_next):
-    """Refuse oversized bodies before they are read: the URL length check only runs after the
-    whole JSON body is in memory. Chunked bodies without a length are capped by the proxy
-    (DEPLOY.txt, Caddy request_body)."""
-    try:
-        too_big = int(request.headers.get("content-length") or 0) > MAX_BODY_BYTES
-    except ValueError:
-        too_big = True
-    if too_big:
-        return JSONResponse({"detail": "Request body too large."}, status_code=413)
-    return await call_next(request)
+class BodyLimit:
+    """Refuse oversized bodies before they are held in memory (the URL length check only runs
+    after the whole JSON body is parsed). Counts the bytes actually received, so a chunked body
+    without Content-Length or with a false one is cut off as well."""
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+        length = dict(scope["headers"]).get(b"content-length")
+        try:
+            declared_too_big = length is not None and int(length) > MAX_BODY_BYTES
+        except ValueError:
+            declared_too_big = True
+        if declared_too_big:
+            resp = JSONResponse({"detail": "Request body too large."}, status_code=413)
+            return await resp(scope, receive, send)
+        received = 0
+
+        async def counted():
+            nonlocal received
+            message = await receive()
+            if message["type"] == "http.request":
+                received += len(message.get("body", b""))
+                if received > MAX_BODY_BYTES:
+                    # Raised while FastAPI reads the body: answered as a normal 413
+                    raise HTTPException(status_code=413, detail="Request body too large.")
+            return message
+
+        await self.app(scope, counted, send)
+
+
+app.add_middleware(BodyLimit)
 
 
 def check_key(x_api_key: str | None = Header(default=None)) -> None:

@@ -106,6 +106,21 @@ def test_oversized_body_is_refused_before_parsing(client):
     assert r.status_code == 413 and client.seen == []
 
 
+def test_chunked_body_without_length_is_cut_off(client):
+    """No Content-Length (chunked): the bytes actually received are counted."""
+    def chunks():
+        yield b'{"url": "'
+        for _ in range(100):
+            yield b"a" * 1000
+        yield b'"}'
+    r = client.post("/analyze", content=chunks(),
+                    headers={"X-API-Key": KEY, "Content-Type": "application/json"})
+    assert r.status_code == 413 and client.seen == []
+    ok = client.post("/analyze", content=iter([b'{"url": ', b'"example.com"}']),
+                     headers={"X-API-Key": KEY, "Content-Type": "application/json"})
+    assert ok.status_code == 200
+
+
 def test_health_needs_no_key(client):
     r = client.get("/health")
     assert r.status_code == 200
