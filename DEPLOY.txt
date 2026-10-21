@@ -15,8 +15,8 @@ Các endpoint
   GET  /health    số URL / tuổi blocklist, classifier sẵn sàng, LLM / VirusTotal có bật không
   /docs           tài liệu API tương tác
   Mọi request POST phải có header  X-API-Key: <API_KEY>
-  Mã lỗi: 401 thiếu / sai key, 422 URL không hợp lệ (rỗng, javascript:, file:...), 429 vượt giới
-          hạn tần suất, 503 server khởi động mà không có API_KEY.
+  Mã lỗi: 401 thiếu / sai key, 413 body quá lớn (> 16 KB), 422 URL không hợp lệ (rỗng,
+          javascript:, file:...), 429 vượt giới hạn tần suất, 503 server khởi động mà không có API_KEY.
 
 
 0. Quyết định nơi giữ API_KEY
@@ -65,8 +65,12 @@ Tuỳ chọn (biến môi trường):
 Trỏ bản ghi DNS api.domain-cua-ban.com về IP của VPS, rồi:
   sudo apt install caddy
   echo 'api.domain-cua-ban.com {
+      request_body {
+          max_size 16KB
+      }
       reverse_proxy 127.0.0.1:8000
   }' | sudo tee /etc/caddy/Caddyfile
+  # max_size: chặn body quá lớn ngay tại proxy (API cũng từ chối body > 16 KB có Content-Length)
   sudo systemctl reload caddy                  # Caddy tự xin chứng chỉ HTTPS
 
 

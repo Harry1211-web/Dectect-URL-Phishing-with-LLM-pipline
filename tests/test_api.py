@@ -100,6 +100,12 @@ def test_feedback_is_logged_without_the_url(client, tmp_path):
     assert "abc123" not in log and '"label": "clean"' in log
 
 
+def test_oversized_body_is_refused_before_parsing(client):
+    r = client.post("/analyze", content=b'{"url": "' + b"a" * 100_000 + b'"}',
+                    headers={"X-API-Key": KEY, "Content-Type": "application/json"})
+    assert r.status_code == 413 and client.seen == []
+
+
 def test_health_needs_no_key(client):
     r = client.get("/health")
     assert r.status_code == 200

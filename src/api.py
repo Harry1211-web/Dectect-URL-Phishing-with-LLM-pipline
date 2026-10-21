@@ -39,6 +39,7 @@ from urllib.parse import urlsplit
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import AfterValidator, BaseModel, Field
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -75,6 +76,22 @@ app = FastAPI(title="Phishing detection API", version="1.0", lifespan=lifespan,
                           "C (BiLSTM + XGBoost) -> D (LLM). Verdict: phishing / suspicious / clean.")
 app.add_middleware(CORSMiddleware, allow_origins=os.getenv("CORS_ORIGINS", "*").split(","),
                    allow_methods=["GET", "POST"], allow_headers=["*"])
+
+MAX_BODY_BYTES = 16_384  # a request is one URL (<= 4096 chars) plus two small fields
+
+
+@app.middleware("http")
+async def limit_body(request: Request, call_next):
+    """Refuse oversized bodies before they are read: the URL length check only runs after the
+    whole JSON body is in memory. Chunked bodies without a length are capped by the proxy
+    (DEPLOY.txt, Caddy request_body)."""
+    try:
+        too_big = int(request.headers.get("content-length") or 0) > MAX_BODY_BYTES
+    except ValueError:
+        too_big = True
+    if too_big:
+        return JSONResponse({"detail": "Request body too large."}, status_code=413)
+    return await call_next(request)
 
 
 def check_key(x_api_key: str | None = Header(default=None)) -> None:

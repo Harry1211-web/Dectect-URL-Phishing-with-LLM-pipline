@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import base64
 import json
+import random
 import sqlite3
 import sys
 import threading
@@ -74,6 +75,8 @@ def _store(url: str, status: str, stats: dict | None) -> None:
     with _lock, _db() as con:
         con.execute("INSERT OR REPLACE INTO vt VALUES (?, ?, ?, ?)",
                     (url, time.time(), status, json.dumps(stats) if stats else None))
+        if random.randrange(200) == 0:  # now and then: expired rows are never read again
+            con.execute("DELETE FROM vt WHERE t < ?", (time.time() - max(FOUND_TTL_S, NOT_FOUND_TTL_S),))
 
 
 def lookup(url: str, timeout_s: float = LIVE_TIMEOUT_S, use_cache: bool = True) -> dict:

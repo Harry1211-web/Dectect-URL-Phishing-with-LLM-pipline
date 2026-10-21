@@ -125,19 +125,22 @@ def embedded_urls(url: str) -> list[str]:
     return [u for u in dict.fromkeys(out) if host_of(u) and host_of(u) != own]
 
 
-MAX_EMBEDDED = 50  # bounded by the URL length anyway (the API caps URLs at 4096 characters)
+# Above what fits in an API URL (4096 chars, >= ~10 chars per embedded URL): a cap that decoys can
+# reach would be a bypass ('?a=https://news.org&b=...&q=https://phish' pushes the target out)
+MAX_EMBEDDED = 512
 
 
-def all_embedded_urls(url: str, depth: int = 3, limit: int = MAX_EMBEDDED) -> list[str]:
+def all_embedded_urls(url: str, limit: int = MAX_EMBEDDED) -> list[str]:
     """Every hidden destination, nested ones included (tracker -> tracker -> phishing), breadth
-    first. A fixed small cap would be a bypass: decoy parameters placed before the real target
-    ('?a=https://news.org&b=...&q=https://phish') pushed it out of the first three."""
-    out, level = [], [url]
-    for _ in range(depth):
+    first, with no depth limit: each embedded URL is a (decoded) part of its parent, so nesting
+    ends by itself; the seen-set stops cycles."""
+    out, seen, level = [], {url}, [url]
+    while level:
         nxt = []
         for u in level:
             for e in embedded_urls(u):
-                if e not in out and e != url:
+                if e not in seen:
+                    seen.add(e)
                     out.append(e)
                     nxt.append(e)
                     if len(out) >= limit:

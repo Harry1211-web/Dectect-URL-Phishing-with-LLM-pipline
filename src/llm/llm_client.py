@@ -682,6 +682,9 @@ def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: b
             con.execute("INSERT OR REPLACE INTO verdicts VALUES (?, ?, ?, ?)",
                         (_cache_key(url, model, explain, lang), result["verdict"],
                          result["explanation"], time.time()))
+            if secrets.randbelow(200) == 0:  # now and then: expired rows are never read again
+                con.execute("DELETE FROM verdicts WHERE saved_at < ?",
+                            (time.time() - VERDICT_CACHE_TTL_S,))
     except sqlite3.Error:
         pass  # the cache only saves time; Layer D works without it
 
