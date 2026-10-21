@@ -16,6 +16,7 @@ import re
 import sys
 import time
 import unicodedata
+from urllib.parse import urlsplit
 from collections import Counter
 from functools import lru_cache
 from pathlib import Path
@@ -336,6 +337,22 @@ MAX_TARGETS_CHECKED = 20
 MAX_TARGET_CHARS = 512
 
 
+def _bounded_target(target: str) -> str:
+    """Full host, path + query cut to MAX_TARGET_CHARS. In a crafted chain each hidden target is
+    ~4 KB (20 x 361 brand regexes over it took 2.5 s) and its tail only holds deeper targets,
+    listed separately. The host is never cut: padding before '@' ('http://aaaa…@brand-fake.com')
+    would push it out of a plain prefix."""
+    url = ensure_scheme(target)
+    if url[:5].lower() in ("http:", "https"):
+        url = url.replace("\\", "/")  # same reading as host_of
+    try:
+        p = urlsplit(url)
+    except ValueError:
+        return target[:MAX_TARGET_CHARS]
+    rest = p.path + (f"?{p.query}" if p.query else "")
+    return f"{p.scheme}://{host_of(url)}{rest[:MAX_TARGET_CHARS]}"
+
+
 def check_typosquatting_deep(url: str) -> RuleResult:
     """Check the URL and the destinations hidden in it (open redirects, click trackers):
     'tracker.com/r?u=https://paypa1-login.com' is judged on 'paypa1-login.com' as well.
@@ -348,9 +365,7 @@ def check_typosquatting_deep(url: str) -> RuleResult:
     if r["flag"] is True:
         return {**r, **evasive}
     for target in targets[:MAX_TARGETS_CHECKED]:
-        # Head of each target only: in a crafted chain each one is ~4 KB (20 x 361 brand regexes
-        # over it took 2.5 s); a longer tail only holds deeper targets, listed separately
-        t = check_typosquatting(target[:MAX_TARGET_CHARS])
+        t = check_typosquatting(_bounded_target(target))
         if t["flag"] is True:
             t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"
             t["latency_ms"] = round(t["latency_ms"] + r["latency_ms"], 2)

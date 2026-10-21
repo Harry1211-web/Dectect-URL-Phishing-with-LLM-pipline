@@ -60,3 +60,12 @@ def test_impersonated_brand_and_catalogue():
     assert check_typosquatting("https://vietcombamk.com").get("brand") == "vietcombank"
     assert check_typosquatting("https://dantri.com.vn")["flag"] is False
     assert len(load_vn_brands()) > 50 and "vietcombank.com.vn" in all_official_domains()
+
+
+def test_hidden_target_host_survives_padding():
+    """Padding before '@' must not push the hidden target's host out of what Layer B reads."""
+    from urllib.parse import quote
+
+    from typosquatting.typosquatting import check_typosquatting_deep
+    target = "http://" + "a" * 600 + "@vietcombamk.com/login"
+    assert check_typosquatting_deep("https://tracker.example/r?u=" + quote(target, safe=""))["flag"] is True
