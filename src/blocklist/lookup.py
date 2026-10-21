@@ -30,7 +30,7 @@ from contracts import RuleResult  # noqa: E402
 from typosquatting.brands import all_official_domains  # noqa: E402
 from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
 from url_utils import (  # noqa: E402
-    embedded_urls, file_version, host_of, normalize_url, registrable_domain,
+    all_embedded_urls, file_version, host_of, normalize_url, registrable_domain,
 )
 
 POPULAR_TOP_N = 100_000  # host-level blocking is disabled for these registrable domains
@@ -140,7 +140,7 @@ def check_blocklist(url: str) -> RuleResult:
     if not urls:
         return result("unknown", "No blocklist data yet (run src/blocklist/updater.py).")
     # The URL itself, then any destination hidden in it (open redirect / click tracker)
-    for i, u in enumerate([url, *embedded_urls(url)[:3]]):
+    for i, u in enumerate([url, *all_embedded_urls(url)]):
         why = _match(u, urls, hosts)
         if why:
             prefix = f"URL redirects to {u[:80]} — " if i else ""

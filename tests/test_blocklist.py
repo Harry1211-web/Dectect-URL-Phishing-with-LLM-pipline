@@ -53,6 +53,27 @@ def test_bare_host_entry_only_blocks_through_host_rule(monkeypatch):
     assert lookup.check_blocklist("https://kit.net/other")["flag"] is False
 
 
+def test_redirect_target_behind_decoys_or_nested_is_blocked(monkeypatch):
+    """Decoy parameters before the real target, or a tracker inside a tracker, used to hide it
+    (only the first three embedded URLs were checked, one level deep)."""
+    monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"phish.top/login"}), frozenset()))
+    decoys = "&".join(f"d{i}=https://news{i}.example.org/a" for i in range(10))
+    assert lookup.check_blocklist(f"https://www.google.com/url?{decoys}&q=https://phish.top/login")["flag"] is True
+    inner = "https%3A%2F%2Ft.co%2Fr%3Fu%3Dhttps%253A%252F%252Fphish.top%252Flogin"
+    assert lookup.check_blocklist(f"https://tracker.example/r?u={inner}")["flag"] is True
+    assert lookup.check_blocklist(f"https://www.google.com/url?{decoys}")["flag"] is False
+
+
+def test_embedded_url_extraction_is_bounded():
+    import time
+
+    from url_utils import MAX_EMBEDDED, all_embedded_urls
+    url = "http://a.com/?" + "&".join(f"u{i}=http://x{i}.com/a" for i in range(200))
+    t0 = time.perf_counter()
+    assert len(all_embedded_urls(url)) == MAX_EMBEDDED
+    assert time.perf_counter() - t0 < 1.0
+
+
 def test_lookup_is_fast():
     lookup.check_blocklist("https://example.org/")
     assert lookup.check_blocklist("https://example.org/a")["latency_ms"] < 5

@@ -28,7 +28,9 @@ from typosquatting.brands import (  # noqa: E402
     INTL_CATEGORY, all_official_domains, brand_by_label, label_of_domain, load_all_brands,
 )
 from typosquatting.paas_domains import is_user_content_host  # noqa: E402
-from url_utils import embedded_urls, ensure_scheme, host_of, is_ip_host, split_host  # noqa: E402
+from url_utils import (  # noqa: E402
+    all_embedded_urls, ensure_scheme, host_of, is_ip_host, split_host,
+)
 
 # Minimum brand-label length for each kind of match (shorter labels cause mass false positives)
 MIN_LEN_EMBEDDED = 6      # brand as a substring of a longer label: "vietcombankvn"
@@ -333,7 +335,7 @@ def check_typosquatting_deep(url: str) -> RuleResult:
     r = check_typosquatting(url)
     if r["flag"] is True:
         return r
-    for target in embedded_urls(url)[:3]:
+    for target in all_embedded_urls(url):
         t = check_typosquatting(target)
         if t["flag"] is True:
             t["reason"] = f"URL redirects to {target[:80]} — {t['reason']}"

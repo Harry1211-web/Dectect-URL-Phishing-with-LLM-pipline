@@ -125,6 +125,27 @@ def embedded_urls(url: str) -> list[str]:
     return [u for u in dict.fromkeys(out) if host_of(u) and host_of(u) != own]
 
 
+MAX_EMBEDDED = 50  # bounded by the URL length anyway (the API caps URLs at 4096 characters)
+
+
+def all_embedded_urls(url: str, depth: int = 3, limit: int = MAX_EMBEDDED) -> list[str]:
+    """Every hidden destination, nested ones included (tracker -> tracker -> phishing), breadth
+    first. A fixed small cap would be a bypass: decoy parameters placed before the real target
+    ('?a=https://news.org&b=...&q=https://phish') pushed it out of the first three."""
+    out, level = [], [url]
+    for _ in range(depth):
+        nxt = []
+        for u in level:
+            for e in embedded_urls(u):
+                if e not in out and e != url:
+                    out.append(e)
+                    nxt.append(e)
+                    if len(out) >= limit:
+                        return out
+        level = nxt
+    return out
+
+
 def is_ip_host(host: str) -> bool:
     """True if the host is an IPv4/IPv6 literal."""
     import ipaddress
