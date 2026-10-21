@@ -22,7 +22,6 @@ dataset/urls/raw/*
 !dataset/urls/raw/crawled_clean.csv
 
 # Experiment / red-team scratch outputs
-models/url_classifier/cnn_b_experiment.pt
 models/layer_c_selection/
 reports/**/_checkpoint_*
 
