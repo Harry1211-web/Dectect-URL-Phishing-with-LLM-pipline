@@ -120,3 +120,19 @@ discarded, the benchmark table and the research contributions.
    `RUN_TRAINING = False` reuses the saved models (set True to re-run the Layer C selection and
    training, several GPU hours). `RUN_LLM = True` runs a paid step only when its report is missing.
 6. **Tests**: `python -m pytest -q tests`
+7. **HTTP API for a UI** (`src/api.py`, FastAPI; interactive docs at `/docs`):
+   ```bash
+   # local
+   set API_KEY=change-me          # Linux / macOS: export API_KEY=change-me
+   uvicorn api:app --app-dir src --host 0.0.0.0 --port 8000
+   # Docker: API + hourly blocklist updater; ./data and ./.env are mounted
+   chown -R 1000 data             # Linux: the container runs as uid 1000
+   API_KEY=change-me docker compose up -d --build
+   ```
+   - `POST /analyze` `{"url": "...", "explain": false, "lang": "vi"}` → verdict and per-layer detail;
+     `POST /feedback` `{"url": "...", "label": "clean" | "phishing"}`; `GET /health`.
+   - Every POST needs the header `X-API-Key: <API_KEY>`; without `API_KEY` the server refuses all
+     requests (`ALLOW_NO_AUTH=1` only for local tests).
+   - Only http(s) URLs or bare hosts are accepted (`javascript:`, `file:`, blank → 422).
+   - `RATE_LIMIT_PER_MIN` (default 60 per client IP and worker), `CORS_ORIGINS` (default `*`),
+     `USE_LLM=0` / `USE_VT=0` turn off Layer D / VirusTotal.

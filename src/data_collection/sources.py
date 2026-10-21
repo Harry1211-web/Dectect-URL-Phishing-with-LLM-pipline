@@ -20,7 +20,7 @@ UA = "Mozilla/5.0 (compatible; dacntt-phishing-research/1.0)"
 
 OPENPHISH_URL = "https://openphish.com/feed.txt"
 # Anonymous PhishTank dump (new API keys are no longer issued); heavily rate-limited, so retried
-PHISHTANK_URL = "http://data.phishtank.com/data/online-valid.csv"
+PHISHTANK_URL = "https://data.phishtank.com/data/online-valid.csv"
 PHISHING_DATABASE_URL = ("https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/"
                          "master/phishing-links-ACTIVE.txt")
 PHIUSIIL_URL = "https://archive.ics.uci.edu/static/public/967/phiusiil+phishing+url+dataset.zip"

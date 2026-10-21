@@ -7,11 +7,17 @@
 ├── CLAUDE.md                      Instructions for Claude Code
 ├── CAY_THU_MUC.md                 This file: what each folder/file is for
 ├── requirements.txt               Python dependencies (tested versions)
+├── requirements-api.txt           Runtime-only subset for the API image (torch CPU installed separately)
+├── Dockerfile                     API image: src/, models/url_classifier/, dataset/brands/ (data/ and .env mounted)
+├── docker-compose.yml             api service (port 8000) + updater service (blocklist refresh every hour)
+├── .dockerignore                  Keeps data, datasets, notebooks, reports and .env out of the image
 ├── .env                           API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, VT_API_KEY, optional OPENAI_MODEL) and budgets — not shared
 │
 ├── src/
 │   ├── contracts.py               Shared result types (RuleResult, Verdict)
 │   ├── url_utils.py               URL helpers: host, registrable domain, normalization
+│   ├── api.py                     HTTP API for the UI (FastAPI): POST /analyze, POST /feedback, GET /health
+│   │                              (X-API-Key, per-IP rate limit, http(s) URLs only)
 │   ├── pipeline.py                Full A -> B -> C -> D pipeline for one URL (CLI); trusted official
 │   │                              domains (verified VN brands + international brands without user content)
 │   ├── evaluate_pipeline.py       A+B+C evaluation on the test split (miss rate, LLM load, latency;
@@ -22,6 +28,7 @@
 │   ├── relabel_subset.py          ~300-page relabelling subset (export CSV) and error rates vs its labels (score)
 │   ├── relabel_vt.py              Fills that subset with VirusTotal labels (>= 2 engines phishing, 0 clean, else unsure)
 │   ├── layer_c_selection.py       Chooses Layer C on val: best of 5 DL URL models, then best of RF / XGBoost / LightGBM
+│   │                              (+ ablation step: feature groups removed one at a time, 3 seeds)
 │   ├── monitoring.py              Real-traffic verdict log + user feedback -> reported false-alarm / miss rates
 │   │
 │   ├── blocklist/                 Layer A — instant block from public phishing feeds and VirusTotal
@@ -73,10 +80,11 @@
 │       ├── build_dataset.py       Merge, clean, de-duplicate, cap per site, split by site, apply label fixes
 │       └── audit_labels.py        Finds mislabelled URLs with model-independent evidence -> label_fixes.csv
 │
-├── tests/                         pytest suite (no paid API calls)
+├── tests/                         pytest suite (no paid API calls; test_api.py = HTTP API auth / validation / rate limit)
 ├── notebooks/
-│   └── pipeline_experiment.ipynb  Every experiment end to end: setup, sanitizer, features, Layer C selection,
+│   ├── pipeline_experiment.ipynb  Every experiment end to end: setup, sanitizer, features, Layer C selection,
 │                                  val / test / VN evaluation, Layer D, benchmark (keeps outputs)
+│   └── pipeline_demo.ipynb        Demo: URLs set in the first cell -> full A -> D pipeline, verdict and per-layer detail
 ├── docs/
 │   └── pipeline.svg               Pipeline diagram (Layers A -> D, verdicts)
 │
@@ -113,6 +121,6 @@
 ├── models/layer_c_selection/      Candidate DL weights, scores and feature cache of layer_c_selection.py (not in git)
 └── reports/                       Evaluation outputs (JSON) of every layer (live/ = evaluate_live.py,
                                    baselines/ = src/baselines, relabel/ = relabel_subset.py, layer_c_selection/ =
-                                   DL / ML / DOM candidates, benchmark.json = notebook summary,
+                                   DL / ML / DOM candidates, feature-group ablation, benchmark.json = notebook summary,
                                    summary.md = before / after tables of every experiment and spend)
 ```

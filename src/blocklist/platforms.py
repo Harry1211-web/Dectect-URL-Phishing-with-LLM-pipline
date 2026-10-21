@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from blocklist.updater import BLOCKLIST_DIR, FEEDS, TRANCO_PATH  # noqa: E402
-from url_utils import registrable_domain  # noqa: E402
+from url_utils import file_version, registrable_domain  # noqa: E402
 
 PLATFORMS_PATH = BLOCKLIST_DIR / "abused_platforms.txt"
 MIN_TENANTS = 5
@@ -64,7 +64,10 @@ def build_abused_platforms(exclude_urls: set[str] | None = None,
                 else:
                     tenants[rd].add(_path_tenant(u))
     platforms = sorted(d for d, t in tenants.items() if len(t) >= min_tenants)
-    PLATFORMS_PATH.write_text("\n".join(platforms), encoding="utf-8")
+    tmp = PLATFORMS_PATH.with_name(PLATFORMS_PATH.name + ".tmp")  # readers never see a half file
+    tmp.write_text("\n".join(platforms), encoding="utf-8")
+    tmp.replace(PLATFORMS_PATH)
+    file_version(PLATFORMS_PATH, check_every_s=0)  # this process reads the new list right away
     return len(platforms)
 
 

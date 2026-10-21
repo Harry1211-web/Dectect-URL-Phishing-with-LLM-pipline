@@ -3,6 +3,8 @@
 Matching rules (normalized URLs, see url_utils.normalize_url):
   1. exact URL, or the URL without its query string;
   2. a listed URL is a path prefix of the URL ("evil.com/kit" blocks "evil.com/kit/login.php");
+     a bare-host entry ("amazon.com") matches only when the host is not popular/official and not
+     a shared-platform root (see _bare_entry_blockable);
   3. whole host — only when the host is NOT shared or popular (free hosting, shorteners, Tranco
      top domains, official brand domains), so one phishing page on a compromised popular site or
      on vercel.app never blocks the whole site;
@@ -21,11 +23,15 @@ from functools import lru_cache
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from blocklist.updater import BLOCKLIST_DIR, FEEDS, META_PATH, TRANCO_PATH  # noqa: E402
+from blocklist.updater import (  # noqa: E402
+    BLOCKLIST_DIR, FEEDS, META_PATH, TRANCO_PATH, write_gz_atomic,
+)
 from contracts import RuleResult  # noqa: E402
 from typosquatting.brands import all_official_domains  # noqa: E402
 from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
-from url_utils import embedded_urls, host_of, normalize_url, registrable_domain  # noqa: E402
+from url_utils import (  # noqa: E402
+    embedded_urls, file_version, host_of, normalize_url, registrable_domain,
+)
 
 POPULAR_TOP_N = 100_000  # host-level blocking is disabled for these registrable domains
 # A non-shared registrable domain with this many distinct listed hosts is a campaign domain
@@ -73,14 +79,17 @@ def build_blockable_hosts() -> int:
     per_domain = Counter(registrable_domain(h) for h in keep)
     # "*.domain" entries = campaign domains blocked with all their subdomains
     keep = sorted(keep) + sorted(f"*.{d}" for d, n in per_domain.items() if CAMPAIGN_MIN_HOSTS <= n <= CAMPAIGN_MAX_HOSTS)
-    with gzip.open(BLOCKLIST_DIR / HOSTS_FILE, "wt", encoding="utf-8") as f:
-        f.write("\n".join(keep))
+    write_gz_atomic(BLOCKLIST_DIR / HOSTS_FILE, keep)
     _load_files.cache_clear()
     return len(keep)
 
 
-@lru_cache(maxsize=1)
 def _popular_domains() -> frozenset[str]:
+    return _popular_domains_at(file_version(TRANCO_PATH))  # reloaded after the monthly refresh
+
+
+@lru_cache(maxsize=1)
+def _popular_domains_at(_version: int) -> frozenset[str]:
     if not TRANCO_PATH.exists():
         return frozenset()
     out = []
@@ -96,6 +105,18 @@ def _is_shared_or_popular(host: str) -> bool:
     rd = registrable_domain(host)
     return (is_untrusted_hosting(rd) or rd in _popular_domains()
             or rd in all_official_domains())
+
+
+def _bare_entry_blockable(host: str) -> bool:
+    """A feed entry that is only a host ('amazon.com', 'x.vercel.app') blocks that whole host:
+    never on official brand domains; on shared platforms and Tranco-popular domains only a
+    subdomain (x.vercel.app, x.jimdosite.com), never the root itself (vercel.app, amazon.com)."""
+    rd = registrable_domain(host)
+    if is_untrusted_hosting(rd):  # first: some platforms are official too (amazonaws.com)
+        return host != rd
+    if rd in all_official_domains():
+        return False
+    return host != rd if rd in _popular_domains() else True
 
 
 def reload() -> None:
@@ -129,17 +150,23 @@ def check_blocklist(url: str) -> RuleResult:
 
 def _match(url: str, urls: frozenset[str], hosts: frozenset[str]) -> str | None:
     norm = normalize_url(url)
-    candidates = {norm, norm.split("?", 1)[0]}
     path = norm.split("?", 1)[0]
-    while "/" in path:  # every path prefix: a/b/c -> a/b -> a
+    netloc = path.split("/", 1)[0]
+    candidates = {norm, path}
+    while "/" in path:  # every path prefix: a/b/c -> a/b (stops before the bare host)
         path = path.rsplit("/", 1)[0]
         candidates.add(path)
+    # A bare-host entry blocks the whole host, so it must pass the same guard as rule 3
+    if netloc in urls and not _bare_entry_blockable(netloc.split(":", 1)[0]):
+        candidates.discard(netloc)
     if candidates & urls:
         return ("URL is in a known public phishing list "
                 "(OpenPhish/PhishTank/Phishing.Database).")
     host = host_of(url)
-    if host in hosts:
-        return f"Domain {host} is in a known phishing list."
+    # netloc without port has the same form as blockable_hosts (no 'www.')
+    for h in (netloc.split(":", 1)[0], host):
+        if h in hosts:
+            return f"Domain {h} is in a known phishing list."
     if f"*.{registrable_domain(host)}" in hosts:
         return (f"Domain {registrable_domain(host)} belongs to a known phishing campaign "
                 "(many of its subdomains are listed).")

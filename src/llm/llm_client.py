@@ -20,6 +20,7 @@ import sqlite3
 import sys
 import time
 import unicodedata
+from contextlib import contextmanager
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlparse, urlsplit
 
@@ -43,7 +44,10 @@ from typosquatting.paas_domains import is_untrusted_hosting  # noqa: E402
 from typosquatting.typosquatting import check_typosquatting  # noqa: E402
 from url_utils import decode_html, normalize_url, split_host  # noqa: E402
 
-FETCH_TIMEOUT_S = 6.0
+FETCH_TIMEOUT_S = 6.0   # per socket operation (connect / one read)
+# Whole page download, every redirect hop included: FETCH_TIMEOUT_S alone does not stop a server
+# that drips one byte just under it (the fetch runs before, and outside, the LLM timeout)
+FETCH_DEADLINE_S = 8.0
 UA = "Mozilla/5.0 (compatible; dacntt-phishing-detector/1.0)"
 
 _env_path = find_dotenv() or str(_SRC_DIR.parent / ".env")
@@ -284,7 +288,7 @@ def is_public_destination(url: str) -> bool:
     return _public_address(url) is not None
 
 
-def _pinned_get(url: str, ip: str) -> urllib3.BaseHTTPResponse:
+def _pinned_get(url: str, ip: str, timeout_s: float = FETCH_TIMEOUT_S) -> urllib3.BaseHTTPResponse:
     """GET `url` on the already-checked `ip` (no second DNS lookup, so a host cannot resolve to a
     public address for the check and to an internal one for the connection: DNS rebinding).
     Host header and TLS SNI / certificate check still use the hostname. No redirect following."""
@@ -295,10 +299,10 @@ def _pinned_get(url: str, ip: str) -> urllib3.BaseHTTPResponse:
     if parts.scheme == "https":
         pool = urllib3.HTTPSConnectionPool(ip, port or default, server_hostname=host,
                                            assert_hostname=host, cert_reqs="CERT_REQUIRED",
-                                           ca_certs=certifi.where(), timeout=FETCH_TIMEOUT_S,
+                                           ca_certs=certifi.where(), timeout=timeout_s,
                                            retries=False)
     else:
-        pool = urllib3.HTTPConnectionPool(ip, port or default, timeout=FETCH_TIMEOUT_S, retries=False)
+        pool = urllib3.HTTPConnectionPool(ip, port or default, timeout=timeout_s, retries=False)
     path = (parts.path or "/") + (f"?{parts.query}" if parts.query else "")
     return pool.urlopen("GET", path, headers=headers, redirect=False, preload_content=False)
 
@@ -310,14 +314,17 @@ def fetch_html(url: str) -> tuple[str, str]:
     rules must check it too (defeats shortener / open-redirect evasion). Redirects are followed
     manually so that every hop passes the SSRF guard and is fetched on the IP that was checked
     (a public page cannot bounce the fetcher to an internal address); the body size is capped.
+    The whole download stops after FETCH_DEADLINE_S; the body read so far is kept.
     """
     current = url
+    deadline = time.monotonic() + FETCH_DEADLINE_S
     try:
         for _ in range(MAX_REDIRECTS + 1):
-            ip = _public_address(current)
+            left = deadline - time.monotonic()
+            ip = _public_address(current) if left > 0 else None
             if ip is None:
                 return "", current
-            r = _pinned_get(current, ip)
+            r = _pinned_get(current, ip, timeout_s=min(FETCH_TIMEOUT_S, left))
             try:
                 if r.status in (301, 302, 303, 307, 308):
                     location = r.headers.get("location", "")
@@ -327,7 +334,13 @@ def fetch_html(url: str) -> tuple[str, str]:
                     continue
                 if r.status != 200:
                     return "", current
-                body = r.read(MAX_PAGE_BYTES, decode_content=True)
+                body = b""
+                while len(body) < MAX_PAGE_BYTES and time.monotonic() < deadline:
+                    # read1: returns what has arrived (read(n) would wait for all n bytes)
+                    chunk = r.read1(min(65536, MAX_PAGE_BYTES - len(body)), decode_content=True)
+                    if not chunk:
+                        break
+                    body += chunk
             finally:
                 r.release_conn()
             return decode_html(body, r.headers.get("content-type", "")), current
@@ -620,12 +633,18 @@ def _cache_key(url: str, model: str, explain: bool, lang: str = DEFAULT_LANG) ->
     return f"{model}|{int(explain)}{'|' + lang if explain else ''}|{normalize_url(url)}"
 
 
-def _cache_db() -> sqlite3.Connection:
+@contextmanager
+def _cache_db():
+    """Connection that commits on success and is always closed (one per API request)."""
     VERDICT_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
     con = sqlite3.connect(VERDICT_CACHE_PATH, timeout=10)
-    con.execute("CREATE TABLE IF NOT EXISTS verdicts "
-                "(key TEXT PRIMARY KEY, verdict TEXT, explanation TEXT, saved_at REAL)")
-    return con
+    try:
+        with con:
+            con.execute("CREATE TABLE IF NOT EXISTS verdicts "
+                        "(key TEXT PRIMARY KEY, verdict TEXT, explanation TEXT, saved_at REAL)")
+            yield con
+    finally:
+        con.close()
 
 
 def cached_verdict(url: str, model: str = DEFAULT_MODEL, explain: bool = False,

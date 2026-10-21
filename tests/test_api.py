@@ -1,0 +1,84 @@
+"""HTTP API (src/api.py): authentication, input validation, rate limit. The pipeline is stubbed,
+so no network lookup and no paid call is made."""
+
+import pytest
+from fastapi.testclient import TestClient
+
+import api
+import monitoring
+
+KEY = "test-key"
+
+
+@pytest.fixture
+def client(tmp_path, monkeypatch):
+    monkeypatch.setattr(api, "API_KEY", KEY)
+    monkeypatch.setattr(api, "ALLOW_NO_AUTH", False)
+    monkeypatch.setattr(api, "RATE_LIMIT_PER_MIN", 100)
+    monkeypatch.setattr(api, "_hits", {})
+    for name, path in (("MONITORING_DIR", tmp_path), ("VERDICTS_PATH", tmp_path / "v.jsonl"),
+                       ("FEEDBACK_PATH", tmp_path / "f.jsonl"), ("SECRET_PATH", tmp_path / "k")):
+        monkeypatch.setattr(monitoring, name, path)
+    seen = []
+
+    def fake_analyze(url, **kw):
+        seen.append(url)
+        return {"url": url, "verdict": "suspicious", "decided_by": "C_classifier",
+                "explanation": "", "layers": {}, "latency_ms": 1.0}
+
+    monkeypatch.setattr(api, "analyze_url", fake_analyze)
+    c = TestClient(api.app)
+    c.seen = seen
+    return c
+
+
+def post(c, path, body, key=KEY):
+    return c.post(path, json=body, headers={"X-API-Key": key} if key else {})
+
+
+def test_key_is_required(client, monkeypatch):
+    assert post(client, "/analyze", {"url": "example.com"}, key=None).status_code == 401
+    assert post(client, "/analyze", {"url": "example.com"}, key="wrong").status_code == 401
+    assert post(client, "/analyze", {"url": "example.com"}).status_code == 200
+    # Fail closed: a server without API_KEY refuses every request unless ALLOW_NO_AUTH=1
+    monkeypatch.setattr(api, "API_KEY", "")
+    assert post(client, "/analyze", {"url": "example.com"}, key=None).status_code == 503
+    monkeypatch.setattr(api, "ALLOW_NO_AUTH", True)
+    assert post(client, "/analyze", {"url": "example.com"}, key=None).status_code == 200
+
+
+@pytest.mark.parametrize("url", ["   ", "javascript:alert(1)", "JavaScript:x", "data:text/html,hi",
+                                 "file:///etc/passwd", "mailto:a@b.c", "http://", "http://x.com:99999/",
+                                 "x" * 5000])
+def test_non_web_urls_are_rejected(client, url):
+    assert post(client, "/analyze", {"url": url}).status_code == 422
+    assert client.seen == []  # never reached the pipeline (a blank URL used to come back 'clean')
+
+
+@pytest.mark.parametrize("url", ["example.com", "example.com:8080/login", " https://Ex.com/a?b=1 ",
+                                 "vietcombank.com.vn/login"])
+def test_web_urls_reach_the_pipeline_stripped(client, url):
+    r = post(client, "/analyze", {"url": url})
+    assert r.status_code == 200 and r.json()["verdict"] == "suspicious"
+    assert client.seen == [url.strip()]
+
+
+def test_rate_limit_per_client(client, monkeypatch):
+    monkeypatch.setattr(api, "RATE_LIMIT_PER_MIN", 3)
+    codes = [post(client, "/analyze", {"url": "example.com"}).status_code for _ in range(5)]
+    assert codes == [200, 200, 200, 429, 429]
+    assert post(client, "/feedback", {"url": "example.com", "label": "clean"}).status_code == 429
+
+
+def test_feedback_is_logged_without_the_url(client, tmp_path):
+    url = "https://shop.example.com/account?token=abc123"
+    assert post(client, "/feedback", {"url": url, "label": "clean"}).json() == {"ok": True}
+    assert post(client, "/feedback", {"url": url, "label": "maybe"}).status_code == 422
+    log = (tmp_path / "f.jsonl").read_text(encoding="utf-8")
+    assert "abc123" not in log and '"label": "clean"' in log
+
+
+def test_health_needs_no_key(client):
+    r = client.get("/health")
+    assert r.status_code == 200
+    assert {"blocklist_urls", "blocklist_stale", "classifier_ready", "llm_enabled"} <= set(r.json())

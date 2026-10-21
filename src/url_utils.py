@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import re
+import time
 from functools import lru_cache
+from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 import tldextract
@@ -12,6 +14,23 @@ import tldextract
 _EXTRACT = tldextract.TLDExtract(suffix_list_urls=())
 
 _RE_SCHEME = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*://")
+
+
+_versions: dict[Path, tuple[float, int]] = {}
+
+
+def file_version(path: Path, check_every_s: float = 60.0) -> int:
+    """mtime of `path` (0 if missing), re-read at most every `check_every_s`: key for an lru_cache
+    so a long-running server reloads a data file the updater replaced, without a stat per call."""
+    now = time.monotonic()
+    seen = _versions.get(path)
+    if seen is None or now - seen[0] >= check_every_s:
+        try:
+            v = path.stat().st_mtime_ns
+        except OSError:
+            v = 0
+        seen = _versions[path] = (now, v)
+    return seen[1]
 
 
 def ensure_scheme(url: str) -> str:

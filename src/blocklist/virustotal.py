@@ -17,6 +17,7 @@ import sqlite3
 import sys
 import threading
 import time
+from contextlib import contextmanager
 from pathlib import Path
 
 import requests
@@ -45,11 +46,17 @@ def url_id(url: str) -> str:
     return base64.urlsafe_b64encode(url.encode()).decode().rstrip("=")
 
 
-def _db() -> sqlite3.Connection:
+@contextmanager
+def _db():
+    """Connection that commits on success and is always closed (the API opens one per lookup)."""
     CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    con = sqlite3.connect(CACHE_PATH)
-    con.execute("CREATE TABLE IF NOT EXISTS vt (url TEXT PRIMARY KEY, t REAL, status TEXT, stats TEXT)")
-    return con
+    con = sqlite3.connect(CACHE_PATH, timeout=10)
+    try:
+        with con:
+            con.execute("CREATE TABLE IF NOT EXISTS vt (url TEXT PRIMARY KEY, t REAL, status TEXT, stats TEXT)")
+            yield con
+    finally:
+        con.close()
 
 
 def _cached(url: str) -> dict | None:
@@ -85,7 +92,10 @@ def lookup(url: str, timeout_s: float = LIVE_TIMEOUT_S, use_cache: bool = True) 
         return {"status": "not_found", "stats": None, "cached": False}
     if r.status_code != 200:
         return {"status": "error", "stats": None, "error": f"HTTP {r.status_code}", "cached": False}
-    attrs = r.json().get("data", {}).get("attributes", {})
+    try:
+        attrs = r.json().get("data", {}).get("attributes", {})
+    except (ValueError, AttributeError):  # proxy / captive-portal page instead of JSON
+        return {"status": "error", "stats": None, "error": "invalid JSON", "cached": False}
     stats = dict(attrs.get("last_analysis_stats") or {})
     stats["last_analysis_date"] = attrs.get("last_analysis_date")
     _store(url, "found", stats)

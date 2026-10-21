@@ -19,8 +19,10 @@ import argparse
 import hashlib
 import hmac
 import json
+import os
 import secrets
 import sys
+import time
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -36,10 +38,22 @@ WARNED = ("phishing", "suspicious")  # verdicts that show the user a warning
 
 
 def _secret() -> bytes:
+    """Created once with exclusive creation: API workers starting together cannot each write
+    their own key (feedback would no longer match its verdict) or read a half-written file."""
     MONITORING_DIR.mkdir(parents=True, exist_ok=True)
-    if not SECRET_PATH.exists():
-        SECRET_PATH.write_text(secrets.token_hex(32), encoding="utf-8")
-    return bytes.fromhex(SECRET_PATH.read_text(encoding="utf-8").strip())
+    try:
+        fd = os.open(SECRET_PATH, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    except FileExistsError:
+        pass
+    else:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(secrets.token_hex(32))
+    for _ in range(50):
+        key = SECRET_PATH.read_text(encoding="utf-8").strip()
+        if len(key) == 64:
+            return bytes.fromhex(key)
+        time.sleep(0.01)  # another process is still writing it
+    raise RuntimeError(f"{SECRET_PATH} is not a 64-character hex key")
 
 
 def url_id(url: str) -> str:
@@ -82,7 +96,12 @@ def record_feedback(url: str, label: str) -> None:
 def _read(path: Path, since: datetime) -> list[dict]:
     if not path.exists():
         return []
-    rows = [json.loads(ln) for ln in path.read_text(encoding="utf-8").splitlines() if ln.strip()]
+    rows = []
+    for ln in path.read_text(encoding="utf-8").splitlines():
+        try:
+            rows.append(json.loads(ln))
+        except ValueError:
+            continue  # blank or damaged line (crash mid-write): one entry lost, not the report
     return [r for r in rows if datetime.fromisoformat(r["time"]) >= since]
 
 

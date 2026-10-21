@@ -37,6 +37,22 @@ def test_campaign_domain_blocks_new_subdomains():
     assert lookup.check_blocklist(f"https://never-seen-before-123.{dom}/x")["flag"] is True
 
 
+def test_bare_host_entry_only_blocks_through_host_rule(monkeypatch):
+    # Bare-host entries: popular site, platform root, platform tenant, ordinary domain
+    urls = frozenset({"amazon.com", "vercel.app", "bad.vercel.app", "x.jimdosite.com",
+                      "ec2-1-2-3-4.compute-1.amazonaws.com", "evil.com", "kit.net/login"})
+    monkeypatch.setattr(lookup, "_load", lambda: (urls, frozenset({"evil.com"})))
+    monkeypatch.setattr(lookup, "_popular_domains", lambda: frozenset({"amazon.com", "jimdosite.com"}))
+    for u in ("https://amazon.com/gp/cart", "https://www.amazon.com/", "https://amazon.com",
+              "https://vercel.app/docs", "https://good.vercel.app/"):
+        assert lookup.check_blocklist(u)["flag"] is False
+    for u in ("https://evil.com/", "https://www.evil.com/x", "https://kit.net/login/a.php",
+              "https://bad.vercel.app/login", "https://x.jimdosite.com/a",
+              "http://ec2-1-2-3-4.compute-1.amazonaws.com/login"):
+        assert lookup.check_blocklist(u)["flag"] is True
+    assert lookup.check_blocklist("https://kit.net/other")["flag"] is False
+
+
 def test_lookup_is_fast():
     lookup.check_blocklist("https://example.org/")
     assert lookup.check_blocklist("https://example.org/a")["latency_ms"] < 5

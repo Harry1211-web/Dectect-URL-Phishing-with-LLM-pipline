@@ -7,13 +7,18 @@ Step dl : every architecture of url_classifier/model.py is cross-fitted exactly 
 Step ml : the winner's score + hand-crafted (+ host) features feed XGBoost, LightGBM and random
           forest in the production two-branch layout (lexical branch on every row, host branch on
           live hosts). Same rule on the routed val score.
+Step ablation : the chosen pair refitted with one feature group removed at a time (URL groups,
+          Tranco, DNS, TLS, RDAP, whole host block, all hand-crafted features, DL score), several
+          seeds each, same rule. Routing (host branch on live hosts) stays fixed, so only the
+          information in the features changes. Measures what each group contributes.
 Test, PhreshPhish and the Vietnamese set are scored for every candidate and reported, but never
 used to choose. The winning pair is then trained into production with
   python src/url_classifier/train.py --dl <arch> --ml <ml> --dl-dir models/layer_c_selection
 Run:    python src/layer_c_selection.py dl [--archs ...]
         python src/layer_c_selection.py ml [--dl <arch>]
-Output: reports/layer_c_selection/{dl,ml}.json, models/layer_c_selection/ (DL weights, scores,
-        feature cache; not versioned)
+        python src/layer_c_selection.py ablation [--seeds 42 43 44]   (resumes a partial report)
+Output: reports/layer_c_selection/{dl,ml,ablation}.json, models/layer_c_selection/ (DL weights,
+        scores, feature cache; not versioned)
 """
 
 from __future__ import annotations
@@ -129,16 +134,130 @@ def step_ml(arch: str | None) -> int:
     return 0
 
 
+def ablation_groups() -> dict[str, tuple[list[str], list[str], bool]]:
+    """{config: (dropped URL features, dropped host features, drop DL score)}; 'full' drops nothing."""
+    from url_classifier.features import FEATURE_NAMES as lex
+    from url_classifier.host_features import HOST_FEATURE_NAMES as host
+    url_groups = {
+        "url_length_structure": ["url_len", "host_len", "path_len", "query_len", "n_host_dots",
+                                 "n_host_hyphens", "n_host_digits", "n_subdomain_labels",
+                                 "domain_label_len", "is_ip", "has_port", "has_at",
+                                 "has_double_slash_path", "n_path_segments", "n_query_params",
+                                 "domain_has_digit"],
+        "url_characters": ["digit_ratio", "upper_ratio", "n_hyphen", "n_underscore", "n_percent",
+                           "n_equals", "n_ampersand", "n_tilde", "host_entropy", "url_entropy",
+                           "longest_token_len", "has_hex_string"],
+        "url_lure_words": ["n_sensitive_words", "has_punycode", "has_file_ext"],
+        "url_platform_redirect": ["is_free_hosting", "is_shortener", "has_redirect_param",
+                                  "n_embedded_urls", "embedded_on_untrusted_host"],
+        "url_tld": [n for n in lex if n.startswith("tld_")],
+    }
+    covered = sum(url_groups.values(), [])
+    assert sorted(covered) == sorted(lex), f"URL features without a group: {set(lex) - set(covered)}"
+    host_groups = {
+        "host_tranco": ["tranco_log_rank", "in_tranco"],
+        "host_dns": [n for n in host if n.startswith("dns_")],
+        "host_tls": [n for n in host if n.startswith("tls_")],
+        "host_rdap": ["rdap_found", "domain_age_days", "days_to_expiry"],
+    }
+    assert sorted(sum(host_groups.values(), [])) == sorted(host)
+    return {"full": ([], [], False),
+            **{g: (n, [], False) for g, n in url_groups.items()},
+            **{g: ([], n, False) for g, n in host_groups.items()},
+            "all_host": ([], list(host), False),
+            "all_handcrafted": (list(lex), [], False),
+            "dl_score": ([], [], True)}
+
+
+def _ablated(base: dict, dl: np.ndarray, drop_lex: list[str], drop_host: list[str],
+             drop_dl: bool) -> dict:
+    """Production matrices (train.with_dl_score layout) without the dropped columns."""
+    from url_classifier.features import FEATURE_NAMES as lex
+    from url_classifier.host_features import HOST_FEATURE_NAMES as host
+    hand = base["hand"][:, [i for i, n in enumerate(lex) if n not in drop_lex]]
+    hostx = base["hostx"][:, [i for i, n in enumerate(host) if n not in drop_host]]
+    dl_col = [] if drop_dl else [dl.astype(np.float32)[:, None]]
+    # A branch left with no column gets a constant one (the model then scores every row alike)
+    lex_m = np.hstack([hand, *dl_col]) if hand.shape[1] or dl_col else np.zeros((len(dl), 1), np.float32)
+    return {"lex": lex_m, "host": np.hstack([hand, hostx, *dl_col]),
+            "live": base["live"], "complete": base["complete"]}
+
+
+def step_ablation(arch: str | None, ml: str | None, seeds: list[int]) -> int:
+    sel = json.loads((OUT_DIR / "ml.json").read_text(encoding="utf-8"))
+    arch, ml = arch or sel["dl"], ml or sel["winner"]
+    splits, tr = _splits()
+    b_flags = common.b_flags_for(splits)
+    z = np.load(SEL_DIR / f"scores_{arch}.npz")
+    sets = {"train": tr, **{s: splits[s] for s in EVAL}}
+    bases = {k: _base(k, d) for k, d in sets.items()}
+    y = {k: d.y.to_numpy() for k, d in sets.items()}
+    groups = ablation_groups()
+    path = OUT_DIR / "ablation.json"
+    out = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    if (out.get("dl"), out.get("ml")) != (arch, ml):
+        out = {}  # report of another pair: start over
+    out.update({"dl": arch, "ml": ml, "seeds": seeds,
+                "rule": "val threshold recognising >= 50% of val clean; routing (live hosts) fixed",
+                "groups": {g: {"url": u, "host": h, "dl_score": d} for g, (u, h, d) in groups.items()}})
+    runs = out.setdefault("runs", {})
+    for name, (drop_lex, drop_host, drop_dl) in groups.items():
+        for seed in seeds:
+            key = f"{name}|{seed}"
+            if key in runs:
+                continue
+            t0 = time.time()
+            M = {k: _ablated(bases[k], z[k], drop_lex, drop_host, drop_dl) for k in sets}
+            B = T.fit_branches(ml, M, y, seed)
+            res = common.evaluate_scores(name, {s: B["score"][s] for s in EVAL}, splits, b_flags,
+                                         {"seconds": round(time.time() - t0)})
+            res["val"] = _val_summary(y["val"], B["score"]["val"])
+            runs[key] = res
+            _save("ablation", out)  # after every fit: an interrupted run resumes here
+            print(key, "val missed", res["val"]["phishing_missed"], flush=True)
+    out["summary"] = _ablation_summary(runs, list(groups), seeds)
+    out["time"] = datetime.now(timezone.utc).isoformat()
+    _save("ablation", out)
+    print(json.dumps(out["summary"], indent=1))
+    return 0
+
+
+def _ablation_summary(runs: dict, names: list[str], seeds: list[int]) -> dict:
+    """Per config: val misses of every seed and their mean, mean PR-AUC of every evaluation set
+    (threshold-free: on the external sets the val threshold lands at a different clean rate per
+    config, so their miss counts are not comparable), mean misses / clean rate of each set."""
+    out = {}
+    for name in names:
+        rs = [runs[f"{name}|{s}"] for s in seeds]
+        mean = lambda f: round(float(np.mean([f(r) for r in rs])), 5)  # noqa: E731
+        out[name] = {"val_missed": [r["val"]["phishing_missed"] for r in rs],
+                     "val_missed_mean": mean(lambda r: r["val"]["phishing_missed"]),
+                     "val_pr_auc": mean(lambda r: r["val"]["pr_auc"])}
+        for s in common.EVAL_SETS:
+            out[name].update({f"{s}_pr_auc": mean(lambda r: r[s]["pr_auc"]),
+                              f"{s}_missed_mean": mean(lambda r: r[s]["alone"]["phishing_missed"]),
+                              f"{s}_clean_recognized": mean(lambda r: r[s]["alone"]["clean_recognized"])})
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("step", choices=("dl", "ml"))
+    ap.add_argument("step", choices=("dl", "ml", "ablation"))
     ap.add_argument("--archs", nargs="+", choices=tuple(DL_ARCHS), default=list(DL_ARCHS))
     ap.add_argument("--epochs", type=int, default=12)
     ap.add_argument("--dl", choices=tuple(DL_ARCHS), default=None,
-                    help="ml step: DL architecture to use (default: winner of the dl step)")
+                    help="ml / ablation step: DL architecture (default: winner of the dl step)")
+    ap.add_argument("--ml", choices=T.ML_MODELS, default=None,
+                    help="ablation step: ML classifier (default: winner of the ml step)")
+    ap.add_argument("--seeds", type=int, nargs="+", default=[42, 43, 44],
+                    help="ablation step: one refit per seed and configuration")
     args = ap.parse_args()
-    return step_dl(args.archs, args.epochs) if args.step == "dl" else step_ml(args.dl)
+    if args.step == "dl":
+        return step_dl(args.archs, args.epochs)
+    if args.step == "ml":
+        return step_ml(args.dl)
+    return step_ablation(args.dl, args.ml, args.seeds)
 
 
 if __name__ == "__main__":

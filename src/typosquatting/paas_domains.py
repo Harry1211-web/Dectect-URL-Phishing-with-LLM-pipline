@@ -7,8 +7,12 @@
 
 from __future__ import annotations
 
+import sys
 from functools import lru_cache
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from url_utils import file_version  # noqa: E402
 
 # PaaS, site builders, free hosting and dynamic DNS providers
 FREE_HOSTING: frozenset[str] = frozenset({
@@ -83,9 +87,14 @@ ABUSED_PLATFORMS_PATH = (Path(__file__).resolve().parents[2] / "data" / "blockli
                          / "abused_platforms.txt")
 
 
-@lru_cache(maxsize=1)
 def _abused_platforms() -> frozenset[str]:
-    """Platforms derived from the phishing feeds by blocklist/platforms.py (rebuilt on update)."""
+    """Platforms derived from the phishing feeds by blocklist/platforms.py (rebuilt on update;
+    a long-running server picks up the new file)."""
+    return _abused_platforms_at(file_version(ABUSED_PLATFORMS_PATH))
+
+
+@lru_cache(maxsize=1)
+def _abused_platforms_at(_version: int) -> frozenset[str]:
     if not ABUSED_PLATFORMS_PATH.exists():
         return frozenset()
     return frozenset(ln.strip() for ln in ABUSED_PLATFORMS_PATH.read_text(encoding="utf-8").split()

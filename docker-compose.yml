@@ -1,0 +1,24 @@
+# docker compose up -d --build   -> API on http://localhost:8000 (docs: /docs)
+services:
+  api:
+    build: .
+    image: phishing-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data          # blocklist, Tranco, caches, injection patterns, monitoring log
+      - ./.env:/app/.env:ro       # OPENAI_API_KEY, VT_API_KEY, budgets (read by the layers)
+    environment:
+      API_KEY: ${API_KEY:?API_KEY must be set}  # clients send it as the X-API-Key header
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}  # origin(s) of the partner's UI
+    restart: unless-stopped
+
+  # Refreshes the phishing feeds every hour (each feed is only downloaded when due); the API
+  # reloads them by itself when data/blocklist/meta.json changes
+  updater:
+    image: phishing-api
+    depends_on: [api]
+    volumes:
+      - ./data:/app/data
+    command: ["sh", "-c", "while true; do python src/blocklist/updater.py; sleep 3600; done"]
+    restart: unless-stopped

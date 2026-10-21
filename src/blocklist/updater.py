@@ -33,7 +33,7 @@ from pathlib import Path
 import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from url_utils import normalize_url  # noqa: E402
+from url_utils import file_version, normalize_url  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 BLOCKLIST_DIR = ROOT / "data" / "blocklist"
@@ -47,7 +47,7 @@ UA = "Mozilla/5.0 (compatible; dacntt-phishing-blocklist/1.0)"
 
 FEEDS = {
     "openphish": "https://openphish.com/feed.txt",
-    "phishtank": "http://data.phishtank.com/data/online-valid.csv",
+    "phishtank": "https://data.phishtank.com/data/online-valid.csv",
     "phishing_database": ("https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/"
                           "master/phishing-links-ACTIVE.txt"),
 }
@@ -65,6 +65,31 @@ def _get(url: str, retries: int = 3, timeout: float = 120) -> bytes | None:
             print(f"  {url} -> {type(e).__name__}", file=sys.stderr)
         time.sleep(5 * (attempt + 1))
     return None
+
+
+def write_gz_atomic(path: Path, lines: list[str]) -> None:
+    """Write a .txt.gz next to `path`, then replace it in one step: the API (another process)
+    never reads a half-written list."""
+    tmp = path.with_name(path.name + ".tmp")
+    with gzip.open(tmp, "wt", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    tmp.replace(path)
+
+
+def _save_tranco(body: bytes) -> bool:
+    """Unzip the Tranco list over TRANCO_PATH in one step; a broken archive keeps the old list."""
+    tmp = TRANCO_PATH.with_name(TRANCO_PATH.name + ".tmp")
+    try:
+        with zipfile.ZipFile(io.BytesIO(body)) as z, z.open(z.namelist()[0]) as src, \
+                tmp.open("wb") as dst:
+            shutil.copyfileobj(src, dst)
+    except (zipfile.BadZipFile, IndexError, OSError, EOFError) as e:
+        print(f"tranco: bad archive ({type(e).__name__}), kept previous list", file=sys.stderr)
+        tmp.unlink(missing_ok=True)
+        return False
+    tmp.replace(TRANCO_PATH)
+    file_version(TRANCO_PATH, check_every_s=0)  # build_blockable_hosts below reads the new list
+    return True
 
 
 def _parse(source: str, body: bytes) -> list[str]:
@@ -113,19 +138,15 @@ def update(force: bool = False) -> dict:
                              if prev.get("count") else "failed, no snapshot"}
             print(f"{name}: download failed", file=sys.stderr)
             continue
-        with gzip.open(BLOCKLIST_DIR / f"{name}.txt.gz", "wt", encoding="utf-8") as f:
-            f.write("\n".join(urls))
+        write_gz_atomic(BLOCKLIST_DIR / f"{name}.txt.gz", urls)
         now = datetime.now(timezone.utc).isoformat()
         sources[name] = {"count": len(urls), "fetched_at": now, "attempted_at": now, "last_status": "ok"}
         changed = True
         print(f"{name}: {len(urls)} URLs", file=sys.stderr)
 
     body = _get(TRANCO_URL) if tranco_due else None
-    if body:
+    if body and _save_tranco(body):
         changed = True
-        with zipfile.ZipFile(io.BytesIO(body)) as z, z.open(z.namelist()[0]) as src, \
-                TRANCO_PATH.open("wb") as dst:
-            shutil.copyfileobj(src, dst)
         print("tranco: refreshed", file=sys.stderr)
 
     n_hosts, n_platforms = old.get("blockable_hosts"), old.get("abused_platforms")

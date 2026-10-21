@@ -10,6 +10,7 @@ which XGBoost handles natively. Results are cached per host/domain in data/host_
 
 from __future__ import annotations
 
+import ipaddress
 import json
 import math
 import socket
@@ -29,7 +30,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402
-from url_utils import host_of, is_ip_host, registrable_domain  # noqa: E402
+from url_utils import file_version, host_of, is_ip_host, registrable_domain  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 CACHE_PATH = ROOT / "data" / "host_cache.sqlite"
@@ -87,8 +88,12 @@ def _cached(kind: str, key: str, fn, ttl_days: float = CACHE_TTL_DAYS,
 
 
 # ----------------------------------------------------------------------------- lookups
-@lru_cache(maxsize=1)
 def _tranco_rank() -> dict[str, int]:
+    return _tranco_rank_at(file_version(TRANCO_PATH))  # reloaded after the monthly refresh
+
+
+@lru_cache(maxsize=1)
+def _tranco_rank_at(_version: int) -> dict[str, int]:
     if not TRANCO_PATH.exists():
         return {}
     with TRANCO_PATH.open(encoding="utf-8") as f:
@@ -143,16 +148,31 @@ def _parse_time(s: str) -> float:
     return datetime.strptime(s, "%b %d %H:%M:%S %Y %Z").replace(tzinfo=timezone.utc).timestamp()
 
 
+def _public_ip(host: str) -> str | None:
+    """SSRF guard: an address of `host` when every address it resolves to is public, else None
+    (a URL sent to the API must not make the server connect to its own internal network)."""
+    try:
+        ips = [i[4][0].split("%")[0] for i in socket.getaddrinfo(host, 443, proto=socket.IPPROTO_TCP)]
+    except (OSError, UnicodeError):
+        return None
+    return ips[0] if ips and all(ipaddress.ip_address(ip).is_global for ip in ips) else None
+
+
 def _tls(host: str) -> dict:
-    """Certificate of host:443. A cert that fails verification is still read (tls_ok=0)."""
+    """Certificate of host:443. A cert that fails verification is still read (tls_ok=0).
+    Hosts resolving to a non-public address are not contacted (empty result)."""
     from cryptography import x509
     from cryptography.x509.oid import ExtensionOID, NameOID
+    ip = _public_ip(host)
+    if ip is None:
+        return {}
     for verify in (True, False):
         ctx = ssl.create_default_context()
         if not verify:
             ctx.check_hostname, ctx.verify_mode = False, ssl.CERT_NONE
         try:
-            with socket.create_connection((host, 443), timeout=TLS_TIMEOUT_S) as sock, \
+            # Connect to the checked IP (no second lookup: DNS rebinding); SNI / hostname check use host
+            with socket.create_connection((ip, 443), timeout=TLS_TIMEOUT_S) as sock, \
                     ctx.wrap_socket(sock, server_hostname=host) as tls:
                 der = tls.getpeercert(binary_form=True)
         except ssl.SSLCertVerificationError:
@@ -186,12 +206,14 @@ def _tls(host: str) -> dict:
 
 @lru_cache(maxsize=1)
 def _rdap_bootstrap() -> dict[str, str]:
-    """TLD -> RDAP base URL from the IANA bootstrap file."""
+    """TLD -> RDAP base URL from the IANA bootstrap file. A failed download raises (lru_cache keeps
+    no exception, so the next lookup retries) instead of returning {}: an empty table would be
+    cached for the process lifetime and store 'RDAP unsupported' for every domain for 30 days."""
     try:
         data = requests.get("https://data.iana.org/rdap/dns.json", timeout=20).json()
-    except (requests.RequestException, ValueError):
-        return {}
-    return {tld: urls[0] for tlds, urls in data["services"] for tld in tlds}
+        return {tld: urls[0] for tlds, urls in data["services"] for tld in tlds}
+    except (requests.RequestException, ValueError, KeyError, TypeError) as e:
+        raise LookupUnavailable("IANA RDAP bootstrap") from e
 
 
 def _rdap(domain: str) -> dict:
@@ -208,7 +230,10 @@ def _rdap(domain: str) -> dict:
         return {"supported": 1, "found": 0}
     if r.status_code != 200:
         return {"supported": 1, "error": r.status_code}
-    events = {e.get("eventAction"): e.get("eventDate") for e in r.json().get("events", [])}
+    try:
+        events = {e.get("eventAction"): e.get("eventDate") for e in r.json().get("events", [])}
+    except (ValueError, AttributeError):  # not RDAP JSON
+        return {"supported": 1, "error": 1}
     out = {"supported": 1, "found": 1}
     for action, key in (("registration", "registered"), ("expiration", "expires")):
         if events.get(action):

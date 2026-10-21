@@ -2,6 +2,8 @@
 
 import re
 
+import pytest
+
 from html_sanitize import sanitize_html
 from llm_client import (
     WARNING_INJECTION_DETECTED, analyze_suspicious, build_prompt,
@@ -107,8 +109,9 @@ class _FakeResponse:
     def __init__(self, status=200, headers=None, body=b""):
         self.status, self.headers, self._body = status, headers or {}, body
 
-    def read(self, n, decode_content=True):
-        return self._body[:n]
+    def read1(self, n, decode_content=True):
+        chunk, self._body = self._body[:n], self._body[n:]
+        return chunk
 
     def release_conn(self):
         pass
@@ -117,7 +120,7 @@ class _FakeResponse:
 def test_fetch_survives_invalid_charset(monkeypatch):
     import llm_client
     monkeypatch.setattr(llm_client, "_public_address", lambda u: "93.184.216.34")
-    monkeypatch.setattr(llm_client, "_pinned_get", lambda u, ip: _FakeResponse(
+    monkeypatch.setattr(llm_client, "_pinned_get", lambda u, ip, **kw: _FakeResponse(
         headers={"content-type": "text/html; charset=utf-8,gbk"}, body=b"<title>Hi</title><p>text</p>"))
     assert llm_client.fetch("https://example.com")[0] == "Hi"
 
@@ -132,7 +135,7 @@ def test_fetch_connects_to_the_checked_ip_on_every_hop(monkeypatch):
                         lambda *a, **k: [(2, 1, 6, "", (next(answers), 443))])
     used = []
 
-    def pinned(url, ip):
+    def pinned(url, ip, **kw):
         used.append((url, ip))
         if len(used) == 1:
             return _FakeResponse(302, {"location": "https://b.example/next"})
@@ -142,6 +145,34 @@ def test_fetch_connects_to_the_checked_ip_on_every_hop(monkeypatch):
     # hop 1 checked on 93.184.216.34 -> connects there; hop 2 resolves to 10.0.0.5 -> refused
     assert llm_client.fetch("https://a.example/")[:2] == ("", "")
     assert used == [("https://a.example/", "93.184.216.34")]
+
+
+def test_fetch_stops_a_dripping_server_at_the_deadline(monkeypatch):
+    """A server sending one byte just under the per-read timeout cannot hold the fetch."""
+    import time
+
+    import llm_client
+
+    class Drip(_FakeResponse):
+        def read1(self, n, decode_content=True):
+            time.sleep(0.2)
+            return b"a"
+
+    monkeypatch.setattr(llm_client, "FETCH_DEADLINE_S", 1.0)
+    monkeypatch.setattr(llm_client, "_public_address", lambda u: "93.184.216.34")
+    monkeypatch.setattr(llm_client, "_pinned_get", lambda u, ip, **kw: Drip(headers={"content-type": "text/html"}))
+    t0 = time.monotonic()
+    llm_client.fetch_html("https://drip.example/")
+    assert time.monotonic() - t0 < 2.0
+
+
+def test_tls_lookup_never_contacts_internal_addresses(monkeypatch):
+    import socket
+
+    from url_classifier import host_features
+    monkeypatch.setattr(socket, "getaddrinfo", lambda *a, **k: [(2, 1, 6, "", ("10.0.0.5", 443))])
+    monkeypatch.setattr(socket, "create_connection", lambda *a, **k: pytest.fail("connected"))
+    assert host_features._tls("internal.example") == {}
 
 
 def test_injection_hidden_in_url_is_flagged():

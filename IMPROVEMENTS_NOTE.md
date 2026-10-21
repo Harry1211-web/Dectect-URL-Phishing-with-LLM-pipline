@@ -1,140 +1,158 @@
-# Improvements note
+# Ghi chú cải tiến
 
-What was changed to optimize the system, what was measured and dropped, the benchmark numbers,
-and the contributions they support. Every number comes from `notebooks/pipeline_experiment.ipynb`
-or the report files it cites; choices were made on validation / dev data and each test set was
-scored once per chosen configuration.
+Ghi chú này gồm các thay đổi đã làm để tối ưu hệ thống, các phương pháp đã đo rồi bỏ, số liệu
+benchmark và các đóng góp mà những số liệu đó chứng minh. Mọi con số đều lấy từ
+`notebooks/pipeline_experiment.ipynb` hoặc từ các file báo cáo mà notebook dẫn tới. Mọi lựa chọn
+đều được đưa ra trên dữ liệu validation / dev, và mỗi tập test chỉ được chấm một lần cho mỗi cấu
+hình đã chọn.
 
-## 1. Methods applied
+## 1. Các phương pháp đã áp dụng
 
-| Method | What it is | Evidence |
+| Phương pháp | Nội dung | Bằng chứng |
 |---|---|---|
-| **Dynamic pattern sanitizer** | `html_sanitize.PatternLoader` merges one JSON file per language (`data/injection_patterns/<lang>.json`, 16 languages): injection regexes, quoted authorities and their reserved domains, verdict words, negations, bait words. No language-specific pattern is left in the sanitizer or the verdict parser. | Same detections as before (test suite unchanged); a new language is a new file. Hard red team: ≤ 1 flip to *safe* in 324 attacked real pages (`reports/llm/redteam_injection/`). |
-| **VirusTotal in Layer A** | After the blocklists and the trusted-domain shortcut: VirusTotal URL report, ≥ 2 malicious engines → phishing; cached, never submits a URL, quota / network errors are skipped. | On a fixed sample of the Vietnamese set (95 Chong Lua Dao phishing + 95 clean): public feeds catch 1.1 % of the phishing, VirusTotal 70.5 % (precision 0.971, 2 clean pages flagged). |
-| **Chong Lua Dao as Vietnamese ground truth** | The Vietnamese phishing labels come from the Chong Lua Dao blacklist (pinned public mirror, live hosts registered before the snapshot); it is *not* a Layer A feed, so the Vietnamese evaluation of Layer A is not circular. | 2,710 phishing URLs (1,604 domains). |
-| **Zero-leakage Vietnamese test set** | Moved to `data/test_sets/vi/`, away from the training data; registrable-domain overlap checked against every training and evaluation file and the DOM pages. | 0 shared domains with training files and DOM pages; 2 phishing domains shared with the Layer D page sets (evaluation sets, never trained on). |
-| **Single-language prompt, dynamic output language** | English prompt; `lang` (default `vi`) sets the language of the explanation; the VERDICT keyword stays English. | Dev, 651 pages: explanations in Vietnamese 100 % (gpt) / 99.7 % (Haiku); verdict agreement with the verdict-only run 97.2 % / 95.9 %; phishing → safe 15.7 → 15.4 % (gpt, McNemar p = 1.0), 16.5 → 14.8 % (Haiku, p = 0.07). Kept: no significant change. |
-| **Layer C re-selection** | 5 deep URL models cross-fitted as in production, then RF / XGBoost / LightGBM on the winner's score + URL + host features, both chosen by "fewest val misses at ≥ 50 % val clean recognised". | BiLSTM (424 val misses vs 428 CNN/BiLSTM, 478 char-CNN, 667 URLNet, 1,128 Transformer) + XGBoost (18 val misses vs 24 LightGBM, 32 RF). Production test misses 12 → 10 at 51.1 % clean. |
-| **VirusTotal labels for the relabelling subset** | 300 pages labelled by VirusTotal (≥ 2 engines phishing, 0 clean, else unsure) instead of hand labels. | 149 labelled: 4.7 % of the dataset labels disagree [95 % CI 2.3–9.4 %]; 124 URLs unknown to VirusTotal. |
+| **Bộ lọc dùng mẫu động** | `html_sanitize.PatternLoader` gộp mỗi ngôn ngữ một file JSON (`data/injection_patterns/<lang>.json`, 16 ngôn ngữ). Mỗi file chứa: regex prompt injection, các cơ quan được trích dẫn và tên miền riêng của họ, từ kết luận, từ phủ định, từ mồi nhử. Bộ lọc và bộ đọc kết luận không còn mẫu riêng của ngôn ngữ nào. | Phát hiện giống hệt trước (bộ test không đổi). Thêm ngôn ngữ chỉ cần thêm file. Red team khó: tối đa 1 trang bị lật thành *safe* trên 324 trang thật bị tấn công (`reports/llm/redteam_injection/`). |
+| **VirusTotal trong Lớp A** | Chạy sau blocklist và lối tắt tên miền tin cậy. Tra báo cáo URL trên VirusTotal: ≥ 2 engine báo độc hại → phishing. Có cache, không bao giờ gửi URL lên. Lỗi quota / mạng thì bỏ qua. | Trên một mẫu cố định của tập tiếng Việt (95 phishing từ Chống Lừa Đảo + 95 sạch): các feed công khai bắt được 1,1 % phishing, VirusTotal bắt 70,5 % (precision 0,971, gắn cờ nhầm 2 trang sạch). |
+| **Chống Lừa Đảo làm nhãn chuẩn tiếng Việt** | Nhãn phishing tiếng Việt lấy từ blacklist Chống Lừa Đảo (một bản mirror công khai cố định, chỉ giữ host còn sống và đăng ký trước thời điểm chụp). Chống Lừa Đảo *không* phải feed của Lớp A, nên đánh giá Lớp A trên tập này không bị vòng lặp. | 2.710 URL phishing (1.604 tên miền). |
+| **Tập test tiếng Việt không rò rỉ** | Chuyển sang `data/test_sets/vi/`, tách khỏi dữ liệu huấn luyện. Đã kiểm tra trùng tên miền đăng ký với mọi file huấn luyện, mọi file đánh giá và các trang DOM. | 0 tên miền trùng với file huấn luyện và trang DOM. Có 2 tên miền phishing trùng với các tập trang của Lớp D, nhưng đó là tập đánh giá, chưa từng dùng để huấn luyện. |
+| **Một ngôn ngữ prompt, ngôn ngữ đầu ra động** | Prompt viết bằng tiếng Anh. Tham số `lang` (mặc định `vi`) chọn ngôn ngữ giải thích. Từ khóa VERDICT vẫn giữ tiếng Anh. | Dev, 651 trang: giải thích bằng tiếng Việt 100 % (gpt) / 99,7 % (Haiku). Kết luận khớp với lần chạy chỉ ra kết luận: 97,2 % / 95,9 %. Phishing → safe: 15,7 → 15,4 % (gpt, McNemar p = 1,0) và 16,5 → 14,8 % (Haiku, p = 0,07). Giữ lại vì không có thay đổi đáng kể. |
+| **Chọn lại Lớp C** | 5 mô hình DL cho URL, cross-fit như bản production. Sau đó RF / XGBoost / LightGBM dùng điểm của mô hình DL thắng + đặc trưng URL + đặc trưng host. Cả hai bước đều chọn theo quy tắc "ít bỏ sót nhất trên val khi nhận ra ≥ 50 % sạch trên val". | BiLSTM thắng với 424 lần bỏ sót trên val (CNN/BiLSTM 428, char-CNN 478, URLNet 667, Transformer 1.128). XGBoost thắng với 18 (LightGBM 24, RF 32). Bỏ sót trên test của bản production giảm 12 → 10 ở mức 51,1 % sạch. |
+| **Nhãn VirusTotal cho tập gán nhãn lại** | 300 trang gán nhãn bằng VirusTotal thay cho nhãn tay: ≥ 2 engine → phishing, 0 → sạch, còn lại → không chắc. | 149 trang có nhãn: 4,7 % nhãn của dataset không khớp [KTC 95 %: 2,3–9,4 %]. 124 URL VirusTotal không biết. |
 
-## 2. Discarded methods and reasons
+## 2. Các phương pháp đã bỏ và lý do
 
-| Method | Status | Reason |
+| Phương pháp | Trạng thái | Lý do |
 |---|---|---|
-| Regex patterns hard-coded in Python | Used until commit f82f78b (Vietnamese + English regexes in `html_sanitize.py`); moved to data in d733ab8; the last lists (authority domains, verdict words, negations) moved in this round | Adding a language needed a code change; an earlier "translate everything" pass translated Vietnamese detection patterns and would have broken detection on Vietnamese pages. |
-| Dual-language system prompts | **Never implemented.** The project used a Vietnamese-only prompt (f82f78b), then one English prompt | Two prompts would double the prompt-tuning and evaluation work; the dynamic output language gives Vietnamese explanations from one prompt without a significant verdict change (table above). |
-| Synthetic / fabricated phishing URLs as labels | **Never used for training or testing.** Synthetic pages exist only in the red team and the Vietnamese brand scenarios, reported as such | A fabricated URL measures the generator, not real attackers; real feeds (PhishTank, OpenPhish, Chong Lua Dao) are used instead. |
-| Monolithic, un-isolated datasets | The Vietnamese set used to sit in `dataset/urls/vi/` next to the training data (already domain-isolated); now in `data/test_sets/vi/` with overlap checks in the notebook and tests | Physical and checked separation makes leakage visible. |
-| DOM model allowed to clear a URL flag ("and" rule) | Measured on DOM val: 1 miss, 52.6 % clean (URL only: 1 miss, 36.3 %). **Rejected** | The page is attacker-controlled: a cloaked clean-looking page would turn a flagged URL into "clean". |
-| DOM model adding suspicion only ("or" rule) | Allowed, but cannot reach ≥ 50 % val clean (URL-only is already below it on these pages). **Not enabled** | Production Layer C stays URL-only; the DOM model (val PR-AUC 0.974, held-out ROC-AUC 0.935) is kept and measured. |
-| VirusTotal detections as an ML feature | Not built | The number of engines that flag a URL is close to its label (leakage); the free quota (500 / day) cannot cover the training set. |
-| Other Layer C candidates | Measured, lost on val | CNN/BiLSTM, char-CNN, URLNet, Transformer; LightGBM, random forest (section 3). |
-| Earlier rounds | Measured, dropped | RAG for Layer D (no verdict gain, `reports/llm/rag_pipeline/`); Layer B compound-domain variants (more false alarms, no fewer pipeline misses). |
+| Regex viết cứng trong Python | Dùng đến commit f82f78b (regex tiếng Việt + tiếng Anh trong `html_sanitize.py`). Chuyển sang dữ liệu ở d733ab8. Các danh sách cuối cùng (tên miền cơ quan, từ kết luận, từ phủ định) chuyển trong đợt này. | Thêm ngôn ngữ phải sửa code. Một lần "dịch toàn bộ" trước đây đã dịch luôn mẫu phát hiện tiếng Việt, và lẽ ra sẽ làm hỏng khả năng phát hiện trên trang tiếng Việt. |
+| System prompt hai ngôn ngữ | **Chưa bao giờ triển khai.** Dự án từng dùng prompt chỉ tiếng Việt (f82f78b), sau đó là một prompt tiếng Anh. | Hai prompt sẽ nhân đôi công tinh chỉnh và đánh giá. Ngôn ngữ đầu ra động đã cho giải thích tiếng Việt từ một prompt mà kết luận không thay đổi đáng kể (bảng trên). |
+| URL phishing tổng hợp / tự tạo làm nhãn | **Không bao giờ dùng để huấn luyện hay kiểm thử.** Trang tổng hợp chỉ có trong red team và các kịch bản thương hiệu Việt, và được báo cáo rõ là tổng hợp. | URL tự tạo đo bộ sinh chứ không đo kẻ tấn công thật. Dự án dùng feed thật thay thế (PhishTank, OpenPhish, Chống Lừa Đảo). |
+| Dữ liệu gộp chung, không tách biệt | Tập tiếng Việt từng nằm ở `dataset/urls/vi/` cạnh dữ liệu huấn luyện (dù đã tách theo tên miền). Nay nằm ở `data/test_sets/vi/`, có kiểm tra trùng lặp trong notebook và trong test. | Tách vật lý và có kiểm tra thì rò rỉ sẽ lộ ra. |
+| Cho mô hình DOM xóa cờ của URL (luật "and") | Đo trên val DOM: 1 bỏ sót, 52,6 % sạch (chỉ URL: 1 bỏ sót, 36,3 %). **Bị loại.** | Trang do kẻ tấn công kiểm soát: một trang cloaking trông sạch sẽ biến URL đã bị gắn cờ thành "sạch". |
+| Mô hình DOM chỉ thêm nghi ngờ (luật "or") | Được phép, nhưng không đạt ≥ 50 % sạch trên val (riêng URL đã dưới mức này trên các trang đó). **Không bật.** | Lớp C production vẫn chỉ dùng URL. Mô hình DOM (PR-AUC val 0,974, ROC-AUC trên tập giữ riêng 0,935) được giữ lại và đo đạc. |
+| Số engine VirusTotal làm đặc trưng ML | Không xây dựng | Số engine gắn cờ một URL gần như chính là nhãn của nó (rò rỉ). Quota miễn phí (500 / ngày) không đủ cho tập huấn luyện. |
+| Các ứng viên Lớp C khác | Đã đo, thua trên val | CNN/BiLSTM, char-CNN, URLNet, Transformer; LightGBM, random forest (mục 3). |
+| Các vòng trước | Đã đo, bỏ | RAG cho Lớp D (kết luận không tốt hơn, `reports/llm/rag_pipeline/`). Các biến thể tên miền ghép của Lớp B (báo động nhầm nhiều hơn mà bỏ sót của pipeline không giảm). |
 
-## 3. Benchmark summary
+## 3. Tóm tắt benchmark
 
-**Reading guide.** Phishing is the positive class. For Layers A–C a URL is *flagged* when it is
-blocked or sent on to Layer D; Layer C is a high-recall gate that by design sends about half of
-the clean URLs to the LLM, so its precision and F1 are low on purpose and the miss rate is the
-number that matters. For Layer D and the full pipeline, *strict* = verdict *phishing*, *warn* =
-*phishing* or *suspicious* (the user is warned).
+**Cách đọc.** Phishing là lớp dương.
 
-### 3.1 Layer C and baselines — dataset test split (81,633 URLs), same rule for every model
+- **Lớp A–C:** một URL bị *gắn cờ* khi bị chặn hoặc bị chuyển tiếp sang Lớp D.
+- **Lớp C** là cổng ưu tiên recall. Theo thiết kế, nó chuyển khoảng một nửa số URL sạch sang LLM,
+  nên precision và F1 thấp là có chủ đích. Con số quan trọng là tỉ lệ bỏ sót.
+- **Lớp D và toàn pipeline:** *strict* = kết luận *phishing*. *warn* = *phishing* hoặc
+  *suspicious*, tức người dùng được cảnh báo.
 
-| Model | Test miss % | Precision | Recall | F1 | ROC-AUC | VN miss % / clean % |
+### 3.1 Lớp C và các baseline — tập test của dataset (81.633 URL), cùng một quy tắc cho mọi mô hình
+
+| Mô hình | % bỏ sót test | Precision | Recall | F1 | ROC-AUC | VN: % bỏ sót / % sạch |
 |---|---|---|---|---|---|---|
-| Logistic regression (URL) | 5.37 | — | 0.946 | 0.762 | 0.918 | 30.6 / 97.5 |
-| Random forest (URL) | 3.57 | — | 0.964 | 0.772 | 0.940 | 50.1 / 92.7 |
-| LightGBM (URL) | 2.85 | — | 0.972 | 0.776 | 0.946 | 44.5 / 98.0 |
-| Transformer (URL) | 2.80 | — | 0.972 | 0.777 | 0.946 | 27.3 / 78.5 |
-| URLNet (URL) | 1.63 | — | 0.984 | 0.785 | 0.963 | 13.5 / 98.4 |
-| char-CNN (URL) | 1.10 | — | 0.989 | 0.787 | 0.971 | 18.2 / 99.0 |
-| BiLSTM (URL) | 1.02 | — | 0.990 | 0.787 | 0.972 | 17.4 / 98.0 |
-| LightGBM (URL + host) | 0.033 | — | 0.9997 | 0.791 | 0.995 | 0.78 / 16.3 |
-| Previous Layer C: CNN/BiLSTM + XGBoost | 0.033 | — | 0.9997 | 0.791 | 0.994 | 0.66 / 51.1 |
-| **Final Layer C: BiLSTM + XGBoost** | **0.033** | — | **0.9997** | **0.790** | **0.994** | **0.59 / 50.1** |
+| Logistic regression (URL) | 5,37 | — | 0,946 | 0,762 | 0,918 | 30,6 / 97,5 |
+| Random forest (URL) | 3,57 | — | 0,964 | 0,772 | 0,940 | 50,1 / 92,7 |
+| LightGBM (URL) | 2,85 | — | 0,972 | 0,776 | 0,946 | 44,5 / 98,0 |
+| Transformer (URL) | 2,80 | — | 0,972 | 0,777 | 0,946 | 27,3 / 78,5 |
+| URLNet (URL) | 1,63 | — | 0,984 | 0,785 | 0,963 | 13,5 / 98,4 |
+| char-CNN (URL) | 1,10 | — | 0,989 | 0,787 | 0,971 | 18,2 / 99,0 |
+| BiLSTM (URL) | 1,02 | — | 0,990 | 0,787 | 0,972 | 17,4 / 98,0 |
+| LightGBM (URL + host) | 0,033 | — | 0,9997 | 0,791 | 0,995 | 0,78 / 16,3 |
+| Lớp C cũ: CNN/BiLSTM + XGBoost | 0,033 | — | 0,9997 | 0,791 | 0,994 | 0,66 / 51,1 |
+| **Lớp C cuối: BiLSTM + XGBoost** | **0,033** | — | **0,9997** | **0,790** | **0,994** | **0,59 / 50,1** |
 
-Precision is ≈ 0.65 for every row (≈ 50 % of clean URLs are sent on by the rule); recall = 1 − miss.
-Selection candidates on val (`reports/layer_c_selection/`): DL 424–1,128 misses; ML on BiLSTM:
-XGBoost 18, LightGBM 24, random forest 32. With the same features, LightGBM and random forest
-recognise only 31 % / 21 % of Vietnamese clean URLs at the val threshold (XGBoost 50 %).
+- Precision ≈ 0,65 ở mọi dòng, vì quy tắc chuyển tiếp ≈ 50 % URL sạch. Recall = 1 − tỉ lệ bỏ sót.
+- Các ứng viên được chọn trên val (`reports/layer_c_selection/`):
+  - Mô hình DL: 424–1.128 bỏ sót.
+  - Mô hình ML trên điểm BiLSTM: XGBoost 18, LightGBM 24, random forest 32.
+- Với cùng đặc trưng và ngưỡng val, LightGBM chỉ nhận ra 31 % URL sạch tiếng Việt, random forest
+  21 %, còn XGBoost 50 %.
 
-### 3.2 Pipeline layers — production thresholds, host data from the cache, LLM not called
+### 3.2 Các lớp của pipeline — ngưỡng production, dữ liệu host lấy từ cache, không gọi LLM
 
-| Set | Layers | Missed | Clean recognised | Precision | Recall | F1 |
+| Tập | Lớp | Bỏ sót | Nhận ra sạch | Precision | Recall | F1 |
 |---|---|---|---|---|---|---|
-| Dataset test (39,266 phishing / 42,367 clean) | A | 10,065 | 100 % | 1.000 | 0.744 | 0.853 |
-| | B | 36,206 | 99.7 % | 0.964 | 0.078 | 0.144 |
-| | C (previous) | 12 | 51.1 % | — | 0.9997 | — |
-| | **C (final)** | **10** | **51.1 %** | 0.654 | 0.9997 | 0.791 |
-| | **A + B + C** | **5** | **50.9 %** | 0.654 | 0.9999 | 0.791 |
-| Vietnamese set (2,710 / 1,580) | A (feeds) | 2,700 | 99.9 % | 0.909 | 0.004 | 0.007 |
-| | B | 2,653 | 99.8 % | 0.950 | 0.021 | 0.041 |
-| | C (previous) | 28 (1.03 %) | 48.4 % | — | 0.990 | — |
-| | **C (final)** | **29 (1.07 %)** | **52.7 %** | 0.782 | 0.989 | 0.874 |
-| | **A + B + C** | **29** | **54.4 %** | 0.788 | 0.989 | 0.877 |
-| VN sample, 95 + 95 | Blocklist only | 94 | 100 % | 1.000 | 0.011 | 0.021 |
-| | **Blocklist + VirusTotal** | **28** | **97.9 %** | **0.971** | **0.705** | **0.817** |
+| Test của dataset (39.266 phishing / 42.367 sạch) | A | 10.065 | 100 % | 1,000 | 0,744 | 0,853 |
+| | B | 36.206 | 99,7 % | 0,964 | 0,078 | 0,144 |
+| | C (cũ) | 12 | 51,1 % | — | 0,9997 | — |
+| | **C (cuối)** | **10** | **51,1 %** | 0,654 | 0,9997 | 0,791 |
+| | **A + B + C** | **5** | **50,9 %** | 0,654 | 0,9999 | 0,791 |
+| Tập tiếng Việt (2.710 / 1.580) | A (feed) | 2.700 | 99,9 % | 0,909 | 0,004 | 0,007 |
+| | B | 2.653 | 99,8 % | 0,950 | 0,021 | 0,041 |
+| | C (cũ) | 28 (1,03 %) | 48,4 % | — | 0,990 | — |
+| | **C (cuối)** | **29 (1,07 %)** | **52,7 %** | 0,782 | 0,989 | 0,874 |
+| | **A + B + C** | **29** | **54,4 %** | 0,788 | 0,989 | 0,877 |
+| Mẫu VN, 95 + 95 | Chỉ blocklist | 94 | 100 % | 1,000 | 0,011 | 0,021 |
+| | **Blocklist + VirusTotal** | **28** | **97,9 %** | **0,971** | **0,705** | **0,817** |
 
-The blocklist feeds are also sources of the dataset's phishing labels, so A on the dataset test
-split is optimistic; "B + C (no A)" misses 10.
+Các feed blocklist cũng là nguồn nhãn phishing của dataset, nên kết quả của Lớp A trên tập test
+của dataset bị lạc quan. Riêng "B + C (không có A)" bỏ sót 10.
 
-### 3.3 Layer D and full pipeline
+### 3.3 Lớp D và toàn pipeline
 
-| Setting | Model | Phishing → safe | Clean → phishing | Strict P / R / F1 | Warn P / R / F1 | p50 / p95 |
+| Thiết lập | Mô hình | Phishing → safe | Sạch → phishing | Strict P / R / F1 | Warn P / R / F1 | p50 / p95 |
 |---|---|---|---|---|---|---|
-| Layer D, held-out test (2,004 pages), with C override | gpt-6-luna | 5.08 % | 2.90 % | 0.959 / 0.678 / 0.795 | 0.929 / 0.949 / 0.939 | 2.0 / 4.8 s |
-| | claude-haiku-5-5 | 3.98 % | 4.80 % | 0.940 / 0.745 / 0.831 | 0.888 / 0.960 / 0.923 | 1.5 / 3.2 s |
-| Full pipeline, live VN (300 + 300), previous Layer C | gpt-6-luna | — | — | 0.954 / 0.417 / 0.580 | 0.899 / 0.890 / 0.895 | 2.9 / 8.7 s |
-| Full pipeline, live VN, **final** | gpt-6-luna | — | — | 0.957 / 0.517 / 0.671 | 0.900 / 0.900 / **0.900** | 2.7 / 8.0 s |
-| | claude-haiku-5-5 | — | — | 0.969 / 0.523 / 0.680 | 0.910 / 0.907 / **0.908** | 2.3 / 7.4 s |
+| Lớp D, test giữ riêng (2.004 trang), có override của C | gpt-6-luna | 5,08 % | 2,90 % | 0,959 / 0,678 / 0,795 | 0,929 / 0,949 / 0,939 | 2,0 / 4,8 s |
+| | claude-haiku-5-5 | 3,98 % | 4,80 % | 0,940 / 0,745 / 0,831 | 0,888 / 0,960 / 0,923 | 1,5 / 3,2 s |
+| Toàn pipeline, VN live (300 + 300), Lớp C cũ | gpt-6-luna | — | — | 0,954 / 0,417 / 0,580 | 0,899 / 0,890 / 0,895 | 2,9 / 8,7 s |
+| Toàn pipeline, VN live, **bản cuối** | gpt-6-luna | — | — | 0,957 / 0,517 / 0,671 | 0,900 / 0,900 / **0,900** | 2,7 / 8,0 s |
+| | claude-haiku-5-5 | — | — | 0,969 / 0,523 / 0,680 | 0,910 / 0,907 / **0,908** | 2,3 / 7,4 s |
 
-Run-to-run (same pages, second run): verdict agreement 95.4–97.4 %, phishing → safe 7.57 / 7.67 %
-(gpt test) and 5.98 / 5.58 % (Haiku test), no McNemar p < 0.12. Cost per page: gpt $0.000129,
-Haiku $0.000224. Live VN runs skip VirusTotal (quota); many blacklisted Vietnamese pages are
-offline, so their verdict comes from the fallback rules (hence the low strict recall).
+**Chạy lại lần hai trên cùng các trang:**
+- Kết luận khớp 95,4–97,4 %.
+- Phishing → safe: gpt (test) 7,57 / 7,67 %; Haiku (test) 5,98 / 5,58 %.
+- Không có McNemar p nào < 0,12.
 
-### 3.4 Latency (single URL, no LLM; `reports/pipeline/metrics.json`)
+**Chi phí mỗi trang:** gpt $0,000129, Haiku $0,000224.
 
-| Stage | p50 | p95 |
+**Các lần chạy VN live** bỏ qua VirusTotal vì quota. Nhiều trang tiếng Việt trong blacklist đã
+offline, nên kết luận của chúng lấy từ luật dự phòng. Đó là lý do recall strict thấp.
+
+### 3.4 Độ trễ (một URL, không LLM; `reports/pipeline/metrics.json`)
+
+| Giai đoạn | p50 | p95 |
 |---|---|---|
-| A blocklist | 0.11 ms | 0.15 ms |
-| B typosquatting | 0.50 ms | 2.4 ms |
-| C (host data cached) | 31.7 ms | 34.6 ms |
-| A + B + C | 32.5 ms | 35.2 ms |
-| VirusTotal (cached / live) | ~1 ms / up to 2 s timeout | — |
-| D (LLM) | 1.5–2.7 s | 3.2–8.0 s |
+| A blocklist | 0,11 ms | 0,15 ms |
+| B typosquatting | 0,50 ms | 2,4 ms |
+| C (dữ liệu host đã cache) | 31,7 ms | 34,6 ms |
+| A + B + C | 32,5 ms | 35,2 ms |
+| VirusTotal (cache / live) | ~1 ms / timeout tối đa 2 s | — |
+| D (LLM) | 1,5–2,7 s | 3,2–8,0 s |
 
-## 4. Contributions for a research paper
+## 4. Đóng góp cho bài báo nghiên cứu
 
-Each claim is followed by its evidence; claims without enough evidence are listed as limits.
+Mỗi luận điểm đều kèm bằng chứng. Luận điểm nào chưa đủ bằng chứng được ghi ở phần giới hạn.
 
-1. **A recall-first cascade that keeps the LLM for the hard half.** Layers A + B + C miss 5 of
-   39,266 test phishing URLs (0.013 %) while clearing 50.9 % of clean URLs in ~35 ms without any
-   LLM call; on the held-out pages that reach the LLM, the C override cuts phishing → safe to
-   5.1 % (gpt) / 4.0 % (Haiku).
-2. **Host evidence plus a deep URL score, selected under one miss-first rule.** Across 5 deep
-   models × 3 classifiers and 8 baselines, URL-only models miss 30–160× more test phishing than
-   host-based ones. Adding the BiLSTM score to XGBoost is what lets the validation threshold
-   transfer to unseen Vietnamese URLs: 50 % clean recognised at 0.59 % misses, vs 16–31 % for
-   LightGBM / random forest with the same host features.
-3. **A zero-leakage, real-world Vietnamese benchmark that exposes feed coverage gaps.** 4,290
-   URLs (Chong Lua Dao phishing, Tranco `.vn` and verified brand domains) with checked
-   domain isolation. The global feeds catch 0.4 % of this phishing and VirusTotal 70.5 %
-   (sample); the ML gate misses 1.07 %; the full live pipeline reaches warn-F1 0.90–0.91.
-4. **A model-agnostic, injection-hardened LLM layer with measured stability.** One sanitizer
-   (data-driven, 16 languages) and one English prompt serve two LLM families: hard
-   prompt-injection attacks flip ≤ 1 of 324 real pages to *safe*; two identical runs agree on
-   95–97 % of verdicts with no significant difference; the model swap trades misses for false
-   alarms (Haiku: fewer misses p = 0.004, more clean pages blocked p = 0.005).
-5. **A security-constrained use of page structure.** A DOM model trained on PhreshPhish pages
-   disjoint from every evaluation set ranks held-out pages well (ROC-AUC 0.935), but letting it
-   clear URL flags is rejected because the page is attacker-controlled (cloaking); under the
-   "add suspicion only" rule it does not meet the clean-traffic target, a negative result that
-   argues for URL / host evidence as the gate.
+1. **Chuỗi lớp ưu tiên recall, chỉ dùng LLM cho nửa khó.**
+   - Lớp A + B + C bỏ sót 5 trên 39.266 URL phishing test (0,013 %).
+   - Đồng thời xác nhận sạch 50,9 % URL sạch trong khoảng 35 ms, không gọi LLM lần nào.
+   - Trên các trang giữ riêng có đi tới LLM, override của C giảm phishing → safe còn 5,1 % (gpt)
+     / 4,0 % (Haiku).
+2. **Bằng chứng host cộng điểm URL từ DL, chọn theo một quy tắc ưu tiên bỏ sót.**
+   - So trên 5 mô hình DL × 3 bộ phân loại và 8 baseline, mô hình chỉ dùng URL bỏ sót phishing
+     test nhiều hơn 30–160 lần so với mô hình dùng host.
+   - Thêm điểm BiLSTM vào XGBoost là yếu tố giúp ngưỡng val áp dụng được cho URL tiếng Việt chưa
+     từng thấy: nhận ra 50 % sạch ở mức bỏ sót 0,59 %.
+   - Với cùng đặc trưng host, LightGBM / random forest chỉ nhận ra 16–31 % sạch.
+3. **Benchmark tiếng Việt thực tế, không rò rỉ, cho thấy các feed bỏ sót rất nhiều.**
+   - 4.290 URL: phishing từ Chống Lừa Đảo; sạch từ Tranco `.vn` và các tên miền thương hiệu đã
+     xác minh. Đã kiểm tra tách biệt tên miền.
+   - Feed toàn cầu bắt được 0,4 % số phishing này; VirusTotal bắt 70,5 % (trên mẫu).
+   - Cổng ML bỏ sót 1,07 %; toàn pipeline live đạt warn-F1 0,90–0,91.
+4. **Lớp LLM không phụ thuộc mô hình, chống prompt injection, có đo độ ổn định.**
+   - Một bộ lọc (dựa trên dữ liệu, 16 ngôn ngữ) và một prompt tiếng Anh dùng được cho hai họ LLM.
+   - Tấn công prompt injection khó lật tối đa 1 trên 324 trang thật thành *safe*.
+   - Hai lần chạy giống hệt nhau khớp 95–97 % kết luận, không có khác biệt đáng kể.
+   - Đổi mô hình là đánh đổi giữa bỏ sót và báo động nhầm: Haiku bỏ sót ít hơn (p = 0,004)
+     nhưng chặn nhầm trang sạch nhiều hơn (p = 0,005).
+5. **Dùng cấu trúc trang có ràng buộc bảo mật.**
+   - Mô hình DOM huấn luyện trên trang PhreshPhish tách rời mọi tập đánh giá, xếp hạng tốt các
+     trang giữ riêng (ROC-AUC 0,935).
+   - Cho nó xóa cờ URL bị loại, vì trang do kẻ tấn công kiểm soát (cloaking).
+   - Theo luật "chỉ thêm nghi ngờ", nó không đạt mục tiêu về lưu lượng sạch.
+   - Đây là kết quả âm, ủng hộ việc dùng bằng chứng URL / host làm cổng.
 
-**Limits.** Labels of public feeds are noisy (4.7 % disagreement with VirusTotal on the
-relabelling subset, half of which VirusTotal does not know); the VirusTotal measurement covers a
-190-URL sample; Layer C needs live host lookups at run time; Layer D still lets 4–5 % of the
-phishing pages it sees pass as *safe*; each deep model was trained once (one seed), and the
-BiLSTM / CNN-BiLSTM difference on val (424 vs 428 misses) is within noise.
+**Giới hạn.**
+- Nhãn của các feed công khai bị nhiễu: lệch 4,7 % so với VirusTotal trên tập gán nhãn lại, và một
+  nửa số URL đó VirusTotal không biết.
+- Phép đo VirusTotal chỉ trên mẫu 190 URL.
+- Lớp C cần tra host trực tiếp khi chạy.
+- Lớp D vẫn để 4–5 % trang phishing nó xem lọt thành *safe*.
+- Mỗi mô hình DL chỉ huấn luyện một lần (một seed), nên chênh lệch BiLSTM / CNN-BiLSTM trên val
+  (424 so với 428 bỏ sót) nằm trong mức nhiễu.

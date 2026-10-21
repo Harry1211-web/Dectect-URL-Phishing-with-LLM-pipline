@@ -1,0 +1,16 @@
+# Only src/, models/url_classifier/, dataset/brands/ and the requirements go into the image;
+# data/ and .env are mounted at run time
+.git
+.env
+data/
+dataset/
+!dataset/brands/
+models/
+!models/url_classifier/
+notebooks/
+reports/
+docs/
+tests/
+**/__pycache__/
+.pytest_cache/
+.markdown-collab/

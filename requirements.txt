@@ -40,3 +40,8 @@ python-dotenv==1.2.2        # reads .env
 
 # --- Tests ---
 pytest==8.3.3
+httpx==0.28.1               # FastAPI TestClient (tests/test_api.py)
+
+# --- API server (src/api.py); runtime-only subset for Docker: requirements-api.txt ---
+fastapi==0.136.1
+uvicorn==0.46.0
