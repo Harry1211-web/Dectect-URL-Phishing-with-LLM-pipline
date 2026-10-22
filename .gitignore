@@ -33,3 +33,10 @@ data/monitoring/
 data/llm_verdict_cache.sqlite*
 data/vt_cache.sqlite*
 data/**/*.tmp
+
+# File note don't relate to project
+DE_TAI.md
+DEPLOY.txt
+IMPROVEMENTS_NOTE.md
+HUONG_DAN_FE.md
+CLAUDE.md

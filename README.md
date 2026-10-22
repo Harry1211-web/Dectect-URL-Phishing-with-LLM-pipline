@@ -62,7 +62,9 @@ flowchart TD
 ## Repository structure
 
 ```
+bff/                     Backend-for-frontend: public entry for the UI, adds the API key server-side
 src/
+  api.py                 HTTP API around the pipeline (private, called by the BFF)
   pipeline.py            Full A -> B -> C -> D decision for one URL (CLI)
   blocklist/             Layer A: feed updater, lookup, VirusTotal
   typosquatting/         Layer B: brand impersonation, brand catalogue loader
@@ -84,7 +86,7 @@ docs/pipeline.svg        Pipeline diagram
 tests/                   pytest suite (no paid API calls)
 ```
 
-`CAY_THU_MUC.md` describes every file. `IMPROVEMENTS_NOTE.md` lists the optimizations kept and
+`DIRECTORY_TREE.md` describes every file. `IMPROVEMENTS_NOTE.md` lists the optimizations kept and
 discarded, the benchmark table and the research contributions.
 
 ## Quick start
@@ -120,21 +122,26 @@ discarded, the benchmark table and the research contributions.
    `RUN_TRAINING = False` reuses the saved models (set True to re-run the Layer C selection and
    training, several GPU hours). `RUN_LLM = True` runs a paid step only when its report is missing.
 6. **Tests**: `python -m pytest -q tests`
-7. **HTTP API for a UI** (`src/api.py`, FastAPI; interactive docs at `/docs`):
-   ```bash
-   # local
-   set API_KEY=change-me          # Linux / macOS: export API_KEY=change-me
-   uvicorn api:app --app-dir src --host 0.0.0.0 --port 8000
-   # Docker: API + hourly blocklist updater; ./data and ./.env are mounted
-   chown -R 1000 data             # Linux: the container runs as uid 1000
-   API_KEY=change-me docker compose up -d --build
+7. **HTTP service for a UI**: the browser calls the **BFF** (`bff/app.py`) without any key; the BFF
+   adds `X-API-Key` server-side and forwards to the API (`src/api.py`), which is never published.
+   ```text
+   Browser --HTTPS--> proxy --> bff (public, 127.0.0.1:8080) --private network--> api (X-API-Key)
    ```
-   - `POST /analyze` `{"url": "...", "explain": false, "lang": "vi"}` → verdict, explanation, deciding
-     layer (per-layer scores / thresholds only with `API_EXPOSE_LAYERS=1`: they would let an attacker
-     tune a URL under the threshold);
-     `POST /feedback` `{"url": "...", "label": "clean" | "phishing"}`; `GET /health`.
-   - Every POST needs the header `X-API-Key: <API_KEY>`; without `API_KEY` the server refuses all
-     requests (`ALLOW_NO_AUTH=1` only for local tests).
-   - Only http(s) URLs or bare hosts are accepted (`javascript:`, `file:`, blank → 422).
-   - `RATE_LIMIT_PER_MIN` (default 60 per client IP and worker), `CORS_ORIGINS` (default `*`),
+   ```bash
+   # Docker: api + bff + hourly blocklist updater; ./data and ./.env are mounted into api
+   chown -R 1000 data                        # Linux: the containers run as uid 1000
+   export API_KEY=$(openssl rand -hex 24)    # shared by bff and api only, never given to the UI
+   export FE_ORIGINS=https://app.example.com # origin(s) of the UI
+   docker compose up -d --build
+   # local, two terminals (Windows: set instead of export)
+   API_KEY=k123 uvicorn api:app --app-dir src --port 8000
+   API_URL=http://127.0.0.1:8000 API_KEY=k123 FE_ORIGINS=http://localhost:5173 uvicorn app:app --app-dir bff --port 8080
+   ```
+   - UI endpoints (BFF): `POST /api/analyze` `{"url": "...", "explain": false, "lang": "vi"}` →
+     verdict, explanation, deciding layer; `POST /api/feedback` `{"url": "...", "label": "clean" |
+     "phishing"}`; `GET /api/health`.
+   - BFF controls: Origin allowlist (`FE_ORIGINS`), per-IP limits (`BFF_RATE_PER_MIN` 10,
+     `BFF_RATE_PER_DAY` 300), optional Cloudflare Turnstile (`TURNSTILE_SECRET`), generic errors.
+   - API: only http(s) URLs or bare hosts (`javascript:`, `file:`, blank → 422); per-layer scores
+     only with `API_EXPOSE_LAYERS=1` (they would let an attacker tune a URL under the threshold);
      `USE_LLM=0` / `USE_VT=0` turn off Layer D / VirusTotal.

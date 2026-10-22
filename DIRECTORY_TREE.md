@@ -3,11 +3,14 @@
 ```
 .
 ├── README.md                      Overview: architecture diagram, principles, structure, quick start
-├── IMPROVEMENTS_NOTE.md           Optimizations kept / discarded, benchmark table, research contributions
+├── DIRECTORY_TREE.md              This file: what each folder/file is for
+│   Local notes (on disk only, listed in .gitignore):
 ├── CLAUDE.md                      Instructions for Claude Code
-├── CAY_THU_MUC.md                 This file: what each folder/file is for
-├── DE_TAI.md                     Thesis topic (Vietnamese): title, description, three main contributions
-├── DEPLOY.txt                     Deployment guide in Vietnamese: Docker, BFF, HTTPS proxy, Turnstile, FE call example
+├── IMPROVEMENTS_NOTE.md           Optimizations kept / discarded, benchmark table, research contributions
+├── DE_TAI.md                      Thesis topic (Vietnamese): title, description, contributions, data limitations
+├── DEPLOY.txt                     Deployment guide (Vietnamese): Docker, BFF, HTTPS proxy, Turnstile
+├── HUONG_DAN_FE.md                FE integration guide (Vietnamese): BFF endpoints, verdicts, errors, TS / React samples
+│
 ├── requirements.txt               Python dependencies (tested versions)
 ├── requirements-api.txt           Runtime-only subset for the API image (torch CPU installed separately)
 ├── Dockerfile                     API image: src/, models/url_classifier/, dataset/brands/ (data/ and .env mounted)
