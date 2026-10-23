@@ -16,7 +16,7 @@
 ├── Dockerfile                     API image: src/, models/url_classifier/, dataset/brands/ (data/ and .env mounted)
 ├── docker-compose.yml             api (private network only) + bff (public entry, 127.0.0.1:8080) + updater (hourly)
 ├── .dockerignore                  Keeps data, datasets, notebooks, reports and .env out of the image
-├── .env                           API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, VT_API_KEY, optional OPENAI_MODEL) and budgets — not shared
+├── .env                           API keys (OPENAI_API_KEY, ANTHROPIC_API_KEY, VT_API_KEY for verification only, optional OPENAI_MODEL) and budgets — not shared
 │
 ├── bff/                           Backend-for-frontend: the browser calls it without a key
 │   ├── app.py                     Adds API_KEY server-side, forwards /api/analyze, /api/feedback to src/api.py;
@@ -38,12 +38,12 @@
 │   ├── evaluate_trusted_shortcut.py  Trusted-domain shortcut before / after the international brand domains
 │   ├── relabel_subset.py          ~300-page relabelling subset (export CSV) and error rates vs its VirusTotal labels (score)
 │   ├── relabel_vt.py              Fills that subset with VirusTotal labels (>= 2 engines phishing, 0 clean, else unsure)
-│   ├── layer_c_selection.py       Chooses Layer C on val: best of 5 DL URL models, then best of RF / XGBoost / LightGBM
+│   ├── virustotal.py              VirusTotal URL report lookup (cached, never submits URLs): verification tool only, not a layer
+│   ├── layer_c_selection.py       Chooses Layer C on val: best of 5 DL URL models, then RF / XGBoost / LightGBM; ablation (--host-lookups none | network)
 │   │                              (+ ablation step: feature groups removed one at a time, 3 seeds)
 │   ├── monitoring.py              Real-traffic verdict log + user feedback -> reported false-alarm / miss rates
 │   │
-│   ├── blocklist/                 Layer A — instant block from public phishing feeds and VirusTotal
-│   │   ├── virustotal.py          VirusTotal URL report lookup (cached, never submits URLs), verdict rule
+│   ├── blocklist/                 Layer A — instant block from public phishing feeds
 │   │   ├── updater.py             Hourly refresh of OpenPhish / PhishTank / Phishing.Database (per-feed age), Tranco monthly
 │   │   ├── lookup.py              URL / path-prefix / host / campaign-domain lookup (+ redirect targets)
 │   │   └── platforms.py           Derives abused platforms (site builders, link-in-bio, QR...) from feeds
@@ -56,12 +56,12 @@
 │   │
 │   ├── url_classifier/            Layer C — URL classifier + DOM model (clean / suspicious)
 │   │   ├── features.py            Hand-crafted lexical features (incl. redirect features)
-│   │   ├── host_features.py       DNS / TLS certificate / RDAP domain age / Tranco rank (+ cache)
+│   │   ├── host_features.py       Tranco rank (production); DNS / TLS / RDAP lookups (+ cache) for experiments
 │   │   ├── model.py               Deep URL models: CNN/BiLSTM, char-CNN, BiLSTM, URLNet, Transformer
 │   │   ├── dom_features.py        DOM features of a page, DOM model (build / train / combine), combination rule
 │   │   ├── clean_labels.py        Out-of-fold detection of mislabelled training rows
 │   │   ├── collect_host_features.py  Looks up host features for the dataset (into the cache)
-│   │   ├── train.py               Stacking: 2 cross-fitted DL models (--dl) + ML lexical/host branches (--ml), segment thresholds
+│   │   ├── train.py               Stacking: 2 cross-fitted DL models (--dl) + ML (--ml) on URL + Tranco (--host-lookups none), segment thresholds
 │   │   │                          (fewest val misses with >= 50 % clean recognised; --thresholds-only refits them)
 │   │   └── predict.py             Inference used by the pipeline (host branch / lexical fallback)
 │   │
@@ -89,7 +89,7 @@
 │       ├── crawl_clean.py         Crawls clean URLs (with paths) from Tranco-ranked homepages
 │       ├── vi_testset.py          Builds data/test_sets/vi/ (Chong Lua Dao phishing, .vn clean; zero overlap with training)
 │       ├── build_dataset.py       Merge, clean, de-duplicate, cap per site, split by site, apply label fixes
-│       └── audit_labels.py        Finds mislabelled URLs with model-independent evidence -> label_fixes.csv
+│       └── audit_labels.py        Audits labels of every dataset (rules + hand labels) -> label_fixes.csv, fixes VN / PhreshPhish files
 │
 ├── tests/                         pytest suite (no paid API calls; test_api.py = HTTP API, test_bff.py = BFF)
 ├── notebooks/
@@ -97,7 +97,8 @@
 │                                  val / test / VN evaluation, Layer D, benchmark (keeps outputs)
 │   └── pipeline_demo.ipynb        Demo: URLs set in the first cell -> full A -> D pipeline, verdict and per-layer detail
 ├── docs/
-│   └── pipeline.svg               Pipeline diagram (Layers A -> D, verdicts)
+│   ├── pipeline.svg               Pipeline diagram (Layers A -> D, verdicts)
+│   └── KIEN_TRUC_HE_THONG.docx    Architecture document (Vietnamese): layers, background knowledge, deployment, metrics
 │
 ├── dataset/
 │   ├── brands/                    Brand catalogue: VN brands, international brands, secondary domains
@@ -110,7 +111,7 @@
 │       ├── raw/                   Cached downloads + crawled_clean.csv
 │       ├── urls_labeled.csv       Final dataset (url, label, source, group, split)
 │       ├── noisy_labels.csv       Training rows flagged as mislabelled (dropped from train)
-│       ├── label_fixes.csv        Audited label corrections (url, old/new label, rule, evidence)
+│       ├── label_fixes.csv        Audited label corrections of every dataset (dataset, url, old/new label or drop, rule, evidence)
 │       └── stats.json             Dataset statistics
 │
 ├── data/
@@ -118,20 +119,21 @@
 │   ├── injection_patterns/        Language data, one JSON per language (injection regexes, authorities, verdict words,
 │   │                              bait words...), merged by html_sanitize.PatternLoader
 │   ├── test_sets/vi/              Vietnamese real-world test set (Chong Lua Dao phishing, .vn clean), never trained on
-│   ├── vt_cache.sqlite            VirusTotal lookups (not in git)
+│   ├── vt_cache.sqlite            VirusTotal lookups of the verification tool (not in git)
 │   ├── llm_spend.json             Ledger of LLM spend per model and provider (budget guard: LLM_BUDGET_USD,
 │   │                              ANTHROPIC_BUDGET_USD in .env)
 │   ├── llm_verdict_cache.sqlite   Layer D verdicts per URL, reused for 6 h (not in git)
 │   ├── monitoring/                Monthly verdict / feedback logs (kept MONITORING_KEEP_MONTHS), hashing secret (no URLs; not in git)
 │   ├── phreshphish_html.parquet   HTML of the Layer D dev / test pages and DOM pages (sha256 -> html, re-downloadable)
-│   ├── host_cache.sqlite          Cache of DNS / TLS / RDAP lookups (Layer C host features)
+│   ├── host_cache.sqlite          Cache of DNS / TLS / RDAP lookups (Layer C experiments, label audit)
 │   └── tranco_top1m.csv           Tranco top-1M (popular-domain checks, common-token filter)
 │
 ├── models/url_classifier/         Production Layer C: dl_a.pt + dl_b.pt (cross-fitted DL), ml_lexical.*, ml_host.*, config.json;
 │                                  dom_model.* + dom_config.json (DOM model and combination rule)
 ├── models/layer_c_selection/      Candidate DL weights, scores and feature cache of layer_c_selection.py (not in git)
 └── reports/                       Evaluation outputs (JSON) of every layer (live/ = evaluate_live.py,
-                                   baselines/ = src/baselines, relabel/ = relabel_subset.py, layer_c_selection/ =
-                                   DL / ML / DOM candidates, feature-group ablation, benchmark.json = notebook summary,
-                                   summary.md = before / after tables of every experiment and spend)
+                                   baselines/ = src/baselines, relabel/ = relabel_subset.py + hand_review.csv
+                                   (label-noise candidates of test / VN / PhreshPhish for hand labelling), layer_c_selection/ =
+                                   DL / ML / DOM candidates, feature-group ablation (_network = with DNS / TLS / RDAP), host_lookups.json = network vs
+                                   Tranco-only Layer C, benchmark.json = notebook summary, summary.md = result tables)
 ```

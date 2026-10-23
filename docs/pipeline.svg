@@ -25,7 +25,6 @@
   <text x="480" y="122" text-anchor="middle" class="t">Layer A — known phishing</text>
   <text x="480" y="143" text-anchor="middle" class="s">Blocklists: OpenPhish (1 h), PhishTank + Phishing.Database (6 h); redirect targets too</text>
   <text x="480" y="161" text-anchor="middle" class="s">Trusted official brand domain (no user content, no hidden redirect)</text>
-  <text x="480" y="179" text-anchor="middle" class="s">then VirusTotal URL report (≥ 2 engines malicious; cached, never submits URLs)</text>
   <path d="M730,130 L800,130" class="ln"/>
   <text x="808" y="134" class="e" fill="#b91c1c">PHISHING (blocked)</text>
   <path d="M730,158 L800,158" class="ln"/>
@@ -42,10 +41,10 @@
   <!-- Layer C -->
   <rect x="230" y="332" width="500" height="112" class="box" fill="#dbeafe" stroke="#2563eb"/>
   <text x="480" y="356" text-anchor="middle" class="t">Layer C — machine learning gate (high recall)</text>
-  <text x="480" y="377" text-anchor="middle" class="s">BiLSTM URL model (cross-fitted) → score  +  URL / host features (DNS, TLS, RDAP, Tranco)</text>
-  <text x="480" y="395" text-anchor="middle" class="s">→ XGBoost, lexical or host branch, per-segment thresholds (pair chosen on val)</text>
+  <text x="480" y="377" text-anchor="middle" class="s">BiLSTM URL score (cross-fitted) + URL features + Tranco rank</text>
+  <text x="480" y="395" text-anchor="middle" class="s">→ XGBoost, per-segment thresholds chosen on val (~32 ms)</text>
   <text x="480" y="413" text-anchor="middle" class="s">DOM model (page structure) may only add suspicion — off: failed the val rule</text>
-  <text x="480" y="431" text-anchor="middle" class="s">Host lookup failed → suspicious (fail-closed)</text>
+  <text x="480" y="431" text-anchor="middle" class="s">Scored offline: no DNS / TLS / RDAP lookup, nothing fetched from the site</text>
   <path d="M730,388 L800,388" class="ln"/>
   <text x="808" y="384" class="e" fill="#15803d">CLEAN</text>
   <text x="808" y="400" class="lbl">(not flagged by B)</text>

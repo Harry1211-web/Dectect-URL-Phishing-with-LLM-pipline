@@ -14,14 +14,12 @@ flowchart TD
     subgraph A["Layer A — known phishing"]
         A1["Blocklists<br/>OpenPhish 1 h · PhishTank, Phishing.Database 6 h<br/>(+ hidden redirect targets)"]
         A2["Trusted official brand domain<br/>(no user content, no hidden redirect)"]
-        A3["VirusTotal URL report<br/>≥ 2 engines malicious · cached · never submits"]
-        A1 --> A2 --> A3
+        A1 --> A2
     end
     A1 -- listed --> P1[[PHISHING]]
     A2 -- official --> S1[[CLEAN]]
-    A3 -- malicious --> P1
-    A3 --> B["Layer B — brand impersonation<br/>whole-URL keywords vs brand catalogue<br/>Damerau-Levenshtein + Jaro-Winkler"]
-    B --> C["Layer C — ML gate (high recall)<br/>BiLSTM URL score → XGBoost<br/>(URL + host: DNS, TLS, RDAP, Tranco)<br/>per-segment thresholds · fail-closed"]
+    A2 --> B["Layer B — brand impersonation<br/>whole-URL keywords vs brand catalogue<br/>Damerau-Levenshtein + Jaro-Winkler"]
+    B --> C["Layer C — ML gate (high recall)<br/>BiLSTM URL score → XGBoost<br/>(URL features + Tranco rank, no network lookup)<br/>per-segment thresholds"]
     C -- "clean and no B flag" --> S2[[CLEAN]]
     C -- "suspicious or B flag" --> D["Layer D — LLM guard<br/>sanitized page framed as DATA<br/>B flag + technical warnings"]
     D --> V1[[PHISHING]]
@@ -32,9 +30,9 @@ flowchart TD
 
 | Layer | What it does | Code |
 |---|---|---|
-| **A** | Known phishing URLs / hosts / campaign domains from public feeds (also behind redirect parameters); VirusTotal report; official domains of verified brands end as clean | `src/blocklist/`, `src/pipeline.py` |
+| **A** | Known phishing URLs / hosts / campaign domains from public feeds (also behind redirect parameters); official domains of verified brands end as clean | `src/blocklist/`, `src/pipeline.py` |
 | **B** | Brand impersonation: keywords from the domain, subdomains, path and redirect targets compared with the brand catalogue (`dataset/brands/`) | `src/typosquatting/` |
-| **C** | Two cross-fitted **BiLSTM** URL models give a phishing score; **XGBoost** combines it with hand-crafted URL features and host features (lexical branch, or host branch when the host resolves). Thresholds per segment keep almost every phishing URL away from "clean"; a failed host lookup gives "suspicious". The pair was chosen on validation data among 5 deep models × 3 classifiers. A DOM model (page structure) is trained and measured; it may only add suspicion and is off in production because it did not meet the validation rule | `src/url_classifier/`, `src/layer_c_selection.py` |
+| **C** | Two cross-fitted **BiLSTM** URL models give a phishing score; **XGBoost** combines it with hand-crafted URL features and the Tranco rank of the domain (local file: Layer C makes no network lookup, ~30 ms). Thresholds per segment keep almost every phishing URL away from "clean". The pair was chosen on validation data among 5 deep models × 3 classifiers; DNS / TLS / RDAP host features were measured and dropped (small gain for 1–2.5 s per new host). A DOM model (page structure) is trained and measured; it may only add suspicion and is off in production because it did not meet the validation rule | `src/url_classifier/`, `src/layer_c_selection.py` |
 | **D** | LLM (default `gpt-6-luna`; `claude-haiku-5-5` measured) reads the sanitized page and returns phishing / suspicious / safe; explanation on request in the user's language | `src/llm/` |
 
 ## Architectural principles
@@ -66,7 +64,7 @@ bff/                     Backend-for-frontend: public entry for the UI, adds the
 src/
   api.py                 HTTP API around the pipeline (private, called by the BFF)
   pipeline.py            Full A -> B -> C -> D decision for one URL (CLI)
-  blocklist/             Layer A: feed updater, lookup, VirusTotal
+  blocklist/             Layer A: feed updater, lookup
   typosquatting/         Layer B: brand impersonation, brand catalogue loader
   url_classifier/        Layer C: features, host features, deep models, training, inference, DOM model
   llm/                   Layer D: client, sanitizer, evaluations, red teams, model comparison
@@ -101,7 +99,7 @@ discarded, the benchmark table and the research contributions.
    ```ini
    OPENAI_API_KEY=...
    ANTHROPIC_API_KEY=...          # only for the Claude comparison
-   VT_API_KEY=...                 # VirusTotal (free key: 4 requests / minute, 500 / day)
+   VT_API_KEY=...                 # VirusTotal, only to verify the pipeline (free key: 4 requests / minute, 500 / day)
    LLM_BUDGET_USD=7.70            # OpenAI spend limit
    ANTHROPIC_BUDGET_USD=4.8       # Anthropic spend limit
    ```
@@ -144,4 +142,4 @@ discarded, the benchmark table and the research contributions.
      `BFF_RATE_PER_DAY` 300), optional Cloudflare Turnstile (`TURNSTILE_SECRET`), generic errors.
    - API: only http(s) URLs or bare hosts (`javascript:`, `file:`, blank → 422); per-layer scores
      only with `API_EXPOSE_LAYERS=1` (they would let an attacker tune a URL under the threshold);
-     `USE_LLM=0` / `USE_VT=0` turn off Layer D / VirusTotal.
+     `USE_LLM=0` turns off Layer D.
