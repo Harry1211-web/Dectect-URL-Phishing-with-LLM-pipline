@@ -6,240 +6,240 @@
       "set": "dev",
       "time": "2026-10-13T06:36:02.344550+00:00",
       "all": {
-        "n": 651,
+        "n": 648,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 55,
-            "n": 351,
-            "rate": 0.1567,
+            "k": 47,
+            "n": 343,
+            "rate": 0.137,
             "ci95": [
-              0.1224,
-              0.1984
+              0.1046,
+              0.1775
             ]
           },
           "phishing_labelled_suspicious": {
             "k": 92,
-            "n": 351,
-            "rate": 0.2621,
+            "n": 343,
+            "rate": 0.2682,
             "ci95": [
-              0.2189,
-              0.3105
+              0.2241,
+              0.3175
             ]
           },
           "phishing_labelled_phishing": {
             "k": 204,
-            "n": 351,
-            "rate": 0.5812,
+            "n": 343,
+            "rate": 0.5948,
             "ci95": [
-              0.529,
-              0.6317
+              0.542,
+              0.6454
             ]
           },
           "clean_labelled_phishing": {
             "k": 4,
-            "n": 300,
-            "rate": 0.0133,
+            "n": 305,
+            "rate": 0.0131,
             "ci95": [
-              0.0052,
-              0.0338
+              0.0051,
+              0.0332
             ]
           },
           "clean_labelled_suspicious": {
             "k": 2,
-            "n": 300,
-            "rate": 0.0067,
+            "n": 305,
+            "rate": 0.0066,
             "ci95": [
               0.0018,
-              0.024
+              0.0236
             ]
           }
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 30,
-            "n": 351,
-            "rate": 0.0855,
+            "k": 22,
+            "n": 343,
+            "rate": 0.0641,
             "ci95": [
-              0.0605,
-              0.1194
+              0.0427,
+              0.0952
             ]
           },
           "phishing_labelled_suspicious": {
             "k": 117,
-            "n": 351,
-            "rate": 0.3333,
+            "n": 343,
+            "rate": 0.3411,
             "ci95": [
-              0.2861,
-              0.3842
+              0.2929,
+              0.3928
             ]
           },
           "phishing_labelled_phishing": {
             "k": 204,
-            "n": 351,
-            "rate": 0.5812,
+            "n": 343,
+            "rate": 0.5948,
             "ci95": [
-              0.529,
-              0.6317
+              0.542,
+              0.6454
             ]
           },
           "clean_labelled_phishing": {
             "k": 4,
-            "n": 300,
-            "rate": 0.0133,
+            "n": 305,
+            "rate": 0.0131,
             "ci95": [
-              0.0052,
-              0.0338
+              0.0051,
+              0.0332
             ]
           },
           "clean_labelled_suspicious": {
-            "k": 6,
-            "n": 300,
-            "rate": 0.02,
+            "k": 9,
+            "n": 305,
+            "rate": 0.0295,
             "ci95": [
-              0.0092,
-              0.0429
+              0.0156,
+              0.0551
             ]
           }
         },
         "latency_p50_s": 2.51,
-        "latency_p95_s": 7.35,
-        "cost_per_page_usd": 0.0001256,
-        "input_tokens_mean": 792.0,
-        "output_tokens_mean": 92.9
+        "latency_p95_s": 7.3265,
+        "cost_per_page_usd": 0.0001255,
+        "input_tokens_mean": 792.9,
+        "output_tokens_mean": 92.4
       },
       "reaches_d": {
-        "n": 600,
+        "n": 570,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 39,
-            "n": 300,
-            "rate": 0.13,
+            "k": 45,
+            "n": 318,
+            "rate": 0.1415,
             "ci95": [
-              0.0966,
-              0.1728
+              0.1075,
+              0.1841
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 87,
-            "n": 300,
-            "rate": 0.29,
+            "k": 88,
+            "n": 318,
+            "rate": 0.2767,
             "ci95": [
-              0.2416,
-              0.3437
+              0.2304,
+              0.3283
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 174,
-            "n": 300,
-            "rate": 0.58,
+            "k": 185,
+            "n": 318,
+            "rate": 0.5818,
             "ci95": [
-              0.5235,
-              0.6345
+              0.5269,
+              0.6347
             ]
           },
           "clean_labelled_phishing": {
-            "k": 4,
-            "n": 300,
-            "rate": 0.0133,
+            "k": 2,
+            "n": 252,
+            "rate": 0.0079,
             "ci95": [
-              0.0052,
-              0.0338
+              0.0022,
+              0.0285
             ]
           },
           "clean_labelled_suspicious": {
             "k": 2,
-            "n": 300,
-            "rate": 0.0067,
+            "n": 252,
+            "rate": 0.0079,
             "ci95": [
-              0.0018,
-              0.024
+              0.0022,
+              0.0285
             ]
           }
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 14,
-            "n": 300,
-            "rate": 0.0467,
+            "k": 20,
+            "n": 318,
+            "rate": 0.0629,
             "ci95": [
-              0.028,
-              0.0768
+              0.0411,
+              0.0951
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 112,
-            "n": 300,
-            "rate": 0.3733,
+            "k": 113,
+            "n": 318,
+            "rate": 0.3553,
             "ci95": [
-              0.3205,
-              0.4293
+              0.3048,
+              0.4094
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 174,
-            "n": 300,
-            "rate": 0.58,
+            "k": 185,
+            "n": 318,
+            "rate": 0.5818,
             "ci95": [
-              0.5235,
-              0.6345
+              0.5269,
+              0.6347
             ]
           },
           "clean_labelled_phishing": {
-            "k": 4,
-            "n": 300,
-            "rate": 0.0133,
+            "k": 2,
+            "n": 252,
+            "rate": 0.0079,
             "ci95": [
-              0.0052,
-              0.0338
+              0.0022,
+              0.0285
             ]
           },
           "clean_labelled_suspicious": {
-            "k": 6,
-            "n": 300,
-            "rate": 0.02,
+            "k": 9,
+            "n": 252,
+            "rate": 0.0357,
             "ci95": [
-              0.0092,
-              0.0429
+              0.0189,
+              0.0665
             ]
           }
         },
-        "latency_p50_s": 2.49,
-        "latency_p95_s": 7.196499999999994,
-        "cost_per_page_usd": 0.0001246,
-        "input_tokens_mean": 787.2,
-        "output_tokens_mean": 91.7
+        "latency_p50_s": 2.545,
+        "latency_p95_s": 7.3519999999999985,
+        "cost_per_page_usd": 0.0001241,
+        "input_tokens_mean": 770.3,
+        "output_tokens_mean": 94.2
       },
       "missed_by_abc": {
-        "n": 51,
+        "n": 25,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 16,
-            "n": 51,
-            "rate": 0.3137,
+            "k": 2,
+            "n": 25,
+            "rate": 0.08,
             "ci95": [
-              0.2033,
-              0.4503
+              0.0222,
+              0.2497
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 5,
-            "n": 51,
-            "rate": 0.098,
+            "k": 4,
+            "n": 25,
+            "rate": 0.16,
             "ci95": [
-              0.0426,
-              0.2098
+              0.064,
+              0.3465
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 30,
-            "n": 51,
-            "rate": 0.5882,
+            "k": 19,
+            "n": 25,
+            "rate": 0.76,
             "ci95": [
-              0.4517,
-              0.7125
+              0.5657,
+              0.885
             ]
           },
           "clean_labelled_phishing": {
@@ -257,30 +257,30 @@
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 16,
-            "n": 51,
-            "rate": 0.3137,
+            "k": 2,
+            "n": 25,
+            "rate": 0.08,
             "ci95": [
-              0.2033,
-              0.4503
+              0.0222,
+              0.2497
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 5,
-            "n": 51,
-            "rate": 0.098,
+            "k": 4,
+            "n": 25,
+            "rate": 0.16,
             "ci95": [
-              0.0426,
-              0.2098
+              0.064,
+              0.3465
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 30,
-            "n": 51,
-            "rate": 0.5882,
+            "k": 19,
+            "n": 25,
+            "rate": 0.76,
             "ci95": [
-              0.4517,
-              0.7125
+              0.5657,
+              0.885
             ]
           },
           "clean_labelled_phishing": {
@@ -296,11 +296,11 @@
             "ci95": null
           }
         },
-        "latency_p50_s": 2.85,
-        "latency_p95_s": 9.120000000000001,
-        "cost_per_page_usd": 0.0001381,
-        "input_tokens_mean": 848.5,
-        "output_tokens_mean": 106.6
+        "latency_p50_s": 3.67,
+        "latency_p95_s": 7.106,
+        "cost_per_page_usd": 0.0001322,
+        "input_tokens_mean": 852.3,
+        "output_tokens_mean": 94.0
       }
     },
     "eval_dev_v7_nonce_rep2": {
@@ -309,240 +309,240 @@
       "set": "dev",
       "time": "2026-10-15T03:49:34.793048+00:00",
       "all": {
-        "n": 651,
+        "n": 648,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 55,
-            "n": 351,
-            "rate": 0.1567,
+            "k": 47,
+            "n": 343,
+            "rate": 0.137,
             "ci95": [
-              0.1224,
-              0.1984
+              0.1046,
+              0.1775
             ]
           },
           "phishing_labelled_suspicious": {
             "k": 91,
-            "n": 351,
-            "rate": 0.2593,
+            "n": 343,
+            "rate": 0.2653,
             "ci95": [
-              0.2162,
-              0.3075
+              0.2214,
+              0.3144
             ]
           },
           "phishing_labelled_phishing": {
             "k": 205,
-            "n": 351,
-            "rate": 0.584,
+            "n": 343,
+            "rate": 0.5977,
             "ci95": [
-              0.5318,
-              0.6344
+              0.545,
+              0.6482
             ]
           },
           "clean_labelled_phishing": {
             "k": 6,
-            "n": 300,
-            "rate": 0.02,
+            "n": 305,
+            "rate": 0.0197,
             "ci95": [
-              0.0092,
-              0.0429
+              0.009,
+              0.0422
             ]
           },
           "clean_labelled_suspicious": {
             "k": 3,
-            "n": 300,
-            "rate": 0.01,
+            "n": 305,
+            "rate": 0.0098,
             "ci95": [
               0.0034,
-              0.029
+              0.0285
             ]
           }
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 30,
-            "n": 351,
-            "rate": 0.0855,
+            "k": 22,
+            "n": 343,
+            "rate": 0.0641,
             "ci95": [
-              0.0605,
-              0.1194
+              0.0427,
+              0.0952
             ]
           },
           "phishing_labelled_suspicious": {
             "k": 116,
-            "n": 351,
-            "rate": 0.3305,
+            "n": 343,
+            "rate": 0.3382,
             "ci95": [
-              0.2833,
-              0.3813
+              0.2902,
+              0.3898
             ]
           },
           "phishing_labelled_phishing": {
             "k": 205,
-            "n": 351,
-            "rate": 0.584,
+            "n": 343,
+            "rate": 0.5977,
             "ci95": [
-              0.5318,
-              0.6344
+              0.545,
+              0.6482
             ]
           },
           "clean_labelled_phishing": {
             "k": 6,
-            "n": 300,
-            "rate": 0.02,
+            "n": 305,
+            "rate": 0.0197,
             "ci95": [
-              0.0092,
-              0.0429
+              0.009,
+              0.0422
             ]
           },
           "clean_labelled_suspicious": {
-            "k": 7,
-            "n": 300,
-            "rate": 0.0233,
+            "k": 9,
+            "n": 305,
+            "rate": 0.0295,
             "ci95": [
-              0.0113,
-              0.0474
+              0.0156,
+              0.0551
             ]
           }
         },
         "latency_p50_s": 3.21,
-        "latency_p95_s": 11.02,
-        "cost_per_page_usd": 0.0001237,
-        "input_tokens_mean": 791.9,
+        "latency_p95_s": 11.046999999999995,
+        "cost_per_page_usd": 0.0001238,
+        "input_tokens_mean": 792.9,
         "output_tokens_mean": 89.0
       },
       "reaches_d": {
-        "n": 600,
+        "n": 570,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 40,
-            "n": 300,
-            "rate": 0.1333,
+            "k": 45,
+            "n": 318,
+            "rate": 0.1415,
             "ci95": [
-              0.0995,
-              0.1765
+              0.1075,
+              0.1841
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 86,
-            "n": 300,
-            "rate": 0.2867,
+            "k": 87,
+            "n": 318,
+            "rate": 0.2736,
             "ci95": [
-              0.2384,
-              0.3403
+              0.2275,
+              0.3251
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 174,
-            "n": 300,
-            "rate": 0.58,
+            "k": 186,
+            "n": 318,
+            "rate": 0.5849,
             "ci95": [
-              0.5235,
-              0.6345
+              0.53,
+              0.6377
             ]
           },
           "clean_labelled_phishing": {
-            "k": 6,
-            "n": 300,
-            "rate": 0.02,
+            "k": 5,
+            "n": 252,
+            "rate": 0.0198,
             "ci95": [
-              0.0092,
-              0.0429
+              0.0085,
+              0.0456
             ]
           },
           "clean_labelled_suspicious": {
             "k": 3,
-            "n": 300,
-            "rate": 0.01,
+            "n": 252,
+            "rate": 0.0119,
             "ci95": [
-              0.0034,
-              0.029
+              0.0041,
+              0.0344
             ]
           }
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 15,
-            "n": 300,
-            "rate": 0.05,
+            "k": 20,
+            "n": 318,
+            "rate": 0.0629,
             "ci95": [
-              0.0305,
-              0.0808
+              0.0411,
+              0.0951
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 111,
-            "n": 300,
-            "rate": 0.37,
+            "k": 112,
+            "n": 318,
+            "rate": 0.3522,
             "ci95": [
-              0.3173,
-              0.426
+              0.3018,
+              0.4062
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 174,
-            "n": 300,
-            "rate": 0.58,
+            "k": 186,
+            "n": 318,
+            "rate": 0.5849,
             "ci95": [
-              0.5235,
-              0.6345
+              0.53,
+              0.6377
             ]
           },
           "clean_labelled_phishing": {
-            "k": 6,
-            "n": 300,
-            "rate": 0.02,
+            "k": 5,
+            "n": 252,
+            "rate": 0.0198,
             "ci95": [
-              0.0092,
-              0.0429
+              0.0085,
+              0.0456
             ]
           },
           "clean_labelled_suspicious": {
-            "k": 7,
-            "n": 300,
-            "rate": 0.0233,
+            "k": 9,
+            "n": 252,
+            "rate": 0.0357,
             "ci95": [
-              0.0113,
-              0.0474
+              0.0189,
+              0.0665
             ]
           }
         },
         "latency_p50_s": 3.21,
-        "latency_p95_s": 10.938999999999991,
-        "cost_per_page_usd": 0.0001229,
-        "input_tokens_mean": 787.1,
-        "output_tokens_mean": 88.4
+        "latency_p95_s": 11.131999999999998,
+        "cost_per_page_usd": 0.0001228,
+        "input_tokens_mean": 770.3,
+        "output_tokens_mean": 91.5
       },
       "missed_by_abc": {
-        "n": 51,
+        "n": 25,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 15,
-            "n": 51,
-            "rate": 0.2941,
+            "k": 2,
+            "n": 25,
+            "rate": 0.08,
             "ci95": [
-              0.1871,
-              0.43
+              0.0222,
+              0.2497
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 5,
-            "n": 51,
-            "rate": 0.098,
+            "k": 4,
+            "n": 25,
+            "rate": 0.16,
             "ci95": [
-              0.0426,
-              0.2098
+              0.064,
+              0.3465
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 31,
-            "n": 51,
-            "rate": 0.6078,
+            "k": 19,
+            "n": 25,
+            "rate": 0.76,
             "ci95": [
-              0.4708,
-              0.7297
+              0.5657,
+              0.885
             ]
           },
           "clean_labelled_phishing": {
@@ -560,30 +560,30 @@
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 15,
-            "n": 51,
-            "rate": 0.2941,
+            "k": 2,
+            "n": 25,
+            "rate": 0.08,
             "ci95": [
-              0.1871,
-              0.43
+              0.0222,
+              0.2497
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 5,
-            "n": 51,
-            "rate": 0.098,
+            "k": 4,
+            "n": 25,
+            "rate": 0.16,
             "ci95": [
-              0.0426,
-              0.2098
+              0.064,
+              0.3465
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 31,
-            "n": 51,
-            "rate": 0.6078,
+            "k": 19,
+            "n": 25,
+            "rate": 0.76,
             "ci95": [
-              0.4708,
-              0.7297
+              0.5657,
+              0.885
             ]
           },
           "clean_labelled_phishing": {
@@ -599,11 +599,11 @@
             "ci95": null
           }
         },
-        "latency_p50_s": 3.15,
-        "latency_p95_s": 11.225000000000001,
-        "cost_per_page_usd": 0.000133,
-        "input_tokens_mean": 849.2,
-        "output_tokens_mean": 96.2
+        "latency_p50_s": 3.39,
+        "latency_p95_s": 10.451999999999998,
+        "cost_per_page_usd": 0.0001313,
+        "input_tokens_mean": 853.7,
+        "output_tokens_mean": 91.9
       }
     },
     "eval_dev_v7_nonce_rep3": {
@@ -612,240 +612,240 @@
       "set": "dev",
       "time": "2026-10-15T03:57:07.781152+00:00",
       "all": {
-        "n": 651,
+        "n": 648,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 59,
-            "n": 351,
-            "rate": 0.1681,
+            "k": 51,
+            "n": 343,
+            "rate": 0.1487,
             "ci95": [
-              0.1326,
-              0.2108
+              0.1149,
+              0.1902
             ]
           },
           "phishing_labelled_suspicious": {
             "k": 88,
-            "n": 351,
-            "rate": 0.2507,
+            "n": 343,
+            "rate": 0.2566,
             "ci95": [
-              0.2082,
-              0.2986
+              0.2132,
+              0.3053
             ]
           },
           "phishing_labelled_phishing": {
             "k": 204,
-            "n": 351,
-            "rate": 0.5812,
+            "n": 343,
+            "rate": 0.5948,
             "ci95": [
-              0.529,
-              0.6317
+              0.542,
+              0.6454
             ]
           },
           "clean_labelled_phishing": {
             "k": 5,
-            "n": 300,
-            "rate": 0.0167,
+            "n": 305,
+            "rate": 0.0164,
             "ci95": [
-              0.0071,
-              0.0384
+              0.007,
+              0.0378
             ]
           },
           "clean_labelled_suspicious": {
             "k": 3,
-            "n": 300,
-            "rate": 0.01,
+            "n": 305,
+            "rate": 0.0098,
             "ci95": [
               0.0034,
-              0.029
+              0.0285
             ]
           }
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 32,
-            "n": 351,
-            "rate": 0.0912,
+            "k": 23,
+            "n": 343,
+            "rate": 0.0671,
             "ci95": [
-              0.0653,
-              0.1259
+              0.0451,
+              0.0986
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 115,
-            "n": 351,
-            "rate": 0.3276,
+            "k": 116,
+            "n": 343,
+            "rate": 0.3382,
             "ci95": [
-              0.2806,
-              0.3784
+              0.2902,
+              0.3898
             ]
           },
           "phishing_labelled_phishing": {
             "k": 204,
-            "n": 351,
-            "rate": 0.5812,
+            "n": 343,
+            "rate": 0.5948,
             "ci95": [
-              0.529,
-              0.6317
+              0.542,
+              0.6454
             ]
           },
           "clean_labelled_phishing": {
             "k": 5,
-            "n": 300,
-            "rate": 0.0167,
+            "n": 305,
+            "rate": 0.0164,
             "ci95": [
-              0.0071,
-              0.0384
+              0.007,
+              0.0378
             ]
           },
           "clean_labelled_suspicious": {
-            "k": 7,
-            "n": 300,
-            "rate": 0.0233,
+            "k": 9,
+            "n": 305,
+            "rate": 0.0295,
             "ci95": [
-              0.0113,
-              0.0474
+              0.0156,
+              0.0551
             ]
           }
         },
         "latency_p50_s": 2.91,
-        "latency_p95_s": 7.65,
+        "latency_p95_s": 7.595999999999999,
         "cost_per_page_usd": 0.0001236,
-        "input_tokens_mean": 792.1,
-        "output_tokens_mean": 88.8
+        "input_tokens_mean": 793.0,
+        "output_tokens_mean": 88.6
       },
       "reaches_d": {
-        "n": 600,
+        "n": 570,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 43,
-            "n": 300,
-            "rate": 0.1433,
+            "k": 49,
+            "n": 318,
+            "rate": 0.1541,
             "ci95": [
-              0.1082,
-              0.1875
+              0.1186,
+              0.1979
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 83,
-            "n": 300,
-            "rate": 0.2767,
+            "k": 84,
+            "n": 318,
+            "rate": 0.2642,
             "ci95": [
-              0.2291,
-              0.3299
+              0.2187,
+              0.3152
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 174,
-            "n": 300,
-            "rate": 0.58,
+            "k": 185,
+            "n": 318,
+            "rate": 0.5818,
             "ci95": [
-              0.5235,
-              0.6345
+              0.5269,
+              0.6347
             ]
           },
           "clean_labelled_phishing": {
-            "k": 5,
-            "n": 300,
-            "rate": 0.0167,
+            "k": 4,
+            "n": 252,
+            "rate": 0.0159,
             "ci95": [
-              0.0071,
-              0.0384
+              0.0062,
+              0.0401
             ]
           },
           "clean_labelled_suspicious": {
             "k": 3,
-            "n": 300,
-            "rate": 0.01,
+            "n": 252,
+            "rate": 0.0119,
             "ci95": [
-              0.0034,
-              0.029
+              0.0041,
+              0.0344
             ]
           }
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 16,
-            "n": 300,
-            "rate": 0.0533,
+            "k": 21,
+            "n": 318,
+            "rate": 0.066,
             "ci95": [
-              0.0331,
-              0.0849
+              0.0436,
+              0.0988
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 110,
-            "n": 300,
-            "rate": 0.3667,
+            "k": 112,
+            "n": 318,
+            "rate": 0.3522,
             "ci95": [
-              0.3141,
-              0.4226
+              0.3018,
+              0.4062
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 174,
-            "n": 300,
-            "rate": 0.58,
+            "k": 185,
+            "n": 318,
+            "rate": 0.5818,
             "ci95": [
-              0.5235,
-              0.6345
+              0.5269,
+              0.6347
             ]
           },
           "clean_labelled_phishing": {
-            "k": 5,
-            "n": 300,
-            "rate": 0.0167,
+            "k": 4,
+            "n": 252,
+            "rate": 0.0159,
             "ci95": [
-              0.0071,
-              0.0384
+              0.0062,
+              0.0401
             ]
           },
           "clean_labelled_suspicious": {
-            "k": 7,
-            "n": 300,
-            "rate": 0.0233,
+            "k": 9,
+            "n": 252,
+            "rate": 0.0357,
             "ci95": [
-              0.0113,
-              0.0474
+              0.0189,
+              0.0665
             ]
           }
         },
-        "latency_p50_s": 2.885,
-        "latency_p95_s": 7.146999999999993,
-        "cost_per_page_usd": 0.0001225,
-        "input_tokens_mean": 787.3,
-        "output_tokens_mean": 87.6
+        "latency_p50_s": 2.93,
+        "latency_p95_s": 7.3454999999999995,
+        "cost_per_page_usd": 0.0001228,
+        "input_tokens_mean": 770.4,
+        "output_tokens_mean": 91.4
       },
       "missed_by_abc": {
-        "n": 51,
+        "n": 25,
         "n_no_verdict": 0,
         "D_alone": {
           "phishing_labelled_safe": {
-            "k": 16,
-            "n": 51,
-            "rate": 0.3137,
+            "k": 2,
+            "n": 25,
+            "rate": 0.08,
             "ci95": [
-              0.2033,
-              0.4503
+              0.0222,
+              0.2497
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 5,
-            "n": 51,
-            "rate": 0.098,
+            "k": 4,
+            "n": 25,
+            "rate": 0.16,
             "ci95": [
-              0.0426,
-              0.2098
+              0.064,
+              0.3465
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 30,
-            "n": 51,
-            "rate": 0.5882,
+            "k": 19,
+            "n": 25,
+            "rate": 0.76,
             "ci95": [
-              0.4517,
-              0.7125
+              0.5657,
+              0.885
             ]
           },
           "clean_labelled_phishing": {
@@ -863,30 +863,30 @@
         },
         "D_with_C_override": {
           "phishing_labelled_safe": {
-            "k": 16,
-            "n": 51,
-            "rate": 0.3137,
+            "k": 2,
+            "n": 25,
+            "rate": 0.08,
             "ci95": [
-              0.2033,
-              0.4503
+              0.0222,
+              0.2497
             ]
           },
           "phishing_labelled_suspicious": {
-            "k": 5,
-            "n": 51,
-            "rate": 0.098,
+            "k": 4,
+            "n": 25,
+            "rate": 0.16,
             "ci95": [
-              0.0426,
-              0.2098
+              0.064,
+              0.3465
             ]
           },
           "phishing_labelled_phishing": {
-            "k": 30,
-            "n": 51,
-            "rate": 0.5882,
+            "k": 19,
+            "n": 25,
+            "rate": 0.76,
             "ci95": [
-              0.4517,
-              0.7125
+              0.5657,
+              0.885
             ]
           },
           "clean_labelled_phishing": {
@@ -902,11 +902,11 @@
             "ci95": null
           }
         },
-        "latency_p50_s": 4.23,
-        "latency_p95_s": 13.37,
-        "cost_per_page_usd": 0.0001363,
-        "input_tokens_mean": 848.6,
-        "output_tokens_mean": 102.9
+        "latency_p50_s": 4.87,
+        "latency_p95_s": 14.424,
+        "cost_per_page_usd": 0.0001283,
+        "input_tokens_mean": 851.3,
+        "output_tokens_mean": 86.4
       }
     }
   },
@@ -914,7 +914,7 @@
     "eval_dev_v7_nonce vs eval_dev_v7_nonce_rep2": {
       "all": {
         "D_alone": {
-          "n_pages_both_answered": 651,
+          "n_pages_both_answered": 648,
           "phishing_missed (safe)": {
             "only_first": 3,
             "only_second": 3,
@@ -930,10 +930,10 @@
             "only_second": 3,
             "p_value": 0.625
           },
-          "verdict_agreement": 0.9724
+          "verdict_agreement": 0.9722
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 651,
+          "n_pages_both_answered": 648,
           "phishing_missed (safe)": {
             "only_first": 1,
             "only_second": 1,
@@ -949,60 +949,60 @@
             "only_second": 3,
             "p_value": 0.625
           },
-          "verdict_agreement": 0.9754
+          "verdict_agreement": 0.9753
         }
       },
       "reaches_d": {
         "D_alone": {
-          "n_pages_both_answered": 600,
+          "n_pages_both_answered": 570,
           "phishing_missed (safe)": {
-            "only_first": 2,
+            "only_first": 3,
             "only_second": 3,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 4,
-            "only_second": 4,
+            "only_first": 6,
+            "only_second": 5,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
-            "only_first": 1,
+            "only_first": 0,
             "only_second": 3,
-            "p_value": 0.625
+            "p_value": 0.25
           },
-          "verdict_agreement": 0.975
+          "verdict_agreement": 0.9702
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 600,
+          "n_pages_both_answered": 570,
           "phishing_missed (safe)": {
-            "only_first": 0,
+            "only_first": 1,
             "only_second": 1,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 4,
-            "only_second": 4,
+            "only_first": 6,
+            "only_second": 5,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
-            "only_first": 1,
+            "only_first": 0,
             "only_second": 3,
-            "p_value": 0.625
+            "p_value": 0.25
           },
-          "verdict_agreement": 0.9783
+          "verdict_agreement": 0.9737
         }
       },
       "missed_by_abc": {
         "D_alone": {
-          "n_pages_both_answered": 51,
+          "n_pages_both_answered": 25,
           "phishing_missed (safe)": {
-            "only_first": 1,
+            "only_first": 0,
             "only_second": 0,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 2,
-            "only_second": 1,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
@@ -1010,18 +1010,18 @@
             "only_second": 0,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9412
+          "verdict_agreement": 1.0
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 51,
+          "n_pages_both_answered": 25,
           "phishing_missed (safe)": {
-            "only_first": 1,
+            "only_first": 0,
             "only_second": 0,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 2,
-            "only_second": 1,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
@@ -1029,14 +1029,14 @@
             "only_second": 0,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9412
+          "verdict_agreement": 1.0
         }
       }
     },
     "eval_dev_v7_nonce vs eval_dev_v7_nonce_rep3": {
       "all": {
         "D_alone": {
-          "n_pages_both_answered": 651,
+          "n_pages_both_answered": 648,
           "phishing_missed (safe)": {
             "only_first": 1,
             "only_second": 5,
@@ -1052,14 +1052,14 @@
             "only_second": 2,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9647
+          "verdict_agreement": 0.9645
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 651,
+          "n_pages_both_answered": 648,
           "phishing_missed (safe)": {
             "only_first": 1,
-            "only_second": 3,
-            "p_value": 0.625
+            "only_second": 2,
+            "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
             "only_first": 8,
@@ -1071,60 +1071,60 @@
             "only_second": 2,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9677
+          "verdict_agreement": 0.9676
         }
       },
       "reaches_d": {
         "D_alone": {
-          "n_pages_both_answered": 600,
+          "n_pages_both_answered": 570,
           "phishing_missed (safe)": {
-            "only_first": 0,
-            "only_second": 4,
-            "p_value": 0.125
+            "only_first": 1,
+            "only_second": 5,
+            "p_value": 0.2188
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 7,
-            "only_second": 7,
+            "only_first": 8,
+            "only_second": 8,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
-            "only_first": 1,
-            "only_second": 2,
-            "p_value": 1.0
-          },
-          "verdict_agreement": 0.9667
-        },
-        "D_with_C_override": {
-          "n_pages_both_answered": 600,
-          "phishing_missed (safe)": {
             "only_first": 0,
             "only_second": 2,
             "p_value": 0.5
           },
-          "phishing_not_flagged_phishing": {
-            "only_first": 7,
-            "only_second": 7,
-            "p_value": 1.0
-          },
-          "clean_blocked (phishing)": {
+          "verdict_agreement": 0.9614
+        },
+        "D_with_C_override": {
+          "n_pages_both_answered": 570,
+          "phishing_missed (safe)": {
             "only_first": 1,
             "only_second": 2,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.97
+          "phishing_not_flagged_phishing": {
+            "only_first": 8,
+            "only_second": 8,
+            "p_value": 1.0
+          },
+          "clean_blocked (phishing)": {
+            "only_first": 0,
+            "only_second": 2,
+            "p_value": 0.5
+          },
+          "verdict_agreement": 0.9649
         }
       },
       "missed_by_abc": {
         "D_alone": {
-          "n_pages_both_answered": 51,
+          "n_pages_both_answered": 25,
           "phishing_missed (safe)": {
-            "only_first": 1,
-            "only_second": 1,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 1,
-            "only_second": 1,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
@@ -1132,18 +1132,18 @@
             "only_second": 0,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9412
+          "verdict_agreement": 1.0
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 51,
+          "n_pages_both_answered": 25,
           "phishing_missed (safe)": {
-            "only_first": 1,
-            "only_second": 1,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 1,
-            "only_second": 1,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
@@ -1151,14 +1151,14 @@
             "only_second": 0,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9412
+          "verdict_agreement": 1.0
         }
       }
     },
     "eval_dev_v7_nonce_rep2 vs eval_dev_v7_nonce_rep3": {
       "all": {
         "D_alone": {
-          "n_pages_both_answered": 651,
+          "n_pages_both_answered": 648,
           "phishing_missed (safe)": {
             "only_first": 2,
             "only_second": 6,
@@ -1174,14 +1174,14 @@
             "only_second": 2,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9631
+          "verdict_agreement": 0.963
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 651,
+          "n_pages_both_answered": 648,
           "phishing_missed (safe)": {
             "only_first": 0,
-            "only_second": 2,
-            "p_value": 0.5
+            "only_second": 1,
+            "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
             "only_first": 7,
@@ -1193,60 +1193,60 @@
             "only_second": 2,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9693
+          "verdict_agreement": 0.9691
         }
       },
       "reaches_d": {
         "D_alone": {
-          "n_pages_both_answered": 600,
+          "n_pages_both_answered": 570,
           "phishing_missed (safe)": {
             "only_first": 2,
-            "only_second": 5,
-            "p_value": 0.4531
+            "only_second": 6,
+            "p_value": 0.2891
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 6,
-            "only_second": 6,
+            "only_first": 7,
+            "only_second": 8,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
-            "only_first": 3,
-            "only_second": 2,
+            "only_first": 2,
+            "only_second": 1,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.965
+          "verdict_agreement": 0.9614
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 600,
+          "n_pages_both_answered": 570,
           "phishing_missed (safe)": {
             "only_first": 0,
             "only_second": 1,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 6,
-            "only_second": 6,
+            "only_first": 7,
+            "only_second": 8,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
-            "only_first": 3,
-            "only_second": 2,
+            "only_first": 2,
+            "only_second": 1,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9717
+          "verdict_agreement": 0.9684
         }
       },
       "missed_by_abc": {
         "D_alone": {
-          "n_pages_both_answered": 51,
+          "n_pages_both_answered": 25,
           "phishing_missed (safe)": {
             "only_first": 0,
-            "only_second": 1,
+            "only_second": 0,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 1,
-            "only_second": 2,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
@@ -1254,18 +1254,18 @@
             "only_second": 0,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9412
+          "verdict_agreement": 1.0
         },
         "D_with_C_override": {
-          "n_pages_both_answered": 51,
+          "n_pages_both_answered": 25,
           "phishing_missed (safe)": {
             "only_first": 0,
-            "only_second": 1,
+            "only_second": 0,
             "p_value": 1.0
           },
           "phishing_not_flagged_phishing": {
-            "only_first": 1,
-            "only_second": 2,
+            "only_first": 0,
+            "only_second": 0,
             "p_value": 1.0
           },
           "clean_blocked (phishing)": {
@@ -1273,7 +1273,7 @@
             "only_second": 0,
             "p_value": 1.0
           },
-          "verdict_agreement": 0.9412
+          "verdict_agreement": 1.0
         }
       }
     }

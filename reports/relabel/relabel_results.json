@@ -1,18 +1,18 @@
 {
-  "n_rows": 300,
-  "n_labelled": 149,
+  "n_rows": 297,
+  "n_labelled": 148,
   "dataset_label_wrong": {
-    "k": 7,
-    "n": 149,
-    "rate": 0.047,
+    "k": 6,
+    "n": 148,
+    "rate": 0.0405,
     "ci95": [
-      0.0229,
-      0.0938
+      0.0187,
+      0.0856
     ],
     "by_source": {
       "phreshphish_dev": 0.0667,
       "phreshphish_test": 0.0678,
-      "vi_live": 0.0167
+      "vi_live": 0.0
     }
   },
   "all": {
@@ -70,14 +70,14 @@
         "weighted_rate": 0.0817
       },
       "clean_warned": {
-        "k": 2,
+        "k": 3,
         "n": 35,
-        "rate": 0.0571,
+        "rate": 0.0857,
         "ci95": [
-          0.0158,
-          0.1861
+          0.0296,
+          0.2238
         ],
-        "weighted_rate": 0.0173
+        "weighted_rate": 0.026
       }
     },
     "D_haiku": {
@@ -114,14 +114,14 @@
     },
     "pipeline_verdict": {
       "phishing_passed": {
-        "k": 22,
-        "n": 35,
-        "rate": 0.6286,
+        "k": 21,
+        "n": 34,
+        "rate": 0.6176,
         "ci95": [
-          0.4634,
-          0.7683
+          0.4504,
+          0.761
         ],
-        "weighted_rate": 0.1101
+        "weighted_rate": 0.1056
       },
       "clean_blocked": {
         "k": 5,
@@ -298,14 +298,14 @@
         "weighted_rate": 0.0986
       },
       "clean_warned": {
-        "k": 2,
+        "k": 3,
         "n": 25,
-        "rate": 0.08,
+        "rate": 0.12,
         "ci95": [
-          0.0222,
-          0.2497
+          0.0417,
+          0.2996
         ],
-        "weighted_rate": 0.0209
+        "weighted_rate": 0.0313
       }
     },
     "D_haiku": {
@@ -376,14 +376,14 @@
     },
     "pipeline_verdict": {
       "phishing_passed": {
-        "k": 22,
-        "n": 35,
-        "rate": 0.6286,
+        "k": 21,
+        "n": 34,
+        "rate": 0.6176,
         "ci95": [
-          0.4634,
-          0.7683
+          0.4504,
+          0.761
         ],
-        "weighted_rate": 0.1101
+        "weighted_rate": 0.1056
       },
       "clean_blocked": {
         "k": 5,

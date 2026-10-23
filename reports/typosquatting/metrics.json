@@ -9,8 +9,8 @@
         "typosquat": 101,
         "embedded": 11
       },
-      "latency_ms_p50": 0.208,
-      "latency_ms_p95": 0.292,
+      "latency_ms_p50": 0.211,
+      "latency_ms_p95": 0.288,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -226,8 +226,8 @@
         "subdomain": 3,
         "path_brand_lure": 11
       },
-      "latency_ms_p50": 0.901,
-      "latency_ms_p95": 1.303,
+      "latency_ms_p50": 0.344,
+      "latency_ms_p95": 0.7,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -432,20 +432,20 @@
       ]
     },
     "phishing_test": {
-      "n": 39266,
-      "flagged": 3060,
-      "flag_rate": 0.07793,
+      "n": 38800,
+      "flagged": 3053,
+      "flag_rate": 0.07869,
       "by_kind": {
-        "typosquat": 250,
-        "path_brand_lure": 432,
+        "typosquat": 247,
+        "path_brand_lure": 430,
         "path_fake_domain": 175,
         "exact_label": 236,
-        "subdomain": 1749,
+        "subdomain": 1747,
         "embedded": 214,
         "homoglyph": 4
       },
-      "latency_ms_p50": 0.812,
-      "latency_ms_p95": 1.542,
+      "latency_ms_p50": 0.359,
+      "latency_ms_p95": 0.936,
       "examples": [
         {
           "url": "http://044088d.wcomhost.com/www.santanader.es/banco/particulier/santander/santa",
@@ -657,8 +657,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 0.861,
-      "latency_ms_p95": 0.975,
+      "latency_ms_p50": 0.335,
+      "latency_ms_p95": 0.452,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -818,19 +818,19 @@
       ]
     },
     "phreshphish_clean": {
-      "n": 10000,
-      "flagged": 39,
-      "flag_rate": 0.0039,
+      "n": 10003,
+      "flagged": 37,
+      "flag_rate": 0.0037,
       "by_kind": {
         "subdomain": 9,
         "typosquat": 10,
-        "embedded": 4,
+        "embedded": 2,
         "path_brand_lure": 5,
         "exact_label": 10,
         "path_fake_domain": 1
       },
-      "latency_ms_p50": 0.964,
-      "latency_ms_p95": 1.314,
+      "latency_ms_p50": 0.4,
+      "latency_ms_p95": 0.714,
       "examples": [
         {
           "url": "https://businessaccess.citibank.citigroup.com/cbusol/forgotPassword.action",
@@ -883,11 +883,6 @@
           "kind": "subdomain"
         },
         {
-          "url": "www.jobsatamazon.co.uk/login",
-          "brand": "amazon",
-          "kind": "embedded"
-        },
-        {
           "url": "https://thegeekpage.com/how-to-fix-microsoft-365-sign-in-issues/",
           "brand": "microsoft",
           "kind": "path_brand_lure"
@@ -906,11 +901,6 @@
           "url": "https://www.gobankingrates.com/banking/banks/truist-hours/",
           "brand": "truist",
           "kind": "path_brand_lure"
-        },
-        {
-          "url": "https://www.unicreditbank.rs/rs/novi_login_businessnet.html",
-          "brand": "unicredit",
-          "kind": "embedded"
         },
         {
           "url": "https://www.theverge.com/2024/10/31/24284398/microsoft-windows-10-extended-security-updates-consumer-pricing",
@@ -1030,9 +1020,9 @@
       ]
     },
     "phreshphish_phishing": {
-      "n": 10000,
+      "n": 9991,
       "flagged": 1401,
-      "flag_rate": 0.1401,
+      "flag_rate": 0.14023,
       "by_kind": {
         "subdomain": 1164,
         "path_brand_lure": 24,
@@ -1042,8 +1032,8 @@
         "typosquat": 150,
         "homoglyph": 28
       },
-      "latency_ms_p50": 0.761,
-      "latency_ms_p95": 2.039,
+      "latency_ms_p50": 0.322,
+      "latency_ms_p95": 1.142,
       "examples": [
         {
           "url": "https://okta.brightspringhealth.com/app/UserHome?iss=https%3A%2F%2Fokta.brightspringhealth.com&session_hint=AUTHENTICATED",
@@ -1248,21 +1238,16 @@
       ]
     },
     "vi_clean": {
-      "n": 1580,
-      "flagged": 3,
-      "flag_rate": 0.0019,
+      "n": 1584,
+      "flagged": 2,
+      "flag_rate": 0.00126,
       "by_kind": {
-        "exact_label": 2,
-        "embedded": 1
+        "embedded": 1,
+        "exact_label": 1
       },
-      "latency_ms_p50": 0.2,
-      "latency_ms_p95": 0.26,
+      "latency_ms_p50": 0.204,
+      "latency_ms_p95": 0.265,
       "examples": [
-        {
-          "url": "http://facebook.com.vn/",
-          "brand": "facebook",
-          "kind": "exact_label"
-        },
         {
           "url": "http://viettelcamera.vn/",
           "brand": "viettel",
@@ -1286,8 +1271,8 @@
         "typosquat": 294,
         "embedded": 11
       },
-      "latency_ms_p50": 0.208,
-      "latency_ms_p95": 0.286,
+      "latency_ms_p50": 0.212,
+      "latency_ms_p95": 0.29,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -1503,8 +1488,8 @@
         "subdomain": 3,
         "path_brand_lure": 10
       },
-      "latency_ms_p50": 0.898,
-      "latency_ms_p95": 1.297,
+      "latency_ms_p50": 0.343,
+      "latency_ms_p95": 0.704,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -1709,20 +1694,20 @@
       ]
     },
     "phishing_test": {
-      "n": 39266,
-      "flagged": 3131,
-      "flag_rate": 0.07974,
+      "n": 38800,
+      "flagged": 3123,
+      "flag_rate": 0.08049,
       "by_kind": {
-        "typosquat": 297,
-        "path_brand_lure": 432,
+        "typosquat": 293,
+        "path_brand_lure": 430,
         "path_fake_domain": 175,
         "exact_label": 236,
-        "subdomain": 1774,
+        "subdomain": 1772,
         "embedded": 213,
         "homoglyph": 4
       },
-      "latency_ms_p50": 0.816,
-      "latency_ms_p95": 1.546,
+      "latency_ms_p50": 0.359,
+      "latency_ms_p95": 0.942,
       "examples": [
         {
           "url": "http://044088d.wcomhost.com/www.santanader.es/banco/particulier/santander/santa",
@@ -1934,8 +1919,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 0.87,
-      "latency_ms_p95": 1.16,
+      "latency_ms_p50": 0.341,
+      "latency_ms_p95": 0.446,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -2095,19 +2080,19 @@
       ]
     },
     "phreshphish_clean": {
-      "n": 10000,
-      "flagged": 56,
-      "flag_rate": 0.0056,
+      "n": 10003,
+      "flagged": 54,
+      "flag_rate": 0.0054,
       "by_kind": {
         "subdomain": 9,
         "typosquat": 27,
-        "embedded": 4,
+        "embedded": 2,
         "path_brand_lure": 5,
         "exact_label": 10,
         "path_fake_domain": 1
       },
-      "latency_ms_p50": 0.97,
-      "latency_ms_p95": 1.33,
+      "latency_ms_p50": 0.401,
+      "latency_ms_p95": 0.723,
       "examples": [
         {
           "url": "https://businessaccess.citibank.citigroup.com/cbusol/forgotPassword.action",
@@ -2185,11 +2170,6 @@
           "kind": "subdomain"
         },
         {
-          "url": "www.jobsatamazon.co.uk/login",
-          "brand": "amazon",
-          "kind": "embedded"
-        },
-        {
           "url": "https://thegeekpage.com/how-to-fix-microsoft-365-sign-in-issues/",
           "brand": "microsoft",
           "kind": "path_brand_lure"
@@ -2223,11 +2203,6 @@
           "url": "https://saklama.isbank.com.tr/yatirimci/ytrmchspdrm.aspx",
           "brand": "usbank",
           "kind": "typosquat"
-        },
-        {
-          "url": "https://www.unicreditbank.rs/rs/novi_login_businessnet.html",
-          "brand": "unicredit",
-          "kind": "embedded"
         },
         {
           "url": "https://hort.extension.wisc.edu/articles/japanese-bloodgrass-imperata-cylindrica-var-rubra/",
@@ -2308,13 +2283,23 @@
           "url": "https://hort.extension.wisc.edu/articles/plumeria/",
           "brand": "wise",
           "kind": "typosquat"
+        },
+        {
+          "url": "https://hort.extension.wisc.edu/articles/sweet-alyssum-lobularia-maritima/",
+          "brand": "wise",
+          "kind": "typosquat"
+        },
+        {
+          "url": "https://childcare.tamu.edu/",
+          "brand": "temu",
+          "kind": "typosquat"
         }
       ]
     },
     "phreshphish_phishing": {
-      "n": 10000,
+      "n": 9991,
       "flagged": 1434,
-      "flag_rate": 0.1434,
+      "flag_rate": 0.14353,
       "by_kind": {
         "subdomain": 1170,
         "path_brand_lure": 24,
@@ -2324,8 +2309,8 @@
         "typosquat": 167,
         "homoglyph": 38
       },
-      "latency_ms_p50": 0.764,
-      "latency_ms_p95": 2.053,
+      "latency_ms_p50": 0.323,
+      "latency_ms_p95": 1.157,
       "examples": [
         {
           "url": "https://okta.brightspringhealth.com/app/UserHome?iss=https%3A%2F%2Fokta.brightspringhealth.com&session_hint=AUTHENTICATED",
@@ -2530,26 +2515,21 @@
       ]
     },
     "vi_clean": {
-      "n": 1580,
-      "flagged": 14,
-      "flag_rate": 0.00886,
+      "n": 1584,
+      "flagged": 13,
+      "flag_rate": 0.00821,
       "by_kind": {
         "typosquat": 11,
-        "exact_label": 2,
-        "embedded": 1
+        "embedded": 1,
+        "exact_label": 1
       },
-      "latency_ms_p50": 0.201,
-      "latency_ms_p95": 0.272,
+      "latency_ms_p50": 0.206,
+      "latency_ms_p95": 0.267,
       "examples": [
         {
           "url": "http://evbi.vn/",
           "brand": "evri",
           "kind": "typosquat"
-        },
-        {
-          "url": "http://facebook.com.vn/",
-          "brand": "facebook",
-          "kind": "exact_label"
         },
         {
           "url": "http://hapas.vn/",
@@ -2624,8 +2604,8 @@
         "typosquat": 101,
         "embedded": 20
       },
-      "latency_ms_p50": 0.21,
-      "latency_ms_p95": 0.292,
+      "latency_ms_p50": 0.213,
+      "latency_ms_p95": 0.291,
       "examples": [
         {
           "url": "https://whatsapp.net/",
@@ -2841,8 +2821,8 @@
         "subdomain": 3,
         "path_brand_lure": 11
       },
-      "latency_ms_p50": 0.901,
-      "latency_ms_p95": 1.307,
+      "latency_ms_p50": 0.344,
+      "latency_ms_p95": 0.701,
       "examples": [
         {
           "url": "http://outloo.com/",
@@ -3047,20 +3027,20 @@
       ]
     },
     "phishing_test": {
-      "n": 39266,
-      "flagged": 3071,
-      "flag_rate": 0.07821,
+      "n": 38800,
+      "flagged": 3064,
+      "flag_rate": 0.07897,
       "by_kind": {
-        "typosquat": 250,
-        "path_brand_lure": 432,
+        "typosquat": 247,
+        "path_brand_lure": 430,
         "path_fake_domain": 175,
         "exact_label": 236,
-        "subdomain": 1749,
+        "subdomain": 1747,
         "embedded": 225,
         "homoglyph": 4
       },
-      "latency_ms_p50": 0.818,
-      "latency_ms_p95": 1.547,
+      "latency_ms_p50": 0.359,
+      "latency_ms_p95": 0.938,
       "examples": [
         {
           "url": "http://044088d.wcomhost.com/www.santanader.es/banco/particulier/santander/santa",
@@ -3272,8 +3252,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 0.879,
-      "latency_ms_p95": 0.98,
+      "latency_ms_p50": 0.397,
+      "latency_ms_p95": 0.62,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -3433,19 +3413,19 @@
       ]
     },
     "phreshphish_clean": {
-      "n": 10000,
-      "flagged": 39,
-      "flag_rate": 0.0039,
+      "n": 10003,
+      "flagged": 37,
+      "flag_rate": 0.0037,
       "by_kind": {
         "subdomain": 9,
         "typosquat": 10,
-        "embedded": 4,
+        "embedded": 2,
         "path_brand_lure": 5,
         "exact_label": 10,
         "path_fake_domain": 1
       },
-      "latency_ms_p50": 0.97,
-      "latency_ms_p95": 1.329,
+      "latency_ms_p50": 0.402,
+      "latency_ms_p95": 0.731,
       "examples": [
         {
           "url": "https://businessaccess.citibank.citigroup.com/cbusol/forgotPassword.action",
@@ -3498,11 +3478,6 @@
           "kind": "subdomain"
         },
         {
-          "url": "www.jobsatamazon.co.uk/login",
-          "brand": "amazon",
-          "kind": "embedded"
-        },
-        {
           "url": "https://thegeekpage.com/how-to-fix-microsoft-365-sign-in-issues/",
           "brand": "microsoft",
           "kind": "path_brand_lure"
@@ -3521,11 +3496,6 @@
           "url": "https://www.gobankingrates.com/banking/banks/truist-hours/",
           "brand": "truist",
           "kind": "path_brand_lure"
-        },
-        {
-          "url": "https://www.unicreditbank.rs/rs/novi_login_businessnet.html",
-          "brand": "unicredit",
-          "kind": "embedded"
         },
         {
           "url": "https://www.theverge.com/2024/10/31/24284398/microsoft-windows-10-extended-security-updates-consumer-pricing",
@@ -3645,9 +3615,9 @@
       ]
     },
     "phreshphish_phishing": {
-      "n": 10000,
+      "n": 9991,
       "flagged": 1403,
-      "flag_rate": 0.1403,
+      "flag_rate": 0.14043,
       "by_kind": {
         "subdomain": 1164,
         "path_brand_lure": 24,
@@ -3657,8 +3627,8 @@
         "typosquat": 150,
         "homoglyph": 28
       },
-      "latency_ms_p50": 0.763,
-      "latency_ms_p95": 2.055,
+      "latency_ms_p50": 0.322,
+      "latency_ms_p95": 1.145,
       "examples": [
         {
           "url": "https://okta.brightspringhealth.com/app/UserHome?iss=https%3A%2F%2Fokta.brightspringhealth.com&session_hint=AUTHENTICATED",
@@ -3863,21 +3833,16 @@
       ]
     },
     "vi_clean": {
-      "n": 1580,
-      "flagged": 3,
-      "flag_rate": 0.0019,
+      "n": 1584,
+      "flagged": 2,
+      "flag_rate": 0.00126,
       "by_kind": {
-        "exact_label": 2,
-        "embedded": 1
+        "embedded": 1,
+        "exact_label": 1
       },
-      "latency_ms_p50": 0.201,
+      "latency_ms_p50": 0.205,
       "latency_ms_p95": 0.268,
       "examples": [
-        {
-          "url": "http://facebook.com.vn/",
-          "brand": "facebook",
-          "kind": "exact_label"
-        },
         {
           "url": "http://viettelcamera.vn/",
           "brand": "viettel",
@@ -3901,8 +3866,8 @@
         "exact_label": 120,
         "typosquat": 101
       },
-      "latency_ms_p50": 0.208,
-      "latency_ms_p95": 0.29,
+      "latency_ms_p50": 0.212,
+      "latency_ms_p95": 0.289,
       "examples": [
         {
           "url": "https://hicloudcam.com/",
@@ -4118,8 +4083,8 @@
         "subdomain": 3,
         "path_brand_lure": 11
       },
-      "latency_ms_p50": 0.9,
-      "latency_ms_p95": 1.306,
+      "latency_ms_p50": 0.344,
+      "latency_ms_p95": 0.704,
       "examples": [
         {
           "url": "http://funshinhan.co.kr/",
@@ -4324,20 +4289,20 @@
       ]
     },
     "phishing_test": {
-      "n": 39266,
-      "flagged": 3805,
-      "flag_rate": 0.0969,
+      "n": 38800,
+      "flagged": 3791,
+      "flag_rate": 0.09771,
       "by_kind": {
-        "typosquat": 250,
-        "path_brand_lure": 432,
-        "embedded": 959,
+        "typosquat": 247,
+        "path_brand_lure": 430,
+        "embedded": 952,
         "path_fake_domain": 175,
         "exact_label": 236,
-        "subdomain": 1749,
+        "subdomain": 1747,
         "homoglyph": 4
       },
-      "latency_ms_p50": 0.814,
-      "latency_ms_p95": 1.551,
+      "latency_ms_p50": 0.359,
+      "latency_ms_p95": 0.935,
       "examples": [
         {
           "url": "http://044088d.wcomhost.com/www.santanader.es/banco/particulier/santander/santa",
@@ -4549,8 +4514,8 @@
         "typosquat": 1,
         "embedded": 30
       },
-      "latency_ms_p50": 0.857,
-      "latency_ms_p95": 0.963,
+      "latency_ms_p50": 0.34,
+      "latency_ms_p95": 0.447,
       "examples": [
         {
           "url": "https://vietcornbank-xacthuc.com/login",
@@ -4710,19 +4675,19 @@
       ]
     },
     "phreshphish_clean": {
-      "n": 10000,
-      "flagged": 78,
-      "flag_rate": 0.0078,
+      "n": 10003,
+      "flagged": 76,
+      "flag_rate": 0.0076,
       "by_kind": {
         "subdomain": 9,
-        "embedded": 43,
+        "embedded": 41,
         "typosquat": 10,
         "path_brand_lure": 5,
         "exact_label": 10,
         "path_fake_domain": 1
       },
-      "latency_ms_p50": 0.97,
-      "latency_ms_p95": 1.32,
+      "latency_ms_p50": 0.401,
+      "latency_ms_p95": 0.725,
       "examples": [
         {
           "url": "https://businessaccess.citibank.citigroup.com/cbusol/forgotPassword.action",
@@ -4865,11 +4830,6 @@
           "kind": "embedded"
         },
         {
-          "url": "www.jobsatamazon.co.uk/login",
-          "brand": "amazon",
-          "kind": "embedded"
-        },
-        {
           "url": "https://www.techtarget.com/searchenterprisedesktop/definition/Windows-Autopilot",
           "brand": "target",
           "kind": "embedded"
@@ -4923,13 +4883,18 @@
           "url": "https://autologon.microsoftazuread-sso.com/joyce.edu/winauth/iframe",
           "brand": "microsoft",
           "kind": "embedded"
+        },
+        {
+          "url": "merchantcostconsulting.com/lower-credit-card-processing-fees/where-american-express-accepted/",
+          "brand": "costco",
+          "kind": "embedded"
         }
       ]
     },
     "phreshphish_phishing": {
-      "n": 10000,
+      "n": 9991,
       "flagged": 1591,
-      "flag_rate": 0.1591,
+      "flag_rate": 0.15924,
       "by_kind": {
         "subdomain": 1164,
         "path_brand_lure": 24,
@@ -4939,8 +4904,8 @@
         "typosquat": 150,
         "homoglyph": 28
       },
-      "latency_ms_p50": 0.76,
-      "latency_ms_p95": 2.049,
+      "latency_ms_p50": 0.321,
+      "latency_ms_p95": 1.146,
       "examples": [
         {
           "url": "https://okta.brightspringhealth.com/app/UserHome?iss=https%3A%2F%2Fokta.brightspringhealth.com&session_hint=AUTHENTICATED",
@@ -5145,21 +5110,16 @@
       ]
     },
     "vi_clean": {
-      "n": 1580,
-      "flagged": 3,
-      "flag_rate": 0.0019,
+      "n": 1584,
+      "flagged": 2,
+      "flag_rate": 0.00126,
       "by_kind": {
-        "exact_label": 2,
-        "embedded": 1
+        "embedded": 1,
+        "exact_label": 1
       },
-      "latency_ms_p50": 0.2,
-      "latency_ms_p95": 0.265,
+      "latency_ms_p50": 0.205,
+      "latency_ms_p95": 0.269,
       "examples": [
-        {
-          "url": "http://facebook.com.vn/",
-          "brand": "facebook",
-          "kind": "exact_label"
-        },
         {
           "url": "http://viettelcamera.vn/",
           "brand": "viettel",

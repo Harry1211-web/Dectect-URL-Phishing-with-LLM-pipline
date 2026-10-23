@@ -1,2981 +1,13 @@
 {
   "dl": "bilstm",
   "ml": "xgboost",
-  "runs": {
-    "full|43": {
-      "model": "full",
-      "time": "2026-10-20T17:36:11.314375+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002173293381929398,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 18,
-        "miss_rate": 0.00046,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002173293381929398,
-        "roc_auc": 0.99289,
-        "pr_auc": 0.99312
-      },
-      "test": {
-        "roc_auc": 0.99359,
-        "pr_auc": 0.99359,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.50799,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.50638,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96394,
-        "pr_auc": 0.96499,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 53,
-          "miss_rate": 0.0053,
-          "clean": 10000,
-          "clean_recognized": 0.4708
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 48,
-          "miss_rate": 0.0048,
-          "clean": 10000,
-          "clean_recognized": 0.4694
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99,
-        "pr_auc": 0.99526,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.43101
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.43101
-        }
-      }
-    },
-    "full|44": {
-      "model": "full",
-      "time": "2026-10-20T17:36:47.020377+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002228273078799248,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002228273078799248,
-        "roc_auc": 0.9929,
-        "pr_auc": 0.99312
-      },
-      "test": {
-        "roc_auc": 0.99364,
-        "pr_auc": 0.99363,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 12,
-          "miss_rate": 0.00031,
-          "clean": 42367,
-          "clean_recognized": 0.5117,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 12,
-          "miss_rate": 0.00031,
-          "clean": 42367,
-          "clean_recognized": 0.51007,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96441,
-        "pr_auc": 0.96542,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 54,
-          "miss_rate": 0.0054,
-          "clean": 10000,
-          "clean_recognized": 0.463
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 49,
-          "miss_rate": 0.0049,
-          "clean": 10000,
-          "clean_recognized": 0.4616
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99124,
-        "pr_auc": 0.99569,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.52215
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.52215
-        }
-      }
-    },
-    "url_length_structure|42": {
-      "model": "lex_length_structure",
-      "time": "2026-10-20T17:37:20.292715+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0021255032625049357,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 18,
-        "miss_rate": 0.00046,
-        "clean": 40598,
-        "clean_recognized": 0.49995,
-        "threshold": 0.0021255032625049357,
-        "roc_auc": 0.99246,
-        "pr_auc": 0.99268
-      },
-      "test": {
-        "roc_auc": 0.99313,
-        "pr_auc": 0.9931,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50945,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.5078,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96695,
-        "pr_auc": 0.96723,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 59,
-          "miss_rate": 0.0059,
-          "clean": 10000,
-          "clean_recognized": 0.4873
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 54,
-          "miss_rate": 0.0054,
-          "clean": 10000,
-          "clean_recognized": 0.4857
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99415,
-        "pr_auc": 0.9971,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.63987
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.63987
-        }
-      }
-    },
-    "url_length_structure|43": {
-      "model": "lex_length_structure",
-      "time": "2026-10-20T17:37:56.926308+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0023799547925591473,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 20,
-        "miss_rate": 0.00052,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0023799547925591473,
-        "roc_auc": 0.99245,
-        "pr_auc": 0.99269
-      },
-      "test": {
-        "roc_auc": 0.99313,
-        "pr_auc": 0.99311,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50983,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.5082,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96761,
-        "pr_auc": 0.96825,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 60,
-          "miss_rate": 0.006,
-          "clean": 10000,
-          "clean_recognized": 0.488
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.4864
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99393,
-        "pr_auc": 0.99698,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.64494
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.64494
-        }
-      }
-    },
-    "url_length_structure|44": {
-      "model": "lex_length_structure",
-      "time": "2026-10-20T17:38:27.795000+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002492306753993035,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 17,
-        "miss_rate": 0.00044,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002492306753993035,
-        "roc_auc": 0.99244,
-        "pr_auc": 0.99267
-      },
-      "test": {
-        "roc_auc": 0.99309,
-        "pr_auc": 0.99307,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50936,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50778,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96807,
-        "pr_auc": 0.96839,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 60,
-          "miss_rate": 0.006,
-          "clean": 10000,
-          "clean_recognized": 0.4874
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.486
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99461,
-        "pr_auc": 0.99732,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 15,
-          "miss_rate": 0.00554,
-          "clean": 1580,
-          "clean_recognized": 0.66139
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 15,
-          "miss_rate": 0.00554,
-          "clean": 1580,
-          "clean_recognized": 0.66139
-        }
-      }
-    },
-    "url_characters|42": {
-      "model": "lex_characters",
-      "time": "2026-10-20T17:39:09.527091+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0020228144712746148,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 21,
-        "miss_rate": 0.00054,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0020228144712746148,
-        "roc_auc": 0.99283,
-        "pr_auc": 0.99306
-      },
-      "test": {
-        "roc_auc": 0.99357,
-        "pr_auc": 0.99355,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.50834,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.50667,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96343,
-        "pr_auc": 0.96468,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 54,
-          "miss_rate": 0.0054,
-          "clean": 10000,
-          "clean_recognized": 0.4505
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 49,
-          "miss_rate": 0.0049,
-          "clean": 10000,
-          "clean_recognized": 0.4492
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98983,
-        "pr_auc": 0.995,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.45696
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.45696
-        }
-      }
-    },
-    "url_characters|43": {
-      "model": "lex_characters",
-      "time": "2026-10-20T17:39:45.848335+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002221044851467014,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 22,
-        "miss_rate": 0.00057,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002221044851467014,
-        "roc_auc": 0.99285,
-        "pr_auc": 0.99309
-      },
-      "test": {
-        "roc_auc": 0.99358,
-        "pr_auc": 0.99356,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.51077,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.50915,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96309,
-        "pr_auc": 0.96431,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4576
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 51,
-          "miss_rate": 0.0051,
-          "clean": 10000,
-          "clean_recognized": 0.4563
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99218,
-        "pr_auc": 0.99612,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.58354
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.58354
-        }
-      }
-    },
-    "url_characters|44": {
-      "model": "lex_characters",
-      "time": "2026-10-20T17:40:22.602216+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0018465293105691674,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 20,
-        "miss_rate": 0.00052,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0018465293105691674,
-        "roc_auc": 0.99284,
-        "pr_auc": 0.99307
-      },
-      "test": {
-        "roc_auc": 0.99359,
-        "pr_auc": 0.99355,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50919,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50735,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96264,
-        "pr_auc": 0.96325,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.458
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 51,
-          "miss_rate": 0.0051,
-          "clean": 10000,
-          "clean_recognized": 0.4566
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99119,
-        "pr_auc": 0.99566,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 21,
-          "miss_rate": 0.00775,
-          "clean": 1580,
-          "clean_recognized": 0.52532
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 21,
-          "miss_rate": 0.00775,
-          "clean": 1580,
-          "clean_recognized": 0.52532
-        }
-      }
-    },
-    "url_lure_words|42": {
-      "model": "lex_lure_words",
-      "time": "2026-10-20T17:41:02.597359+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0019549783319234852,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 17,
-        "miss_rate": 0.00044,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0019549783319234852,
-        "roc_auc": 0.99287,
-        "pr_auc": 0.99307
-      },
-      "test": {
-        "roc_auc": 0.99367,
-        "pr_auc": 0.99363,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 11,
-          "miss_rate": 0.00028,
-          "clean": 42367,
-          "clean_recognized": 0.50934,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 11,
-          "miss_rate": 0.00028,
-          "clean": 42367,
-          "clean_recognized": 0.5078,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96341,
-        "pr_auc": 0.9647,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 62,
-          "miss_rate": 0.0062,
-          "clean": 10000,
-          "clean_recognized": 0.4596
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.4582
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98992,
-        "pr_auc": 0.99518,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 23,
-          "miss_rate": 0.00849,
-          "clean": 1580,
-          "clean_recognized": 0.42722
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 23,
-          "miss_rate": 0.00849,
-          "clean": 1580,
-          "clean_recognized": 0.42722
-        }
-      }
-    },
-    "url_lure_words|43": {
-      "model": "lex_lure_words",
-      "time": "2026-10-20T17:41:43.845178+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002045713365077973,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002045713365077973,
-        "roc_auc": 0.99291,
-        "pr_auc": 0.99312
-      },
-      "test": {
-        "roc_auc": 0.99363,
-        "pr_auc": 0.9936,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.51106,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50941,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96414,
-        "pr_auc": 0.96519,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 60,
-          "miss_rate": 0.006,
-          "clean": 10000,
-          "clean_recognized": 0.4658
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 53,
-          "miss_rate": 0.0053,
-          "clean": 10000,
-          "clean_recognized": 0.4644
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99081,
-        "pr_auc": 0.99554,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.47532
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.47532
-        }
-      }
-    },
-    "url_lure_words|44": {
-      "model": "lex_lure_words",
-      "time": "2026-10-20T17:42:20.457525+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0020267351064831023,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 18,
-        "miss_rate": 0.00046,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0020267351064831023,
-        "roc_auc": 0.99289,
-        "pr_auc": 0.99309
-      },
-      "test": {
-        "roc_auc": 0.99362,
-        "pr_auc": 0.99359,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50919,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50749,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96376,
-        "pr_auc": 0.96474,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 62,
-          "miss_rate": 0.0062,
-          "clean": 10000,
-          "clean_recognized": 0.466
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.4646
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98998,
-        "pr_auc": 0.99523,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 24,
-          "miss_rate": 0.00886,
-          "clean": 1580,
-          "clean_recognized": 0.47722
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 24,
-          "miss_rate": 0.00886,
-          "clean": 1580,
-          "clean_recognized": 0.47722
-        }
-      }
-    },
-    "url_platform_redirect|42": {
-      "model": "lex_platform_redirect",
-      "time": "2026-10-20T17:42:58.152019+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0018880121642723682,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0018880121642723682,
-        "roc_auc": 0.99289,
-        "pr_auc": 0.9931
-      },
-      "test": {
-        "roc_auc": 0.99365,
-        "pr_auc": 0.99362,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.51054,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50886,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96358,
-        "pr_auc": 0.9639,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4674
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 51,
-          "miss_rate": 0.0051,
-          "clean": 10000,
-          "clean_recognized": 0.4659
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98952,
-        "pr_auc": 0.9952,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 21,
-          "miss_rate": 0.00775,
-          "clean": 1580,
-          "clean_recognized": 0.40759
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 21,
-          "miss_rate": 0.00775,
-          "clean": 1580,
-          "clean_recognized": 0.40759
-        }
-      }
-    },
-    "url_platform_redirect|43": {
-      "model": "lex_platform_redirect",
-      "time": "2026-10-20T17:43:33.309768+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0020788160618394618,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 18,
-        "miss_rate": 0.00046,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0020788160618394618,
-        "roc_auc": 0.99292,
-        "pr_auc": 0.99314
-      },
-      "test": {
-        "roc_auc": 0.99366,
-        "pr_auc": 0.99364,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50971,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50804,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.9635,
-        "pr_auc": 0.96369,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.4692
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 50,
-          "miss_rate": 0.005,
-          "clean": 10000,
-          "clean_recognized": 0.4678
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98941,
-        "pr_auc": 0.99508,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.36456
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.36456
-        }
-      }
-    },
-    "url_platform_redirect|44": {
-      "model": "lex_platform_redirect",
-      "time": "2026-10-20T17:44:14.726639+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0016838937299326064,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 17,
-        "miss_rate": 0.00044,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0016838937299326064,
-        "roc_auc": 0.9929,
-        "pr_auc": 0.9931
-      },
-      "test": {
-        "roc_auc": 0.99364,
-        "pr_auc": 0.99362,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50849,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50686,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.9632,
-        "pr_auc": 0.9631,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 58,
-          "miss_rate": 0.0058,
-          "clean": 10000,
-          "clean_recognized": 0.4651
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 53,
-          "miss_rate": 0.0053,
-          "clean": 10000,
-          "clean_recognized": 0.4636
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99089,
-        "pr_auc": 0.99567,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.46076
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.46076
-        }
-      }
-    },
-    "url_tld|42": {
-      "model": "lex_tld",
-      "time": "2026-10-20T17:44:40.995761+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002055300865322352,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002055300865322352,
-        "roc_auc": 0.99295,
-        "pr_auc": 0.99315
-      },
-      "test": {
-        "roc_auc": 0.99352,
-        "pr_auc": 0.9935,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50841,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50679,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96256,
-        "pr_auc": 0.96382,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.4689
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 50,
-          "miss_rate": 0.005,
-          "clean": 10000,
-          "clean_recognized": 0.4674
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99091,
-        "pr_auc": 0.99556,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.50886
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.50886
-        }
-      }
-    },
-    "url_tld|43": {
-      "model": "lex_tld",
-      "time": "2026-10-20T17:45:10.691070+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0019612340256571774,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0019612340256571774,
-        "roc_auc": 0.9929,
-        "pr_auc": 0.99312
-      },
-      "test": {
-        "roc_auc": 0.99348,
-        "pr_auc": 0.99346,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 12,
-          "miss_rate": 0.00031,
-          "clean": 42367,
-          "clean_recognized": 0.50948,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 12,
-          "miss_rate": 0.00031,
-          "clean": 42367,
-          "clean_recognized": 0.50778,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96228,
-        "pr_auc": 0.96342,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 58,
-          "miss_rate": 0.0058,
-          "clean": 10000,
-          "clean_recognized": 0.4671
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 52,
-          "miss_rate": 0.0052,
-          "clean": 10000,
-          "clean_recognized": 0.4656
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98981,
-        "pr_auc": 0.99508,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.4557
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 19,
-          "miss_rate": 0.00701,
-          "clean": 1580,
-          "clean_recognized": 0.4557
-        }
-      }
-    },
-    "host_tranco|42": {
-      "model": "host_tranco",
-      "time": "2026-10-20T17:46:44.287136+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.008458910509943964,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 68,
-        "miss_rate": 0.00175,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.008458910509943964,
-        "roc_auc": 0.98891,
-        "pr_auc": 0.9897
-      },
-      "test": {
-        "roc_auc": 0.98933,
-        "pr_auc": 0.98977,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 74,
-          "miss_rate": 0.00188,
-          "clean": 42367,
-          "clean_recognized": 0.50891,
-          "verified_phishing": 5549,
-          "verified_missed": 14,
-          "verified_miss_rate": 0.00252
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 74,
-          "miss_rate": 0.00188,
-          "clean": 42367,
-          "clean_recognized": 0.50735,
-          "verified_phishing": 5549,
-          "verified_missed": 14,
-          "verified_miss_rate": 0.00252
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.97347,
-        "pr_auc": 0.97433,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 126,
-          "miss_rate": 0.0126,
-          "clean": 10000,
-          "clean_recognized": 0.6533
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 116,
-          "miss_rate": 0.0116,
-          "clean": 10000,
-          "clean_recognized": 0.6514
-        }
-      },
-      "vi": {
-        "roc_auc": 0.95428,
-        "pr_auc": 0.97333,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 137,
-          "miss_rate": 0.05055,
-          "clean": 1580,
-          "clean_recognized": 0.76835
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 136,
-          "miss_rate": 0.05018,
-          "clean": 1580,
-          "clean_recognized": 0.76772
-        }
-      }
-    },
-    "host_tranco|43": {
-      "model": "host_tranco",
-      "time": "2026-10-20T17:47:45.310259+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.008124220184981825,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 72,
-        "miss_rate": 0.00186,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.008124220184981825,
-        "roc_auc": 0.98899,
-        "pr_auc": 0.98977
-      },
-      "test": {
-        "roc_auc": 0.98939,
-        "pr_auc": 0.98984,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 77,
-          "miss_rate": 0.00196,
-          "clean": 42367,
-          "clean_recognized": 0.50733,
-          "verified_phishing": 5549,
-          "verified_missed": 17,
-          "verified_miss_rate": 0.00306
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 77,
-          "miss_rate": 0.00196,
-          "clean": 42367,
-          "clean_recognized": 0.50591,
-          "verified_phishing": 5549,
-          "verified_missed": 17,
-          "verified_miss_rate": 0.00306
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.97344,
-        "pr_auc": 0.97428,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 123,
-          "miss_rate": 0.0123,
-          "clean": 10000,
-          "clean_recognized": 0.6586
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 114,
-          "miss_rate": 0.0114,
-          "clean": 10000,
-          "clean_recognized": 0.6567
-        }
-      },
-      "vi": {
-        "roc_auc": 0.94962,
-        "pr_auc": 0.97013,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 141,
-          "miss_rate": 0.05203,
-          "clean": 1580,
-          "clean_recognized": 0.74747
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 140,
-          "miss_rate": 0.05166,
-          "clean": 1580,
-          "clean_recognized": 0.74684
-        }
-      }
-    },
-    "host_tranco|44": {
-      "model": "host_tranco",
-      "time": "2026-10-20T17:48:39.594384+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.008638214319944383,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 77,
-        "miss_rate": 0.00199,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.008638214319944383,
-        "roc_auc": 0.98893,
-        "pr_auc": 0.98973
-      },
-      "test": {
-        "roc_auc": 0.98952,
-        "pr_auc": 0.98996,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 76,
-          "miss_rate": 0.00194,
-          "clean": 42367,
-          "clean_recognized": 0.50648,
-          "verified_phishing": 5549,
-          "verified_missed": 18,
-          "verified_miss_rate": 0.00324
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 76,
-          "miss_rate": 0.00194,
-          "clean": 42367,
-          "clean_recognized": 0.50502,
-          "verified_phishing": 5549,
-          "verified_missed": 18,
-          "verified_miss_rate": 0.00324
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.97354,
-        "pr_auc": 0.97431,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 121,
-          "miss_rate": 0.0121,
-          "clean": 10000,
-          "clean_recognized": 0.658
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 111,
-          "miss_rate": 0.0111,
-          "clean": 10000,
-          "clean_recognized": 0.6562
-        }
-      },
-      "vi": {
-        "roc_auc": 0.9569,
-        "pr_auc": 0.97508,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 122,
-          "miss_rate": 0.04502,
-          "clean": 1580,
-          "clean_recognized": 0.76519
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 121,
-          "miss_rate": 0.04465,
-          "clean": 1580,
-          "clean_recognized": 0.76456
-        }
-      }
-    },
-    "host_dns|42": {
-      "model": "host_dns",
-      "time": "2026-10-20T17:49:10.659478+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0027659696061164145,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 25,
-        "miss_rate": 0.00064,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0027659696061164145,
-        "roc_auc": 0.99268,
-        "pr_auc": 0.99294
-      },
-      "test": {
-        "roc_auc": 0.99319,
-        "pr_auc": 0.99322,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50952,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50785,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96352,
-        "pr_auc": 0.96487,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4695
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 52,
-          "miss_rate": 0.0052,
-          "clean": 10000,
-          "clean_recognized": 0.4679
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99305,
-        "pr_auc": 0.9966,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 14,
-          "miss_rate": 0.00517,
-          "clean": 1580,
-          "clean_recognized": 0.58354
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 14,
-          "miss_rate": 0.00517,
-          "clean": 1580,
-          "clean_recognized": 0.58354
-        }
-      }
-    },
-    "host_dns|43": {
-      "model": "host_dns",
-      "time": "2026-10-20T17:49:47.430405+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0023783894721418623,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 20,
-        "miss_rate": 0.00052,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0023783894721418623,
-        "roc_auc": 0.99269,
-        "pr_auc": 0.99294
-      },
-      "test": {
-        "roc_auc": 0.99323,
-        "pr_auc": 0.99325,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.50815,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.50643,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96295,
-        "pr_auc": 0.96419,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.469
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 50,
-          "miss_rate": 0.005,
-          "clean": 10000,
-          "clean_recognized": 0.4675
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99215,
-        "pr_auc": 0.99625,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.50759
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.50759
-        }
-      }
-    },
-    "host_dns|44": {
-      "model": "host_dns",
-      "time": "2026-10-20T17:50:23.465436+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002351199742406607,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002351199742406607,
-        "roc_auc": 0.99271,
-        "pr_auc": 0.99295
-      },
-      "test": {
-        "roc_auc": 0.99329,
-        "pr_auc": 0.99329,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50978,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50808,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96311,
-        "pr_auc": 0.96425,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 54,
-          "miss_rate": 0.0054,
-          "clean": 10000,
-          "clean_recognized": 0.4699
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 50,
-          "miss_rate": 0.005,
-          "clean": 10000,
-          "clean_recognized": 0.4685
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99113,
-        "pr_auc": 0.99582,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.47089
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 18,
-          "miss_rate": 0.00664,
-          "clean": 1580,
-          "clean_recognized": 0.47089
-        }
-      }
-    },
-    "host_tls|42": {
-      "model": "host_tls",
-      "time": "2026-10-20T17:51:04.617221+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002241074806079269,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002241074806079269,
-        "roc_auc": 0.99198,
-        "pr_auc": 0.99228
-      },
-      "test": {
-        "roc_auc": 0.9929,
-        "pr_auc": 0.99293,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.51085,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50922,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96343,
-        "pr_auc": 0.96466,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 64,
-          "miss_rate": 0.0064,
-          "clean": 10000,
-          "clean_recognized": 0.4769
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 59,
-          "miss_rate": 0.0059,
-          "clean": 10000,
-          "clean_recognized": 0.4756
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98748,
-        "pr_auc": 0.99446,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 32,
-          "miss_rate": 0.01181,
-          "clean": 1580,
-          "clean_recognized": 0.40063
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 32,
-          "miss_rate": 0.01181,
-          "clean": 1580,
-          "clean_recognized": 0.40063
-        }
-      }
-    },
-    "host_tls|43": {
-      "model": "host_tls",
-      "time": "2026-10-20T17:51:44.424299+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0028919589240103964,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 21,
-        "miss_rate": 0.00054,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0028919589240103964,
-        "roc_auc": 0.99194,
-        "pr_auc": 0.99227
-      },
-      "test": {
-        "roc_auc": 0.99283,
-        "pr_auc": 0.99289,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.51259,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.51085,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96348,
-        "pr_auc": 0.96462,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 62,
-          "miss_rate": 0.0062,
-          "clean": 10000,
-          "clean_recognized": 0.4816
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4802
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98895,
-        "pr_auc": 0.99498,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 29,
-          "miss_rate": 0.0107,
-          "clean": 1580,
-          "clean_recognized": 0.50823
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 29,
-          "miss_rate": 0.0107,
-          "clean": 1580,
-          "clean_recognized": 0.50759
-        }
-      }
-    },
-    "host_tls|44": {
-      "model": "host_tls",
-      "time": "2026-10-20T17:52:23.399359+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0025982959195971493,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 16,
-        "miss_rate": 0.00041,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0025982959195971493,
-        "roc_auc": 0.99196,
-        "pr_auc": 0.99229
-      },
-      "test": {
-        "roc_auc": 0.99287,
-        "pr_auc": 0.99291,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.51033,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.50872,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96358,
-        "pr_auc": 0.96469,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 58,
-          "miss_rate": 0.0058,
-          "clean": 10000,
-          "clean_recognized": 0.4781
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 53,
-          "miss_rate": 0.0053,
-          "clean": 10000,
-          "clean_recognized": 0.4764
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98882,
-        "pr_auc": 0.99496,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 32,
-          "miss_rate": 0.01181,
-          "clean": 1580,
-          "clean_recognized": 0.49051
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 32,
-          "miss_rate": 0.01181,
-          "clean": 1580,
-          "clean_recognized": 0.49051
-        }
-      }
-    },
-    "host_rdap|42": {
-      "model": "host_rdap",
-      "time": "2026-10-20T17:53:02.792425+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002339123981073499,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 22,
-        "miss_rate": 0.00057,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002339123981073499,
-        "roc_auc": 0.9915,
-        "pr_auc": 0.99192
-      },
-      "test": {
-        "roc_auc": 0.99222,
-        "pr_auc": 0.99234,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 16,
-          "miss_rate": 0.00041,
-          "clean": 42367,
-          "clean_recognized": 0.50969,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50804,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96233,
-        "pr_auc": 0.96385,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4567
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 51,
-          "miss_rate": 0.0051,
-          "clean": 10000,
-          "clean_recognized": 0.4552
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98899,
-        "pr_auc": 0.99481,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 21,
-          "miss_rate": 0.00775,
-          "clean": 1580,
-          "clean_recognized": 0.46582
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 21,
-          "miss_rate": 0.00775,
-          "clean": 1580,
-          "clean_recognized": 0.46582
-        }
-      }
-    },
-    "host_rdap|43": {
-      "model": "host_rdap",
-      "time": "2026-10-20T17:53:48.367102+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0019437187584117057,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0019437187584117057,
-        "roc_auc": 0.99146,
-        "pr_auc": 0.99189
-      },
-      "test": {
-        "roc_auc": 0.99225,
-        "pr_auc": 0.99237,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 12,
-          "miss_rate": 0.00031,
-          "clean": 42367,
-          "clean_recognized": 0.5112,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 12,
-          "miss_rate": 0.00031,
-          "clean": 42367,
-          "clean_recognized": 0.50952,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96191,
-        "pr_auc": 0.96315,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4584
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 51,
-          "miss_rate": 0.0051,
-          "clean": 10000,
-          "clean_recognized": 0.4569
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98904,
-        "pr_auc": 0.99465,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 27,
-          "miss_rate": 0.00996,
-          "clean": 1580,
-          "clean_recognized": 0.48797
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 27,
-          "miss_rate": 0.00996,
-          "clean": 1580,
-          "clean_recognized": 0.48797
-        }
-      }
-    },
-    "host_rdap|44": {
-      "model": "host_rdap",
-      "time": "2026-10-20T17:54:30.132317+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0021483236923813824,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 19,
-        "miss_rate": 0.00049,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0021483236923813824,
-        "roc_auc": 0.99148,
-        "pr_auc": 0.99192
-      },
-      "test": {
-        "roc_auc": 0.99224,
-        "pr_auc": 0.99236,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.51033,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 14,
-          "miss_rate": 0.00036,
-          "clean": 42367,
-          "clean_recognized": 0.50877,
-          "verified_phishing": 5549,
-          "verified_missed": 3,
-          "verified_miss_rate": 0.00054
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96228,
-        "pr_auc": 0.96353,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 55,
-          "miss_rate": 0.0055,
-          "clean": 10000,
-          "clean_recognized": 0.4565
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 50,
-          "miss_rate": 0.005,
-          "clean": 10000,
-          "clean_recognized": 0.4549
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98982,
-        "pr_auc": 0.99503,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.49114
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.49114
-        }
-      }
-    },
-    "all_host|42": {
-      "model": "all_host",
-      "time": "2026-10-20T17:54:56.631963+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.045349657535552985,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 331,
-        "miss_rate": 0.00854,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.045349657535552985,
-        "roc_auc": 0.97747,
-        "pr_auc": 0.98111
-      },
-      "test": {
-        "roc_auc": 0.97906,
-        "pr_auc": 0.9817,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 287,
-          "miss_rate": 0.00731,
-          "clean": 42367,
-          "clean_recognized": 0.50976,
-          "verified_phishing": 5549,
-          "verified_missed": 51,
-          "verified_miss_rate": 0.00919
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 285,
-          "miss_rate": 0.00726,
-          "clean": 42367,
-          "clean_recognized": 0.50834,
-          "verified_phishing": 5549,
-          "verified_missed": 51,
-          "verified_miss_rate": 0.00919
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.95761,
-        "pr_auc": 0.96191,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 205,
-          "miss_rate": 0.0205,
-          "clean": 10000,
-          "clean_recognized": 0.632
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 189,
-          "miss_rate": 0.0189,
-          "clean": 10000,
-          "clean_recognized": 0.6303
-        }
-      },
-      "vi": {
-        "roc_auc": 0.95377,
-        "pr_auc": 0.97094,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 843,
-          "miss_rate": 0.31107,
-          "clean": 1580,
-          "clean_recognized": 0.97911
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 824,
-          "miss_rate": 0.30406,
-          "clean": 1580,
-          "clean_recognized": 0.97785
-        }
-      }
-    },
-    "all_host|43": {
-      "model": "all_host",
-      "time": "2026-10-20T17:55:29.620905+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.04532057791948319,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 333,
-        "miss_rate": 0.00859,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.04532057791948319,
-        "roc_auc": 0.97748,
-        "pr_auc": 0.98112
-      },
-      "test": {
-        "roc_auc": 0.97906,
-        "pr_auc": 0.98169,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 292,
-          "miss_rate": 0.00744,
-          "clean": 42367,
-          "clean_recognized": 0.51056,
-          "verified_phishing": 5549,
-          "verified_missed": 54,
-          "verified_miss_rate": 0.00973
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 289,
-          "miss_rate": 0.00736,
-          "clean": 42367,
-          "clean_recognized": 0.50912,
-          "verified_phishing": 5549,
-          "verified_missed": 54,
-          "verified_miss_rate": 0.00973
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.95769,
-        "pr_auc": 0.9618,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 206,
-          "miss_rate": 0.0206,
-          "clean": 10000,
-          "clean_recognized": 0.6336
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 190,
-          "miss_rate": 0.019,
-          "clean": 10000,
-          "clean_recognized": 0.6319
-        }
-      },
-      "vi": {
-        "roc_auc": 0.95344,
-        "pr_auc": 0.97091,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 803,
-          "miss_rate": 0.29631,
-          "clean": 1580,
-          "clean_recognized": 0.97848
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 782,
-          "miss_rate": 0.28856,
-          "clean": 1580,
-          "clean_recognized": 0.97722
-        }
-      }
-    },
-    "all_host|44": {
-      "model": "all_host",
-      "time": "2026-10-20T17:56:09.290984+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.044775854796171195,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 324,
-        "miss_rate": 0.00836,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.044775854796171195,
-        "roc_auc": 0.97757,
-        "pr_auc": 0.98117
-      },
-      "test": {
-        "roc_auc": 0.97913,
-        "pr_auc": 0.98177,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 292,
-          "miss_rate": 0.00744,
-          "clean": 42367,
-          "clean_recognized": 0.5099,
-          "verified_phishing": 5549,
-          "verified_missed": 51,
-          "verified_miss_rate": 0.00919
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 290,
-          "miss_rate": 0.00739,
-          "clean": 42367,
-          "clean_recognized": 0.50849,
-          "verified_phishing": 5549,
-          "verified_missed": 51,
-          "verified_miss_rate": 0.00919
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.95775,
-        "pr_auc": 0.96178,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 205,
-          "miss_rate": 0.0205,
-          "clean": 10000,
-          "clean_recognized": 0.6332
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 189,
-          "miss_rate": 0.0189,
-          "clean": 10000,
-          "clean_recognized": 0.6314
-        }
-      },
-      "vi": {
-        "roc_auc": 0.95308,
-        "pr_auc": 0.97008,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 954,
-          "miss_rate": 0.35203,
-          "clean": 1580,
-          "clean_recognized": 0.97848
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 935,
-          "miss_rate": 0.34502,
-          "clean": 1580,
-          "clean_recognized": 0.97722
-        }
-      }
-    },
-    "all_handcrafted|42": {
-      "model": "all_handcrafted",
-      "time": "2026-10-20T17:56:25.350759+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.003486817236989737,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 21,
-        "miss_rate": 0.00054,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.003486817236989737,
-        "roc_auc": 0.99066,
-        "pr_auc": 0.99092
-      },
-      "test": {
-        "roc_auc": 0.99084,
-        "pr_auc": 0.99074,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 18,
-          "miss_rate": 0.00046,
-          "clean": 42367,
-          "clean_recognized": 0.51203,
-          "verified_phishing": 5549,
-          "verified_missed": 10,
-          "verified_miss_rate": 0.0018
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 18,
-          "miss_rate": 0.00046,
-          "clean": 42367,
-          "clean_recognized": 0.51044,
-          "verified_phishing": 5549,
-          "verified_missed": 10,
-          "verified_miss_rate": 0.0018
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.97328,
-        "pr_auc": 0.97272,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 64,
-          "miss_rate": 0.0064,
-          "clean": 10000,
-          "clean_recognized": 0.5213
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 58,
-          "miss_rate": 0.0058,
-          "clean": 10000,
-          "clean_recognized": 0.5198
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99462,
-        "pr_auc": 0.99724,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.8462
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.8462
-        }
-      }
-    },
-    "all_handcrafted|43": {
-      "model": "all_handcrafted",
-      "time": "2026-10-20T17:56:37.739898+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0037240486126393084,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 20,
-        "miss_rate": 0.00052,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0037240486126393084,
-        "roc_auc": 0.99061,
-        "pr_auc": 0.99089
-      },
-      "test": {
-        "roc_auc": 0.99077,
-        "pr_auc": 0.9907,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 20,
-          "miss_rate": 0.00051,
-          "clean": 42367,
-          "clean_recognized": 0.51219,
-          "verified_phishing": 5549,
-          "verified_missed": 10,
-          "verified_miss_rate": 0.0018
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 20,
-          "miss_rate": 0.00051,
-          "clean": 42367,
-          "clean_recognized": 0.51059,
-          "verified_phishing": 5549,
-          "verified_missed": 10,
-          "verified_miss_rate": 0.0018
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.97347,
-        "pr_auc": 0.97308,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 62,
-          "miss_rate": 0.0062,
-          "clean": 10000,
-          "clean_recognized": 0.518
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.5165
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99488,
-        "pr_auc": 0.99739,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.86266
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 22,
-          "miss_rate": 0.00812,
-          "clean": 1580,
-          "clean_recognized": 0.86266
-        }
-      }
-    },
-    "all_handcrafted|44": {
-      "model": "all_handcrafted",
-      "time": "2026-10-20T17:56:52.029112+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0031786693725734953,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 22,
-        "miss_rate": 0.00057,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0031786693725734953,
-        "roc_auc": 0.99057,
-        "pr_auc": 0.99083
-      },
-      "test": {
-        "roc_auc": 0.99081,
-        "pr_auc": 0.99074,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.5125,
-          "verified_phishing": 5549,
-          "verified_missed": 10,
-          "verified_miss_rate": 0.0018
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 17,
-          "miss_rate": 0.00043,
-          "clean": 42367,
-          "clean_recognized": 0.51087,
-          "verified_phishing": 5549,
-          "verified_missed": 10,
-          "verified_miss_rate": 0.0018
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.97375,
-        "pr_auc": 0.97354,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 63,
-          "miss_rate": 0.0063,
-          "clean": 10000,
-          "clean_recognized": 0.5292
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 57,
-          "miss_rate": 0.0057,
-          "clean": 10000,
-          "clean_recognized": 0.5277
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99417,
-        "pr_auc": 0.99706,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.82722
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 20,
-          "miss_rate": 0.00738,
-          "clean": 1580,
-          "clean_recognized": 0.82722
-        }
-      }
-    },
-    "dl_score|42": {
-      "model": "dl_score",
-      "time": "2026-10-20T17:57:55.271766+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002619179198518396,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 24,
-        "miss_rate": 0.00062,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002619179198518396,
-        "roc_auc": 0.98974,
-        "pr_auc": 0.98974
-      },
-      "test": {
-        "roc_auc": 0.99089,
-        "pr_auc": 0.9906,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50801,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50634,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.9484,
-        "pr_auc": 0.95,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 47,
-          "miss_rate": 0.0047,
-          "clean": 10000,
-          "clean_recognized": 0.4226
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 42,
-          "miss_rate": 0.0042,
-          "clean": 10000,
-          "clean_recognized": 0.421
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98454,
-        "pr_auc": 0.99358,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 31,
-          "miss_rate": 0.01144,
-          "clean": 1580,
-          "clean_recognized": 0.18861
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 31,
-          "miss_rate": 0.01144,
-          "clean": 1580,
-          "clean_recognized": 0.18861
-        }
-      }
-    },
-    "dl_score|44": {
-      "model": "dl_score",
-      "time": "2026-10-20T18:00:12.842189+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.002492178929969669,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 25,
-        "miss_rate": 0.00064,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.002492178929969669,
-        "roc_auc": 0.98966,
-        "pr_auc": 0.98968
-      },
-      "test": {
-        "roc_auc": 0.9909,
-        "pr_auc": 0.99064,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50827,
-          "verified_phishing": 5549,
-          "verified_missed": 6,
-          "verified_miss_rate": 0.00108
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.50653,
-          "verified_phishing": 5549,
-          "verified_missed": 6,
-          "verified_miss_rate": 0.00108
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.94877,
-        "pr_auc": 0.95038,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 46,
-          "miss_rate": 0.0046,
-          "clean": 10000,
-          "clean_recognized": 0.4195
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 43,
-          "miss_rate": 0.0043,
-          "clean": 10000,
-          "clean_recognized": 0.418
-        }
-      },
-      "vi": {
-        "roc_auc": 0.98415,
-        "pr_auc": 0.99338,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 29,
-          "miss_rate": 0.0107,
-          "clean": 1580,
-          "clean_recognized": 0.18418
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 29,
-          "miss_rate": 0.0107,
-          "clean": 1580,
-          "clean_recognized": 0.18418
-        }
-      }
-    },
-    "full|42": {
-      "model": "full",
-      "time": "2026-10-20T18:06:52.908110+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0019783615134656434,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 18,
-        "miss_rate": 0.00046,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0019783615134656434,
-        "roc_auc": 0.99296,
-        "pr_auc": 0.99317
-      },
-      "seconds": 36,
-      "test": {
-        "roc_auc": 0.99367,
-        "pr_auc": 0.99365,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50905,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.5074,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96383,
-        "pr_auc": 0.96506,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 54,
-          "miss_rate": 0.0054,
-          "clean": 10000,
-          "clean_recognized": 0.4663
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 49,
-          "miss_rate": 0.0049,
-          "clean": 10000,
-          "clean_recognized": 0.465
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99106,
-        "pr_auc": 0.99561,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 16,
-          "miss_rate": 0.0059,
-          "clean": 1580,
-          "clean_recognized": 0.50063
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 16,
-          "miss_rate": 0.0059,
-          "clean": 1580,
-          "clean_recognized": 0.50063
-        }
-      }
-    },
-    "url_tld|44": {
-      "model": "url_tld",
-      "time": "2026-10-20T18:07:14.350433+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.0026950044557452206,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 24,
-        "miss_rate": 0.00062,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.0026950044557452206,
-        "roc_auc": 0.99284,
-        "pr_auc": 0.99308
-      },
-      "seconds": 21,
-      "test": {
-        "roc_auc": 0.99346,
-        "pr_auc": 0.99346,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50844,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 13,
-          "miss_rate": 0.00033,
-          "clean": 42367,
-          "clean_recognized": 0.50681,
-          "verified_phishing": 5549,
-          "verified_missed": 4,
-          "verified_miss_rate": 0.00072
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.96305,
-        "pr_auc": 0.96426,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 56,
-          "miss_rate": 0.0056,
-          "clean": 10000,
-          "clean_recognized": 0.4702
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 50,
-          "miss_rate": 0.005,
-          "clean": 10000,
-          "clean_recognized": 0.4688
-        }
-      },
-      "vi": {
-        "roc_auc": 0.99013,
-        "pr_auc": 0.99516,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 23,
-          "miss_rate": 0.00849,
-          "clean": 1580,
-          "clean_recognized": 0.49304
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 23,
-          "miss_rate": 0.00849,
-          "clean": 1580,
-          "clean_recognized": 0.49304
-        }
-      }
-    },
-    "dl_score|43": {
-      "model": "dl_score",
-      "time": "2026-10-20T18:08:08.244835+00:00",
-      "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.00274225720204413,
-      "val": {
-        "phishing": 38761,
-        "phishing_missed": 22,
-        "miss_rate": 0.00057,
-        "clean": 40598,
-        "clean_recognized": 0.49998,
-        "threshold": 0.00274225720204413,
-        "roc_auc": 0.98974,
-        "pr_auc": 0.98973
-      },
-      "seconds": 54,
-      "test": {
-        "roc_auc": 0.99089,
-        "pr_auc": 0.9906,
-        "alone": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.51191,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        },
-        "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 15,
-          "miss_rate": 0.00038,
-          "clean": 42367,
-          "clean_recognized": 0.51002,
-          "verified_phishing": 5549,
-          "verified_missed": 5,
-          "verified_miss_rate": 0.0009
-        }
-      },
-      "phreshphish": {
-        "roc_auc": 0.94768,
-        "pr_auc": 0.94975,
-        "alone": {
-          "phishing": 10000,
-          "phishing_missed": 46,
-          "miss_rate": 0.0046,
-          "clean": 10000,
-          "clean_recognized": 0.4231
-        },
-        "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 41,
-          "miss_rate": 0.0041,
-          "clean": 10000,
-          "clean_recognized": 0.4216
-        }
-      },
-      "vi": {
-        "roc_auc": 0.9844,
-        "pr_auc": 0.9935,
-        "alone": {
-          "phishing": 2710,
-          "phishing_missed": 23,
-          "miss_rate": 0.00849,
-          "clean": 1580,
-          "clean_recognized": 0.17911
-        },
-        "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 23,
-          "miss_rate": 0.00849,
-          "clean": 1580,
-          "clean_recognized": 0.17911
-        }
-      }
-    }
-  },
   "seeds": [
     42,
     43,
     44
   ],
-  "rule": "val threshold recognising >= 50% of val clean; routing (live hosts) fixed",
+  "host_lookups": "none",
+  "rule": "val threshold recognising >= 50% of val clean; routing fixed (network: host branch on live hosts; none: host branch on every row)",
   "groups": {
     "full": {
       "url": [],
@@ -3092,62 +124,6 @@
       ],
       "dl_score": false
     },
-    "host_dns": {
-      "url": [],
-      "host": [
-        "dns_resolves",
-        "dns_n_a",
-        "dns_min_ttl",
-        "dns_has_mx",
-        "dns_n_ns"
-      ],
-      "dl_score": false
-    },
-    "host_tls": {
-      "url": [],
-      "host": [
-        "tls_ok",
-        "tls_cert_age_days",
-        "tls_validity_days",
-        "tls_free_ca",
-        "tls_wildcard",
-        "tls_n_san",
-        "tls_cn_matches"
-      ],
-      "dl_score": false
-    },
-    "host_rdap": {
-      "url": [],
-      "host": [
-        "rdap_found",
-        "domain_age_days",
-        "days_to_expiry"
-      ],
-      "dl_score": false
-    },
-    "all_host": {
-      "url": [],
-      "host": [
-        "tranco_log_rank",
-        "in_tranco",
-        "dns_resolves",
-        "dns_n_a",
-        "dns_min_ttl",
-        "dns_has_mx",
-        "dns_n_ns",
-        "tls_ok",
-        "tls_cert_age_days",
-        "tls_validity_days",
-        "tls_free_ca",
-        "tls_wildcard",
-        "tls_n_san",
-        "tls_cn_matches",
-        "rdap_found",
-        "domain_age_days",
-        "days_to_expiry"
-      ],
-      "dl_score": false
-    },
     "all_handcrafted": {
       "url": [
         "url_len",
@@ -3232,241 +208,2250 @@
       "dl_score": true
     }
   },
+  "runs": {
+    "full|42": {
+      "model": "full",
+      "time": "2026-10-23T09:05:50.414614+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0034174998290836815,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 19,
+        "miss_rate": 0.00049,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0034174998290836815,
+        "roc_auc": 0.98817,
+        "pr_auc": 0.98925
+      },
+      "seconds": 34,
+      "test": {
+        "roc_auc": 0.98938,
+        "pr_auc": 0.98987,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51057,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.5088,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96611,
+        "pr_auc": 0.96712,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 46,
+          "miss_rate": 0.0046,
+          "clean": 10003,
+          "clean_recognized": 0.47406
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.47256
+        }
+      },
+      "vi": {
+        "roc_auc": 0.9935,
+        "pr_auc": 0.99636,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.55114
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.55051
+        }
+      }
+    },
+    "full|43": {
+      "model": "full",
+      "time": "2026-10-23T09:06:25.586764+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.00343110365793109,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 17,
+        "miss_rate": 0.00044,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.00343110365793109,
+        "roc_auc": 0.9882,
+        "pr_auc": 0.98928
+      },
+      "seconds": 35,
+      "test": {
+        "roc_auc": 0.98937,
+        "pr_auc": 0.98985,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51281,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51107,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96613,
+        "pr_auc": 0.96743,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 45,
+          "miss_rate": 0.0045,
+          "clean": 10003,
+          "clean_recognized": 0.47186
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.47036
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99431,
+        "pr_auc": 0.99664,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.63699
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.63573
+        }
+      }
+    },
+    "full|44": {
+      "model": "full",
+      "time": "2026-10-23T09:06:59.851229+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.003617477370426059,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 18,
+        "miss_rate": 0.00047,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.003617477370426059,
+        "roc_auc": 0.98818,
+        "pr_auc": 0.98926
+      },
+      "seconds": 34,
+      "test": {
+        "roc_auc": 0.98937,
+        "pr_auc": 0.98987,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51097,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.50925,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.9661,
+        "pr_auc": 0.9675,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 41,
+          "miss_rate": 0.0041,
+          "clean": 10003,
+          "clean_recognized": 0.47296
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 36,
+          "miss_rate": 0.0036,
+          "clean": 10003,
+          "clean_recognized": 0.47156
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99488,
+        "pr_auc": 0.9969,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 16,
+          "miss_rate": 0.00597,
+          "clean": 1584,
+          "clean_recognized": 0.65972
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 15,
+          "miss_rate": 0.00559,
+          "clean": 1584,
+          "clean_recognized": 0.65846
+        }
+      }
+    },
+    "url_length_structure|42": {
+      "model": "url_length_structure",
+      "time": "2026-10-23T09:07:36.936234+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.004173951223492623,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 20,
+        "miss_rate": 0.00052,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.004173951223492623,
+        "roc_auc": 0.98733,
+        "pr_auc": 0.98853
+      },
+      "seconds": 37,
+      "test": {
+        "roc_auc": 0.98861,
+        "pr_auc": 0.98919,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 18,
+          "miss_rate": 0.00046,
+          "clean": 42425,
+          "clean_recognized": 0.51201,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 18,
+          "miss_rate": 0.00046,
+          "clean": 42425,
+          "clean_recognized": 0.51022,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96794,
+        "pr_auc": 0.96904,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 49,
+          "miss_rate": 0.0049,
+          "clean": 10003,
+          "clean_recognized": 0.49005
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 44,
+          "miss_rate": 0.0044,
+          "clean": 10003,
+          "clean_recognized": 0.48865
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99379,
+        "pr_auc": 0.99655,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.68813
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.68687
+        }
+      }
+    },
+    "url_length_structure|43": {
+      "model": "url_length_structure",
+      "time": "2026-10-23T09:08:08.953552+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.004713861271739007,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 22,
+        "miss_rate": 0.00057,
+        "clean": 40598,
+        "clean_recognized": 0.49995,
+        "threshold": 0.004713861271739007,
+        "roc_auc": 0.98737,
+        "pr_auc": 0.98856
+      },
+      "seconds": 32,
+      "test": {
+        "roc_auc": 0.98858,
+        "pr_auc": 0.98915,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 16,
+          "miss_rate": 0.00041,
+          "clean": 42425,
+          "clean_recognized": 0.51272,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 16,
+          "miss_rate": 0.00041,
+          "clean": 42425,
+          "clean_recognized": 0.51093,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96891,
+        "pr_auc": 0.97005,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 48,
+          "miss_rate": 0.0048,
+          "clean": 10003,
+          "clean_recognized": 0.49365
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 42,
+          "miss_rate": 0.0042,
+          "clean": 10003,
+          "clean_recognized": 0.49235
+        }
+      },
+      "vi": {
+        "roc_auc": 0.9957,
+        "pr_auc": 0.99757,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.75253
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.75126
+        }
+      }
+    },
+    "url_length_structure|44": {
+      "model": "url_length_structure",
+      "time": "2026-10-23T09:08:54.141294+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.004310983698815108,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 21,
+        "miss_rate": 0.00055,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.004310983698815108,
+        "roc_auc": 0.98738,
+        "pr_auc": 0.98858
+      },
+      "seconds": 45,
+      "test": {
+        "roc_auc": 0.98859,
+        "pr_auc": 0.98917,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 17,
+          "miss_rate": 0.00044,
+          "clean": 42425,
+          "clean_recognized": 0.51269,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 17,
+          "miss_rate": 0.00044,
+          "clean": 42425,
+          "clean_recognized": 0.5109,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96813,
+        "pr_auc": 0.9696,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 48,
+          "miss_rate": 0.0048,
+          "clean": 10003,
+          "clean_recognized": 0.49205
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 44,
+          "miss_rate": 0.0044,
+          "clean": 10003,
+          "clean_recognized": 0.49065
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99448,
+        "pr_auc": 0.99695,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.69823
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.69697
+        }
+      }
+    },
+    "url_characters|42": {
+      "model": "url_characters",
+      "time": "2026-10-23T09:09:26.693467+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0038755526766180996,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 17,
+        "miss_rate": 0.00044,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0038755526766180996,
+        "roc_auc": 0.98801,
+        "pr_auc": 0.9891
+      },
+      "seconds": 32,
+      "test": {
+        "roc_auc": 0.98923,
+        "pr_auc": 0.98972,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51203,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51038,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96551,
+        "pr_auc": 0.96674,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 44,
+          "miss_rate": 0.0044,
+          "clean": 10003,
+          "clean_recognized": 0.46256
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.46156
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99445,
+        "pr_auc": 0.99664,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 16,
+          "miss_rate": 0.00597,
+          "clean": 1584,
+          "clean_recognized": 0.63384
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 15,
+          "miss_rate": 0.00559,
+          "clean": 1584,
+          "clean_recognized": 0.63258
+        }
+      }
+    },
+    "url_characters|43": {
+      "model": "url_characters",
+      "time": "2026-10-23T09:09:59.544574+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.003736108541488648,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 18,
+        "miss_rate": 0.00047,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.003736108541488648,
+        "roc_auc": 0.98803,
+        "pr_auc": 0.98912
+      },
+      "seconds": 33,
+      "test": {
+        "roc_auc": 0.9892,
+        "pr_auc": 0.98969,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51196,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51034,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96504,
+        "pr_auc": 0.96627,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 49,
+          "miss_rate": 0.0049,
+          "clean": 10003,
+          "clean_recognized": 0.46006
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 44,
+          "miss_rate": 0.0044,
+          "clean": 10003,
+          "clean_recognized": 0.45886
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99415,
+        "pr_auc": 0.99651,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 18,
+          "miss_rate": 0.00671,
+          "clean": 1584,
+          "clean_recognized": 0.65152
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 17,
+          "miss_rate": 0.00634,
+          "clean": 1584,
+          "clean_recognized": 0.65025
+        }
+      }
+    },
+    "url_characters|44": {
+      "model": "url_characters",
+      "time": "2026-10-23T09:10:28.803137+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.003768447088077665,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 18,
+        "miss_rate": 0.00047,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.003768447088077665,
+        "roc_auc": 0.988,
+        "pr_auc": 0.9891
+      },
+      "seconds": 29,
+      "test": {
+        "roc_auc": 0.98923,
+        "pr_auc": 0.98971,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51137,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.50975,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96547,
+        "pr_auc": 0.96697,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 47,
+          "miss_rate": 0.0047,
+          "clean": 10003,
+          "clean_recognized": 0.45976
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 43,
+          "miss_rate": 0.0043,
+          "clean": 10003,
+          "clean_recognized": 0.45856
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99389,
+        "pr_auc": 0.99627,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 16,
+          "miss_rate": 0.00597,
+          "clean": 1584,
+          "clean_recognized": 0.63699
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 15,
+          "miss_rate": 0.00559,
+          "clean": 1584,
+          "clean_recognized": 0.63573
+        }
+      }
+    },
+    "url_lure_words|42": {
+      "model": "url_lure_words",
+      "time": "2026-10-23T09:11:01.296584+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.003586741862818599,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 19,
+        "miss_rate": 0.00049,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.003586741862818599,
+        "roc_auc": 0.98815,
+        "pr_auc": 0.98923
+      },
+      "seconds": 32,
+      "test": {
+        "roc_auc": 0.98931,
+        "pr_auc": 0.9898,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 10,
+          "miss_rate": 0.00026,
+          "clean": 42425,
+          "clean_recognized": 0.5109,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 10,
+          "miss_rate": 0.00026,
+          "clean": 42425,
+          "clean_recognized": 0.50911,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96556,
+        "pr_auc": 0.96659,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 48,
+          "miss_rate": 0.0048,
+          "clean": 10003,
+          "clean_recognized": 0.47446
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 42,
+          "miss_rate": 0.0042,
+          "clean": 10003,
+          "clean_recognized": 0.47306
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99383,
+        "pr_auc": 0.99641,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.59533
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.5947
+        }
+      }
+    },
+    "url_lure_words|43": {
+      "model": "url_lure_words",
+      "time": "2026-10-23T09:11:36.717845+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0032630774658173327,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 19,
+        "miss_rate": 0.00049,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0032630774658173327,
+        "roc_auc": 0.98816,
+        "pr_auc": 0.98924
+      },
+      "seconds": 35,
+      "test": {
+        "roc_auc": 0.98932,
+        "pr_auc": 0.98981,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51234,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51057,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96502,
+        "pr_auc": 0.96634,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 46,
+          "miss_rate": 0.0046,
+          "clean": 10003,
+          "clean_recognized": 0.47286
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.47136
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99402,
+        "pr_auc": 0.99654,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.57513
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.57449
+        }
+      }
+    },
+    "url_lure_words|44": {
+      "model": "url_lure_words",
+      "time": "2026-10-23T09:12:12.995417+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0033829261083155875,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 19,
+        "miss_rate": 0.00049,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0033829261083155875,
+        "roc_auc": 0.98815,
+        "pr_auc": 0.98924
+      },
+      "seconds": 36,
+      "test": {
+        "roc_auc": 0.98934,
+        "pr_auc": 0.98982,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51128,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.50946,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96534,
+        "pr_auc": 0.96661,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 46,
+          "miss_rate": 0.0046,
+          "clean": 10003,
+          "clean_recognized": 0.47776
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.47616
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99502,
+        "pr_auc": 0.99695,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.66667
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.66604
+        }
+      }
+    },
+    "url_platform_redirect|42": {
+      "model": "url_platform_redirect",
+      "time": "2026-10-23T09:12:48.925928+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.003322779899463058,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 17,
+        "miss_rate": 0.00044,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.003322779899463058,
+        "roc_auc": 0.98819,
+        "pr_auc": 0.98927
+      },
+      "seconds": 36,
+      "test": {
+        "roc_auc": 0.98934,
+        "pr_auc": 0.98983,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51109,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.50935,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96496,
+        "pr_auc": 0.96493,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 47,
+          "miss_rate": 0.0047,
+          "clean": 10003,
+          "clean_recognized": 0.47186
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 42,
+          "miss_rate": 0.0042,
+          "clean": 10003,
+          "clean_recognized": 0.47046
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99443,
+        "pr_auc": 0.99673,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.59343
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.59217
+        }
+      }
+    },
+    "url_platform_redirect|43": {
+      "model": "url_platform_redirect",
+      "time": "2026-10-23T09:13:26.234942+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0032509353477507834,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 17,
+        "miss_rate": 0.00044,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0032509353477507834,
+        "roc_auc": 0.98816,
+        "pr_auc": 0.98924
+      },
+      "seconds": 37,
+      "test": {
+        "roc_auc": 0.98937,
+        "pr_auc": 0.98985,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.51097,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 9,
+          "miss_rate": 0.00023,
+          "clean": 42425,
+          "clean_recognized": 0.50925,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96503,
+        "pr_auc": 0.965,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 45,
+          "miss_rate": 0.0045,
+          "clean": 10003,
+          "clean_recognized": 0.47296
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.47146
+        }
+      },
+      "vi": {
+        "roc_auc": 0.994,
+        "pr_auc": 0.99649,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.6149
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.61427
+        }
+      }
+    },
+    "url_platform_redirect|44": {
+      "model": "url_platform_redirect",
+      "time": "2026-10-23T09:14:03.917705+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0032893363386392598,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 18,
+        "miss_rate": 0.00047,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0032893363386392598,
+        "roc_auc": 0.98816,
+        "pr_auc": 0.98925
+      },
+      "seconds": 38,
+      "test": {
+        "roc_auc": 0.98937,
+        "pr_auc": 0.98986,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51241,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51069,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96526,
+        "pr_auc": 0.96515,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 42,
+          "miss_rate": 0.0042,
+          "clean": 10003,
+          "clean_recognized": 0.47926
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 37,
+          "miss_rate": 0.0037,
+          "clean": 10003,
+          "clean_recognized": 0.47786
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99487,
+        "pr_auc": 0.99697,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.67614
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.67487
+        }
+      }
+    },
+    "url_tld|42": {
+      "model": "url_tld",
+      "time": "2026-10-23T09:14:28.742911+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.003380656708031893,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 16,
+        "miss_rate": 0.00042,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.003380656708031893,
+        "roc_auc": 0.98804,
+        "pr_auc": 0.98913
+      },
+      "seconds": 25,
+      "test": {
+        "roc_auc": 0.98925,
+        "pr_auc": 0.98974,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51239,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51062,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96594,
+        "pr_auc": 0.9675,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 46,
+          "miss_rate": 0.0046,
+          "clean": 10003,
+          "clean_recognized": 0.47716
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 42,
+          "miss_rate": 0.0042,
+          "clean": 10003,
+          "clean_recognized": 0.47576
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99514,
+        "pr_auc": 0.99712,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 12,
+          "miss_rate": 0.00448,
+          "clean": 1584,
+          "clean_recognized": 0.67361
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 11,
+          "miss_rate": 0.0041,
+          "clean": 1584,
+          "clean_recognized": 0.67235
+        }
+      }
+    },
+    "url_tld|43": {
+      "model": "url_tld",
+      "time": "2026-10-23T09:14:49.583389+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0039044190198183064,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 18,
+        "miss_rate": 0.00047,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0039044190198183064,
+        "roc_auc": 0.98799,
+        "pr_auc": 0.9891
+      },
+      "seconds": 21,
+      "test": {
+        "roc_auc": 0.98925,
+        "pr_auc": 0.98974,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.51001,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 8,
+          "miss_rate": 0.00021,
+          "clean": 42425,
+          "clean_recognized": 0.50833,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96651,
+        "pr_auc": 0.96779,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 46,
+          "miss_rate": 0.0046,
+          "clean": 10003,
+          "clean_recognized": 0.47436
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 41,
+          "miss_rate": 0.0041,
+          "clean": 10003,
+          "clean_recognized": 0.47286
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99533,
+        "pr_auc": 0.99713,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 12,
+          "miss_rate": 0.00448,
+          "clean": 1584,
+          "clean_recognized": 0.66982
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 11,
+          "miss_rate": 0.0041,
+          "clean": 1584,
+          "clean_recognized": 0.66856
+        }
+      }
+    },
+    "url_tld|44": {
+      "model": "url_tld",
+      "time": "2026-10-23T09:15:10.269491+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0036528427153825764,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 18,
+        "miss_rate": 0.00047,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0036528427153825764,
+        "roc_auc": 0.98802,
+        "pr_auc": 0.98912
+      },
+      "seconds": 21,
+      "test": {
+        "roc_auc": 0.98927,
+        "pr_auc": 0.98977,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 10,
+          "miss_rate": 0.00026,
+          "clean": 42425,
+          "clean_recognized": 0.51199,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 10,
+          "miss_rate": 0.00026,
+          "clean": 42425,
+          "clean_recognized": 0.51027,
+          "verified_phishing": 5549,
+          "verified_missed": 4,
+          "verified_miss_rate": 0.00072
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.96635,
+        "pr_auc": 0.96784,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 43,
+          "miss_rate": 0.0043,
+          "clean": 10003,
+          "clean_recognized": 0.47426
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 38,
+          "miss_rate": 0.0038,
+          "clean": 10003,
+          "clean_recognized": 0.47276
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99498,
+        "pr_auc": 0.99699,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.62816
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 13,
+          "miss_rate": 0.00485,
+          "clean": 1584,
+          "clean_recognized": 0.62689
+        }
+      }
+    },
+    "host_tranco|42": {
+      "model": "host_tranco",
+      "time": "2026-10-23T09:15:37.663378+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.06803328543901445,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 396,
+        "miss_rate": 0.01032,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.06803328543901445,
+        "roc_auc": 0.97216,
+        "pr_auc": 0.97662
+      },
+      "seconds": 27,
+      "test": {
+        "roc_auc": 0.97348,
+        "pr_auc": 0.97688,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 372,
+          "miss_rate": 0.00959,
+          "clean": 42425,
+          "clean_recognized": 0.51366,
+          "verified_phishing": 5549,
+          "verified_missed": 56,
+          "verified_miss_rate": 0.01009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 369,
+          "miss_rate": 0.00951,
+          "clean": 42425,
+          "clean_recognized": 0.51208,
+          "verified_phishing": 5549,
+          "verified_missed": 56,
+          "verified_miss_rate": 0.01009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.95454,
+        "pr_auc": 0.95744,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 207,
+          "miss_rate": 0.02072,
+          "clean": 10003,
+          "clean_recognized": 0.62931
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 182,
+          "miss_rate": 0.01822,
+          "clean": 10003,
+          "clean_recognized": 0.62821
+        }
+      },
+      "vi": {
+        "roc_auc": 0.95905,
+        "pr_auc": 0.97649,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 697,
+          "miss_rate": 0.25998,
+          "clean": 1584,
+          "clean_recognized": 0.98611
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 678,
+          "miss_rate": 0.25289,
+          "clean": 1584,
+          "clean_recognized": 0.98485
+        }
+      }
+    },
+    "host_tranco|43": {
+      "model": "host_tranco",
+      "time": "2026-10-23T09:16:03.971458+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0688997581601143,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 393,
+        "miss_rate": 0.01024,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0688997581601143,
+        "roc_auc": 0.97224,
+        "pr_auc": 0.97668
+      },
+      "seconds": 26,
+      "test": {
+        "roc_auc": 0.9735,
+        "pr_auc": 0.97691,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 376,
+          "miss_rate": 0.00969,
+          "clean": 42425,
+          "clean_recognized": 0.51408,
+          "verified_phishing": 5549,
+          "verified_missed": 56,
+          "verified_miss_rate": 0.01009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 372,
+          "miss_rate": 0.00959,
+          "clean": 42425,
+          "clean_recognized": 0.51246,
+          "verified_phishing": 5549,
+          "verified_missed": 56,
+          "verified_miss_rate": 0.01009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.9548,
+        "pr_auc": 0.9578,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 203,
+          "miss_rate": 0.02032,
+          "clean": 10003,
+          "clean_recognized": 0.63141
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 180,
+          "miss_rate": 0.01802,
+          "clean": 10003,
+          "clean_recognized": 0.62981
+        }
+      },
+      "vi": {
+        "roc_auc": 0.95907,
+        "pr_auc": 0.97639,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 666,
+          "miss_rate": 0.24841,
+          "clean": 1584,
+          "clean_recognized": 0.98485
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 647,
+          "miss_rate": 0.24133,
+          "clean": 1584,
+          "clean_recognized": 0.98359
+        }
+      }
+    },
+    "host_tranco|44": {
+      "model": "host_tranco",
+      "time": "2026-10-23T09:16:35.810829+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.06766776740550996,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 389,
+        "miss_rate": 0.01013,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.06766776740550996,
+        "roc_auc": 0.97218,
+        "pr_auc": 0.97661
+      },
+      "seconds": 32,
+      "test": {
+        "roc_auc": 0.97349,
+        "pr_auc": 0.97688,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 375,
+          "miss_rate": 0.00966,
+          "clean": 42425,
+          "clean_recognized": 0.51427,
+          "verified_phishing": 5549,
+          "verified_missed": 56,
+          "verified_miss_rate": 0.01009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 372,
+          "miss_rate": 0.00959,
+          "clean": 42425,
+          "clean_recognized": 0.51265,
+          "verified_phishing": 5549,
+          "verified_missed": 56,
+          "verified_miss_rate": 0.01009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.95451,
+        "pr_auc": 0.95708,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 201,
+          "miss_rate": 0.02012,
+          "clean": 10003,
+          "clean_recognized": 0.63101
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 178,
+          "miss_rate": 0.01782,
+          "clean": 10003,
+          "clean_recognized": 0.62961
+        }
+      },
+      "vi": {
+        "roc_auc": 0.95782,
+        "pr_auc": 0.97531,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 714,
+          "miss_rate": 0.26632,
+          "clean": 1584,
+          "clean_recognized": 0.98485
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 697,
+          "miss_rate": 0.25998,
+          "clean": 1584,
+          "clean_recognized": 0.98359
+        }
+      }
+    },
+    "all_handcrafted|42": {
+      "model": "all_handcrafted",
+      "time": "2026-10-23T09:16:38.550035+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.4369573593139649,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 20,
+        "miss_rate": 0.00052,
+        "clean": 40598,
+        "clean_recognized": 0.42071,
+        "threshold": 0.4369573593139649,
+        "roc_auc": 0.98306,
+        "pr_auc": 0.98399
+      },
+      "seconds": 3,
+      "test": {
+        "roc_auc": 0.98438,
+        "pr_auc": 0.98435,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 13,
+          "miss_rate": 0.00034,
+          "clean": 42425,
+          "clean_recognized": 0.43406,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 13,
+          "miss_rate": 0.00034,
+          "clean": 42425,
+          "clean_recognized": 0.43253,
+          "verified_phishing": 5549,
+          "verified_missed": 5,
+          "verified_miss_rate": 0.0009
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.97407,
+        "pr_auc": 0.97005,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 62,
+          "miss_rate": 0.00621,
+          "clean": 10003,
+          "clean_recognized": 0.50985
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 53,
+          "miss_rate": 0.0053,
+          "clean": 10003,
+          "clean_recognized": 0.50845
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99431,
+        "pr_auc": 0.99563,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 21,
+          "miss_rate": 0.00783,
+          "clean": 1584,
+          "clean_recognized": 0.98106
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 20,
+          "miss_rate": 0.00746,
+          "clean": 1584,
+          "clean_recognized": 0.9798
+        }
+      }
+    },
+    "all_handcrafted|43": {
+      "model": "all_handcrafted",
+      "time": "2026-10-23T09:16:44.263070+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.0063815233297646054,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 34,
+        "miss_rate": 0.00089,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.0063815233297646054,
+        "roc_auc": 0.98328,
+        "pr_auc": 0.98482
+      },
+      "seconds": 6,
+      "test": {
+        "roc_auc": 0.98476,
+        "pr_auc": 0.98552,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 25,
+          "miss_rate": 0.00064,
+          "clean": 42425,
+          "clean_recognized": 0.51258,
+          "verified_phishing": 5549,
+          "verified_missed": 7,
+          "verified_miss_rate": 0.00126
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 25,
+          "miss_rate": 0.00064,
+          "clean": 42425,
+          "clean_recognized": 0.51076,
+          "verified_phishing": 5549,
+          "verified_missed": 7,
+          "verified_miss_rate": 0.00126
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.97386,
+        "pr_auc": 0.97439,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 64,
+          "miss_rate": 0.00641,
+          "clean": 10003,
+          "clean_recognized": 0.51704
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 54,
+          "miss_rate": 0.0054,
+          "clean": 10003,
+          "clean_recognized": 0.51565
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99604,
+        "pr_auc": 0.99751,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 17,
+          "miss_rate": 0.00634,
+          "clean": 1584,
+          "clean_recognized": 0.89773
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 16,
+          "miss_rate": 0.00597,
+          "clean": 1584,
+          "clean_recognized": 0.89646
+        }
+      }
+    },
+    "all_handcrafted|44": {
+      "model": "all_handcrafted",
+      "time": "2026-10-23T09:16:47.264460+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.19783531129360202,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 27,
+        "miss_rate": 0.0007,
+        "clean": 40598,
+        "clean_recognized": 0.46712,
+        "threshold": 0.19783531129360202,
+        "roc_auc": 0.9833,
+        "pr_auc": 0.9847
+      },
+      "seconds": 3,
+      "test": {
+        "roc_auc": 0.98471,
+        "pr_auc": 0.98523,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 21,
+          "miss_rate": 0.00054,
+          "clean": 42425,
+          "clean_recognized": 0.48229,
+          "verified_phishing": 5549,
+          "verified_missed": 8,
+          "verified_miss_rate": 0.00144
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 21,
+          "miss_rate": 0.00054,
+          "clean": 42425,
+          "clean_recognized": 0.48066,
+          "verified_phishing": 5549,
+          "verified_missed": 8,
+          "verified_miss_rate": 0.00144
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.97439,
+        "pr_auc": 0.9725,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 67,
+          "miss_rate": 0.00671,
+          "clean": 10003,
+          "clean_recognized": 0.53634
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 58,
+          "miss_rate": 0.00581,
+          "clean": 10003,
+          "clean_recognized": 0.53484
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99702,
+        "pr_auc": 0.99764,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 29,
+          "miss_rate": 0.01082,
+          "clean": 1584,
+          "clean_recognized": 0.98359
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 28,
+          "miss_rate": 0.01044,
+          "clean": 1584,
+          "clean_recognized": 0.98232
+        }
+      }
+    },
+    "dl_score|42": {
+      "model": "dl_score",
+      "time": "2026-10-23T09:17:53.391717+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.00436067394912243,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 27,
+        "miss_rate": 0.0007,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.00436067394912243,
+        "roc_auc": 0.98274,
+        "pr_auc": 0.98417
+      },
+      "seconds": 66,
+      "test": {
+        "roc_auc": 0.98408,
+        "pr_auc": 0.98473,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 25,
+          "miss_rate": 0.00064,
+          "clean": 42425,
+          "clean_recognized": 0.51071,
+          "verified_phishing": 5549,
+          "verified_missed": 11,
+          "verified_miss_rate": 0.00198
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 25,
+          "miss_rate": 0.00064,
+          "clean": 42425,
+          "clean_recognized": 0.50897,
+          "verified_phishing": 5549,
+          "verified_missed": 11,
+          "verified_miss_rate": 0.00198
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.95188,
+        "pr_auc": 0.95437,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 45,
+          "miss_rate": 0.0045,
+          "clean": 10003,
+          "clean_recognized": 0.42617
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 41,
+          "miss_rate": 0.0041,
+          "clean": 10003,
+          "clean_recognized": 0.42487
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99071,
+        "pr_auc": 0.99538,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.27146
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.27146
+        }
+      }
+    },
+    "dl_score|43": {
+      "model": "dl_score",
+      "time": "2026-10-23T09:19:03.363296+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.004358271136879922,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 31,
+        "miss_rate": 0.00081,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.004358271136879922,
+        "roc_auc": 0.98275,
+        "pr_auc": 0.98419
+      },
+      "seconds": 70,
+      "test": {
+        "roc_auc": 0.98412,
+        "pr_auc": 0.98475,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 23,
+          "miss_rate": 0.00059,
+          "clean": 42425,
+          "clean_recognized": 0.50972,
+          "verified_phishing": 5549,
+          "verified_missed": 9,
+          "verified_miss_rate": 0.00162
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 23,
+          "miss_rate": 0.00059,
+          "clean": 42425,
+          "clean_recognized": 0.50796,
+          "verified_phishing": 5549,
+          "verified_missed": 9,
+          "verified_miss_rate": 0.00162
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.95201,
+        "pr_auc": 0.95458,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 44,
+          "miss_rate": 0.0044,
+          "clean": 10003,
+          "clean_recognized": 0.42477
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 40,
+          "miss_rate": 0.004,
+          "clean": 10003,
+          "clean_recognized": 0.42347
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99047,
+        "pr_auc": 0.99536,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.24937
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.24937
+        }
+      }
+    },
+    "dl_score|44": {
+      "model": "dl_score",
+      "time": "2026-10-23T09:20:10.086535+00:00",
+      "rule": "threshold = lowest score recognising >= 50% of val clean",
+      "threshold": 0.004414135124534369,
+      "val": {
+        "phishing": 38386,
+        "phishing_missed": 30,
+        "miss_rate": 0.00078,
+        "clean": 40598,
+        "clean_recognized": 0.49998,
+        "threshold": 0.004414135124534369,
+        "roc_auc": 0.98273,
+        "pr_auc": 0.98417
+      },
+      "seconds": 67,
+      "test": {
+        "roc_auc": 0.98409,
+        "pr_auc": 0.98472,
+        "alone": {
+          "phishing": 38800,
+          "phishing_missed": 22,
+          "miss_rate": 0.00057,
+          "clean": 42425,
+          "clean_recognized": 0.51048,
+          "verified_phishing": 5549,
+          "verified_missed": 9,
+          "verified_miss_rate": 0.00162
+        },
+        "with_B": {
+          "phishing": 38800,
+          "phishing_missed": 22,
+          "miss_rate": 0.00057,
+          "clean": 42425,
+          "clean_recognized": 0.50871,
+          "verified_phishing": 5549,
+          "verified_missed": 9,
+          "verified_miss_rate": 0.00162
+        }
+      },
+      "phreshphish": {
+        "roc_auc": 0.95197,
+        "pr_auc": 0.95454,
+        "alone": {
+          "phishing": 9991,
+          "phishing_missed": 42,
+          "miss_rate": 0.0042,
+          "clean": 10003,
+          "clean_recognized": 0.42767
+        },
+        "with_B": {
+          "phishing": 9991,
+          "phishing_missed": 38,
+          "miss_rate": 0.0038,
+          "clean": 10003,
+          "clean_recognized": 0.42647
+        }
+      },
+      "vi": {
+        "roc_auc": 0.99156,
+        "pr_auc": 0.99586,
+        "alone": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.27083
+        },
+        "with_B": {
+          "phishing": 2681,
+          "phishing_missed": 14,
+          "miss_rate": 0.00522,
+          "clean": 1584,
+          "clean_recognized": 0.27083
+        }
+      }
+    }
+  },
   "summary": {
     "full": {
       "val_missed": [
-        18,
-        18,
-        19
-      ],
-      "val_missed_mean": 18.33333,
-      "val_pr_auc": 0.99314,
-      "test_pr_auc": 0.99362,
-      "test_missed_mean": 13.66667,
-      "test_clean_recognized": 0.50958,
-      "phreshphish_pr_auc": 0.96516,
-      "phreshphish_missed_mean": 53.66667,
-      "phreshphish_clean_recognized": 0.4667,
-      "vi_pr_auc": 0.99552,
-      "vi_missed_mean": 18.33333,
-      "vi_clean_recognized": 0.4846
-    },
-    "url_length_structure": {
-      "val_missed": [
-        18,
-        20,
-        17
-      ],
-      "val_missed_mean": 18.33333,
-      "val_pr_auc": 0.99268,
-      "test_pr_auc": 0.99309,
-      "test_missed_mean": 14.0,
-      "test_clean_recognized": 0.50955,
-      "phreshphish_pr_auc": 0.96796,
-      "phreshphish_missed_mean": 59.66667,
-      "phreshphish_clean_recognized": 0.48757,
-      "vi_pr_auc": 0.99713,
-      "vi_missed_mean": 17.0,
-      "vi_clean_recognized": 0.64873
-    },
-    "url_characters": {
-      "val_missed": [
-        21,
-        22,
-        20
-      ],
-      "val_missed_mean": 21.0,
-      "val_pr_auc": 0.99307,
-      "test_pr_auc": 0.99355,
-      "test_missed_mean": 16.0,
-      "test_clean_recognized": 0.50943,
-      "phreshphish_pr_auc": 0.96408,
-      "phreshphish_missed_mean": 55.33333,
-      "phreshphish_clean_recognized": 0.45537,
-      "vi_pr_auc": 0.99559,
-      "vi_missed_mean": 20.66667,
-      "vi_clean_recognized": 0.52194
-    },
-    "url_lure_words": {
-      "val_missed": [
-        17,
         19,
+        17,
         18
       ],
       "val_missed_mean": 18.0,
-      "val_pr_auc": 0.99309,
-      "test_pr_auc": 0.99361,
-      "test_missed_mean": 13.0,
-      "test_clean_recognized": 0.50986,
-      "phreshphish_pr_auc": 0.96488,
-      "phreshphish_missed_mean": 61.33333,
-      "phreshphish_clean_recognized": 0.4638,
-      "vi_pr_auc": 0.99532,
-      "vi_missed_mean": 22.33333,
-      "vi_clean_recognized": 0.45992
+      "val_pr_auc": 0.98926,
+      "test_pr_auc": 0.98986,
+      "test_missed_mean": 8.0,
+      "test_clean_recognized": 0.51145,
+      "phreshphish_pr_auc": 0.96735,
+      "phreshphish_missed_mean": 44.0,
+      "phreshphish_clean_recognized": 0.47296,
+      "vi_pr_auc": 0.99663,
+      "vi_missed_mean": 14.66667,
+      "vi_clean_recognized": 0.61595
+    },
+    "url_length_structure": {
+      "val_missed": [
+        20,
+        22,
+        21
+      ],
+      "val_missed_mean": 21.0,
+      "val_pr_auc": 0.98856,
+      "test_pr_auc": 0.98917,
+      "test_missed_mean": 17.0,
+      "test_clean_recognized": 0.51247,
+      "phreshphish_pr_auc": 0.96956,
+      "phreshphish_missed_mean": 48.33333,
+      "phreshphish_clean_recognized": 0.49192,
+      "vi_pr_auc": 0.99702,
+      "vi_missed_mean": 14.0,
+      "vi_clean_recognized": 0.71296
+    },
+    "url_characters": {
+      "val_missed": [
+        17,
+        18,
+        18
+      ],
+      "val_missed_mean": 17.66667,
+      "val_pr_auc": 0.98911,
+      "test_pr_auc": 0.98971,
+      "test_missed_mean": 9.0,
+      "test_clean_recognized": 0.51179,
+      "phreshphish_pr_auc": 0.96666,
+      "phreshphish_missed_mean": 46.66667,
+      "phreshphish_clean_recognized": 0.46079,
+      "vi_pr_auc": 0.99647,
+      "vi_missed_mean": 16.66667,
+      "vi_clean_recognized": 0.64078
+    },
+    "url_lure_words": {
+      "val_missed": [
+        19,
+        19,
+        19
+      ],
+      "val_missed_mean": 19.0,
+      "val_pr_auc": 0.98924,
+      "test_pr_auc": 0.98981,
+      "test_missed_mean": 9.0,
+      "test_clean_recognized": 0.51151,
+      "phreshphish_pr_auc": 0.96651,
+      "phreshphish_missed_mean": 46.66667,
+      "phreshphish_clean_recognized": 0.47503,
+      "vi_pr_auc": 0.99663,
+      "vi_missed_mean": 13.33333,
+      "vi_clean_recognized": 0.61238
     },
     "url_platform_redirect": {
       "val_missed": [
-        19,
-        18,
-        17
+        17,
+        17,
+        18
       ],
-      "val_missed_mean": 18.0,
-      "val_pr_auc": 0.99311,
-      "test_pr_auc": 0.99363,
-      "test_missed_mean": 13.33333,
-      "test_clean_recognized": 0.50958,
-      "phreshphish_pr_auc": 0.96356,
-      "phreshphish_missed_mean": 56.33333,
-      "phreshphish_clean_recognized": 0.46723,
-      "vi_pr_auc": 0.99532,
-      "vi_missed_mean": 20.0,
-      "vi_clean_recognized": 0.41097
+      "val_missed_mean": 17.33333,
+      "val_pr_auc": 0.98925,
+      "test_pr_auc": 0.98985,
+      "test_missed_mean": 8.33333,
+      "test_clean_recognized": 0.51149,
+      "phreshphish_pr_auc": 0.96503,
+      "phreshphish_missed_mean": 44.66667,
+      "phreshphish_clean_recognized": 0.47469,
+      "vi_pr_auc": 0.99673,
+      "vi_missed_mean": 13.66667,
+      "vi_clean_recognized": 0.62816
     },
     "url_tld": {
       "val_missed": [
-        19,
-        19,
-        24
+        16,
+        18,
+        18
       ],
-      "val_missed_mean": 20.66667,
-      "val_pr_auc": 0.99312,
-      "test_pr_auc": 0.99347,
-      "test_missed_mean": 12.66667,
-      "test_clean_recognized": 0.50878,
-      "phreshphish_pr_auc": 0.96383,
-      "phreshphish_missed_mean": 56.33333,
-      "phreshphish_clean_recognized": 0.46873,
-      "vi_pr_auc": 0.99527,
-      "vi_missed_mean": 20.0,
-      "vi_clean_recognized": 0.48587
+      "val_missed_mean": 17.33333,
+      "val_pr_auc": 0.98912,
+      "test_pr_auc": 0.98975,
+      "test_missed_mean": 8.66667,
+      "test_clean_recognized": 0.51146,
+      "phreshphish_pr_auc": 0.96771,
+      "phreshphish_missed_mean": 45.0,
+      "phreshphish_clean_recognized": 0.47526,
+      "vi_pr_auc": 0.99708,
+      "vi_missed_mean": 12.66667,
+      "vi_clean_recognized": 0.6572
     },
     "host_tranco": {
       "val_missed": [
-        68,
-        72,
-        77
+        396,
+        393,
+        389
       ],
-      "val_missed_mean": 72.33333,
-      "val_pr_auc": 0.98973,
-      "test_pr_auc": 0.98986,
-      "test_missed_mean": 75.66667,
-      "test_clean_recognized": 0.50757,
-      "phreshphish_pr_auc": 0.97431,
-      "phreshphish_missed_mean": 123.33333,
-      "phreshphish_clean_recognized": 0.65663,
-      "vi_pr_auc": 0.97285,
-      "vi_missed_mean": 133.33333,
-      "vi_clean_recognized": 0.76034
-    },
-    "host_dns": {
-      "val_missed": [
-        25,
-        20,
-        19
-      ],
-      "val_missed_mean": 21.33333,
-      "val_pr_auc": 0.99294,
-      "test_pr_auc": 0.99325,
-      "test_missed_mean": 15.33333,
-      "test_clean_recognized": 0.50915,
-      "phreshphish_pr_auc": 0.96444,
-      "phreshphish_missed_mean": 55.33333,
-      "phreshphish_clean_recognized": 0.46947,
-      "vi_pr_auc": 0.99622,
-      "vi_missed_mean": 16.66667,
-      "vi_clean_recognized": 0.52067
-    },
-    "host_tls": {
-      "val_missed": [
-        19,
-        21,
-        16
-      ],
-      "val_missed_mean": 18.66667,
-      "val_pr_auc": 0.99228,
-      "test_pr_auc": 0.99291,
-      "test_missed_mean": 15.66667,
-      "test_clean_recognized": 0.51126,
-      "phreshphish_pr_auc": 0.96466,
-      "phreshphish_missed_mean": 61.33333,
-      "phreshphish_clean_recognized": 0.47887,
-      "vi_pr_auc": 0.9948,
-      "vi_missed_mean": 31.0,
-      "vi_clean_recognized": 0.46646
-    },
-    "host_rdap": {
-      "val_missed": [
-        22,
-        19,
-        19
-      ],
-      "val_missed_mean": 20.0,
-      "val_pr_auc": 0.99191,
-      "test_pr_auc": 0.99236,
-      "test_missed_mean": 14.0,
-      "test_clean_recognized": 0.51041,
-      "phreshphish_pr_auc": 0.96351,
-      "phreshphish_missed_mean": 55.66667,
-      "phreshphish_clean_recognized": 0.4572,
-      "vi_pr_auc": 0.99483,
-      "vi_missed_mean": 23.33333,
-      "vi_clean_recognized": 0.48164
-    },
-    "all_host": {
-      "val_missed": [
-        331,
-        333,
-        324
-      ],
-      "val_missed_mean": 329.33333,
-      "val_pr_auc": 0.98113,
-      "test_pr_auc": 0.98172,
-      "test_missed_mean": 290.33333,
-      "test_clean_recognized": 0.51007,
-      "phreshphish_pr_auc": 0.96183,
-      "phreshphish_missed_mean": 205.33333,
-      "phreshphish_clean_recognized": 0.63293,
-      "vi_pr_auc": 0.97064,
-      "vi_missed_mean": 866.66667,
-      "vi_clean_recognized": 0.97869
+      "val_missed_mean": 392.66667,
+      "val_pr_auc": 0.97664,
+      "test_pr_auc": 0.97689,
+      "test_missed_mean": 374.33333,
+      "test_clean_recognized": 0.514,
+      "phreshphish_pr_auc": 0.95744,
+      "phreshphish_missed_mean": 203.66667,
+      "phreshphish_clean_recognized": 0.63058,
+      "vi_pr_auc": 0.97606,
+      "vi_missed_mean": 692.33333,
+      "vi_clean_recognized": 0.98527
     },
     "all_handcrafted": {
       "val_missed": [
-        21,
         20,
-        22
+        34,
+        27
       ],
-      "val_missed_mean": 21.0,
-      "val_pr_auc": 0.99088,
-      "test_pr_auc": 0.99073,
-      "test_missed_mean": 18.33333,
-      "test_clean_recognized": 0.51224,
-      "phreshphish_pr_auc": 0.97311,
-      "phreshphish_missed_mean": 63.0,
-      "phreshphish_clean_recognized": 0.52283,
-      "vi_pr_auc": 0.99723,
-      "vi_missed_mean": 21.33333,
-      "vi_clean_recognized": 0.84536
+      "val_missed_mean": 27.0,
+      "val_pr_auc": 0.9845,
+      "test_pr_auc": 0.98503,
+      "test_missed_mean": 19.66667,
+      "test_clean_recognized": 0.47631,
+      "phreshphish_pr_auc": 0.97231,
+      "phreshphish_missed_mean": 64.33333,
+      "phreshphish_clean_recognized": 0.52108,
+      "vi_pr_auc": 0.99693,
+      "vi_missed_mean": 22.33333,
+      "vi_clean_recognized": 0.95413
     },
     "dl_score": {
       "val_missed": [
-        24,
-        22,
-        25
+        27,
+        31,
+        30
       ],
-      "val_missed_mean": 23.66667,
-      "val_pr_auc": 0.98972,
-      "test_pr_auc": 0.99061,
-      "test_missed_mean": 15.0,
-      "test_clean_recognized": 0.5094,
-      "phreshphish_pr_auc": 0.95004,
-      "phreshphish_missed_mean": 46.33333,
-      "phreshphish_clean_recognized": 0.42173,
-      "vi_pr_auc": 0.99349,
-      "vi_missed_mean": 27.66667,
-      "vi_clean_recognized": 0.18397
+      "val_missed_mean": 29.33333,
+      "val_pr_auc": 0.98418,
+      "test_pr_auc": 0.98473,
+      "test_missed_mean": 23.33333,
+      "test_clean_recognized": 0.5103,
+      "phreshphish_pr_auc": 0.9545,
+      "phreshphish_missed_mean": 43.66667,
+      "phreshphish_clean_recognized": 0.4262,
+      "vi_pr_auc": 0.99553,
+      "vi_missed_mean": 14.0,
+      "vi_clean_recognized": 0.26389
     }
   },
-  "time": "2026-10-20T18:08:08.324512+00:00"
+  "time": "2026-10-23T09:20:10.162713+00:00"
 }

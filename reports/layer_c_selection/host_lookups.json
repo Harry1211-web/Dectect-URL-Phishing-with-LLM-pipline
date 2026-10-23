@@ -1,0 +1,62 @@
+{
+  "question": "Layer C with DNS / TLS / RDAP lookups (network) vs URL + Tranco only (none)",
+  "rule": "adopt 'none' if its val misses rise by <= 30 % (decided before training)",
+  "decision": "none",
+  "how": "same DL (bilstm) + ML (xgboost) and threshold rule; train.py --host-lookups network | none; Layer C alone = production segment thresholds on every row",
+  "network": {
+    "val_layer_c": {
+      "phishing": 38386,
+      "missed": 15,
+      "clean_recognized": 0.5405
+    },
+    "test_layer_c": {
+      "phishing": 38800,
+      "missed": 10,
+      "clean_recognized": 0.5448
+    },
+    "test_A_B_C": {
+      "missed": 4,
+      "missed_without_A": 10,
+      "clean_recognized": 0.543
+    },
+    "phreshphish_A_B_C": {
+      "phishing": 9991,
+      "missed": 32,
+      "clean_recognized": 0.3838
+    },
+    "latency_ms_C": {
+      "new_host_p50": 1442,
+      "new_host_p95": 2544,
+      "cached_host_p50": 31
+    }
+  },
+  "none": {
+    "val_layer_c": {
+      "phishing": 38386,
+      "missed": 13,
+      "clean_recognized": 0.5198
+    },
+    "test_layer_c": {
+      "phishing": 38800,
+      "missed": 12,
+      "clean_recognized": 0.5262
+    },
+    "test_A_B_C": {
+      "missed": 4,
+      "missed_without_A": 12,
+      "clean_recognized": 0.5243
+    },
+    "phreshphish_A_B_C": {
+      "phishing": 9991,
+      "missed": 43,
+      "clean_recognized": 0.4411
+    },
+    "latency_ms_C": {
+      "p50": 32.3,
+      "p95": 36.4
+    }
+  },
+  "ablation": "reports/layer_c_selection/ablation.json, group host_network (3 seeds)",
+  "time": "2026-10-23",
+  "note": "'none' measured after the platform-homepage rule (a shared platform's own bare homepage keeps its Tranco rank); 'network' measured before it (only those homepages differ)"
+}

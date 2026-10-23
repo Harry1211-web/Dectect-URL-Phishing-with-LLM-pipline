@@ -2,936 +2,961 @@
   "candidates": {
     "cnn_bilstm": {
       "model": "cnn_bilstm",
-      "time": "2026-10-16T03:50:20.745058+00:00",
+      "time": "2026-10-23T00:19:46.672774+00:00",
       "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.05550541356205941,
+      "threshold": 0.05960550159215928,
       "val": {
-        "phishing": 38761,
-        "phishing_missed": 428,
-        "miss_rate": 0.01104,
+        "phishing": 38386,
+        "phishing_missed": 427,
+        "miss_rate": 0.01112,
         "clean": 40598,
         "clean_recognized": 0.49998,
-        "threshold": 0.05550541356205941,
-        "roc_auc": 0.96971,
-        "pr_auc": 0.97456
+        "threshold": 0.05960550159215928,
+        "roc_auc": 0.97046,
+        "pr_auc": 0.97511
       },
       "training": {
         "a": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.9606,
-              "seconds": 52
+              "val_auc": 0.96041,
+              "seconds": 50
             },
             {
               "epoch": 2,
-              "val_auc": 0.96565,
+              "val_auc": 0.96641,
               "seconds": 45
             },
             {
               "epoch": 3,
-              "val_auc": 0.96748,
+              "val_auc": 0.96888,
               "seconds": 45
             },
             {
               "epoch": 4,
-              "val_auc": 0.96916,
-              "seconds": 46
+              "val_auc": 0.96986,
+              "seconds": 45
             },
             {
               "epoch": 5,
-              "val_auc": 0.9685,
-              "seconds": 49
+              "val_auc": 0.96938,
+              "seconds": 45
             },
             {
               "epoch": 6,
-              "val_auc": 0.96936,
-              "seconds": 50
+              "val_auc": 0.96929,
+              "seconds": 45
             },
             {
               "epoch": 7,
-              "val_auc": 0.96847,
-              "seconds": 50
-            },
-            {
-              "epoch": 8,
-              "val_auc": 0.96903,
-              "seconds": 50
-            },
-            {
-              "epoch": 9,
-              "val_auc": 0.96856,
-              "seconds": 46
+              "val_auc": 0.96932,
+              "seconds": 45
             }
           ],
-          "seconds": 435
+          "seconds": 321
         },
         "b": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.95003,
-              "seconds": 22
+              "val_auc": 0.95177,
+              "seconds": 21
             },
             {
               "epoch": 2,
-              "val_auc": 0.9573,
-              "seconds": 22
+              "val_auc": 0.95912,
+              "seconds": 21
             },
             {
               "epoch": 3,
-              "val_auc": 0.96013,
-              "seconds": 22
+              "val_auc": 0.96173,
+              "seconds": 21
             },
             {
               "epoch": 4,
-              "val_auc": 0.96328,
-              "seconds": 22
+              "val_auc": 0.9624,
+              "seconds": 21
             },
             {
               "epoch": 5,
-              "val_auc": 0.96232,
-              "seconds": 22
+              "val_auc": 0.96404,
+              "seconds": 21
             },
             {
               "epoch": 6,
-              "val_auc": 0.96215,
-              "seconds": 22
+              "val_auc": 0.96414,
+              "seconds": 21
             },
             {
               "epoch": 7,
-              "val_auc": 0.96306,
-              "seconds": 22
+              "val_auc": 0.96463,
+              "seconds": 21
+            },
+            {
+              "epoch": 8,
+              "val_auc": 0.96416,
+              "seconds": 21
+            },
+            {
+              "epoch": 9,
+              "val_auc": 0.96388,
+              "seconds": 21
+            },
+            {
+              "epoch": 10,
+              "val_auc": 0.96441,
+              "seconds": 21
             }
           ],
-          "seconds": 155
+          "seconds": 213
         }
       },
-      "seconds": 661,
+      "seconds": 596,
       "parameters": 182593,
       "test": {
-        "roc_auc": 0.97109,
-        "pr_auc": 0.97489,
+        "roc_auc": 0.9718,
+        "pr_auc": 0.97531,
         "alone": {
-          "phishing": 39266,
-          "phishing_missed": 414,
-          "miss_rate": 0.01054,
-          "clean": 42367,
-          "clean_recognized": 0.51292,
+          "phishing": 38800,
+          "phishing_missed": 400,
+          "miss_rate": 0.01031,
+          "clean": 42425,
+          "clean_recognized": 0.51215,
           "verified_phishing": 5549,
           "verified_missed": 80,
           "verified_miss_rate": 0.01442
         },
         "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 413,
-          "miss_rate": 0.01052,
-          "clean": 42367,
-          "clean_recognized": 0.51127,
+          "phishing": 38800,
+          "phishing_missed": 396,
+          "miss_rate": 0.01021,
+          "clean": 42425,
+          "clean_recognized": 0.51041,
           "verified_phishing": 5549,
           "verified_missed": 80,
           "verified_miss_rate": 0.01442
         }
       },
       "phreshphish": {
-        "roc_auc": 0.9502,
-        "pr_auc": 0.95252,
+        "roc_auc": 0.94957,
+        "pr_auc": 0.95082,
         "alone": {
-          "phishing": 10000,
-          "phishing_missed": 257,
-          "miss_rate": 0.0257,
-          "clean": 10000,
-          "clean_recognized": 0.6602
+          "phishing": 9991,
+          "phishing_missed": 270,
+          "miss_rate": 0.02702,
+          "clean": 10003,
+          "clean_recognized": 0.6608
         },
         "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 239,
-          "miss_rate": 0.0239,
-          "clean": 10000,
-          "clean_recognized": 0.6582
+          "phishing": 9991,
+          "phishing_missed": 238,
+          "miss_rate": 0.02382,
+          "clean": 10003,
+          "clean_recognized": 0.6591
         }
       },
       "vi": {
-        "roc_auc": 0.96937,
-        "pr_auc": 0.98419,
+        "roc_auc": 0.96419,
+        "pr_auc": 0.98026,
         "alone": {
-          "phishing": 2710,
-          "phishing_missed": 553,
-          "miss_rate": 0.20406,
-          "clean": 1580,
-          "clean_recognized": 0.98797
+          "phishing": 2681,
+          "phishing_missed": 855,
+          "miss_rate": 0.31891,
+          "clean": 1584,
+          "clean_recognized": 0.98737
         },
         "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 538,
-          "miss_rate": 0.19852,
-          "clean": 1580,
-          "clean_recognized": 0.98608
+          "phishing": 2681,
+          "phishing_missed": 841,
+          "miss_rate": 0.31369,
+          "clean": 1584,
+          "clean_recognized": 0.98611
         }
       }
     },
     "char_cnn": {
       "model": "char_cnn",
-      "time": "2026-10-16T03:57:24.269595+00:00",
+      "time": "2026-10-23T00:26:25.670365+00:00",
       "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.08507888019084932,
+      "threshold": 0.06546080112457277,
       "val": {
-        "phishing": 38761,
-        "phishing_missed": 478,
-        "miss_rate": 0.01233,
+        "phishing": 38386,
+        "phishing_missed": 461,
+        "miss_rate": 0.01201,
         "clean": 40598,
         "clean_recognized": 0.49998,
-        "threshold": 0.08507888019084932,
-        "roc_auc": 0.96798,
-        "pr_auc": 0.97282
+        "threshold": 0.06546080112457277,
+        "roc_auc": 0.96866,
+        "pr_auc": 0.97302
       },
       "training": {
         "a": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.94803,
-              "seconds": 23
+              "val_auc": 0.94948,
+              "seconds": 21
             },
             {
               "epoch": 2,
-              "val_auc": 0.95754,
-              "seconds": 22
+              "val_auc": 0.95924,
+              "seconds": 21
             },
             {
               "epoch": 3,
-              "val_auc": 0.96151,
-              "seconds": 22
+              "val_auc": 0.96238,
+              "seconds": 21
             },
             {
               "epoch": 4,
-              "val_auc": 0.96252,
-              "seconds": 22
+              "val_auc": 0.96393,
+              "seconds": 21
             },
             {
               "epoch": 5,
-              "val_auc": 0.96381,
-              "seconds": 22
+              "val_auc": 0.9655,
+              "seconds": 21
             },
             {
               "epoch": 6,
-              "val_auc": 0.96519,
-              "seconds": 22
+              "val_auc": 0.96619,
+              "seconds": 21
             },
             {
               "epoch": 7,
-              "val_auc": 0.96587,
-              "seconds": 22
+              "val_auc": 0.96648,
+              "seconds": 21
             },
             {
               "epoch": 8,
-              "val_auc": 0.96649,
-              "seconds": 22
+              "val_auc": 0.96705,
+              "seconds": 21
             },
             {
               "epoch": 9,
-              "val_auc": 0.9665,
-              "seconds": 22
+              "val_auc": 0.96753,
+              "seconds": 21
             },
             {
               "epoch": 10,
-              "val_auc": 0.96676,
-              "seconds": 22
+              "val_auc": 0.96838,
+              "seconds": 21
             },
             {
               "epoch": 11,
-              "val_auc": 0.96711,
-              "seconds": 22
+              "val_auc": 0.96809,
+              "seconds": 21
             },
             {
               "epoch": 12,
-              "val_auc": 0.96744,
-              "seconds": 22
+              "val_auc": 0.96809,
+              "seconds": 21
             }
           ],
-          "seconds": 265
+          "seconds": 253
         },
         "b": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.93398,
+              "val_auc": 0.9355,
               "seconds": 10
             },
             {
               "epoch": 2,
-              "val_auc": 0.94491,
+              "val_auc": 0.94821,
               "seconds": 10
             },
             {
               "epoch": 3,
-              "val_auc": 0.95233,
+              "val_auc": 0.95502,
               "seconds": 10
             },
             {
               "epoch": 4,
-              "val_auc": 0.95524,
+              "val_auc": 0.95663,
               "seconds": 10
             },
             {
               "epoch": 5,
-              "val_auc": 0.95805,
+              "val_auc": 0.95792,
               "seconds": 10
             },
             {
               "epoch": 6,
-              "val_auc": 0.95856,
+              "val_auc": 0.95966,
               "seconds": 10
             },
             {
               "epoch": 7,
-              "val_auc": 0.95977,
+              "val_auc": 0.96056,
               "seconds": 10
             },
             {
               "epoch": 8,
-              "val_auc": 0.96048,
+              "val_auc": 0.96097,
               "seconds": 10
             },
             {
               "epoch": 9,
-              "val_auc": 0.96014,
+              "val_auc": 0.96117,
               "seconds": 10
             },
             {
               "epoch": 10,
-              "val_auc": 0.96119,
+              "val_auc": 0.96202,
               "seconds": 10
             },
             {
               "epoch": 11,
-              "val_auc": 0.96136,
+              "val_auc": 0.96246,
               "seconds": 10
             },
             {
               "epoch": 12,
-              "val_auc": 0.96113,
+              "val_auc": 0.96197,
               "seconds": 10
             }
           ],
-          "seconds": 125
+          "seconds": 119
         }
       },
-      "seconds": 423,
+      "seconds": 399,
       "parameters": 102017,
       "test": {
-        "roc_auc": 0.96917,
-        "pr_auc": 0.97276,
+        "roc_auc": 0.97031,
+        "pr_auc": 0.97342,
         "alone": {
-          "phishing": 39266,
-          "phishing_missed": 440,
-          "miss_rate": 0.01121,
-          "clean": 42367,
-          "clean_recognized": 0.51146,
+          "phishing": 38800,
+          "phishing_missed": 414,
+          "miss_rate": 0.01067,
+          "clean": 42425,
+          "clean_recognized": 0.50942,
           "verified_phishing": 5549,
-          "verified_missed": 76,
-          "verified_miss_rate": 0.0137
+          "verified_missed": 61,
+          "verified_miss_rate": 0.01099
         },
         "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 439,
-          "miss_rate": 0.01118,
-          "clean": 42367,
-          "clean_recognized": 0.50981,
+          "phishing": 38800,
+          "phishing_missed": 414,
+          "miss_rate": 0.01067,
+          "clean": 42425,
+          "clean_recognized": 0.50767,
           "verified_phishing": 5549,
-          "verified_missed": 76,
-          "verified_miss_rate": 0.0137
+          "verified_missed": 61,
+          "verified_miss_rate": 0.01099
         }
       },
       "phreshphish": {
-        "roc_auc": 0.9489,
-        "pr_auc": 0.94601,
+        "roc_auc": 0.9468,
+        "pr_auc": 0.94314,
         "alone": {
-          "phishing": 10000,
-          "phishing_missed": 224,
-          "miss_rate": 0.0224,
-          "clean": 10000,
-          "clean_recognized": 0.6469
+          "phishing": 9991,
+          "phishing_missed": 204,
+          "miss_rate": 0.02042,
+          "clean": 10003,
+          "clean_recognized": 0.62901
         },
         "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 205,
-          "miss_rate": 0.0205,
-          "clean": 10000,
-          "clean_recognized": 0.6452
+          "phishing": 9991,
+          "phishing_missed": 186,
+          "miss_rate": 0.01862,
+          "clean": 10003,
+          "clean_recognized": 0.62761
         }
       },
       "vi": {
-        "roc_auc": 0.97222,
-        "pr_auc": 0.98538,
+        "roc_auc": 0.97012,
+        "pr_auc": 0.98446,
         "alone": {
-          "phishing": 2710,
-          "phishing_missed": 570,
-          "miss_rate": 0.21033,
-          "clean": 1580,
-          "clean_recognized": 0.98861
+          "phishing": 2681,
+          "phishing_missed": 368,
+          "miss_rate": 0.13726,
+          "clean": 1584,
+          "clean_recognized": 0.98169
         },
         "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 547,
-          "miss_rate": 0.20185,
-          "clean": 1580,
-          "clean_recognized": 0.98734
+          "phishing": 2681,
+          "phishing_missed": 350,
+          "miss_rate": 0.13055,
+          "clean": 1584,
+          "clean_recognized": 0.98043
         }
       }
     },
     "bilstm": {
       "model": "bilstm",
-      "time": "2026-10-16T04:16:21.240354+00:00",
+      "time": "2026-10-23T00:48:45.366260+00:00",
       "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.08496268838644029,
+      "threshold": 0.05738186091184617,
       "val": {
-        "phishing": 38761,
-        "phishing_missed": 424,
-        "miss_rate": 0.01094,
+        "phishing": 38386,
+        "phishing_missed": 414,
+        "miss_rate": 0.01079,
         "clean": 40598,
         "clean_recognized": 0.49998,
-        "threshold": 0.08496268838644029,
-        "roc_auc": 0.96833,
-        "pr_auc": 0.97323
+        "threshold": 0.05738186091184617,
+        "roc_auc": 0.97067,
+        "pr_auc": 0.97526
       },
       "training": {
         "a": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.95035,
-              "seconds": 70
+              "val_auc": 0.95244,
+              "seconds": 68
             },
             {
               "epoch": 2,
-              "val_auc": 0.95839,
-              "seconds": 70
+              "val_auc": 0.95923,
+              "seconds": 68
             },
             {
               "epoch": 3,
-              "val_auc": 0.96299,
-              "seconds": 70
+              "val_auc": 0.96458,
+              "seconds": 68
             },
             {
               "epoch": 4,
-              "val_auc": 0.96514,
-              "seconds": 70
+              "val_auc": 0.96662,
+              "seconds": 68
             },
             {
               "epoch": 5,
-              "val_auc": 0.96698,
-              "seconds": 70
+              "val_auc": 0.96763,
+              "seconds": 68
             },
             {
               "epoch": 6,
-              "val_auc": 0.96726,
-              "seconds": 70
+              "val_auc": 0.96891,
+              "seconds": 68
             },
             {
               "epoch": 7,
-              "val_auc": 0.96851,
-              "seconds": 70
+              "val_auc": 0.9688,
+              "seconds": 68
             },
             {
               "epoch": 8,
-              "val_auc": 0.96825,
-              "seconds": 70
+              "val_auc": 0.96903,
+              "seconds": 68
             },
             {
               "epoch": 9,
-              "val_auc": 0.9677,
-              "seconds": 70
+              "val_auc": 0.96952,
+              "seconds": 68
             },
             {
               "epoch": 10,
-              "val_auc": 0.9683,
-              "seconds": 70
+              "val_auc": 0.96911,
+              "seconds": 68
+            },
+            {
+              "epoch": 11,
+              "val_auc": 0.96865,
+              "seconds": 69
+            },
+            {
+              "epoch": 12,
+              "val_auc": 0.96845,
+              "seconds": 69
             }
           ],
-          "seconds": 703
+          "seconds": 820
         },
         "b": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.92921,
+              "val_auc": 0.9272,
               "seconds": 34
             },
             {
               "epoch": 2,
-              "val_auc": 0.94662,
+              "val_auc": 0.94982,
               "seconds": 34
             },
             {
               "epoch": 3,
-              "val_auc": 0.95249,
+              "val_auc": 0.95523,
               "seconds": 34
             },
             {
               "epoch": 4,
-              "val_auc": 0.95744,
+              "val_auc": 0.95911,
               "seconds": 34
             },
             {
               "epoch": 5,
-              "val_auc": 0.95441,
+              "val_auc": 0.95955,
               "seconds": 34
             },
             {
               "epoch": 6,
-              "val_auc": 0.96085,
+              "val_auc": 0.96157,
               "seconds": 34
             },
             {
               "epoch": 7,
-              "val_auc": 0.96049,
+              "val_auc": 0.96234,
               "seconds": 34
             },
             {
               "epoch": 8,
-              "val_auc": 0.96051,
+              "val_auc": 0.96354,
               "seconds": 34
             },
             {
               "epoch": 9,
-              "val_auc": 0.96004,
-              "seconds": 35
+              "val_auc": 0.96258,
+              "seconds": 34
+            },
+            {
+              "epoch": 10,
+              "val_auc": 0.96365,
+              "seconds": 34
+            },
+            {
+              "epoch": 11,
+              "val_auc": 0.96264,
+              "seconds": 34
+            },
+            {
+              "epoch": 12,
+              "val_auc": 0.96184,
+              "seconds": 34
             }
           ],
-          "seconds": 310
+          "seconds": 406
         }
       },
-      "seconds": 1137,
+      "seconds": 1340,
       "parameters": 169473,
       "test": {
-        "roc_auc": 0.96952,
-        "pr_auc": 0.9731,
+        "roc_auc": 0.97193,
+        "pr_auc": 0.97537,
         "alone": {
-          "phishing": 39266,
-          "phishing_missed": 426,
-          "miss_rate": 0.01085,
-          "clean": 42367,
-          "clean_recognized": 0.50764,
+          "phishing": 38800,
+          "phishing_missed": 404,
+          "miss_rate": 0.01041,
+          "clean": 42425,
+          "clean_recognized": 0.51335,
           "verified_phishing": 5549,
-          "verified_missed": 68,
-          "verified_miss_rate": 0.01225
+          "verified_missed": 76,
+          "verified_miss_rate": 0.0137
         },
         "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 423,
-          "miss_rate": 0.01077,
-          "clean": 42367,
-          "clean_recognized": 0.50617,
+          "phishing": 38800,
+          "phishing_missed": 398,
+          "miss_rate": 0.01026,
+          "clean": 42425,
+          "clean_recognized": 0.51166,
           "verified_phishing": 5549,
-          "verified_missed": 68,
-          "verified_miss_rate": 0.01225
+          "verified_missed": 76,
+          "verified_miss_rate": 0.0137
         }
       },
       "phreshphish": {
-        "roc_auc": 0.94677,
-        "pr_auc": 0.94652,
+        "roc_auc": 0.95159,
+        "pr_auc": 0.9506,
         "alone": {
-          "phishing": 10000,
-          "phishing_missed": 268,
-          "miss_rate": 0.0268,
-          "clean": 10000,
-          "clean_recognized": 0.6261
+          "phishing": 9991,
+          "phishing_missed": 250,
+          "miss_rate": 0.02502,
+          "clean": 10003,
+          "clean_recognized": 0.6742
         },
         "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 225,
-          "miss_rate": 0.0225,
-          "clean": 10000,
-          "clean_recognized": 0.6247
+          "phishing": 9991,
+          "phishing_missed": 220,
+          "miss_rate": 0.02202,
+          "clean": 10003,
+          "clean_recognized": 0.6725
         }
       },
       "vi": {
-        "roc_auc": 0.95782,
-        "pr_auc": 0.97617,
+        "roc_auc": 0.9676,
+        "pr_auc": 0.98197,
         "alone": {
-          "phishing": 2710,
-          "phishing_missed": 650,
-          "miss_rate": 0.23985,
-          "clean": 1580,
-          "clean_recognized": 0.97532
+          "phishing": 2681,
+          "phishing_missed": 723,
+          "miss_rate": 0.26968,
+          "clean": 1584,
+          "clean_recognized": 0.98611
         },
         "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 634,
-          "miss_rate": 0.23395,
-          "clean": 1580,
-          "clean_recognized": 0.97405
+          "phishing": 2681,
+          "phishing_missed": 703,
+          "miss_rate": 0.26222,
+          "clean": 1584,
+          "clean_recognized": 0.98485
         }
       }
     },
     "urlnet": {
       "model": "urlnet",
-      "time": "2026-10-16T04:22:53.185862+00:00",
+      "time": "2026-10-23T00:54:31.407370+00:00",
       "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.11432957649230958,
+      "threshold": 0.10935701429843904,
       "val": {
-        "phishing": 38761,
-        "phishing_missed": 667,
-        "miss_rate": 0.01721,
+        "phishing": 38386,
+        "phishing_missed": 594,
+        "miss_rate": 0.01547,
         "clean": 40598,
         "clean_recognized": 0.49998,
-        "threshold": 0.11432957649230958,
-        "roc_auc": 0.96046,
-        "pr_auc": 0.96674
+        "threshold": 0.10935701429843904,
+        "roc_auc": 0.96295,
+        "pr_auc": 0.96832
       },
       "training": {
         "a": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.95141,
-              "seconds": 35
+              "val_auc": 0.95322,
+              "seconds": 34
             },
             {
               "epoch": 2,
-              "val_auc": 0.95934,
-              "seconds": 35
+              "val_auc": 0.95979,
+              "seconds": 34
             },
             {
               "epoch": 3,
-              "val_auc": 0.96022,
-              "seconds": 35
+              "val_auc": 0.96222,
+              "seconds": 34
             },
             {
               "epoch": 4,
-              "val_auc": 0.95749,
-              "seconds": 35
+              "val_auc": 0.96072,
+              "seconds": 34
             },
             {
               "epoch": 5,
-              "val_auc": 0.95705,
-              "seconds": 35
+              "val_auc": 0.95773,
+              "seconds": 34
             },
             {
               "epoch": 6,
-              "val_auc": 0.95383,
-              "seconds": 35
+              "val_auc": 0.95456,
+              "seconds": 34
             }
           ],
-          "seconds": 215
+          "seconds": 205
         },
         "b": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.93687,
-              "seconds": 17
+              "val_auc": 0.94,
+              "seconds": 16
             },
             {
               "epoch": 2,
-              "val_auc": 0.94757,
+              "val_auc": 0.94991,
               "seconds": 16
             },
             {
               "epoch": 3,
-              "val_auc": 0.94999,
+              "val_auc": 0.95385,
               "seconds": 16
             },
             {
               "epoch": 4,
-              "val_auc": 0.95074,
+              "val_auc": 0.95338,
               "seconds": 16
             },
             {
               "epoch": 5,
-              "val_auc": 0.9491,
+              "val_auc": 0.95106,
               "seconds": 16
             },
             {
               "epoch": 6,
-              "val_auc": 0.94625,
-              "seconds": 16
-            },
-            {
-              "epoch": 7,
-              "val_auc": 0.94428,
+              "val_auc": 0.94993,
               "seconds": 16
             }
           ],
-          "seconds": 117
+          "seconds": 97
         }
       },
-      "seconds": 392,
+      "seconds": 346,
       "parameters": 3548417,
       "test": {
-        "roc_auc": 0.96192,
-        "pr_auc": 0.96694,
+        "roc_auc": 0.96426,
+        "pr_auc": 0.96836,
         "alone": {
-          "phishing": 39266,
-          "phishing_missed": 648,
-          "miss_rate": 0.0165,
-          "clean": 42367,
-          "clean_recognized": 0.50884,
+          "phishing": 38800,
+          "phishing_missed": 574,
+          "miss_rate": 0.01479,
+          "clean": 42425,
+          "clean_recognized": 0.51017,
           "verified_phishing": 5549,
-          "verified_missed": 85,
-          "verified_miss_rate": 0.01532
+          "verified_missed": 77,
+          "verified_miss_rate": 0.01388
         },
         "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 648,
-          "miss_rate": 0.0165,
-          "clean": 42367,
-          "clean_recognized": 0.50742,
+          "phishing": 38800,
+          "phishing_missed": 573,
+          "miss_rate": 0.01477,
+          "clean": 42425,
+          "clean_recognized": 0.50873,
           "verified_phishing": 5549,
-          "verified_missed": 85,
-          "verified_miss_rate": 0.01532
+          "verified_missed": 76,
+          "verified_miss_rate": 0.0137
         }
       },
       "phreshphish": {
-        "roc_auc": 0.94251,
-        "pr_auc": 0.94272,
+        "roc_auc": 0.94413,
+        "pr_auc": 0.9425,
         "alone": {
-          "phishing": 10000,
-          "phishing_missed": 236,
-          "miss_rate": 0.0236,
-          "clean": 10000,
-          "clean_recognized": 0.584
+          "phishing": 9991,
+          "phishing_missed": 228,
+          "miss_rate": 0.02282,
+          "clean": 10003,
+          "clean_recognized": 0.59562
         },
         "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 211,
-          "miss_rate": 0.0211,
-          "clean": 10000,
-          "clean_recognized": 0.5828
+          "phishing": 9991,
+          "phishing_missed": 204,
+          "miss_rate": 0.02042,
+          "clean": 10003,
+          "clean_recognized": 0.59452
         }
       },
       "vi": {
-        "roc_auc": 0.9616,
-        "pr_auc": 0.98097,
+        "roc_auc": 0.95835,
+        "pr_auc": 0.97924,
         "alone": {
-          "phishing": 2710,
-          "phishing_missed": 419,
-          "miss_rate": 0.15461,
-          "clean": 1580,
-          "clean_recognized": 0.97532
+          "phishing": 2681,
+          "phishing_missed": 366,
+          "miss_rate": 0.13652,
+          "clean": 1584,
+          "clean_recognized": 0.96654
         },
         "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 398,
-          "miss_rate": 0.14686,
-          "clean": 1580,
-          "clean_recognized": 0.97405
+          "phishing": 2681,
+          "phishing_missed": 351,
+          "miss_rate": 0.13092,
+          "clean": 1584,
+          "clean_recognized": 0.96528
         }
       }
     },
     "transformer": {
       "model": "transformer",
-      "time": "2026-10-16T04:58:22.206142+00:00",
+      "time": "2026-10-23T01:29:34.661590+00:00",
       "rule": "threshold = lowest score recognising >= 50% of val clean",
-      "threshold": 0.13202559947967532,
+      "threshold": 0.12675173580646518,
       "val": {
-        "phishing": 38761,
-        "phishing_missed": 1128,
-        "miss_rate": 0.0291,
+        "phishing": 38386,
+        "phishing_missed": 1095,
+        "miss_rate": 0.02853,
         "clean": 40598,
         "clean_recognized": 0.49998,
-        "threshold": 0.13202559947967532,
-        "roc_auc": 0.94324,
-        "pr_auc": 0.95162
+        "threshold": 0.12675173580646518,
+        "roc_auc": 0.94482,
+        "pr_auc": 0.95254
       },
       "training": {
         "a": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.90602,
-              "seconds": 122
+              "val_auc": 0.90896,
+              "seconds": 121
             },
             {
               "epoch": 2,
-              "val_auc": 0.92102,
-              "seconds": 122
+              "val_auc": 0.92126,
+              "seconds": 121
             },
             {
               "epoch": 3,
-              "val_auc": 0.92601,
-              "seconds": 122
+              "val_auc": 0.92847,
+              "seconds": 121
             },
             {
               "epoch": 4,
-              "val_auc": 0.93127,
-              "seconds": 122
+              "val_auc": 0.93191,
+              "seconds": 121
             },
             {
               "epoch": 5,
-              "val_auc": 0.93346,
-              "seconds": 122
+              "val_auc": 0.9358,
+              "seconds": 121
             },
             {
               "epoch": 6,
-              "val_auc": 0.93668,
-              "seconds": 122
+              "val_auc": 0.9371,
+              "seconds": 121
             },
             {
               "epoch": 7,
-              "val_auc": 0.93874,
-              "seconds": 122
+              "val_auc": 0.93965,
+              "seconds": 121
             },
             {
               "epoch": 8,
-              "val_auc": 0.94005,
-              "seconds": 122
+              "val_auc": 0.94044,
+              "seconds": 121
             },
             {
               "epoch": 9,
-              "val_auc": 0.94033,
-              "seconds": 122
+              "val_auc": 0.94211,
+              "seconds": 121
             },
             {
               "epoch": 10,
-              "val_auc": 0.94102,
-              "seconds": 122
+              "val_auc": 0.94363,
+              "seconds": 121
             },
             {
               "epoch": 11,
-              "val_auc": 0.94242,
-              "seconds": 122
+              "val_auc": 0.94393,
+              "seconds": 121
             },
             {
               "epoch": 12,
-              "val_auc": 0.94374,
-              "seconds": 122
+              "val_auc": 0.94553,
+              "seconds": 121
             }
           ],
-          "seconds": 1467
+          "seconds": 1450
         },
         "b": {
           "epochs": [
             {
               "epoch": 1,
-              "val_auc": 0.87535,
-              "seconds": 53
+              "val_auc": 0.87617,
+              "seconds": 52
             },
             {
               "epoch": 2,
-              "val_auc": 0.90304,
-              "seconds": 53
+              "val_auc": 0.90285,
+              "seconds": 52
             },
             {
               "epoch": 3,
-              "val_auc": 0.91062,
-              "seconds": 53
+              "val_auc": 0.91118,
+              "seconds": 52
             },
             {
               "epoch": 4,
-              "val_auc": 0.91646,
-              "seconds": 53
+              "val_auc": 0.91695,
+              "seconds": 52
             },
             {
               "epoch": 5,
-              "val_auc": 0.91989,
-              "seconds": 53
+              "val_auc": 0.92142,
+              "seconds": 52
             },
             {
               "epoch": 6,
-              "val_auc": 0.92298,
-              "seconds": 53
+              "val_auc": 0.92438,
+              "seconds": 52
             },
             {
               "epoch": 7,
-              "val_auc": 0.92641,
-              "seconds": 53
+              "val_auc": 0.92705,
+              "seconds": 52
             },
             {
               "epoch": 8,
-              "val_auc": 0.9293,
-              "seconds": 53
+              "val_auc": 0.93043,
+              "seconds": 52
             },
             {
               "epoch": 9,
-              "val_auc": 0.9277,
-              "seconds": 53
+              "val_auc": 0.93228,
+              "seconds": 52
             },
             {
               "epoch": 10,
-              "val_auc": 0.93132,
+              "val_auc": 0.93375,
               "seconds": 52
             },
             {
               "epoch": 11,
-              "val_auc": 0.93331,
+              "val_auc": 0.93393,
               "seconds": 52
             },
             {
               "epoch": 12,
-              "val_auc": 0.93377,
+              "val_auc": 0.93563,
               "seconds": 52
             }
           ],
-          "seconds": 636
+          "seconds": 628
         }
       },
-      "seconds": 2129,
+      "seconds": 2103,
       "parameters": 85953,
       "test": {
-        "roc_auc": 0.94461,
-        "pr_auc": 0.95207,
+        "roc_auc": 0.94617,
+        "pr_auc": 0.95303,
         "alone": {
-          "phishing": 39266,
-          "phishing_missed": 1174,
-          "miss_rate": 0.0299,
-          "clean": 42367,
-          "clean_recognized": 0.50872,
+          "phishing": 38800,
+          "phishing_missed": 1147,
+          "miss_rate": 0.02956,
+          "clean": 42425,
+          "clean_recognized": 0.50854,
           "verified_phishing": 5549,
-          "verified_missed": 122,
-          "verified_miss_rate": 0.02199
+          "verified_missed": 129,
+          "verified_miss_rate": 0.02325
         },
         "with_B": {
-          "phishing": 39266,
-          "phishing_missed": 1152,
-          "miss_rate": 0.02934,
-          "clean": 42367,
-          "clean_recognized": 0.50728,
+          "phishing": 38800,
+          "phishing_missed": 1124,
+          "miss_rate": 0.02897,
+          "clean": 42425,
+          "clean_recognized": 0.50694,
           "verified_phishing": 5549,
-          "verified_missed": 120,
-          "verified_miss_rate": 0.02163
+          "verified_missed": 127,
+          "verified_miss_rate": 0.02289
         }
       },
       "phreshphish": {
-        "roc_auc": 0.90702,
-        "pr_auc": 0.89767,
+        "roc_auc": 0.91221,
+        "pr_auc": 0.90323,
         "alone": {
-          "phishing": 10000,
-          "phishing_missed": 352,
-          "miss_rate": 0.0352,
-          "clean": 10000,
-          "clean_recognized": 0.5857
+          "phishing": 9991,
+          "phishing_missed": 334,
+          "miss_rate": 0.03343,
+          "clean": 10003,
+          "clean_recognized": 0.59852
         },
         "with_B": {
-          "phishing": 10000,
-          "phishing_missed": 299,
-          "miss_rate": 0.0299,
-          "clean": 10000,
-          "clean_recognized": 0.5838
+          "phishing": 9991,
+          "phishing_missed": 283,
+          "miss_rate": 0.02833,
+          "clean": 10003,
+          "clean_recognized": 0.59682
         }
       },
       "vi": {
-        "roc_auc": 0.8102,
-        "pr_auc": 0.85134,
+        "roc_auc": 0.79876,
+        "pr_auc": 0.84091,
         "alone": {
-          "phishing": 2710,
-          "phishing_missed": 1036,
-          "miss_rate": 0.38229,
-          "clean": 1580,
-          "clean_recognized": 0.81203
+          "phishing": 2681,
+          "phishing_missed": 880,
+          "miss_rate": 0.32824,
+          "clean": 1584,
+          "clean_recognized": 0.77652
         },
         "with_B": {
-          "phishing": 2710,
-          "phishing_missed": 1024,
-          "miss_rate": 0.37786,
-          "clean": 1580,
-          "clean_recognized": 0.81013
+          "phishing": 2681,
+          "phishing_missed": 863,
+          "miss_rate": 0.32189,
+          "clean": 1584,
+          "clean_recognized": 0.77525
         }
       }
     }
   },
-  "time": "2026-10-16T04:58:22.271906+00:00",
+  "time": "2026-10-23T01:29:34.723500+00:00",
   "rule": "threshold = lowest score recognising >= 50% of val clean; ties: val PR-AUC",
   "winner": "bilstm",
   "epochs_max": 12,

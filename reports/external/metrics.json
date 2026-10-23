@@ -3,157 +3,117 @@
   "collected_since": "2025-07-01",
   "max_urls_per_host": 3,
   "host_branch_used": {
-    "clean": 9926,
-    "phishing": 6338
+    "clean": 10003,
+    "phishing": 9991
   },
   "host_lookup_failed": {
     "clean": 0,
-    "phishing": 2
+    "phishing": 0
   },
   "all": {
-    "n_phishing": 10000,
-    "n_clean": 10000,
+    "n_phishing": 9991,
+    "n_clean": 10003,
     "layers_alone": {
       "A": {
-        "phishing_flagged": 34,
-        "phishing_flag_rate": 0.0034,
-        "clean_flagged": 6,
-        "clean_flag_rate": 0.0006
+        "phishing_flagged": 35,
+        "phishing_flag_rate": 0.0035,
+        "clean_flagged": 2,
+        "clean_flag_rate": 0.0002
       },
       "B": {
-        "phishing_flagged": 1434,
-        "phishing_flag_rate": 0.1434,
-        "clean_flagged": 56,
-        "clean_flag_rate": 0.0056
+        "phishing_flagged": 1401,
+        "phishing_flag_rate": 0.1402,
+        "clean_flagged": 37,
+        "clean_flag_rate": 0.0037
       },
       "C": {
-        "phishing_flagged": 9943,
-        "phishing_flag_rate": 0.9943,
-        "clean_flagged": 5726,
-        "clean_flag_rate": 0.5726
+        "phishing_flagged": 9944,
+        "phishing_flag_rate": 0.9953,
+        "clean_flagged": 5577,
+        "clean_flag_rate": 0.5575
       }
     },
     "A+B+C": {
-      "phishing_blocked_by_A": 34,
-      "phishing_sent_to_llm": 9917,
-      "phishing_labelled_clean": 49,
-      "phishing_miss_rate": 0.0049,
-      "clean_blocked_by_A": 6,
-      "clean_recognized_rate": 0.4248,
-      "clean_sent_to_llm_rate": 0.5746
+      "phishing_blocked_by_A": 35,
+      "phishing_sent_to_llm": 9913,
+      "phishing_labelled_clean": 43,
+      "phishing_miss_rate": 0.0043,
+      "clean_blocked_by_A": 2,
+      "clean_recognized_rate": 0.4411,
+      "clean_sent_to_llm_rate": 0.5587
     },
     "B+C (without A)": {
       "phishing_blocked_by_A": 0,
-      "phishing_sent_to_llm": 9951,
-      "phishing_labelled_clean": 49,
-      "phishing_miss_rate": 0.0049,
+      "phishing_sent_to_llm": 9948,
+      "phishing_labelled_clean": 43,
+      "phishing_miss_rate": 0.0043,
       "clean_blocked_by_A": 0,
-      "clean_recognized_rate": 0.4251,
-      "clean_sent_to_llm_rate": 0.5749
+      "clean_recognized_rate": 0.4412,
+      "clean_sent_to_llm_rate": 0.5588
     }
   },
   "unseen_domains": {
-    "n_phishing": 5367,
-    "n_clean": 7315,
+    "n_phishing": 5359,
+    "n_clean": 7317,
     "layers_alone": {
       "A": {
-        "phishing_flagged": 2,
-        "phishing_flag_rate": 0.0004,
-        "clean_flagged": 2,
-        "clean_flag_rate": 0.0003
+        "phishing_flagged": 0,
+        "phishing_flag_rate": 0.0,
+        "clean_flagged": 0,
+        "clean_flag_rate": 0.0
       },
       "B": {
-        "phishing_flagged": 303,
-        "phishing_flag_rate": 0.0565,
-        "clean_flagged": 38,
-        "clean_flag_rate": 0.0052
+        "phishing_flagged": 275,
+        "phishing_flag_rate": 0.0513,
+        "clean_flagged": 28,
+        "clean_flag_rate": 0.0038
       },
       "C": {
-        "phishing_flagged": 5319,
-        "phishing_flag_rate": 0.9911,
-        "clean_flagged": 4484,
-        "clean_flag_rate": 0.613
+        "phishing_flagged": 5318,
+        "phishing_flag_rate": 0.9923,
+        "clean_flagged": 4351,
+        "clean_flag_rate": 0.5946
       }
     },
     "A+B+C": {
-      "phishing_blocked_by_A": 2,
-      "phishing_sent_to_llm": 5323,
-      "phishing_labelled_clean": 42,
-      "phishing_miss_rate": 0.00783,
-      "clean_blocked_by_A": 2,
-      "clean_recognized_rate": 0.385,
-      "clean_sent_to_llm_rate": 0.6148
+      "phishing_blocked_by_A": 0,
+      "phishing_sent_to_llm": 5321,
+      "phishing_labelled_clean": 38,
+      "phishing_miss_rate": 0.00709,
+      "clean_blocked_by_A": 0,
+      "clean_recognized_rate": 0.404,
+      "clean_sent_to_llm_rate": 0.596
     },
     "B+C (without A)": {
       "phishing_blocked_by_A": 0,
-      "phishing_sent_to_llm": 5325,
-      "phishing_labelled_clean": 42,
-      "phishing_miss_rate": 0.00783,
+      "phishing_sent_to_llm": 5321,
+      "phishing_labelled_clean": 38,
+      "phishing_miss_rate": 0.00709,
       "clean_blocked_by_A": 0,
-      "clean_recognized_rate": 0.3851,
-      "clean_sent_to_llm_rate": 0.6149
+      "clean_recognized_rate": 0.404,
+      "clean_sent_to_llm_rate": 0.596
     }
   },
   "missed_phishing": [
     {
-      "url": "https://www.coxandcox.co.uk/home-furnishings",
-      "target": "cox",
-      "date": "2025-10-28",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_ranked_path",
-      "score": 0.00012468962813727558,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.mixcloud.com/genres/arlo-customer-service-chat/",
-      "target": "arlo",
-      "date": "2025-09-10",
+      "url": "https://expert.com.ua/206683-facebook-dozvolyae-shi-perehlyadaty-sche-ne-zavantazheni-foto.html",
+      "target": "facebook",
+      "date": "2025-10-19",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_top10k_path",
-      "score": 0.00014795649622101337,
-      "thr": 0.0031041749753057957
+      "segment": "host_ranked_path",
+      "score": 0.00014764870866201818,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://www.video-bookmark.com/bookmark/6051848/how-do-i-setup-my-arlo-camera-%7C-+1-844-789-6667/",
-      "target": "arlo",
-      "date": "2025-09-17",
+      "url": "https://www.zupyak.com/p/4702509/t/can-you-get-your-money-back-on-robinhood-the-truth-you-should-know",
+      "target": "robinhood",
+      "date": "2025-10-10",
       "A": false,
       "unseen_domain": true,
       "segment": "host_top100k_path",
-      "score": 0.00026519084349274635,
-      "thr": 0.0004443830985110253
-    },
-    {
-      "url": "https://www.etradeasia.com/buy-lead-detail-1045746/lock-threaded-rod-stud-power-tool-accessories.html",
-      "target": "etrade",
-      "date": "2025-10-22",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.00033940112916752696,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://howei.com/forum/discussion/news-updates/1-888-255-8018-how-do-i-contact-arlo-customer-service-247-live-support",
-      "target": "arlo",
-      "date": "2025-11-05",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_ranked_path",
-      "score": 0.0003858573909383267,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://afribary.com/works/une-etude-thematique-d-rsquo-une-vie-de-boy-de-ferdinand-oyono-5227/save",
-      "target": "google",
-      "date": "2025-10-21",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0004163120756857097,
-      "thr": 0.0034106061793863773
+      "score": 0.00017189215577673167,
+      "thr": 0.0008481789845973253
     },
     {
       "url": "https://www.sociomix.com/c/humor/how-to-make-calls-on-robinhood-quickly-easily/1761300032",
@@ -162,78 +122,18 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0004549622826743871,
-      "thr": 0.0034106061793863773
+      "score": 0.0001848106476245448,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://www.offroadforen.de/forum/thread/139887-complete-list-of-official-robinhood-toll-free-contact-numbers-in-the-usa-detaile/",
-      "target": "robinhood",
-      "date": "2025-09-10",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0004750016378238797,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.viking.de/de/",
-      "target": "skullcandy",
-      "date": "2025-10-07",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0005457271472550929,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://bids.monocounty.ca.gov/can-i-talk-people-robinhood-immediatelyget-support-now-0",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_top10k_path",
-      "score": 0.0005493215867318213,
-      "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://www.detroitfirefilm.org/article",
-      "target": "sahabet",
+      "url": "https://www.remotehub.com/company/installation-and-setup-ring-security-cameras",
+      "target": "arlo",
       "date": "2025-11-05",
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0006128267268650234,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.offroadforen.de/forum/thread/141104-complete-list-of-robinhood-support-contact-numbers-in-the-usa-the-ultimate-offic/",
-      "target": "robinhood",
-      "date": "2025-09-10",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.000740913616027683,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.sociomix.com/c/humor/how-do-i-contact-robinhood-support-quickly-easily/1761296433",
-      "target": "robinhood",
-      "date": "2025-10-27",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0008120767888613045,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://printerval.com/perrier-bottle-essential-t-shirt-baby-onesies-p1925448106",
-      "target": "perrier",
-      "date": "2025-10-17",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_top10k_path",
-      "score": 0.0008234629640355706,
-      "thr": 0.0031041749753057957
+      "score": 0.00024210424453485757,
+      "thr": 0.006759662181138992
     },
     {
       "url": "https://www.bunity.com/online-arlo-support",
@@ -242,148 +142,18 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0008320314809679985,
-      "thr": 0.0034106061793863773
+      "score": 0.0003501864557620138,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://community.admitone.com/how-to-speak-directly-in-robinhood-supporttips-2025-09-08/77DVVE",
-      "target": "robinhood",
-      "date": "2025-09-09",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0008356709149666131,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.coxandcox.co.uk/seating",
-      "target": "cox",
-      "date": "2025-10-28",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_ranked_path",
-      "score": 0.0008692162809893489,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.buzzfeed.com/robinhoodlive",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_top10k_path",
-      "score": 0.0012064719339832664,
-      "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://community.admitone.com/agent-help-2025-why-is-robinhood-not-letting-me-wi-2025-09-05/B6NGAV",
-      "target": "robinhood",
-      "date": "2025-09-09",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0012410164345055819,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://cert.konfhub.com/What-is-the-fastest-way-to-transfer-money-to-Robinhood",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0013839915627613664,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.chiguu.com/articles/how-to-withdraw-money-from-robinhood-ask-expert",
+      "url": "https://www.zupyak.com/p/4664771/t/can-i-talk-to-people-at-robinhood-full-info",
       "target": "robinhood",
       "date": "2025-10-10",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.001467038062401116,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://bids.monocounty.ca.gov/robinhood-customer-support-helpcentereasyguide-contact-more-info",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_top10k_path",
-      "score": 0.0014756113523617387,
-      "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://community.admitone.com/new-policy-why-wont-robinhood-let-me-send-crypto-2025-09-05/GXZVKP",
-      "target": "robinhood",
-      "date": "2025-09-09",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0015427602920681238,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.imdb.com/list/ls4106834008/",
-      "target": "robinhood",
-      "date": "2025-09-18",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_top10k_path",
-      "score": 0.0015728463185951114,
-      "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://bids.monocounty.ca.gov/how-withdraw-money-robinhoodfaqssupport",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": false,
-      "segment": "host_top10k_path",
-      "score": 0.0016576263587921858,
-      "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://www.apk3.com/app/526656.html",
-      "target": "xapo bank",
-      "date": "2025-10-27",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0017318024765700102,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://clik.social/read-blog/13613?lang=hebrew",
-      "target": "robinhood",
-      "date": "2025-09-17",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0017673411639407277,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.fanfiction.net/topic/184005/179736795/Arlo-Camera-Setup-818-668-3599-Arlo-Setup",
-      "target": "arlo",
-      "date": "2025-10-29",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_top10k_path",
-      "score": 0.0018070440273731947,
-      "thr": 0.0031041749753057957
-    },
-    {
-      "url": "https://juicy.bio/ird-govt-nz",
-      "target": "inlandrevenuenewzealand",
-      "date": "2025-11-05",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.001853745779953897,
-      "thr": 0.0034106061793863773
+      "segment": "host_top100k_path",
+      "score": 0.00036509925848804414,
+      "thr": 0.0008481789845973253
     },
     {
       "url": "https://www.martview-forum.com/dev/index.php?threads/43392/",
@@ -392,78 +162,38 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0018714205361902714,
-      "thr": 0.0034106061793863773
+      "score": 0.00039261794881895185,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://afribary.com/works/brain-controlled-home-automation/save",
-      "target": "google",
-      "date": "2025-10-21",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0018971835961565375,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://bulios.com/ticker/wmt",
-      "target": "walmart",
-      "date": "2025-11-04",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.002021747175604105,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.imdb.com/es/list/ls4106828360/",
+      "url": "https://fairygodboss.com/community-discussion/EXd78udMM/how-do-i-speak-directly",
       "target": "robinhood",
-      "date": "2025-09-18",
+      "date": "2025-09-24",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_top10k_path",
-      "score": 0.0020852815359830856,
-      "thr": 0.0031041749753057957
+      "segment": "host_top100k_path",
+      "score": 0.0004170226748101413,
+      "thr": 0.0008481789845973253
     },
     {
-      "url": "https://bestread.net/product/beauty-through-science/",
-      "target": "qmp",
-      "date": "2025-09-16",
+      "url": "https://www.video-bookmark.com/bookmark/6051848/how-do-i-setup-my-arlo-camera-%7C-+1-844-789-6667/",
+      "target": "arlo",
+      "date": "2025-09-17",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.0021146778017282486,
-      "thr": 0.05438924953341484
+      "segment": "host_top100k_path",
+      "score": 0.0004194031353108585,
+      "thr": 0.0008481789845973253
     },
     {
-      "url": "https://omunicipio.com.br/video-jovem-com-detector-de-metais-encontra-iphone-enterrado-na-praia-em-balneario-camboriu-e-devolve-a-dona/?brid=fcbopbyvwkosuh-wr9jzqg",
-      "target": "terrabrasil",
-      "date": "2025-10-23",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.002219543792307377,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.pelotonia.org/profile/HR1082607",
+      "url": "https://www.martview-forum.com/dev/index.php?threads/43324/#post-121383",
       "target": "robinhood",
-      "date": "2025-11-05",
+      "date": "2025-09-24",
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0022402689792215824,
-      "thr": 0.0034106061793863773
-    },
-    {
-      "url": "https://www.etradeasia.com/buy-lead-detail-1045747/screws.html",
-      "target": "etrade",
-      "date": "2025-10-22",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_ranked_path",
-      "score": 0.0023788728285580873,
-      "thr": 0.0034106061793863773
+      "score": 0.0004345931811258197,
+      "thr": 0.006759662181138992
     },
     {
       "url": "https://www.quora.com/profile/Arlo-Support-6",
@@ -472,88 +202,308 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_top10k_path",
-      "score": 0.0024582527112215757,
-      "thr": 0.0031041749753057957
+      "score": 0.0005255191936157644,
+      "thr": 0.0024776975624263287
     },
     {
-      "url": "https://waze.uservoice.com/forums/59223-waze-suggestion-box/suggestions/50378826-how-to-reach-robinhood-helpline-24-7-emergency-a",
+      "url": "https://www.coxandcox.co.uk/seating",
+      "target": "cox",
+      "date": "2025-10-28",
+      "A": false,
+      "unseen_domain": false,
+      "segment": "host_ranked_path",
+      "score": 0.0005385568947531283,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://fairygodboss.com/community-discussion/XsjA5SrNC/how-do-i-regain-access",
       "target": "robinhood",
-      "date": "2025-09-23",
+      "date": "2025-09-24",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_top10k_path",
-      "score": 0.002542580012232065,
-      "thr": 0.0031041749753057957
+      "segment": "host_top100k_path",
+      "score": 0.0005474231438711286,
+      "thr": 0.0008481789845973253
     },
     {
-      "url": "https://www.neobits.com/Quote/?utm_source=CRMemail&product_id=907343&utm_content=top_banner&utm_campaign=Welcome+to+Neobits!&utm_medium=email",
-      "target": "facebook",
-      "date": "2025-10-09",
+      "url": "https://www.martview-forum.com/dev/index.php?threads/43567/#post-121673",
+      "target": "robinhood",
+      "date": "2025-09-24",
       "A": false,
       "unseen_domain": true,
       "segment": "host_ranked_path",
-      "score": 0.0029628921765834093,
-      "thr": 0.0034106061793863773
+      "score": 0.0005929747130721807,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://bestread.net/product/wall-breast-and-body-contouring-video-library-volume-2/",
-      "target": "qmp",
+      "url": "https://www.mixcloud.com/genres/arlo-customer-service-chat/",
+      "target": "arlo",
+      "date": "2025-09-10",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_top10k_path",
+      "score": 0.0006649543647654355,
+      "thr": 0.0024776975624263287
+    },
+    {
+      "url": "https://www.detroitfirefilm.org/article",
+      "target": "sahabet",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0006961271283216774,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.fanfiction.net/topic/184005/179736795/Arlo-Camera-Setup-818-668-3599-Arlo-Setup",
+      "target": "arlo",
       "date": "2025-10-29",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.003281200071796775,
-      "thr": 0.05438924953341484
+      "segment": "host_top10k_path",
+      "score": 0.0007572901085950434,
+      "thr": 0.0024776975624263287
     },
     {
-      "url": "https://bestread.net/product/live-webcast-for-mastering-endonasal-rhinoplasty/",
-      "target": "qmp",
+      "url": "https://www.sociomix.com/c/humor/how-do-i-contact-robinhood-support-quickly-easily/1761296433",
+      "target": "robinhood",
+      "date": "2025-10-27",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.000770090613514185,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.offroadforen.de/forum/thread/139887-complete-list-of-official-robinhood-toll-free-contact-numbers-in-the-usa-detaile/",
+      "target": "robinhood",
+      "date": "2025-09-10",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0008277090964838862,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://howei.com/forum/discussion/news-updates/1-888-255-8018-how-do-i-contact-arlo-customer-service-247-live-support",
+      "target": "arlo",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": false,
+      "segment": "host_ranked_path",
+      "score": 0.0008647915674373507,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.apk3.com/app/526656.html",
+      "target": "xapo bank",
+      "date": "2025-10-27",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0008969918708316982,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://konfhub.com/checkout/2025-assistance-robinhood-usa-customer-support-numbers-complete-2025-guide?ticketId=51264%7C1&screen=2",
+      "target": "robinhood",
+      "date": "2025-09-17",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.000992337940260768,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.goodreads.com/quotes/13706634-how-to-speak-directly-on-robinhood-quick-support-1-307-920-9672-is-the",
+      "target": "robinhood",
+      "date": "2025-09-18",
+      "A": false,
+      "unseen_domain": false,
+      "segment": "host_top10k_path",
+      "score": 0.0010932018049061298,
+      "thr": 0.0024776975624263287
+    },
+    {
+      "url": "https://clik.social/read-blog/13613?lang=hebrew",
+      "target": "robinhood",
+      "date": "2025-09-17",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0013169265585020185,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.chiguu.com/articles/how-to-withdraw-money-from-robinhood-ask-expert",
+      "target": "robinhood",
+      "date": "2025-10-10",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.001585920574143529,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://juicy.bio/ird-govt-nz",
+      "target": "inlandrevenuenewzealand",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0019512008875608444,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://zodiaccasinos.com/login/",
+      "target": "casino rewards",
+      "date": "2025-10-16",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.00207533105276525,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.offroadforen.de/forum/thread/141104-complete-list-of-robinhood-support-contact-numbers-in-the-usa-the-ultimate-offic/",
+      "target": "robinhood",
+      "date": "2025-09-10",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0023208782076835632,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://rewardbloggers.com/business-pages/arlo-video-doorbell-camera-setpup-support",
+      "target": "arlo",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": false,
+      "segment": "host_ranked_path",
+      "score": 0.0026222714222967625,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.offroadforen.de/forum/thread/141078-full-list-of-robinhood-customer-service-24-7-live-person-support-numbers-a-compl/",
+      "target": "robinhood",
+      "date": "2025-09-10",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0026637399569153786,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.powershow.com/view0/900624-YjliY/How_to_Login_my_Arlo_Account_powerpoint_ppt_presentation",
+      "target": "arlo",
       "date": "2025-10-29",
       "A": false,
-      "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.003787544323131442,
-      "thr": 0.05438924953341484
+      "unseen_domain": false,
+      "segment": "host_ranked_path",
+      "score": 0.002774352440610528,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://rollandwin.com/forum/threads/can-you-talk-to-someone-on-robinhood-24-7-customer-service-number.1210/",
+      "url": "http://linkz.us/reviews-capital-one-login-44363.html",
+      "target": "capitalone",
+      "date": "2025-10-27",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0028553511947393417,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://community.admitone.com/agent-help-2025-why-is-robinhood-not-letting-me-wi-2025-09-05/B6NGAV",
       "target": "robinhood",
-      "date": "2025-09-28",
+      "date": "2025-09-09",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_old_unranked_path",
-      "score": 0.005820928141474724,
-      "thr": 0.01177029125392437
+      "segment": "host_ranked_path",
+      "score": 0.0028637920040637255,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://38bitstarz.com/a/promotions",
-      "target": "bitstarz",
-      "date": "2025-10-21",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.018005747348070145,
-      "thr": 0.05438924953341484
-    },
-    {
-      "url": "https://ramadan.mya.org.au/jasper-jones/posts/how-do-i-speak-directly-to-robinhoodtap-and-call",
+      "url": "https://community.admitone.com/new-policy-why-wont-robinhood-let-me-send-crypto-2025-09-05/GXZVKP",
       "target": "robinhood",
-      "date": "2025-09-30",
+      "date": "2025-09-09",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.01826871559023857,
-      "thr": 0.05438924953341484
+      "segment": "host_ranked_path",
+      "score": 0.0029335636645555496,
+      "thr": 0.006759662181138992
     },
     {
-      "url": "https://www.campaignlive.at/news/beitrag/128-edeka-zelebriert-payback-einfuehrung-mit-grosser-kampagne-von-jung-von-matt.html",
-      "target": "payback",
-      "date": "2025-11-02",
+      "url": "https://bulios.com/ticker/wmt",
+      "target": "walmart",
+      "date": "2025-11-04",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.003307264531031251,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://community.admitone.com/how-to-speak-directly-in-robinhood-supporttips-2025-09-08/77DVVE",
+      "target": "robinhood",
+      "date": "2025-09-09",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.0037216185592114925,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.oceano.org/wp-content/uploads/formidable/2/Is-Robinhood-a-good-stock-to-buy-Speak-To-Someone-Now.pdf",
+      "target": "robinhood",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.004175963345915079,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://events.scenethink.com/how-to-withdraw-money-from-robinhood-a-step-by-step-guide-nov-23-2024",
+      "target": "robinhood",
+      "date": "2025-09-24",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.004194664303213358,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://www.pelotonia.org/profile/HR1082607",
+      "target": "robinhood",
+      "date": "2025-11-05",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.004545669071376324,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://cert.konfhub.com/What-is-the-fastest-way-to-transfer-money-to-Robinhood",
+      "target": "robinhood",
+      "date": "2025-09-17",
+      "A": false,
+      "unseen_domain": true,
+      "segment": "host_ranked_path",
+      "score": 0.005405018106102943,
+      "thr": 0.006759662181138992
+    },
+    {
+      "url": "https://dentalbooks.info/product/2018-live-surgery-with-enrico-robotti-open-rhinoplasty-course/",
+      "target": "qmp",
+      "date": "2025-09-17",
       "A": false,
       "unseen_domain": true,
       "segment": "host_other_path",
-      "score": 0.018569957464933395,
-      "thr": 0.05438924953341484
+      "score": 0.005514033604413271,
+      "thr": 0.0077202501706779
     },
     {
       "url": "https://www.jwelrystore.ru/product/neil-lane-engagement-ring-2-3-4-ct-tw-diamonds-14k-white-gold",
@@ -562,28 +512,18 @@
       "A": false,
       "unseen_domain": true,
       "segment": "host_other_path",
-      "score": 0.024259408935904503,
-      "thr": 0.05438924953341484
+      "score": 0.005609190557152033,
+      "thr": 0.0077202501706779
     },
     {
-      "url": "https://auto-wirtschaft.ch/news/autoscout24-studie-nur-8-prozent-der-schweizer-firmenwagen-fahren-mit-strom",
-      "target": "auto24",
-      "date": "2025-10-31",
-      "A": false,
-      "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.03213796019554138,
-      "thr": 0.05438924953341484
-    },
-    {
-      "url": "https://ramadan.mya.org.au/emily-brown/posts/owhat-are-common-robinhood-issues",
+      "url": "https://raovatonline.org/rao-vat/does-robinhood-have-a-chat-room-callnow/?doing_wp_cron=1750077582.0113320350646972656250",
       "target": "robinhood",
-      "date": "2025-09-30",
+      "date": "2025-09-24",
       "A": false,
       "unseen_domain": true,
-      "segment": "host_other_path",
-      "score": 0.04275650531053543,
-      "thr": 0.05438924953341484
+      "segment": "host_ranked_path",
+      "score": 0.006694648880511522,
+      "thr": 0.006759662181138992
     }
   ]
 }
