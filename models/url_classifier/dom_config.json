@@ -28,7 +28,7 @@
     "bait_words_per_kchar",
     "injection_suspected"
   ],
-  "trained_at": "2026-10-16T04:14:05.989184+00:00",
+  "trained_at": "2026-10-23T08:44:43.857225+00:00",
   "combine": "url_only",
   "dom_threshold": null,
   "combine_rule": "fewest val phishing missed with >= 50% val clean recognised"

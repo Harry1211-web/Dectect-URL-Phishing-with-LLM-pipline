@@ -11,14 +11,18 @@ Step ablation : the chosen pair refitted with one feature group removed at a tim
           Tranco, DNS, TLS, RDAP, whole host block, all hand-crafted features, DL score), several
           seeds each, same rule. Routing (host branch on live hosts) stays fixed, so only the
           information in the features changes. Measures what each group contributes.
+--host-lookups (ml / ablation): none = host features are the Tranco rank only and every row
+uses the host branch (production setting); network = also DNS / TLS / RDAP, host branch on live
+hosts (reports with the suffix _network).
 Test, PhreshPhish and the Vietnamese set are scored for every candidate and reported, but never
 used to choose. The winning pair is then trained into production with
   python src/url_classifier/train.py --dl <arch> --ml <ml> --dl-dir models/layer_c_selection
 Run:    python src/layer_c_selection.py dl [--archs ...]
-        python src/layer_c_selection.py ml [--dl <arch>]
-        python src/layer_c_selection.py ablation [--seeds 42 43 44]   (resumes a partial report)
-Output: reports/layer_c_selection/{dl,ml,ablation}.json, models/layer_c_selection/ (DL weights,
-        scores, feature cache; not versioned)
+        python src/layer_c_selection.py ml [--dl <arch>] [--host-lookups none|network]
+        python src/layer_c_selection.py ablation [--seeds 42 43 44] [--host-lookups none|network]
+        (ablation resumes a partial report)
+Output: reports/layer_c_selection/{dl,ml,ablation}.json (+ ml_network / ablation_network.json),
+        models/layer_c_selection/ (DL weights, scores, feature cache; not versioned)
 """
 
 from __future__ import annotations
@@ -96,27 +100,31 @@ def step_dl(archs: list[str], epochs: int) -> int:
     return 0
 
 
-def _base(name: str, d) -> dict:
+def _report(step: str, network: bool) -> str:
+    return f"{step}_network" if network else step
+
+
+def _base(name: str, d, network: bool) -> dict:
     """Hand-crafted + host matrices of one split, cached (host data from the offline cache)."""
-    f = SEL_DIR / f"base_{name}.npz"
+    f = SEL_DIR / f"base_{name}.npz" if network else SEL_DIR / f"base_tranco_{name}.npz"
     if f.exists():
         z = np.load(f)
         return {k: z[k] for k in z.files}
-    b = T.base_matrices(d)
+    b = T.base_matrices(d, network=network)
     SEL_DIR.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(f, **b)
     return b
 
 
-def step_ml(arch: str | None) -> int:
+def step_ml(arch: str | None, network: bool) -> int:
     arch = arch or json.loads((OUT_DIR / "dl.json").read_text(encoding="utf-8"))["winner"]
     splits, tr = _splits()
     b_flags = common.b_flags_for(splits)
     z = np.load(SEL_DIR / f"scores_{arch}.npz")
     sets = {"train": tr, **{s: splits[s] for s in EVAL}}
-    M = {k: T.with_dl_score(_base(k, d), z[k]) for k, d in sets.items()}
+    M = {k: T.with_dl_score(_base(k, d, network), z[k]) for k, d in sets.items()}
     y = {k: d.y.to_numpy() for k, d in sets.items()}
-    out = {"dl": arch, "candidates": {}}
+    out = {"dl": arch, "host_lookups": "network" if network else "none", "candidates": {}}
     for ml in T.ML_MODELS:
         t0 = time.time()
         B = T.fit_branches(ml, M, y, SEED)
@@ -129,15 +137,16 @@ def step_ml(arch: str | None) -> int:
     out.update({"time": datetime.now(timezone.utc).isoformat(),
                 "rule": res["rule"] + " (routed host / lexical score); ties: val PR-AUC",
                 "winner": _winner(out["candidates"])})
-    _save("ml", out)
+    _save(_report("ml", network), out)
     print("ML winner:", out["winner"])
     return 0
 
 
-def ablation_groups() -> dict[str, tuple[list[str], list[str], bool]]:
-    """{config: (dropped URL features, dropped host features, drop DL score)}; 'full' drops nothing."""
+def ablation_groups(network: bool = True) -> dict[str, tuple[list[str], list[str], bool]]:
+    """{config: (dropped URL features, dropped host features, drop DL score)}; 'full' drops nothing.
+    Without network lookups the only host group is Tranco."""
     from url_classifier.features import FEATURE_NAMES as lex
-    from url_classifier.host_features import HOST_FEATURE_NAMES as host
+    host = T.host_feature_names(network)
     url_groups = {
         "url_length_structure": ["url_len", "host_len", "path_len", "query_len", "n_host_dots",
                                  "n_host_hyphens", "n_host_digits", "n_subdomain_labels",
@@ -154,26 +163,30 @@ def ablation_groups() -> dict[str, tuple[list[str], list[str], bool]]:
     }
     covered = sum(url_groups.values(), [])
     assert sorted(covered) == sorted(lex), f"URL features without a group: {set(lex) - set(covered)}"
-    host_groups = {
-        "host_tranco": ["tranco_log_rank", "in_tranco"],
-        "host_dns": [n for n in host if n.startswith("dns_")],
-        "host_tls": [n for n in host if n.startswith("tls_")],
-        "host_rdap": ["rdap_found", "domain_age_days", "days_to_expiry"],
-    }
+    host_groups = {"host_tranco": ["tranco_log_rank", "in_tranco"]}
+    if network:
+        host_groups.update({
+            "host_dns": [n for n in host if n.startswith("dns_")],
+            "host_tls": [n for n in host if n.startswith("tls_")],
+            "host_rdap": ["rdap_found", "domain_age_days", "days_to_expiry"]})
     assert sorted(sum(host_groups.values(), [])) == sorted(host)
+    network_groups = {
+        # Live network lookups only (DNS + TLS + RDAP: the latency cost); Tranco is a local file
+        "host_network": ([], [n for n in host if n not in host_groups["host_tranco"]], False),
+        "all_host": ([], list(host), False)} if network else {}
     return {"full": ([], [], False),
             **{g: (n, [], False) for g, n in url_groups.items()},
             **{g: ([], n, False) for g, n in host_groups.items()},
-            "all_host": ([], list(host), False),
+            **network_groups,
             "all_handcrafted": (list(lex), [], False),
             "dl_score": ([], [], True)}
 
 
 def _ablated(base: dict, dl: np.ndarray, drop_lex: list[str], drop_host: list[str],
-             drop_dl: bool) -> dict:
+             drop_dl: bool, network: bool) -> dict:
     """Production matrices (train.with_dl_score layout) without the dropped columns."""
     from url_classifier.features import FEATURE_NAMES as lex
-    from url_classifier.host_features import HOST_FEATURE_NAMES as host
+    host = T.host_feature_names(network)
     hand = base["hand"][:, [i for i, n in enumerate(lex) if n not in drop_lex]]
     hostx = base["hostx"][:, [i for i, n in enumerate(host) if n not in drop_host]]
     dl_col = [] if drop_dl else [dl.astype(np.float32)[:, None]]
@@ -183,22 +196,24 @@ def _ablated(base: dict, dl: np.ndarray, drop_lex: list[str], drop_host: list[st
             "live": base["live"], "complete": base["complete"]}
 
 
-def step_ablation(arch: str | None, ml: str | None, seeds: list[int]) -> int:
-    sel = json.loads((OUT_DIR / "ml.json").read_text(encoding="utf-8"))
+def step_ablation(arch: str | None, ml: str | None, seeds: list[int], network: bool) -> int:
+    sel = json.loads((OUT_DIR / f"{_report('ml', network)}.json").read_text(encoding="utf-8"))
     arch, ml = arch or sel["dl"], ml or sel["winner"]
     splits, tr = _splits()
     b_flags = common.b_flags_for(splits)
     z = np.load(SEL_DIR / f"scores_{arch}.npz")
     sets = {"train": tr, **{s: splits[s] for s in EVAL}}
-    bases = {k: _base(k, d) for k, d in sets.items()}
+    bases = {k: _base(k, d, network) for k, d in sets.items()}
     y = {k: d.y.to_numpy() for k, d in sets.items()}
-    groups = ablation_groups()
-    path = OUT_DIR / "ablation.json"
+    groups = ablation_groups(network)
+    name_out = _report("ablation", network)
+    path = OUT_DIR / f"{name_out}.json"
     out = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     if (out.get("dl"), out.get("ml")) != (arch, ml):
         out = {}  # report of another pair: start over
-    out.update({"dl": arch, "ml": ml, "seeds": seeds,
-                "rule": "val threshold recognising >= 50% of val clean; routing (live hosts) fixed",
+    out.update({"dl": arch, "ml": ml, "seeds": seeds, "host_lookups": "network" if network else "none",
+                "rule": "val threshold recognising >= 50% of val clean; routing fixed (network: "
+                        "host branch on live hosts; none: host branch on every row)",
                 "groups": {g: {"url": u, "host": h, "dl_score": d} for g, (u, h, d) in groups.items()}})
     runs = out.setdefault("runs", {})
     for name, (drop_lex, drop_host, drop_dl) in groups.items():
@@ -207,17 +222,17 @@ def step_ablation(arch: str | None, ml: str | None, seeds: list[int]) -> int:
             if key in runs:
                 continue
             t0 = time.time()
-            M = {k: _ablated(bases[k], z[k], drop_lex, drop_host, drop_dl) for k in sets}
+            M = {k: _ablated(bases[k], z[k], drop_lex, drop_host, drop_dl, network) for k in sets}
             B = T.fit_branches(ml, M, y, seed)
             res = common.evaluate_scores(name, {s: B["score"][s] for s in EVAL}, splits, b_flags,
                                          {"seconds": round(time.time() - t0)})
             res["val"] = _val_summary(y["val"], B["score"]["val"])
             runs[key] = res
-            _save("ablation", out)  # after every fit: an interrupted run resumes here
+            _save(name_out, out)  # after every fit: an interrupted run resumes here
             print(key, "val missed", res["val"]["phishing_missed"], flush=True)
     out["summary"] = _ablation_summary(runs, list(groups), seeds)
     out["time"] = datetime.now(timezone.utc).isoformat()
-    _save("ablation", out)
+    _save(name_out, out)
     print(json.dumps(out["summary"], indent=1))
     return 0
 
@@ -252,12 +267,15 @@ def main() -> int:
                     help="ablation step: ML classifier (default: winner of the ml step)")
     ap.add_argument("--seeds", type=int, nargs="+", default=[42, 43, 44],
                     help="ablation step: one refit per seed and configuration")
+    ap.add_argument("--host-lookups", choices=("none", "network"), default="none",
+                    help="ml / ablation step: host features (none = Tranco only, as in production)")
     args = ap.parse_args()
+    network = args.host_lookups == "network"
     if args.step == "dl":
         return step_dl(args.archs, args.epochs)
     if args.step == "ml":
-        return step_ml(args.dl)
-    return step_ablation(args.dl, args.ml, args.seeds)
+        return step_ml(args.dl, network)
+    return step_ablation(args.dl, args.ml, args.seeds, network)
 
 
 if __name__ == "__main__":

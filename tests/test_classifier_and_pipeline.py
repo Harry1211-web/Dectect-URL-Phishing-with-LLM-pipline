@@ -82,11 +82,11 @@ def test_redirect_target_goes_through_layers_a_and_b(monkeypatch):
     monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"phish.top/login"}), frozenset()))
 
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Login", "x", False, "https://phish.top/login"))
-    r = pipeline.analyze_url("https://bit.ly/abc", use_vt=False)
+    r = pipeline.analyze_url("https://bit.ly/abc")
     assert r["verdict"] == "phishing" and r["decided_by"] == "A_blocklist" and "b" not in seen
 
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Login", "x", False, "https://vietcombamk.com/login"))
-    r = pipeline.analyze_url("https://bit.ly/abc", use_vt=False)
+    r = pipeline.analyze_url("https://bit.ly/abc")
     assert seen["b"] is True and "redirects to" in r["layers"]["B_typosquatting"]["reason"]
 
 
@@ -102,11 +102,11 @@ def test_crafted_redirect_chain_is_cheap_and_never_clean(monkeypatch):
     url = ("http://a.com/" + "www.a/www.b/" * 400)[:4096]
     pipeline.check_typosquatting_deep("http://warm.example/")
     t0 = time.perf_counter()  # CPU only: no host lookups (network time is not the point here)
-    r = pipeline.analyze_url(url, use_llm=False, use_vt=False, use_host_features=False)
+    r = pipeline.analyze_url(url, use_llm=False, use_host_features=False)
     assert time.perf_counter() - t0 < 1.5
     assert r["verdict"] == "suspicious" and r["layers"]["hidden_destinations"] > 20
     # An ordinary tracking link is unaffected
-    r = pipeline.analyze_url("https://t.example/r?u=https://news.example.org/a", use_llm=False, use_vt=False)
+    r = pipeline.analyze_url("https://t.example/r?u=https://news.example.org/a", use_llm=False)
     assert r["verdict"] == "clean"
 
 
@@ -122,15 +122,15 @@ def test_evasive_redirect_target_is_never_cleared(monkeypatch):
         "verdict": "safe", "explanation": "", "timed_out": False})
     chain = ("https://hop.example/" + "www.a/www.b/" * 100)[:3000]
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, chain))
-    r = pipeline.analyze_url("https://bit.ly/abc", use_vt=False)
+    r = pipeline.analyze_url("https://bit.ly/abc")
     assert r["verdict"] == "suspicious" and r["decided_by"] == "D_llm+evasion"
     assert r["layers"]["hidden_destinations_redirect_target"] > 20
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, "https://shop.example/a"))
-    assert pipeline.analyze_url("https://bit.ly/abc", use_vt=False)["verdict"] == "clean"
+    assert pipeline.analyze_url("https://bit.ly/abc")["verdict"] == "clean"
     # Redirect target longer than an API URL: same rule as the clicked URL
     long_target = "https://shop.example/?" + "a" * 5000
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, long_target))
-    assert pipeline.analyze_url("https://bit.ly/abc", use_vt=False)["decided_by"] == "D_llm+evasion"
+    assert pipeline.analyze_url("https://bit.ly/abc")["decided_by"] == "D_llm+evasion"
 
 
 def test_cached_verdict_still_checks_the_stored_redirect_target(tmp_path, monkeypatch):
@@ -147,11 +147,11 @@ def test_cached_verdict_still_checks_the_stored_redirect_target(tmp_path, monkey
     monkeypatch.setattr(llm_client, "call_openai", lambda *a, **k: {"verdict": "suspicious"})
     monkeypatch.setattr(lookup, "_load", lambda: (frozenset(), frozenset()))
     monkeypatch.setattr(llm_client, "fetch", lambda url: ("Shop", "x", False, "https://new-phish.top/a"))
-    assert pipeline.analyze_url("https://bit.ly/zz", use_vt=False)["verdict"] == "suspicious"
+    assert pipeline.analyze_url("https://bit.ly/zz")["verdict"] == "suspicious"
     # Next click: verdict from the cache, page not downloaded, target listed in the meantime
     monkeypatch.setattr(llm_client, "fetch", lambda url: pytest.fail("downloaded again"))
     monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"new-phish.top/a"}), frozenset()))
-    r = pipeline.analyze_url("https://bit.ly/zz", use_vt=False)
+    r = pipeline.analyze_url("https://bit.ly/zz")
     assert r["verdict"] == "phishing" and "redirects to" in r["explanation"]
 
 
@@ -169,19 +169,19 @@ def test_listed_official_page_is_warned_not_blocked(monkeypatch):
     monkeypatch.setattr(llm_client, "analyze_suspicious", lambda *a, **k: {
         "verdict": "safe", "explanation": "", "timed_out": False})
     url = "https://www.vietcombank.com.vn/vi-VN/KHCN"
-    r = pipeline.analyze_url(url, use_vt=False)
+    r = pipeline.analyze_url(url)
     assert r["verdict"] == "suspicious" and r["decided_by"] == "D_llm+listed_official"
-    assert pipeline.analyze_url(url, use_vt=False, use_llm=False)["verdict"] == "suspicious"
+    assert pipeline.analyze_url(url, use_llm=False)["verdict"] == "suspicious"
     # Redirect parameter on the official domain: not a plain page, the feed entry blocks it
-    r = pipeline.analyze_url("https://www.vietcombank.com.vn/go?u=https://evil.top/", use_vt=False)
+    r = pipeline.analyze_url("https://www.vietcombank.com.vn/go?u=https://evil.top/")
     assert r["verdict"] == "phishing" and r["decided_by"] == "A_blocklist"
     # Not listed: the trusted shortcut as before
-    assert pipeline.analyze_url("https://www.vietcombank.com.vn/vi-VN/KHDN", use_vt=False)["verdict"] == "clean"
+    assert pipeline.analyze_url("https://www.vietcombank.com.vn/vi-VN/KHDN")["verdict"] == "clean"
     # Other subdomains and international brand domains: the feed still blocks
     monkeypatch.setattr(lookup, "_load", lambda: (frozenset({"promo.vietcombank.com.vn/a",
                                                              "netflix.com/login"}), frozenset()))
     for u in ("https://promo.vietcombank.com.vn/a", "https://netflix.com/login"):
-        assert pipeline.analyze_url(u, use_vt=False)["decided_by"] == "A_blocklist", u
+        assert pipeline.analyze_url(u)["decided_by"] == "A_blocklist", u
 
 
 def test_verified_official_domain_is_trusted_without_loopholes():
@@ -249,9 +249,38 @@ def test_bare_subdomain_of_ranked_domain_has_own_segment():
     assert segment_of("https://en.wikipedia.org/wiki/Phishing", raw, True) == "host_top10k_path"
 
 
+def test_shared_platform_rank_only_for_its_own_homepage():
+    from url_classifier.host_features import NO_LOOKUP, host_feature_vector
+    rank = lambda u: host_feature_vector(u, NO_LOOKUP)[0]  # noqa: E731
+    if rank("https://www.google.com/") != rank("https://www.google.com/"):
+        pytest.skip("Tranco list not available")
+    # The platform's homepage keeps its rank; tenants and user paths do not inherit it
+    for u in ("https://sites.google.com/view/x", "https://drive.google.com/file/d/1",
+              "https://www.google.com/url?q=https://evil.top", "https://abc.blogspot.com/"):
+        assert rank(u) != rank(u), u
+
+
+@needs_model
+def test_offline_model_never_looks_hosts_up(monkeypatch):
+    """A model without network features scores from the URL + Tranco only (no lookup at all)."""
+    if predict.uses_network():
+        pytest.skip("saved model uses network lookups")
+    from url_classifier import host_features
+
+    def no_lookup(*a, **k):
+        raise AssertionError("network lookup")
+    monkeypatch.setattr(host_features, "lookup_host_live", no_lookup)
+    monkeypatch.setattr(host_features, "raw_lookups", no_lookup)
+    r = predict.classify_url("https://example-unknown-site.com/login")
+    assert r["branch"] == "host" and r["host_ms"] == 0.0 and r["label"] in ("clean", "suspicious")
+    assert predict.score_urls(["https://example-unknown-site.com/login"], host_mode="cache")[2].all()
+
+
 @needs_model
 def test_failed_host_lookup_fails_closed(monkeypatch):
     """A resolver timeout (attacker-provokable) must never turn into a 'clean' verdict."""
+    if not predict.uses_network():
+        pytest.skip("saved model does no host lookup")
     from url_classifier import host_features
     monkeypatch.setattr(host_features, "lookup_host_live", lambda host, budget_s=2.5: None)
     r = predict.classify_url("https://example-unknown-site.com/login")

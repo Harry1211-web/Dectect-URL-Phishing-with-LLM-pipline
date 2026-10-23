@@ -69,6 +69,8 @@ def build() -> int:
     DATA.parent.mkdir(parents=True, exist_ok=True)
     out[["url", "label", "target", "date"]].sort_values(["label", "date"]).to_csv(DATA, index=False)
     print(out.label.value_counts().to_dict(), "->", DATA)
+    from data_collection.audit_labels import apply_eval_set_fixes
+    apply_eval_set_fixes(("phreshphish",))  # audited labels (label_fixes.csv)
     return 0
 
 
@@ -99,7 +101,8 @@ def score_abc(d: pd.DataFrame) -> pd.DataFrame:
     urls = d.url.tolist()
     d["A"] = [check_blocklist(u)["flag"] is True for u in urls]
     d["B"] = [check_typosquatting_deep(u)["flag"] is True for u in urls]
-    failed = collect_hosts(list(dict.fromkeys(map(host_of, urls))))
+    # A model without network lookups (config host_lookups = "none") has nothing to look up
+    failed = collect_hosts(list(dict.fromkeys(map(host_of, urls)))) if predict.uses_network() else set()
     score, thr, used = zip(*[predict.score_urls(urls[i:i + 4096], host_mode="cache")
                              for i in range(0, len(urls), 4096)])
     d["score"], d["thr"], d["host_branch"] = np.concatenate(score), np.concatenate(thr), np.concatenate(used)

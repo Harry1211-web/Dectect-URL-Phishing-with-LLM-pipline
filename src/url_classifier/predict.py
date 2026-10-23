@@ -8,6 +8,8 @@ segment (branch x popularity/age bucket x bare/path) has its own threshold chose
 data; 'suspicious' means "send to Layer D (LLM)".
 Fail-closed: when the host lookup cannot be completed (resolver timeout / network error, which an
 attacker could provoke), the URL is 'suspicious' instead of falling back to a weaker decision.
+A model trained with host_lookups = "none" looks nothing up: its host branch (URL + Tranco rank)
+scores every URL, so Layer C needs no network access.
 """
 
 from __future__ import annotations
@@ -86,6 +88,17 @@ def is_available() -> bool:
     return (MODEL_DIR / f"ml_lexical.{_ML_EXT[ml]}").exists()
 
 
+def uses_network() -> bool:
+    """True when the saved model needs DNS / TLS / RDAP lookups (config host_lookups)."""
+    return _load()[3].get("host_lookups", "network") == "network"
+
+
+def _host_cols(cfg: dict) -> list[int]:
+    """Positions in HOST_FEATURE_NAMES of the host features the saved model was trained on."""
+    names = set(cfg.get("host_feature_names", hf.HOST_FEATURE_NAMES))
+    return [i for i, n in enumerate(hf.HOST_FEATURE_NAMES) if n in names]
+
+
 def _dl_score(urls: list[str]) -> np.ndarray:
     dls, cfg = _load()[0], _load()[3]
     c, w = (torch.from_numpy(a) for a in encode_inputs(cfg.get("dl_arch", "cnn_bilstm"), urls))
@@ -97,7 +110,8 @@ def _matrices(urls: list[str], rows: list) -> tuple[np.ndarray, np.ndarray]:
     """(lexical matrix, host matrix) with the training column order."""
     hand = feature_matrix(urls)
     cs = _dl_score(urls)[:, None]
-    hx = np.array([hf.host_feature_vector(u, r or {}) for u, r in zip(urls, rows)], dtype=np.float32)
+    hx = np.array([hf.host_feature_vector(u, r or {}) for u, r in zip(urls, rows)],
+                  dtype=np.float32)[:, _host_cols(_load()[3])]
     return np.hstack([hand, cs]), np.hstack([hand, hx, cs])
 
 
@@ -109,13 +123,17 @@ def score_urls(urls: list[str], host_mode: str = "none") -> tuple[np.ndarray, np
     """
     _, clf_lex, clf_host, cfg = _load()
     rows: list = [None] * len(urls)
+    offline = not uses_network()
     if host_mode != "none" and clf_host is not None:
-        raw = hf.raw_lookups(urls, offline=host_mode == "cache")
-        rows = [raw[host_of(u)] for u in urls]
+        if offline:
+            rows = [hf.NO_LOOKUP] * len(urls)
+        else:
+            raw = hf.raw_lookups(urls, offline=host_mode == "cache")
+            rows = [raw[host_of(u)] for u in urls]
     lex, host = _matrices(urls, rows)
     score = clf_lex.predict_proba(lex)[:, 1]
     thr = np.full(len(urls), cfg["threshold_lexical"])
-    used = np.array([hf.is_live(r) for r in rows]) if clf_host is not None else np.zeros(len(urls), bool)
+    used = np.array([r is not None and (offline or hf.is_live(r)) for r in rows])
     if used.any():
         score[used] = clf_host.predict_proba(host[used])[:, 1]
         thr[used] = cfg["threshold_host"]
@@ -131,7 +149,9 @@ def classify_url(url: str, use_host_features: bool = True, threshold: float | No
     t0 = time.perf_counter()
     _, clf_lex, clf_host, cfg = _load()
     raw, host_ms = None, 0.0
-    if use_host_features and clf_host is not None:
+    if use_host_features and clf_host is not None and not uses_network():
+        raw = hf.NO_LOOKUP
+    elif use_host_features and clf_host is not None:
         t_h = time.perf_counter()
         raw = hf.lookup_host_live(host_of(url), HOST_BUDGET_S)
         host_ms = round((time.perf_counter() - t_h) * 1000, 1)
@@ -140,7 +160,7 @@ def classify_url(url: str, use_host_features: bool = True, threshold: float | No
                     "branch": "lookup_failed", "segment": None, "host_ms": host_ms,
                     "latency_ms": round((time.perf_counter() - t0) * 1000, 2)}
     lex, host = _matrices([url], [raw])
-    if hf.is_live(raw):
+    if raw is not None and (raw is hf.NO_LOOKUP or hf.is_live(raw)):
         branch, score, t = "host", float(clf_host.predict_proba(host)[0, 1]), cfg["threshold_host"]
     else:
         branch, score, t = "lexical", float(clf_lex.predict_proba(lex)[0, 1]), cfg["threshold_lexical"]

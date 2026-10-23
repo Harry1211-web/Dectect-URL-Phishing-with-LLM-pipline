@@ -5,6 +5,10 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 WORKDIR /app
 
+# OpenMP runtime: LightGBM (imported by Layer C inference) loads libgomp at import time
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 \
+ && rm -rf /var/lib/apt/lists/*
+
 # CPU build of torch (inference only, much smaller than the CUDA build), then the rest
 COPY requirements.txt requirements-api.txt ./
 RUN pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu \

@@ -6,6 +6,8 @@ use a certificate issued hours ago, have no MX record and are absent from popula
 
 Lookups run concurrently with short timeouts; a failed lookup leaves the feature missing (NaN),
 which XGBoost handles natively. Results are cached per host/domain in data/host_cache.sqlite.
+A Layer C model trained with host_lookups = "none" (models/url_classifier/config.json) uses only
+the Tranco features (local file, no network); the network lookups then only serve experiments.
 """
 
 from __future__ import annotations
@@ -52,6 +54,9 @@ HOST_FEATURE_NAMES = [
     "tls_n_san", "tls_cn_matches",
     "rdap_found", "domain_age_days", "days_to_expiry",
 ]
+# Read from local files only: the features of a Layer C model without network lookups
+OFFLINE_FEATURE_NAMES = ["tranco_log_rank", "in_tranco"]
+NO_LOOKUP: dict = {"dns": {}, "tls": {}, "rdap": {}}  # raw lookup stand-in when nothing is looked up
 
 _local = threading.local()
 _db_lock = threading.Lock()
@@ -289,8 +294,11 @@ def host_feature_vector(url: str, raw: dict) -> list[float]:
     nan = float("nan")
     host = host_of(url)
     rd = registrable_domain(host)
-    # A tenant of a shared platform does not inherit the platform's popularity or age
-    shared = is_untrusted_hosting(rd) or is_user_content_host(host)
+    # A tenant of a shared platform does not inherit the platform's popularity or age; the
+    # platform's own homepage (bare apex / www, no path or query) does
+    rest = url.split("://", 1)[-1].rstrip("/")
+    own_home = host in (rd, "www." + rd) and "/" not in rest and "?" not in rest
+    shared = not own_home and (is_untrusted_hosting(rd) or is_user_content_host(host))
     rank = None if shared else _tranco_rank().get(rd)
     d, t, r = raw.get("dns", {}), raw.get("tls", {}), raw.get("rdap", {})
     now = time.time()

@@ -10,6 +10,8 @@ ALL train rows instead of the 30 % part the DL model did not see:
   host branch    : + host features (DNS, TLS certificate, RDAP domain age, Tranco rank), trained
                    only on live hosts whose lookups are complete (dead phishing domains would be a
                    fake shortcut); used at inference when the host resolves.
+--host-lookups none: the host branch only gets the Tranco features (local file, no network
+lookup), is trained on every train row and scores every URL; segments then use no domain age.
 Rows flagged by clean_labels.py are dropped from train. Thresholds: recall on human-verified
 validation phishing (PhishTank/OpenPhish), then per-segment thresholds that miss the fewest
 validation phishing while still recognising MIN_CLEAN_RECOGNIZED of the clean URLs. URLs that
@@ -19,6 +21,7 @@ Host features must be collected first (collect_host_features.py); they are read 
 
 Run:    python src/url_classifier/train.py --dl <arch> --ml <xgboost|lightgbm|random_forest>
                                          [--dl-dir models/layer_c_selection]  (reuse DL models)
+                                         [--host-lookups none|network]
         python src/url_classifier/train.py --thresholds-only   (refit the segment thresholds of
                                                                  the saved models, no training)
 Output: models/url_classifier/{dl_a.pt, dl_b.pt, ml_lexical.*, ml_host.*, config.json},
@@ -271,6 +274,18 @@ def routed_counts(y: np.ndarray, flag: np.ndarray, mask: np.ndarray) -> dict:
             "clean_recognized": round(float((cl & ~flag).sum() / max(1, cl.sum())), 5)}
 
 
+def host_feature_names(network: bool) -> list[str]:
+    return hf.HOST_FEATURE_NAMES if network else hf.OFFLINE_FEATURE_NAMES
+
+
+def raw_rows(urls: list[str], network: bool) -> list:
+    """Cached raw host lookups of `urls`, or empty stand-ins when the model uses no network data."""
+    if not network:
+        return [hf.NO_LOOKUP] * len(urls)
+    raw = hf.raw_lookups(urls, offline=True)
+    return [raw[host_of(u)] for u in urls]
+
+
 def _score_split(d: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
     """(score, segment) of every URL with the saved models and cached host data."""
     from url_classifier import predict
@@ -279,9 +294,9 @@ def _score_split(d: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
     for i in range(0, len(urls), 4096):
         part = urls[i:i + 4096]
         s, _, used = predict.score_urls(part, host_mode="cache")
-        raw = hf.raw_lookups(part, offline=True)
+        rows = raw_rows(part, predict.uses_network())
         score.append(s)
-        seg += [hf.segment_of(u, raw[host_of(u)], bool(h)) for u, h in zip(part, used)]
+        seg += [hf.segment_of(u, r, bool(h)) for u, r, h in zip(part, rows, used)]
     return np.concatenate(score), np.array(seg)
 
 
@@ -322,20 +337,21 @@ def thresholds_only() -> int:
     return 0
 
 
-def base_matrices(df: pd.DataFrame, chunk: int = 20_000) -> dict:
+def base_matrices(df: pd.DataFrame, chunk: int = 20_000, network: bool = True) -> dict:
     """Hand-crafted matrix, host matrix and host-data flags (no DL score), computed in chunks so
-    raw host lookups never sit in memory at once."""
+    raw host lookups never sit in memory at once. network=False: Tranco columns only and every
+    row counts as live (the host branch scores every URL)."""
+    cols = [hf.HOST_FEATURE_NAMES.index(n) for n in host_feature_names(network)]
     hand, host, live, complete = [], [], [], []
     for i in range(0, len(df), chunk):
         urls = df.url.iloc[i:i + chunk].tolist()
         hand.append(feature_matrix(urls))
-        raw = hf.raw_lookups(urls, offline=True)
-        rows = [raw[host_of(u)] for u in urls]
+        rows = raw_rows(urls, network)
         host.append(np.array([hf.host_feature_vector(u, r or {}) for u, r in zip(urls, rows)],
-                             dtype=np.float32))
-        live.append(np.array([hf.is_live(r) for r in rows]))
+                             dtype=np.float32)[:, cols])
+        live.append(np.array([hf.is_live(r) for r in rows]) if network else np.ones(len(urls), bool))
         complete.append(np.array([hf.is_complete(r) for r in rows]))
-        del raw, rows
+        del rows
         gc.collect()
     return {"hand": np.vstack(hand), "hostx": np.vstack(host), "live": np.concatenate(live),
             "complete": np.concatenate(complete)}
@@ -416,12 +432,12 @@ def fit_branches(ml: str, M: dict, y: dict, seed: int) -> dict:
     return out
 
 
-def segments(d: pd.DataFrame, live: np.ndarray) -> np.ndarray:
+def segments(d: pd.DataFrame, live: np.ndarray, network: bool = True) -> np.ndarray:
     segs = []
     for i in range(0, len(d), 20_000):
         part = d.url.iloc[i:i + 20_000].tolist()
-        raw = hf.raw_lookups(part, offline=True)
-        segs += [hf.segment_of(u, raw[host_of(u)], bool(h)) for u, h in zip(part, live[i:i + 20_000])]
+        segs += [hf.segment_of(u, r, bool(h))
+                 for u, r, h in zip(part, raw_rows(part, network), live[i:i + 20_000])]
     return np.array(segs)
 
 
@@ -436,12 +452,15 @@ def main() -> int:
                     help="load <arch>_a.pt / <arch>_b.pt from this folder instead of training")
     ap.add_argument("--target-recall", type=float, default=0.998,
                     help="recall on verified validation phishing used to pick the thresholds")
+    ap.add_argument("--host-lookups", choices=("none", "network"), default="none",
+                    help="network: also DNS / TLS / RDAP features (lookups at inference, kept for experiments)")
     ap.add_argument("--thresholds-only", action="store_true",
                     help="only refit the segment thresholds of the saved models")
     args = ap.parse_args()
     if args.thresholds_only:
         return thresholds_only()
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    network = args.host_lookups == "network"
 
     tr, va, te, n_noisy = load_splits()
     print(f"train={len(tr)} (DL part a {int(tr.dl_part.sum())}) val={len(va)} test={len(te)} "
@@ -460,13 +479,13 @@ def main() -> int:
     torch.cuda.empty_cache()
 
     print("Computing features...", flush=True)
-    M = {k: with_dl_score(base_matrices(d), d.dl_score.to_numpy())
+    M = {k: with_dl_score(base_matrices(d, network=network), d.dl_score.to_numpy())
          for k, d in (("train", tr), ("val", va), ("test", te))}
     y = {"train": tr.y.to_numpy(), "val": va.y.to_numpy(), "test": te.y.to_numpy()}
     ver = {k: ((d.y == 0) | d.source.isin(VERIFIED_SOURCES)).to_numpy()
            for k, d in (("train", tr), ("val", va), ("test", te))}
     lex_names = FEATURE_NAMES + ["dl_score"]
-    host_names = FEATURE_NAMES + hf.HOST_FEATURE_NAMES + ["dl_score"]
+    host_names = FEATURE_NAMES + host_feature_names(network) + ["dl_score"]
 
     print(f"Training {args.ml} branches...", flush=True)
     B = fit_branches(args.ml, M, y, args.seed)
@@ -491,14 +510,16 @@ def main() -> int:
 
     # ---------------------------------------------------------------- routing + segment thresholds
     score = B["score"]
-    seg = {"val": segments(va, Lv), "test": segments(te, Lt)}
+    seg = {"val": segments(va, Lv, network), "test": segments(te, Lt, network)}
     seg_thr, seg_cost = fit_segment_thresholds(va.url.tolist(), seg["val"], score["val"],
                                                y["val"], ver["val"])
     yt = y["test"]
     single_t = np.where(Lt, p_host["test"] >= thr_host, p_lex["test"] >= thr_lex)
     seg_t = score["test"] >= np.array([seg_thr.get(s, 0.0) for s in seg["test"]])
+    seg_v = score["val"] >= np.array([seg_thr.get(s, 0.0) for s in seg["val"]])
     every = np.ones(len(te), bool)
     routed_report = {
+        "segment_thresholds_val": routed_counts(y["val"], seg_v, np.ones(len(va), bool)),
         "single_threshold": {"all": routed_counts(yt, single_t, every),
                              "verified": routed_counts(yt, single_t, ver["test"])},
         "segment_thresholds": {"all": routed_counts(yt, seg_t, every),
@@ -520,7 +541,7 @@ def main() -> int:
         (MODEL_DIR / old).unlink(missing_ok=True)
     config = {
         "trained_at": datetime.now(timezone.utc).isoformat(),
-        "dl_arch": args.dl, "ml": args.ml,
+        "dl_arch": args.dl, "ml": args.ml, "host_lookups": args.host_lookups,
         "architecture": f"stacking: 2 cross-fitted {args.dl} models (dl_a.pt, dl_b.pt) -> dl_score "
                         f"feature of the {args.ml} lexical and host branches",
         "target_recall_on_verified_val": args.target_recall,
