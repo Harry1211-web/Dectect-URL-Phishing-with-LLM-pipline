@@ -1,6 +1,6 @@
 """Fill the relabelling subset with VirusTotal labels (the reference labels; no hand labels).
 
-Rule (blocklist/virustotal.verdict_of): >= 2 malicious engines -> phishing, 0 malicious and
+Rule (virustotal.verdict_of): >= 2 malicious engines -> phishing, 0 malicious and
 0 suspicious -> clean, otherwise (1 engine, suspicious only, or URL unknown to VirusTotal) ->
 unsure. URLs are never submitted. Adds the vt_* columns; vt_label is what score compares with.
 These are VirusTotal labels, not hand labels; they must not be used to evaluate Layer A, which
@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from blocklist.virustotal import lookup_batch, verdict_of  # noqa: E402
+from virustotal import lookup_batch, verdict_of  # noqa: E402
 from relabel_subset import CSV_PATH  # noqa: E402
 
 STAT_KEYS = ("malicious", "suspicious", "harmless", "undetected")

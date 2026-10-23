@@ -11,12 +11,12 @@ Settings (environment variables)
   API_KEY        required: every request must send the header "X-API-Key: <API_KEY>"
   ALLOW_NO_AUTH  "1" accepts requests without a key when API_KEY is unset (local testing only)
   CORS_ORIGINS   comma-separated origins allowed to call the API from a browser (default "*")
-  USE_LLM, USE_VT  "0" disables Layer D / the VirusTotal lookup (default on)
+  USE_LLM        "0" disables Layer D (default on)
   RATE_LIMIT_PER_MIN  POST requests per client IP and minute, per worker process (default 60, 0 = off)
   API_EXPOSE_LAYERS  "1" adds per-layer details (scores, thresholds) to /analyze; debug / demo only
                    (default: verdict, explanation without scores, decided_by, latency_ms)
 Only http(s) URLs (or a bare host such as "example.com") are accepted.
-API keys of the layers (OPENAI_API_KEY, VT_API_KEY) are read from .env by the layers themselves.
+API keys of the layers (OPENAI_API_KEY) are read from .env by the layers themselves.
 
 Run: uvicorn api:app --app-dir src --host 0.0.0.0 --port 8000
 """
@@ -55,7 +55,6 @@ from url_utils import MAX_URL_LEN, ensure_scheme  # noqa: E402
 API_KEY = os.getenv("API_KEY", "").strip()
 ALLOW_NO_AUTH = os.getenv("ALLOW_NO_AUTH", "0") == "1"
 USE_LLM = os.getenv("USE_LLM", "1") != "0"
-USE_VT = os.getenv("USE_VT", "1") != "0"
 EXPOSE_LAYERS = os.getenv("API_EXPOSE_LAYERS", "0") == "1"
 RATE_LIMIT_PER_MIN = int(os.getenv("RATE_LIMIT_PER_MIN", "60"))
 
@@ -71,7 +70,7 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="Phishing detection API", version="1.0", lifespan=lifespan,
-              description="Layers A (blocklists, VirusTotal) -> B (typosquatting) -> "
+              description="Layers A (blocklists) -> B (typosquatting) -> "
                           "C (BiLSTM + XGBoost) -> D (LLM). Verdict: phishing / suspicious / clean.")
 app.add_middleware(CORSMiddleware, allow_origins=os.getenv("CORS_ORIGINS", "*").split(","),
                    allow_methods=["GET", "POST"], allow_headers=["*"])
@@ -189,7 +188,7 @@ class FeedbackRequest(BaseModel):
 @app.post("/analyze", dependencies=[Depends(check_key), Depends(rate_limit)])
 def analyze(req: AnalyzeRequest) -> dict:
     """Plain `def`: FastAPI runs it in a worker thread, so slow lookups never block other requests."""
-    result = analyze_url(req.url, use_llm=USE_LLM, use_vt=USE_VT, explain=req.explain, lang=req.lang)
+    result = analyze_url(req.url, use_llm=USE_LLM, explain=req.explain, lang=req.lang)
     record_verdict(result)  # no URL stored, see monitoring.py
     if not EXPOSE_LAYERS:
         result = public_result(result)
@@ -231,5 +230,4 @@ def health() -> dict:
         "blocklist_stale": age_h is None or age_h > 6,
         "classifier_ready": classifier.is_available(),
         "llm_enabled": USE_LLM and bool(OPENAI_API_KEY),
-        "virustotal_enabled": USE_VT,
     }

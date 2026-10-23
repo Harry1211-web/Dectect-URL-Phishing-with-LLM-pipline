@@ -10,12 +10,11 @@ services:
       - "8000"                    # not published: only containers of this project can call it
     volumes:
       - ./data:/app/data          # blocklist, Tranco, caches, injection patterns, monitoring log
-      - ./.env:/app/.env:ro       # OPENAI_API_KEY, VT_API_KEY, budgets (read by the layers)
+      - ./.env:/app/.env:ro       # OPENAI_API_KEY, budgets (read by the layers)
     environment:
       API_KEY: ${API_KEY:?API_KEY must be set}  # sent by the BFF as the X-API-Key header
       RATE_LIMIT_PER_MIN: ${RATE_LIMIT_PER_MIN:-60}
       USE_LLM: ${USE_LLM:-1}
-      USE_VT: ${USE_VT:-1}
       API_EXPOSE_LAYERS: ${API_EXPOSE_LAYERS:-0}  # 1 = per-layer scores in /analyze (debug / demo only)
       MONITORING_KEEP_MONTHS: ${MONITORING_KEEP_MONTHS:-12}  # monthly verdict / feedback logs kept
       # Only the BFF can reach the API (not published), so its X-Forwarded-For (the real client

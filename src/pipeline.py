@@ -6,7 +6,6 @@
      verified official domain of a Vietnamese brand, or official domain of an international
      brand that hosts no third-party content (no user content, no hidden redirect)
                                                                         -> clean (stop)
-     VirusTotal     >= 2 engines report the URL as malicious            -> phishing (stop)
   B. typosquatting  brand impersonation (also in redirect targets)      -> suspicious (needs D)
      Before D the page is downloaded once; when it redirects elsewhere, the final URL goes
      through A (listed -> phishing, stop) and B as well
@@ -35,7 +34,6 @@ from urllib.parse import unquote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from blocklist.lookup import check_blocklist  # noqa: E402
-from blocklist.virustotal import check_virustotal  # noqa: E402
 from functools import lru_cache  # noqa: E402
 
 from typosquatting.brands import (  # noqa: E402
@@ -183,13 +181,13 @@ def _feed_error_candidate(url: str) -> bool:
 
 
 def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = None,
-                use_host_features: bool = True, explain: bool = False, use_vt: bool = True,
+                use_host_features: bool = True, explain: bool = False,
                 lang: str = "vi", use_dom: bool = True, llm_model: str | None = None) -> dict:
     """Run the layers in order and return {verdict, decided_by, explanation, layers, latency_ms}.
 
     explain=True asks the LLM for an explanation in the user's language `lang` (user's choice,
-    extra cost); by default Layer D only classifies. use_vt=False skips the VirusTotal lookup (batch
-    evaluations: the free quota is 4 requests / minute). llm_model overrides the Layer D model.
+    extra cost); by default Layer D only classifies. llm_model overrides the Layer D model.
+    VirusTotal is not a layer: it only serves as a reference to check the pipeline (relabel_vt.py).
     """
     t0 = time.perf_counter()
     layers: dict = {}
@@ -215,12 +213,6 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
     elif official:
         return done("clean", "verified_official_domain",
                     f"{official} is a verified official domain of '{label_of_domain(official)}'.")
-
-    if use_vt:
-        vt = check_virustotal(url)
-        layers["A_virustotal"] = vt
-        if vt["flag"] is True:
-            return done("phishing", "A_virustotal", vt["reason"])
 
     b = check_typosquatting_deep(url)
     layers["B_typosquatting"] = b
@@ -331,14 +323,13 @@ if __name__ == "__main__":
     ap.add_argument("urls", nargs="+")
     ap.add_argument("--no-llm", action="store_true", help="skip Layer D (no API cost)")
     ap.add_argument("--no-host", action="store_true", help="URL-only classifier (no network lookups)")
-    ap.add_argument("--no-vt", action="store_true", help="skip the VirusTotal lookup")
     ap.add_argument("--explain", action="store_true", help="ask the LLM for an explanation")
     ap.add_argument("--lang", default="vi", help="explanation language (ISO code), default vi")
     ap.add_argument("--log", action="store_true", help="log the verdict for false-alarm monitoring")
     args = ap.parse_args()
     for u in args.urls:
         res = analyze_url(u, use_llm=not args.no_llm, use_host_features=not args.no_host,
-                          explain=args.explain, use_vt=not args.no_vt, lang=args.lang)
+                          explain=args.explain, lang=args.lang)
         if args.log:
             from monitoring import record_verdict
             record_verdict(res)

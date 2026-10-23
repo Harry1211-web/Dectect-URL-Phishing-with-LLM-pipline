@@ -92,7 +92,7 @@ def test_path_tenant_skips_short_container_segment():
 
 
 def test_virustotal_verdict_rule():
-    from blocklist.virustotal import url_id, verdict_of
+    from virustotal import url_id, verdict_of
     found = lambda m, s=0: {"status": "found", "stats": {"malicious": m, "suspicious": s}}
     assert verdict_of(found(2)) == "phishing" and verdict_of(found(0)) == "clean"
     assert verdict_of(found(1)) == "unsure" and verdict_of(found(0, 1)) == "unsure"

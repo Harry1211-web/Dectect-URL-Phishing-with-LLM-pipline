@@ -1,9 +1,12 @@
-"""Layer A — VirusTotal URL reputation (API v3, key VT_API_KEY in .env).
+"""VirusTotal URL reputation (API v3, key VT_API_KEY in .env): a verification tool, not a layer.
+
+The pipeline never queries VirusTotal; its reports only serve as reference labels to check the
+pipeline (src/relabel_vt.py, label-noise review). check_virustotal is kept for ad-hoc checks.
 
 Only looks up URLs VirusTotal already knows; never submits a URL for scanning (a submission makes
 the URL public on VirusTotal). Results are cached in data/vt_cache.sqlite.
 Free API quota: 4 requests / minute, 500 / day. Live lookups use a short timeout and treat
-quota errors as "unknown", so Layer A never blocks or waits on VirusTotal.
+quota errors as "unknown".
 
 Verdict from last_analysis_stats: malicious engines >= VT_PHISHING_MIN -> phishing,
 0 malicious and 0 suspicious -> clean, otherwise unsure.
@@ -13,7 +16,6 @@ from __future__ import annotations
 
 import base64
 import json
-import random
 import sqlite3
 import sys
 import threading
@@ -24,10 +26,10 @@ from pathlib import Path
 import requests
 from dotenv import dotenv_values
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from contracts import RuleResult  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 CACHE_PATH = ROOT / "data" / "vt_cache.sqlite"
 API = "https://www.virustotal.com/api/v3/urls/"
 VT_PHISHING_MIN = 2           # malicious engines needed to call a URL phishing
@@ -60,13 +62,15 @@ def _db():
         con.close()
 
 
-def _cached(url: str) -> dict | None:
+def _cached(url: str, max_age_s: float | None = None) -> dict | None:
+    """Cached result; max_age_s overrides the default TTLs (label audits reuse older lookups)."""
     with _lock, _db() as con:
         row = con.execute("SELECT t, status, stats FROM vt WHERE url = ?", (url,)).fetchone()
     if not row:
         return None
     t, status, stats = row
-    if time.time() - t > (FOUND_TTL_S if status == "found" else NOT_FOUND_TTL_S):
+    ttl = max_age_s if max_age_s is not None else (FOUND_TTL_S if status == "found" else NOT_FOUND_TTL_S)
+    if time.time() - t > ttl:
         return None
     return {"status": status, "stats": json.loads(stats) if stats else None, "cached": True}
 
@@ -75,8 +79,6 @@ def _store(url: str, status: str, stats: dict | None) -> None:
     with _lock, _db() as con:
         con.execute("INSERT OR REPLACE INTO vt VALUES (?, ?, ?, ?)",
                     (url, time.time(), status, json.dumps(stats) if stats else None))
-        if random.randrange(200) == 0:  # now and then: expired rows are never read again
-            con.execute("DELETE FROM vt WHERE t < ?", (time.time() - max(FOUND_TTL_S, NOT_FOUND_TTL_S),))
 
 
 def lookup(url: str, timeout_s: float = LIVE_TIMEOUT_S, use_cache: bool = True) -> dict:
@@ -118,7 +120,7 @@ def verdict_of(res: dict) -> str:
 
 
 def check_virustotal(url: str, timeout_s: float = LIVE_TIMEOUT_S) -> RuleResult:
-    """Layer A step after the blocklists: flag=True only when VirusTotal engines agree it is malicious."""
+    """Single lookup: flag=True only when VirusTotal engines agree the URL is malicious."""
     t0 = time.perf_counter()
     res = lookup(url, timeout_s=timeout_s)
     v = verdict_of(res)
@@ -136,11 +138,11 @@ def check_virustotal(url: str, timeout_s: float = LIVE_TIMEOUT_S) -> RuleResult:
 
 
 def lookup_batch(urls: list[str], interval_s: float = FREE_INTERVAL_S, daily_limit: int = 500,
-                 progress=print) -> dict[str, dict]:
-    """Offline lookups within the free quota (cache hits cost no request)."""
+                 progress=print, max_age_s: float | None = None) -> dict[str, dict]:
+    """Offline lookups within the free quota (cache hits cost no request; see _cached)."""
     out, sent = {}, 0
     for i, u in enumerate(urls):
-        hit = _cached(u)
+        hit = _cached(u, max_age_s)
         if hit:
             out[u] = hit
             continue

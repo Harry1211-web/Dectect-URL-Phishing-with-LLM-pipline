@@ -93,7 +93,7 @@ def main() -> int:
         url, label = job
         t0 = time.perf_counter()
         try:
-            r = analyze_url(url, use_vt=False, llm_model=args.model)
+            r = analyze_url(url, llm_model=args.model)
         except Exception as e:  # one broken URL must not stop the run
             return {"url": url, "label": label, "verdict": None, "decided_by": f"error:{type(e).__name__}"}
         d = r["layers"].get("D_llm") or {}
