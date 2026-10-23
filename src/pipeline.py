@@ -9,7 +9,7 @@
   B. typosquatting  brand impersonation (also in redirect targets)      -> suspicious (needs D)
      Before D the page is downloaded once; when it redirects elsewhere, the final URL goes
      through A (listed -> phishing, stop) and B as well
-  C. URL classifier DL score + ML classifier (+ host features), high-recall gate; when the
+  C. URL classifier DL score + ML classifier (+ Tranco rank), high-recall gate; when the
                     page can be downloaded, the DOM model's score joins the decision
                     (models/url_classifier/dom_config.json)        -> clean (stop) / suspicious
   D. LLM            reads the page, final verdict for suspicious URLs; a "safe" verdict on a
@@ -304,7 +304,7 @@ def analyze_url(url: str, use_llm: bool = True, llm_timeout_s: float | None = No
     score = (c or {}).get("score")
     if b["flag"] is True:
         return done("phishing", "fallback_B", b["reason"])
-    if score is None:  # classifier unavailable or host lookup failed: fail closed, never "clean"
+    if score is None:  # no classifier score (model missing, or a network host lookup failed): fail closed
         return done("suspicious", "fallback_lookup_failed",
                     "The domain could not be checked and the page content could not be analysed — be careful.")
     if score >= FALLBACK_PHISHING_SCORE:
@@ -322,7 +322,7 @@ if __name__ == "__main__":
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("urls", nargs="+")
     ap.add_argument("--no-llm", action="store_true", help="skip Layer D (no API cost)")
-    ap.add_argument("--no-host", action="store_true", help="URL-only classifier (no network lookups)")
+    ap.add_argument("--no-host", action="store_true", help="URL-only classifier (lexical branch, no Tranco rank)")
     ap.add_argument("--explain", action="store_true", help="ask the LLM for an explanation")
     ap.add_argument("--lang", default="vi", help="explanation language (ISO code), default vi")
     ap.add_argument("--log", action="store_true", help="log the verdict for false-alarm monitoring")

@@ -1,6 +1,6 @@
 {
   "model": "random_forest",
-  "time": "2026-10-23T08:59:03.194981+00:00",
+  "time": "2026-10-23T10:31:26.818628+00:00",
   "rule": "threshold = lowest score recognising >= 50% of val clean",
   "threshold": 0.15916413427722595,
   "val": {
@@ -10,7 +10,7 @@
     "clean": 40598,
     "clean_recognized": 0.50069
   },
-  "train_seconds": 61.0,
+  "train_seconds": 66.9,
   "test": {
     "roc_auc": 0.94113,
     "pr_auc": 0.95062,

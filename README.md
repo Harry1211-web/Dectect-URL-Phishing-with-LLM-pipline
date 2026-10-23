@@ -48,7 +48,7 @@ flowchart TD
 - **Page content is untrusted data.** The sanitizer removes hidden text, same-colour text,
   comments, invisible characters and injected instructions; the page is framed by random nonce
   markers; a page that hides instructions is reported to the model as strong evidence.
-- **Fail closed.** A failed host lookup, a missing LLM verdict or an LLM "safe" on a URL the
+- **Fail closed.** A missing classifier score, a missing LLM verdict or an LLM "safe" on a URL the
   classifier is nearly sure of never become "clean". Attacker-controlled page structure (DOM)
   can only add suspicion.
 - **No leakage, no cherry-picking.** Splits are by site; the Vietnamese test set shares no

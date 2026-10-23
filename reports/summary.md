@@ -41,6 +41,9 @@ Production choice:
 | DNS + TLS + RDAP + Tranco | 15 / 54.1 % | 10 / 54.5 % | 4 | 32 / 38.4 % | 1.4 / 2.5 s (new host) |
 | **Tranco only (production)** | **13 / 52.0 %** | 12 / 52.6 % | **4** | 43 / 44.1 % | **32 / 36 ms** |
 
+PhreshPhish columns from `src/evaluate_external.py` (no trusted-domain shortcut), so the clean rate
+is slightly below the notebook's pipeline table (44.5 %).
+
 Ablation of the production setting (3 seeds, val misses mean, `ablation.json`): full 18.0; without
 Tranco 392.7; without the BiLSTM score 29.3; without every hand-crafted feature 27.0; without URL
 length / structure 21.0; other URL groups 17.3–19.0.

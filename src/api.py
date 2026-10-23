@@ -131,8 +131,8 @@ _hits_lock = threading.Lock()
 
 
 def rate_limit(request: Request) -> None:
-    """Sliding one-minute window per client IP: a leaked key cannot flood the paid layers
-    (LLM, VirusTotal quota) or turn the host lookups into a request amplifier."""
+    """Sliding one-minute window per client IP: a leaked key cannot flood the paid layer (LLM)
+    or turn the page fetches into a request amplifier."""
     if RATE_LIMIT_PER_MIN <= 0:
         return
     ip = request.client.host if request.client else "?"

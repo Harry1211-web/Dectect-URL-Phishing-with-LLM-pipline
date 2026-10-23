@@ -1,8 +1,8 @@
 {
   "model": "lightgbm_lex",
-  "time": "2026-10-23T08:59:22.882818+00:00",
+  "time": "2026-10-23T10:31:47.077410+00:00",
   "rule": "threshold = lowest score recognising >= 50% of val clean",
-  "threshold": 0.13340668459158836,
+  "threshold": 0.13340668459146618,
   "val": {
     "phishing": 38386,
     "phishing_missed": 1061,
@@ -10,7 +10,7 @@
     "clean": 40598,
     "clean_recognized": 0.5
   },
-  "train_seconds": 19.6,
+  "train_seconds": 20.2,
   "test": {
     "roc_auc": 0.94737,
     "pr_auc": 0.9551,

@@ -1,6 +1,6 @@
 {
   "model": "logreg",
-  "time": "2026-10-23T08:58:02.181236+00:00",
+  "time": "2026-10-23T10:30:19.820772+00:00",
   "rule": "threshold = lowest score recognising >= 50% of val clean",
   "threshold": 0.17462211523119514,
   "val": {
@@ -10,7 +10,7 @@
     "clean": 40598,
     "clean_recognized": 0.5
   },
-  "train_seconds": 46.7,
+  "train_seconds": 57.4,
   "test": {
     "roc_auc": 0.92076,
     "pr_auc": 0.93129,
