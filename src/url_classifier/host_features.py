@@ -25,14 +25,17 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import dns.exception
 import dns.resolver
 import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402
-from url_utils import file_version, host_of, is_ip_host, registrable_domain  # noqa: E402
+from typosquatting.paas_domains import (  # noqa: E402
+    is_shortener, is_untrusted_hosting, is_user_content_host)
+from url_utils import (  # noqa: E402
+    ensure_scheme, file_version, host_of, is_ip_host, registrable_domain)
 
 ROOT = Path(__file__).resolve().parents[2]
 CACHE_PATH = ROOT / "data" / "host_cache.sqlite"
@@ -295,9 +298,8 @@ def host_feature_vector(url: str, raw: dict) -> list[float]:
     host = host_of(url)
     rd = registrable_domain(host)
     # A tenant of a shared platform does not inherit the platform's popularity or age; the
-    # platform's own homepage (bare apex / www, no path or query) does
-    rest = url.split("://", 1)[-1].rstrip("/")
-    own_home = host in (rd, "www." + rd) and "/" not in rest and "?" not in rest
+    # platform's own homepage (bare apex / www) does, except a shortener's (its links redirect)
+    own_home = host in (rd, "www." + rd) and is_bare(url) and not is_shortener(rd)
     shared = not own_home and (is_untrusted_hosting(rd) or is_user_content_host(host))
     rank = None if shared else _tranco_rank().get(rd)
     d, t, r = raw.get("dns", {}), raw.get("tls", {}), raw.get("rdap", {})
@@ -320,6 +322,19 @@ def host_feature_vector(url: str, raw: dict) -> list[float]:
     ]
 
 
+def is_bare(url: str) -> bool:
+    """Nothing after the host: no path, query, fragment or credentials. Parsed like host_of: a
+    browser reads a backslash as '/' in http(s) URLs, so host + backslash + path is not bare."""
+    u = ensure_scheme(url)
+    if u[:5].lower() in ("http:", "https"):
+        u = u.replace("\\", "/")
+    try:
+        p = urlsplit(u)
+    except ValueError:
+        return False
+    return p.path in ("", "/") and not p.query and not p.fragment and "@" not in p.netloc
+
+
 def segment_of(url: str, raw: dict | None, host_branch: bool) -> str:
     """Threshold segment: branch x popularity/age bucket x (bare domain | URL with path).
     Phishing is far rarer on Tranco-ranked domains than on young unranked ones, so each segment
@@ -327,8 +342,7 @@ def segment_of(url: str, raw: dict | None, host_branch: bool) -> str:
     domain (x.tilda.ws) may be a tenant of a platform not yet listed: it gets its own
     'ranked_sub' bucket instead of the rank bucket, whose bare threshold can be "never flag"
     because the domain's own homepage is never phishing."""
-    rest = url.split("://", 1)[-1].rstrip("/")
-    shape = "path" if "/" in rest or "?" in rest else "bare"
+    shape = "bare" if is_bare(url) else "path"
     if not host_branch:
         return f"lexical_{shape}"
     v = host_feature_vector(url, raw or {})
