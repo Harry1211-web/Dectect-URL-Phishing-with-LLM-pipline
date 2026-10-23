@@ -6,6 +6,8 @@ the same after the production C override (D "safe" and C score >= LLM_SAFE_OVERR
 non-official domain -> suspicious), p50 / p95 latency and cost per page, with 95 % Wilson
 intervals. Per pair of runs: exact McNemar test on the pages both runs answered, for
 "phishing missed" (labelled safe) and for "clean page blocked" (labelled phishing).
+Label, stratum and C score come from the current page sets (dataset/external/layer_d_*.csv), so
+stored runs follow label fixes and a retrained Layer C; pages no longer in a set are left out.
 Run:    python src/llm/compare_models.py reports/llm/layer_d/eval_dev_a.json eval_dev_b.json ... --out name
 Output: reports/llm/layer_d/compare_<name>.json
 """
@@ -20,6 +22,7 @@ from itertools import combinations
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 from scipy.stats import binomtest
 
 _HERE = Path(__file__).resolve().parent
@@ -29,6 +32,7 @@ from typosquatting.brands import all_official_domains  # noqa: E402
 from url_utils import registrable_domain  # noqa: E402
 
 OUT_DIR = _HERE.parents[1] / "reports" / "llm" / "layer_d"
+SETS_DIR = _HERE.parents[1] / "dataset" / "external"
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> list[float] | None:
@@ -47,6 +51,17 @@ def with_override(r: dict) -> str | None:
             and registrable_domain(r["url"]) not in all_official_domains()):
         return "suspicious"
     return r["verdict"]
+
+
+def refresh(run: dict) -> dict:
+    """Label / stratum / C score of every page from its current set file."""
+    pages = pd.read_csv(SETS_DIR / f"layer_d_{run['set']}.csv").drop_duplicates("url").set_index("url")
+    rows = []
+    for r in run["details"]:
+        if r["url"] in pages.index:
+            p = pages.loc[r["url"]]
+            rows.append({**r, "label": p.label, "stratum": p.stratum, "c_score": float(p.score)})
+    return {**run, "details": rows}
 
 
 def rate(k: int, n: int) -> dict:
@@ -110,7 +125,7 @@ def main() -> int:
     ap.add_argument("runs", nargs="+", type=Path)
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
-    runs = {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in args.runs}
+    runs = {p.stem: refresh(json.loads(p.read_text(encoding="utf-8"))) for p in args.runs}
     views = {"all": None, "reaches_d": ["reaches_d"], "missed_by_abc": ["missed_by_abc"]}
     out = {"runs": {k: {"model": r["model"], "thinking": r.get("thinking"), "set": r["set"],
                         "time": r["time"],

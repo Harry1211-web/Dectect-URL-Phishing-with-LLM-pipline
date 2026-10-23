@@ -6,10 +6,15 @@ export : draws ~300 pages from the Layer D dev / held-out test sets (PhreshPhish
          with URL, title, a text snippet and every layer's verdict. Vietnamese pages are not
          stored: their text is fetched now. Reference labels: VirusTotal (src/relabel_vt.py ->
          column vt_label: phishing / clean / unsure); there are no hand labels.
+refresh: after a label audit or a new Layer C, takes every row's dataset label and Layer C
+         decision from the current set files (PhreshPhish: layer_d_*.csv, VN: data/test_sets/vi/,
+         Layer C rescored) and drops rows no longer in their set. LLM verdicts and the verdicts of
+         the live VN run stay as stored (that run used the Layer C of its time).
 score  : recomputes the error rates against vt_label (unsure rows left out):
          per subset row (with 95 % Wilson interval) and re-weighted by the sampling pools
          (weight = pool size / rows drawn), so the oversampled disagreements do not inflate rates.
 Run:    python src/relabel_subset.py export --haiku-dev <eval_dev.json> --haiku-test <eval_test.json>
+        python src/relabel_subset.py refresh
         python src/relabel_subset.py score
 Output: reports/relabel/relabel_subset.csv, reports/relabel/relabel_results.json
 """
@@ -36,7 +41,8 @@ GPT_RUNS = {"dev": LAYER_D / "eval_dev_v7_nonce.json", "test": LAYER_D / "eval_t
 SETS = {"dev": ROOT / "dataset" / "external" / "layer_d_dev.csv",
         "test": ROOT / "dataset" / "external" / "layer_d_test.csv"}
 HTML_STORE = ROOT / "data" / "phreshphish_html.parquet"
-LIVE_VI = ROOT / "reports" / "live" / "vi.json"
+LIVE_VI = ROOT / "reports" / "live" / "vi_vi_final_gpt.json"
+VI_DIR = ROOT / "data" / "test_sets" / "vi"
 QUOTA = {"dev": 100, "test": 120, "vi": 80}
 SNIPPET_CHARS = 500
 SEED = 2026
@@ -118,6 +124,37 @@ def export(haiku_dev: Path, haiku_test: Path) -> int:
     return 0
 
 
+def refresh() -> int:
+    d = pd.read_csv(CSV_PATH)
+    keep = pd.Series(True, index=d.index)
+    for name, path in SETS.items():
+        pages = pd.read_csv(path).drop_duplicates("url").set_index("url")
+        for i in d.index[d.source == f"phreshphish_{name}"]:
+            u = d.at[i, "url"]
+            if u not in pages.index:
+                keep[i] = False
+                continue
+            r = pages.loc[u]
+            d.loc[i, ["dataset_label", "stratum", "B", "C_score", "C_decision"]] = [
+                "phishing" if r.label == "phishing" else "clean", r.stratum, bool(r.B),
+                round(float(r.score), 5), "suspicious" if r.C else "clean"]
+            if isinstance(d.at[i, "D_gpt"], str):
+                d.at[i, "D_gpt_with_C_override"] = with_override(
+                    {"url": u, "verdict": d.at[i, "D_gpt"], "c_score": float(r.score)})
+    vi = pd.concat([pd.read_csv(VI_DIR / "phishing.csv").assign(label="phishing"),
+                    pd.read_csv(VI_DIR / "clean.csv").assign(label="clean")]).drop_duplicates("url")
+    vi = vi.set_index("url").label
+    m = (d.source == "vi_live") & d.url.isin(vi.index)
+    keep[(d.source == "vi_live") & ~m] = False
+    d.loc[m, "dataset_label"] = d.loc[m, "url"].map(vi)
+    from url_classifier import predict
+    d.loc[m, "C_score"] = np.round(predict.score_urls(d.loc[m, "url"].tolist(), host_mode="cache")[0], 5)
+    print(f"{int((~keep).sum())} rows dropped (no longer in their set):",
+          d[~keep].groupby("source").size().to_dict())
+    d[keep].to_csv(CSV_PATH, index=False, encoding="utf-8-sig")
+    return 0
+
+
 REF = "vt_label"  # reference label column (VirusTotal, filled by relabel_vt.py)
 
 
@@ -172,9 +209,12 @@ def main() -> int:
     e = sub.add_parser("export")
     e.add_argument("--haiku-dev", type=Path, required=True)
     e.add_argument("--haiku-test", type=Path, required=True)
+    sub.add_parser("refresh")
     sub.add_parser("score")
     args = ap.parse_args()
-    return export(args.haiku_dev, args.haiku_test) if args.cmd == "export" else score()
+    if args.cmd == "export":
+        return export(args.haiku_dev, args.haiku_test)
+    return refresh() if args.cmd == "refresh" else score()
 
 
 if __name__ == "__main__":

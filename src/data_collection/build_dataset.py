@@ -139,16 +139,22 @@ FIXES_PATH = OUT_DIR / "label_fixes.csv"
 
 
 def apply_label_fixes(rows: list[dict]) -> int:
-    """Apply audited label corrections (audit_labels.py); returns how many rows changed."""
+    """Apply audited label corrections of this dataset (audit_labels.py) in place: new label, or
+    "drop" removes the row. Returns how many rows changed or were dropped."""
     if not FIXES_PATH.exists():
         return 0
     with FIXES_PATH.open(encoding="utf-8", newline="") as f:
-        fixes = {r["url"]: r["new_label"] for r in csv.DictReader(f)}
-    n = 0
+        fixes = {r["url"]: r["new_label"] for r in csv.DictReader(f) if r.get("dataset", "urls") == "urls"}
+    n, kept = 0, []
     for r in rows:
         new = fixes.get(r["url"])
+        if new == "drop":
+            n += 1
+            continue
         if new and new != r["label"]:
             r["label"], n = new, n + 1
+        kept.append(r)
+    rows[:] = kept
     return n
 
 
@@ -173,7 +179,7 @@ def main() -> int:
             rows = list(csv.DictReader(f))
         n = apply_label_fixes(rows)
         _write(rows)
-        print(f"{n} labels corrected")
+        print(f"{n} labels corrected or rows dropped")
         return 0
 
     print("Loading sources...", file=sys.stderr)

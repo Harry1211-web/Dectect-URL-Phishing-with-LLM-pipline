@@ -13,7 +13,7 @@ Zero overlap: a URL is dropped when its registrable domain appears anywhere in t
 data (urls_labeled.csv, noisy_labels.csv) or in the external test set.
 
 Run:    python src/data_collection/vi_testset.py   (network: GitHub, Tranco, DNS / TLS / RDAP)
-Output: data/test_sets/vi/phishing.csv, data/test_sets/vi/clean.csv
+Output: data/test_sets/vi/phishing.csv, data/test_sets/vi/clean.csv (audited labels applied)
 """
 
 from __future__ import annotations
@@ -145,6 +145,8 @@ def main(argv: list[str] | None = None) -> int:
     for name, df in (("clean", build_clean(exclude)), ("phishing", build_phishing(exclude))):
         df.sort_values("url").to_csv(OUT_DIR / f"{name}.csv", index=False)
         print(f"{name}: {len(df)} rows -> {OUT_DIR / (name + '.csv')}", flush=True)
+    from data_collection.audit_labels import apply_eval_set_fixes
+    apply_eval_set_fixes(("vi",))  # audited labels (label_fixes.csv)
     return 0
 
 

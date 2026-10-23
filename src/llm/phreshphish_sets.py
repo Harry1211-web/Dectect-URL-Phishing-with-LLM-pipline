@@ -18,6 +18,9 @@ the files are streamed one by one (~9 GB in all) and only the selected pages are
 Layer C looks the test hosts up live (DNS / TLS / RDAP), as in evaluate_external.py.
 
 Run:    python src/llm/phreshphish_sets.py [--dev-per-label 300] [--test-per-label 1000]
+        python src/llm/phreshphish_sets.py --rescore   (same pages: audited labels, A / B / C and
+        strata again after Layer C changed; stored Layer D verdicts stay valid, since D never reads
+        labels or C's score; pages that no longer reach D get stratum "not_reached")
 Output: dataset/external/layer_d_dev.csv, dataset/external/layer_d_test.csv (one row per page),
         data/phreshphish_html.parquet (sha256 -> raw HTML, re-downloadable, not committed)
 """
@@ -30,6 +33,7 @@ import re
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 _HERE = Path(__file__).resolve().parent
@@ -189,14 +193,32 @@ def finalize(d: pd.DataFrame, html: dict[str, str], per_label: int) -> pd.DataFr
     return pd.concat(parts)[OUT_COLUMNS]
 
 
+def rescore() -> int:
+    """Re-apply label fixes and A / B / C to the existing dev / test pages, keeping every page."""
+    from data_collection.audit_labels import apply_fixes
+    for name in ("dev", "test"):
+        path = OUT_DIR / f"layer_d_{name}.csv"
+        d, n = apply_fixes(pd.read_csv(path), "phreshphish")
+        d = score_abc(d.drop(columns=["A", "B", "C", "score", "thr", "host_branch", "lookup_failed"]))
+        reach = ~d.A & (d.B | d.C)
+        missed = (d.label == "phishing") & ~d.A & ~d.B & ~d.C
+        d["stratum"] = np.select([reach, missed], ["reaches_d", "missed_by_abc"], "not_reached")
+        d[OUT_COLUMNS].to_csv(path, index=False)
+        print(f"{name}: {n} labels fixed / dropped,", d.groupby(["stratum", "label"]).size().to_dict(), flush=True)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--rescore", action="store_true", help="re-score the existing pages (no download)")
     ap.add_argument("--dev-per-label", type=int, default=300,
                     help="reaches_d pages per label in dev (default 300)")
     ap.add_argument("--test-per-label", type=int, default=1000,
                     help="reaches_d pages per label in test (default 1000)")
     args = ap.parse_args(argv)
+    if args.rescore:
+        return rescore()
 
     index = load_index()
     dev = dev_candidates(index, args.dev_per_label)

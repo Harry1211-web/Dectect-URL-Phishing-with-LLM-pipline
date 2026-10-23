@@ -16,7 +16,6 @@ Output: reports/pipeline/metrics.json
 
 from __future__ import annotations
 
-import datetime as dt
 import json
 import random
 import sys
@@ -33,12 +32,11 @@ from typosquatting.brands import all_official_domains  # noqa: E402
 from typosquatting.paas_domains import is_untrusted_hosting, is_user_content_host  # noqa: E402
 from url_classifier import host_features as hf, predict  # noqa: E402
 from url_utils import host_of, registrable_domain  # noqa: E402
+from data_collection.audit_labels import PHIUSIIL_COLLECTED  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "reports" / "pipeline" / "metrics.json"
 VERIFIED_SOURCES = ("phishtank", "openphish")
-# PhiUSIIL was published in March 2024: a domain registered later belongs to a new owner
-PHIUSIIL_COLLECTED = dt.datetime(2024, 3, 1, tzinfo=dt.timezone.utc).timestamp()
 
 
 def _pct(v: list[float], q: float) -> float:
@@ -135,9 +133,9 @@ def main() -> int:
     # Real single-URL latency (network lookups + models), LLM disabled
     sample = random.Random(0).sample(urls, 200)
     lat = {"A": [], "B": [], "C": [], "C_host_lookup": [], "total": []}
-    analyze_url(sample[0], use_llm=False, use_vt=False)
+    analyze_url(sample[0], use_llm=False)
     for u in sample:
-        r = analyze_url(u, use_llm=False, use_vt=False)
+        r = analyze_url(u, use_llm=False)
         lat["total"].append(r["latency_ms"])
         lat["A"].append(r["layers"]["A_blocklist"]["latency_ms"])
         if "B_typosquatting" in r["layers"]:
