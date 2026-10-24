@@ -5,9 +5,6 @@ from typing import Literal, NotRequired, TypedDict
 # Outcome of a technical rule: True = violation, False = looks fine, "unknown" = could not check
 CheckFlag = Literal[True, False, "unknown"]
 
-# Final label returned to the user
-Verdict = Literal["phishing", "suspicious", "clean"]
-
 
 class RuleResult(TypedDict):
     """Result of one technical rule (blocklist, typosquatting, ...)."""

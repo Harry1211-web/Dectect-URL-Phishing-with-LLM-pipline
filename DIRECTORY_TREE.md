@@ -5,13 +5,8 @@
 ├── README.md                      Overview: architecture diagram, principles, structure, quick start
 ├── DIRECTORY_TREE.md              This file: what each folder/file is for
 │   Local notes (on disk only, listed in .gitignore):
-├── CLAUDE.md                      Instructions for Claude Code
 ├── IMPROVEMENTS_NOTE.md           Optimizations kept / discarded, benchmark table, research contributions
-├── DE_TAI.md                      Thesis topic (Vietnamese): title, description, contributions, data limitations
-├── DEPLOY.txt                     Deployment guide (Vietnamese): Docker, BFF, HTTPS proxy, Turnstile
-├── HUONG_DAN_FE.md                FE integration guide (Vietnamese): BFF endpoints, verdicts, errors, TS / React samples
-│
-├── requirements.txt               Python dependencies (tested versions)
+├── requirements.txt               Python dependencies (tested versions); DNS / TLS packages only for Layer C experiments
 ├── requirements-api.txt           Runtime-only subset for the API image (torch CPU installed separately)
 ├── Dockerfile                     API image: src/, models/url_classifier/, dataset/brands/ (data/ and .env mounted)
 ├── docker-compose.yml             api (private network only) + bff (public entry, 127.0.0.1:8080) + updater (hourly)
@@ -22,7 +17,7 @@
 │   ├── app.py                     Adds API_KEY server-side, forwards /api/analyze, /api/feedback to src/api.py;
 │   │                              origin check, per-IP minute / day limits, optional Cloudflare Turnstile
 │   ├── Dockerfile                 Small image (no model, no project code)
-│   └── requirements.txt           fastapi, uvicorn, httpx
+│   └── requirements.txt           fastapi, pydantic, uvicorn, httpx
 │
 ├── src/
 │   ├── contracts.py               Shared result types (RuleResult, Verdict)
@@ -102,7 +97,6 @@
 │
 ├── dataset/
 │   ├── brands/                    Brand catalogue: VN brands, international brands, secondary domains
-│   ├── rag_corpus/tier2_warnings/ Archive: verified scam-warning articles of the removed RAG (not used by the code)
 │   ├── external/
 │   │   ├── phreshphish_urls.csv   External test set (PhreshPhish 2025, never used in training)
 │   │   ├── layer_d_dev.csv / layer_d_test.csv  Layer D tuning set / held-out test set (stratum, A/B/C)

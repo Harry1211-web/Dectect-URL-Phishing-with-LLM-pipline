@@ -1,25 +1,25 @@
 {
-  "updated_at": "2026-10-13T06:34:27.979825+00:00",
+  "updated_at": "2026-10-22T03:41:28.127550+00:00",
   "sources": {
     "openphish": {
-      "count": 286,
-      "fetched_at": "2026-10-13T06:32:16.187635+00:00",
-      "attempted_at": "2026-10-13T06:32:16.187635+00:00",
+      "count": 293,
+      "fetched_at": "2026-10-22T03:40:27.050940+00:00",
+      "attempted_at": "2026-10-22T03:40:27.050940+00:00",
       "last_status": "ok"
     },
     "phishtank": {
       "count": 64027,
       "fetched_at": "2026-10-13T06:32:59.921370+00:00",
-      "attempted_at": "2026-10-13T06:32:59.921370+00:00",
-      "last_status": "ok"
+      "attempted_at": "2026-10-22T03:41:01.734658+00:00",
+      "last_status": "failed, kept previous snapshot"
     },
     "phishing_database": {
       "count": 770814,
-      "fetched_at": "2026-10-13T06:34:14.120672+00:00",
-      "attempted_at": "2026-10-13T06:34:14.120672+00:00",
+      "fetched_at": "2026-10-22T03:41:10.746057+00:00",
+      "attempted_at": "2026-10-22T03:41:10.746057+00:00",
       "last_status": "ok"
     }
   },
-  "blockable_hosts": 278334,
-  "abused_platforms": 888
+  "blockable_hosts": 278340,
+  "abused_platforms": 884
 }

@@ -64,7 +64,6 @@ NOISY_PATH = DATA_PATH.parent / "noisy_labels.csv"
 # Human-verified phishing feeds: thresholds are chosen and recall is reported on these, because
 # aggregated feeds contain mislabelled normal pages that would dictate a near-zero threshold
 VERIFIED_SOURCES = ("phishtank", "openphish")
-TRANCO_FEATURES = ("tranco_log_rank", "in_tranco")
 
 
 def _cnn_part(group: str) -> bool:

@@ -727,12 +727,3 @@ def store_verdict(url: str, result: dict, model: str = DEFAULT_MODEL, explain: b
                             (time.time() - VERDICT_CACHE_TTL_S,))
     except sqlite3.Error:
         pass  # the cache only saves time; Layer D works without it
-
-
-def fallback_explanation(clf_score: float, rule_results: list[dict] | None = None) -> str:
-    """Technical explanation used when the LLM times out or fails."""
-    hits = [r for r in (rule_results or []) if r.get("flag") is True]
-    detail = ("; " + "; ".join(f"{r['name']}: {r['reason']}" for r in hits) if hits
-              else "; no brand-impersonation violation detected.")
-    return ("Deep analysis unavailable (LLM timeout/error). Technical assessment: model "
-            f"score {clf_score:.2f}" + detail)

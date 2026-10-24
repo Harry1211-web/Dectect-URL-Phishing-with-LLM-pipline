@@ -79,13 +79,13 @@ data/
 dataset/                 Labelled URLs, brand catalogue, external (PhreshPhish) sets
 models/url_classifier/   Production Layer C and DOM model
 notebooks/pipeline_experiment.ipynb   All experiments, end to end, with outputs
+notebooks/pipeline_demo.ipynb         Demo: full A -> D pipeline on URLs set in the first cell
 reports/                 JSON results of every experiment
-docs/pipeline.svg        Pipeline diagram
+docs/                    Pipeline diagram, architecture document (Vietnamese)
 tests/                   pytest suite (no paid API calls)
 ```
 
-`DIRECTORY_TREE.md` describes every file. `IMPROVEMENTS_NOTE.md` lists the optimizations kept and
-discarded, the benchmark table and the research contributions.
+`DIRECTORY_TREE.md` describes every file. `reports/summary.md` holds the result tables.
 
 ## Quick start
 

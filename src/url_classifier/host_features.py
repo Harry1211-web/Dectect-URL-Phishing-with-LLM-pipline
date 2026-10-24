@@ -22,7 +22,7 @@ import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -150,10 +150,6 @@ def _dns(host: str) -> dict:
         except (dns.exception.DNSException, OSError):
             out[key] = 0
     return out
-
-
-def _parse_time(s: str) -> float:
-    return datetime.strptime(s, "%b %d %H:%M:%S %Y %Z").replace(tzinfo=timezone.utc).timestamp()
 
 
 def _public_ip(host: str) -> str | None:

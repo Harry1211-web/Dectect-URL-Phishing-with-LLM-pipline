@@ -119,11 +119,6 @@ def _bare_entry_blockable(host: str) -> bool:
     return host != rd if rd in _popular_domains() else True
 
 
-def reload() -> None:
-    """Drop the in-memory cache after the updater refreshed the files."""
-    _load_files.cache_clear()
-
-
 def size() -> int:
     return len(_load()[0])
 

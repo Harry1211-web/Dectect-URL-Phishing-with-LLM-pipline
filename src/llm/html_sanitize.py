@@ -98,10 +98,6 @@ class PatternLoader:
         return _compile(self.patterns[key])
 
 
-def _load_patterns(directory: Path = PATTERNS_DIR) -> dict[str, list[str]]:
-    return PatternLoader(directory).patterns
-
-
 def _compile(patterns: list[str]) -> re.Pattern:
     # An empty group must match nothing (an empty alternation would match everything)
     return re.compile("|".join(f"(?:{p})" for p in patterns) or r"(?!x)x", re.I)

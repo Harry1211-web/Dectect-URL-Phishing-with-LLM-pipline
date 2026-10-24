@@ -23,9 +23,12 @@ lightgbm==4.7.0
 rapidfuzz==3.14.6           # Damerau-Levenshtein and Jaro-Winkler
 tldextract==5.1.2           # registrable domain (public suffix list)
 
-# --- Networking: page fetch, feeds, host features (Layer C) ---
+# --- Networking: page fetch, feeds ---
 requests==2.32.5
-dnspython==2.8.0            # DNS records of the host
+urllib3==2.6.3              # IP-pinned page fetch (SSRF guard, Layer D)
+certifi==2026.2.25          # CA bundle of that fetch
+# Host features: only for Layer C experiments (production Layer C makes no network lookup)
+dnspython==2.8.0            # DNS records of the host (imported by host_features at load time)
 cryptography==48.0.0        # TLS certificate fields of the host
 
 # --- External test set (PhreshPhish) ---
@@ -44,4 +47,5 @@ httpx==0.28.1               # FastAPI TestClient (tests/test_api.py)
 
 # --- API server (src/api.py); runtime-only subset for Docker: requirements-api.txt ---
 fastapi==0.136.1
+pydantic==2.13.3            # request validation (src/api.py, bff/app.py)
 uvicorn==0.46.0

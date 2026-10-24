@@ -23,7 +23,6 @@
 a2hosted.com
 aba.vg
 about.me
-abrdns.com
 abrir.link
 ac-page.com
 accesscam.org
@@ -57,7 +56,6 @@ azurestaticapps.net
 azurewebsites.net
 b-cdn.net
 b0tnet.com
-b12sites.com
 b4a.app
 backblazeb2.com
 bandungkab.go.id
@@ -179,7 +177,6 @@ cleverapps.io
 cli.re
 clickfunnels.com
 clickup-attachments.com
-cloud-ip.cc
 cloudaccess.host
 cloudclusters.net
 cloudflare-ipfs.com
@@ -231,7 +228,6 @@ ddns.net
 ddns.us
 ddnsfree.com
 ddnsking.com
-ddnss.de
 ddnss.eu
 ddnss.org
 de.cool
@@ -373,7 +369,6 @@ hicam.net
 hidora.com
 hier-im-netz.de
 hipolink.net
-home-webserver.de
 home.pl
 hop.ru
 hopto.org
@@ -467,6 +462,7 @@ list-manage.com
 live-website.com
 liveblog365.com
 ln.run
+lnk.ink
 lnkd.in
 lnkfi.re
 localhost.run
@@ -522,7 +518,6 @@ myfreesites.net
 myftp.biz
 myftp.org
 myftpupload.com
-myhome-server.de
 myhostpoint.ch
 myhuaweicloud.com
 mylftv.com
@@ -792,6 +787,7 @@ univer.se
 universe.wf
 unmuha.ac.id
 uns.ac.id
+urlto.me
 urlz.fr
 us.cc
 us.com
